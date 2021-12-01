@@ -1,4 +1,10 @@
 {
   "version": 2,
-  "projects": {}
+  "projects": {
+    "back-office-demo": "apps/back-office/demo",
+    "back-office-demo-e2e": "apps/back-office/demo-e2e",
+    "portal-demo": "apps/portal/demo",
+    "portal-demo-e2e": "apps/portal/demo-e2e",
+    "server-demo": "apps/server/demo"
+  }
 }
