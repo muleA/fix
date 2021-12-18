@@ -19,7 +19,8 @@
       "executor": "@nrwl/next:server",
       "options": {
         "buildTarget": "back-office-demo:build",
-        "dev": true
+        "dev": true,
+        "port": 9900
       },
       "configurations": {
         "production": {

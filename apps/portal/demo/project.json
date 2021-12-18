@@ -19,7 +19,8 @@
       "executor": "@nrwl/next:server",
       "options": {
         "buildTarget": "portal-demo:build",
-        "dev": true
+        "dev": true,
+        "port": 7700
       },
       "configurations": {
         "production": {
