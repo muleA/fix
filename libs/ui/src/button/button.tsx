@@ -1,13 +1,13 @@
 import tw, { css, styled, theme } from 'twin.macro';
 
-type types = {
+export type ButtonProps = {
   isPrimary?: boolean;
   isSecondary?: boolean;
   isSmall?: boolean;
 };
 
 export const Button = styled.button(
-  ({ isPrimary, isSecondary, isSmall }: types) => [
+  ({ isPrimary, isSecondary, isSmall }: ButtonProps) => [
     // The common button styles added with the tw import
     tw`text-lg px-8 py-2 rounded focus:outline-none`,
     tw`transform transition-transform duration-75`,

@@ -6,6 +6,7 @@
     "portal-demo": "apps/portal/demo",
     "portal-demo-e2e": "apps/portal/demo-e2e",
     "server-demo": "apps/server/demo",
-    "ui": "libs/ui"
+    "ui": "libs/ui",
+    "ui-e2e": "apps/ui-e2e"
   }
 }
