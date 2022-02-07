@@ -12,7 +12,7 @@ export interface User {
   passport: string; // file
 }
 
-export interface Address {
+interface Address {
   houseNumber: number;
   woreda: number;
   subCity: string;

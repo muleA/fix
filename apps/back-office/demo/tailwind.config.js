@@ -2,7 +2,7 @@ const { createGlobPatternsForDependencies } = require('@nrwl/next/tailwind');
 
 module.exports = {
   content: [
-    'apps/portal/demo/**/*.{js,jsx,ts,tsx}',
+    'apps/back-office/demo/**/*.{js,jsx,ts,tsx}',
     ...createGlobPatternsForDependencies(__dirname),
   ],
   presets: [],
