@@ -1,0 +1,54 @@
+{
+  "root": "apps/portal/eservices",
+  "sourceRoot": "apps/portal/eservices",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "root": "apps/portal/eservices",
+        "outputPath": "dist/apps/portal/eservices"
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/next:server",
+      "options": {
+        "buildTarget": "portal-eservices:build",
+        "dev": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "portal-eservices:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nrwl/next:export",
+      "options": {
+        "buildTarget": "portal-eservices:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/portal/eservices"],
+      "options": {
+        "jestConfig": "apps/portal/eservices/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/portal/eservices/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": ["eservices"]
+}

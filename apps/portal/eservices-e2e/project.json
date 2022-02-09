@@ -1,0 +1,28 @@
+{
+  "root": "apps/portal/eservices-e2e",
+  "sourceRoot": "apps/portal/eservices-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/portal/eservices-e2e/cypress.json",
+        "devServerTarget": "portal-eservices:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "portal-eservices:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/portal/eservices-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["portal-eservices"]
+}

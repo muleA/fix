@@ -5,6 +5,8 @@
     "back-office-demo-e2e": "apps/back-office/demo-e2e",
     "portal-demo": "apps/portal/demo",
     "portal-demo-e2e": "apps/portal/demo-e2e",
+    "portal-eservices": "apps/portal/eservices",
+    "portal-eservices-e2e": "apps/portal/eservices-e2e",
     "server-demo": "apps/server/demo",
     "ui": "libs/ui",
     "ui-e2e": "apps/ui-e2e"
