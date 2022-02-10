@@ -19,7 +19,9 @@
       "executor": "@nrwl/next:server",
       "options": {
         "buildTarget": "portal-eservices:build",
-        "dev": true
+        "dev": true,
+        "host": "0.0.0.0",
+        "port": 6600
       },
       "configurations": {
         "production": {
