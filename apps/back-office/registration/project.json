@@ -1,0 +1,56 @@
+{
+  "root": "apps/back-office/registration",
+  "sourceRoot": "apps/back-office/registration",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "root": "apps/back-office/registration",
+        "outputPath": "dist/apps/back-office/registration"
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/next:server",
+      "options": {
+        "buildTarget": "back-office-registration:build",
+        "dev": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "back-office-registration:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nrwl/next:export",
+      "options": {
+        "buildTarget": "back-office-registration:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/back-office/registration"],
+      "options": {
+        "jestConfig": "apps/back-office/registration/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/back-office/registration/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    }
+  },
+  "tags": ["registration"]
+}

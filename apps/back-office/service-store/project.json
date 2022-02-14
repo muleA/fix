@@ -1,0 +1,56 @@
+{
+  "root": "apps/back-office/service-store",
+  "sourceRoot": "apps/back-office/service-store",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "root": "apps/back-office/service-store",
+        "outputPath": "dist/apps/back-office/service-store"
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/next:server",
+      "options": {
+        "buildTarget": "back-office-service-store:build",
+        "dev": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "back-office-service-store:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nrwl/next:export",
+      "options": {
+        "buildTarget": "back-office-service-store:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/back-office/service-store"],
+      "options": {
+        "jestConfig": "apps/back-office/service-store/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/back-office/service-store/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    }
+  },
+  "tags": ["service-store"]
+}

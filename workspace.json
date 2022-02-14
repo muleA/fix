@@ -2,12 +2,13 @@
   "version": 2,
   "projects": {
     "back-office-demo": "apps/back-office/demo",
-    "back-office-demo-e2e": "apps/back-office/demo-e2e",
+    "back-office-registration": "apps/back-office/registration",
+    "back-office-service-store": "apps/back-office/service-store",
     "portal-demo": "apps/portal/demo",
-    "portal-demo-e2e": "apps/portal/demo-e2e",
     "portal-eservices": "apps/portal/eservices",
     "portal-eservices-e2e": "apps/portal/eservices-e2e",
     "server-demo": "apps/server/demo",
+    "server-service-store": "apps/server/service-store",
     "ui": "libs/ui",
     "ui-e2e": "apps/ui-e2e"
   }
