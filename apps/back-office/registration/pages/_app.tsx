@@ -1,6 +1,8 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import './styles.css';
+import '../styles/tailwind/main.css';
+import '../styles/tabler/main.scss';
+import Layout from '../layout/layout';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
@@ -8,10 +10,10 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Welcome to registration!</title>
       </Head>
-      <main className="app">
-        <Component {...pageProps} />
-      </main>
-    </>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+    </> 
   );
 }
 
