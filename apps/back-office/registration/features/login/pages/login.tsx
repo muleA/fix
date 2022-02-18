@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import LoginForm from '../components/login-component';
 
 const LoginPage = () => {
 
@@ -10,27 +11,7 @@ const LoginPage = () => {
                 </span>
 
                 <div className="tw-flex tw-flex-wrap  tw-flex-col-reverse md:tw-flex-row tw-pt-12">
-                    <div className="sm:w-full md:tw-w-1/2 tw-px-4">
-                        <h2 className="tw-text-2xl tw-text-center tw-mb-5">Login</h2>
-                        <form >
-                            <div className="tw-mb-5">
-                                <label className="form-label">Username</label>
-                                <input type="text" className="form-control hover:tw-border-[#1d2861] focus:tw-border-[#1d2861]" name="example-text-input" placeholder="Enter your username" />
-                            </div>
-                            <div className="tw-mb-5">
-                                <label className="form-label">Password</label>
-                                <input type="text" className="form-control hover:tw-border-[#1d2861] focus:tw-border-[#1d2861]" name="example-password-input" placeholder="Enter your password" />
-                            </div>
-                            <div className='tw-mb-5'>
-                                <input type="submit" className="btn btn-primary tw-w-full tw-bg-[#1d2861]" value="Log in" />
-                            </div>
-
-                        </form>
-                        <p className="tw-text-center tw-mb-5">
-                            <a className="hover:tw-no-underline" href="./haha baby">I forgot my password</a>
-                        </p>
-
-                    </div>
+                   <LoginForm/>
                     <div className="md:tw-w-1/2 tw-px-4">
                         <h2 className="tw-text-2xl tw-text-center tw-mb-5">Welcome to EGP</h2>
                         <div className="tw-flex tw-items-center">

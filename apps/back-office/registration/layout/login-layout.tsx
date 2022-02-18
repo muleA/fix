@@ -1,6 +1,6 @@
 
 
-const Layout = ({ children }) => {
+const LoginLayout = ({ children }) => {
 
     return (
         <>
@@ -15,4 +15,4 @@ const Layout = ({ children }) => {
     );
 }
 
-export default Layout;
+export default LoginLayout;
