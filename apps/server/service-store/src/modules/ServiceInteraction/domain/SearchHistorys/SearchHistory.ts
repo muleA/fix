@@ -1,5 +1,3 @@
-
-
 import { ISearchHistoryRepository } from '../../domain/searchHistorys/searchHistory.repository.interface';
 export class SearchHistory {
     constructor() { }
@@ -9,5 +7,4 @@ export class SearchHistory {
     userId: string;
     createdAt: Date;
     updatedAt: Date;
-
 }

@@ -15,7 +15,6 @@ private favoritedomain=new Favorite();
   */
   constructor(@InjectRepository(FavoriteRepository)
   private favoriteRepository: IFavoriteRepository) { }
-
 /**
  * A method that calls the repository insert method to save  Favorite to databse
  * @param createFavoriteDto  An information of  Favorite  that need to be saved
@@ -38,7 +37,6 @@ private favoritedomain=new Favorite();
     await this.favoriteRepository.deleteById(id);
     this.logger.log('DeleteFavoriteUseCases execute', `Favorite ${id} have been deleted`);
   }
-
 /**
  * A method that invoke a repository method findById() to fetchs a Favorite from the database by id
  * @param id An id of a Favorite. A Favorite with this id should exist in the database
@@ -48,7 +46,6 @@ private favoritedomain=new Favorite();
   async getFavorite(id: string): Promise<Favorite> {
     return await this.favoriteRepository.findById(id);
   }
-
 /**
  * A method that invokes a method findAll() of  repository method to fetchs all Favorite from the database 
  * @returns Promise with list of  Favorite which contain  Favorite information
@@ -56,28 +53,19 @@ private favoritedomain=new Favorite();
   async fetFavorites(): Promise<Favorite[]> {
     return await this.favoriteRepository.findAll();
   }
-
 /**
  * A method that invokes a repository method updateFavorite(favorite) to update a Favorite 
  * @param updateFavoriteDto  An information of  Favorite 
  * @returns no returned data
  */ 
 async updateFavorite(favoriteDto:UpdateFavoriteDto): Promise<void> {
-    var  var favorite= await this.favoriteRepository.findById(favoriteDto.id);
+    var   favorite= await this.favoriteRepository.findById(favoriteDto.id);
    if(favorite!=null){
-    
     favorite =UpdateFavoriteDto.fromDTO(favoriteDto);
     await this.favoriteRepository.updateFavorite( favorite.id, favorite);
    }else{
-   threw new Error("Not Found");
+   throw new Error("Not Found");
    }   
-    
     this.logger.log('UpdateFavoriteUseCases execute', `Favorite ${ favorite.id} have been updated`);
   }
-  
- 
-   
-
-
-
 }

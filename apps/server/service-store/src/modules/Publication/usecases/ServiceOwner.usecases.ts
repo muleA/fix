@@ -63,13 +63,13 @@ private serviceOwnerdomain=new ServiceOwner();
  * @returns no returned data
  */ 
 async updateServiceOwner(serviceOwnerDto:UpdateServiceOwnerDto): Promise<void> {
-    var  var serviceOwner= await this.serviceOwnerRepository.findById(serviceOwnerDto.id);
+    var   serviceOwner= await this.serviceOwnerRepository.findById(serviceOwnerDto.id);
    if(serviceOwner!=null){
     
     serviceOwner =UpdateServiceOwnerDto.fromDTO(serviceOwnerDto);
     await this.serviceOwnerRepository.updateServiceOwner( serviceOwner.id, serviceOwner);
    }else{
-   threw new Error("Not Found");
+   throw new Error("Not Found");
    }   
     
     this.logger.log('UpdateServiceOwnerUseCases execute', `ServiceOwner ${ serviceOwner.id} have been updated`);

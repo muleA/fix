@@ -1,11 +1,10 @@
 import { Module } from "@nestjs/common";
 import { LoggerModule } from "./infrastructure/logger/logger.module";
 import { ExceptionsModule } from "./infrastructure/exceptions/exceptions.module";
-import { AccountsModule } from "./modules/Accounts/Accounts.module";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { DbConfig } from '../typeormconfig';
-
+import { InteractionsModule } from "./modules/ServiceInteraction/ServiceInteraction.module";
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,7 +24,7 @@ import { DbConfig } from '../typeormconfig';
     }),
     LoggerModule,
     ExceptionsModule,
-    AccountsModule,
+    InteractionsModule
   ],
   controllers: [],
   providers: [],

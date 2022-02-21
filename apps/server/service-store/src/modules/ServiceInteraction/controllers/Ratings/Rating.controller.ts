@@ -4,12 +4,10 @@ import { RatingPresenter } from './rating.presenter';
 import { ApiResponseType } from '../../../../infrastructure/swagger/response.decorator';
 import { CreateRatingDto, UpdateRatingDto } from '../ratings/rating.dto';
 import { RatingUseCases } from '../../usecases/rating.usecases';
-
 @Controller('ratings')
 @ApiTags('ratings')
 @ApiResponse({ status: 500, description: 'Internal error' })
 @ApiExtraModels(RatingPresenter)
-
 export class RatingsController {
 /**
 *A constructor that injects RatingUseCases
@@ -38,7 +36,6 @@ async getRatings() {
 const ratings = await this.useCase.fetRatings();
 return ratings.map((rating) => new RatingPresenter(rating));
 }
-
 /**
  * A method that update a Rating 
  * @param updateRatingDto  An information of  Rating 
@@ -62,7 +59,6 @@ async deleteRating(@Query() id: string) {
 await this.useCase.deleteRating(id);
 return 'success';
 }
-
 /**
  * A method that creates a Rating 
  * @param createRatingDto  An information of  Rating  that need to be saved
@@ -75,6 +71,4 @@ async createRating(@Body() createRatingDto: CreateRatingDto) {
 const ratingCreated = await this.useCase.createRating( createRatingDto);
 return new RatingPresenter(ratingCreated );
 }
-  
-
 }

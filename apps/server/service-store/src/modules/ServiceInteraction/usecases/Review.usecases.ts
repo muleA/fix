@@ -15,7 +15,6 @@ private reviewdomain=new Review();
   */
   constructor(@InjectRepository(ReviewRepository)
   private reviewRepository: IReviewRepository) { }
-
 /**
  * A method that calls the repository insert method to save  Review to databse
  * @param createReviewDto  An information of  Review  that need to be saved
@@ -38,7 +37,6 @@ private reviewdomain=new Review();
     await this.reviewRepository.deleteById(id);
     this.logger.log('DeleteReviewUseCases execute', `Review ${id} have been deleted`);
   }
-
 /**
  * A method that invoke a repository method findById() to fetchs a Review from the database by id
  * @param id An id of a Review. A Review with this id should exist in the database
@@ -48,7 +46,6 @@ private reviewdomain=new Review();
   async getReview(id: string): Promise<Review> {
     return await this.reviewRepository.findById(id);
   }
-
 /**
  * A method that invokes a method findAll() of  repository method to fetchs all Review from the database 
  * @returns Promise with list of  Review which contain  Review information
@@ -56,28 +53,19 @@ private reviewdomain=new Review();
   async fetReviews(): Promise<Review[]> {
     return await this.reviewRepository.findAll();
   }
-
 /**
  * A method that invokes a repository method updateReview(review) to update a Review 
  * @param updateReviewDto  An information of  Review 
  * @returns no returned data
  */ 
 async updateReview(reviewDto:UpdateReviewDto): Promise<void> {
-    var  var review= await this.reviewRepository.findById(reviewDto.id);
+    var   review= await this.reviewRepository.findById(reviewDto.id);
    if(review!=null){
-    
     review =UpdateReviewDto.fromDTO(reviewDto);
     await this.reviewRepository.updateReview( review.id, review);
    }else{
-   threw new Error("Not Found");
+   throw new Error("Not Found");
    }   
-    
     this.logger.log('UpdateReviewUseCases execute', `Review ${ review.id} have been updated`);
   }
-  
- 
-   
-
-
-
 }

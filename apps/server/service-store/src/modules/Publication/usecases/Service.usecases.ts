@@ -76,13 +76,13 @@ private servicedomain=new Service();
  * @returns no returned data
  */ 
 async updateService(serviceDto:UpdateServiceDto): Promise<void> {
-    var  var service= await this.serviceRepository.findById(serviceDto.id);
+    var   service= await this.serviceRepository.findById(serviceDto.id);
    if(service!=null){
     
     service =UpdateServiceDto.fromDTO(serviceDto);
     await this.serviceRepository.updateService( service.id, service);
    }else{
-   threw new Error("Not Found");
+   throw new Error("Not Found");
    }   
     
     this.logger.log('UpdateServiceUseCases execute', `Service ${ service.id} have been updated`);
