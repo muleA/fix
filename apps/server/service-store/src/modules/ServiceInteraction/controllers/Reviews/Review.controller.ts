@@ -4,12 +4,10 @@ import { ReviewPresenter } from './review.presenter';
 import { ApiResponseType } from '../../../../infrastructure/swagger/response.decorator';
 import { CreateReviewDto, UpdateReviewDto } from '../reviews/review.dto';
 import { ReviewUseCases } from '../../usecases/review.usecases';
-
 @Controller('reviews')
 @ApiTags('reviews')
 @ApiResponse({ status: 500, description: 'Internal error' })
 @ApiExtraModels(ReviewPresenter)
-
 export class ReviewsController {
 /**
 *A constructor that injects ReviewUseCases
@@ -38,7 +36,6 @@ async getReviews() {
 const reviews = await this.useCase.fetReviews();
 return reviews.map((review) => new ReviewPresenter(review));
 }
-
 /**
  * A method that update a Review 
  * @param updateReviewDto  An information of  Review 
@@ -62,7 +59,6 @@ async deleteReview(@Query() id: string) {
 await this.useCase.deleteReview(id);
 return 'success';
 }
-
 /**
  * A method that creates a Review 
  * @param createReviewDto  An information of  Review  that need to be saved
@@ -75,6 +71,4 @@ async createReview(@Body() createReviewDto: CreateReviewDto) {
 const reviewCreated = await this.useCase.createReview( createReviewDto);
 return new ReviewPresenter(reviewCreated );
 }
-  
-
 }
