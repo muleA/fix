@@ -3,7 +3,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,DeleteDateColumn,
-  UpdateDateColumn, @OneToOne(),@OneToMany(),@ManyToOne(),
+  UpdateDateColumn, OneToOne,OneToMany,ManyToOne,
 } from "typeorm";
 
 export default abstract class BaseEntity{
