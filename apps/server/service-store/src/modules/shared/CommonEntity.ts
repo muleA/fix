@@ -5,13 +5,12 @@ import {
   CreateDateColumn,DeleteDateColumn,
   UpdateDateColumn, OneToOne,OneToMany,ManyToOne,
 } from "typeorm";
-
-export default abstract class BaseEntity{
+export  abstract class CommonEntity{
   @Column()
   createdBy:string;
   @Column()
-  updateddBy?:string;
-  @CreateDateColumn()
+  updatedBy?:string;
+  @CreateDateColumn({type:'timestamptz', default: () => 'NOW()'})
   createdAt: Date;  
   @UpdateDateColumn()
   updatedAt: Date;

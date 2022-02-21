@@ -1,30 +1,17 @@
+import { CommonEntity } from "src/modules/shared/CommonEntity";
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn, @OneToOne(),@OneToMany(),@ManyToOne(),
 } from "typeorm";
-
-@Entity({ name: "favorite" })
-export class FavoriteEntity {
-   @PrimaryGeneratedColumn('uuid')
+@Entity({ name: "favorites" })
+export class FavoriteEntity extends CommonEntity {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
-   
   @Column()
   serviceName: string;
-  
   @Column()
   serviceId: string;
-  
   @Column()
   userId: string;
-  
-  @Column()
-  createdAt: Date;
-  
-  @Column()
-  updatedAt: Date;
-  
-  
 }
