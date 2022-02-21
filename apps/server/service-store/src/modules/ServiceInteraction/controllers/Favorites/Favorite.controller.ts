@@ -21,7 +21,7 @@ constructor(private useCase: FavoriteUseCases) {}
  * @returns A FavoritePresenter which contain  Favorite information
  * See the [definition of the FavoritePresenter file]{@link FavoritePresenter} to see a list of required properties
  */
-@Get('get-favorite')
+@Get(':id/get-favorite')
 @ApiResponseType(FavoritePresenter, false)
 async getFavorite(@Query() id: string) {
 const favorite = await this.useCase.getFavorite(id);
@@ -56,7 +56,7 @@ return 'success';
  * @param id An id of a Favorite. A Favorite with this id should exist in the database
  * @returns success which  informs the status of the success
 */
-@Delete('delete-favorite')
+@Delete(':id/delete-favorite')
 @ApiResponseType(FavoritePresenter, true)
 async deleteFavorite(@Query() id: string) {
 await this.useCase.deleteFavorite(id);

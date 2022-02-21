@@ -63,13 +63,13 @@ private categorydomain=new Category();
  * @returns no returned data
  */ 
 async updateCategory(categoryDto:UpdateCategoryDto): Promise<void> {
-    var  var category= await this.categoryRepository.findById(categoryDto.id);
+    var   category= await this.categoryRepository.findById(categoryDto.id);
    if(category!=null){
     
     category =UpdateCategoryDto.fromDTO(categoryDto);
     await this.categoryRepository.updateCategory( category.id, category);
    }else{
-   threw new Error("Not Found");
+   throw new Error("Not Found");
    }   
     
     this.logger.log('UpdateCategoryUseCases execute', `Category ${ category.id} have been updated`);
