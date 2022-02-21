@@ -2,12 +2,15 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn, @OneToOne(),@OneToMany(),@ManyToOne(),
+  CreateDateColumn,DeleteDateColumn,
+  UpdateDateColumn, OneToOne,OneToMany,ManyToOne,
 } from "typeorm";
 
-@Entity({ name: "service" })
-export class ServiceEntity {
+import { ServiceFeeEntity } from './ServiceFee.entity';
+import BaseEntity from 'src/modules/shared/BaseEntity';
+
+@Entity({ name: "services" })
+export class ServiceEntity  extends BaseEntity{
    @PrimaryGeneratedColumn('uuid')
   id: string;
    
@@ -35,8 +38,10 @@ export class ServiceEntity {
   @Column()
   procedure: string;
   
-  @Column()
-  serviceFees: ServiceFee[];
+
+  @OneToMany(type => ServiceFeeEntity, serviceFee => serviceFee.serviceId , { cascade: true })
+  serviceFees: ServiceFeeEntity[];
+ 
   
   @Column()
   processingTimes: ProcessingTime[];
@@ -75,25 +80,15 @@ export class ServiceEntity {
   deliveryMethod: string;
   
   @Column()
-  serviceOwnerId: string;
-  
+  serviceOwnerId: string;  
   @Column()
-  averageRating: number;
-  
+  averageRating: number;  
   @Column()
-  enableReview: boolean;
-  
+  enableReview: boolean;  
   @Column()
-  policy: string;
-  
+  policy: string;  
   @Column()
-  publishedOn: Date;
-  
-  @Column()
-  createdAt: Date;
-  
-  @Column()
-  updatedAt: Date;
-  
+  publishedOn: Date;   
+
   
 }
