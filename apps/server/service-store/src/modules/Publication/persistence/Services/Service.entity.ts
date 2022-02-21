@@ -1,81 +1,57 @@
 import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,DeleteDateColumn,
-  UpdateDateColumn, OneToOne,OneToMany,ManyToOne,
+  Entity, Column, PrimaryGeneratedColumn,
+  CreateDateColumn, DeleteDateColumn,
+  UpdateDateColumn, OneToOne, OneToMany, ManyToOne,
 } from "typeorm";
-
 import { ServiceFeeEntity } from './ServiceFee.entity';
-import { CommonEntity } from "src/modules/shared/BaseEntity"; 
-
+import { CommonEntity } from "src/modules/shared/CommonEntity"; 
+import { MediaEntity } from "./Media.entity";
 @Entity({ name: "services" })
 export class ServiceEntity  extends CommonEntity{
-   @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
   id: string;   
   @Column()
   name: string;  
   @Column()
   description: string;  
   @Column()
-  code: string;
-  
+  code: string;  
   @Column()
   fullyQualifiedName: string;
-  
   @Column()
-  medias: Media[];
-  
+  medias: MediaEntity[];
   @Column()
   supportedQualifications: string;
-  
   @Column()
   version: number;
-  
   @Column()
   procedure: string;
-  
-
   @OneToMany(type => ServiceFeeEntity, serviceFee => serviceFee.serviceId , { cascade: true })
   serviceFees: ServiceFeeEntity[];
- 
-  
   @Column()
   processingTimes: ProcessingTime[];
-  
   @Column()
   serviceDependencies: ServiceDependency[];
-  
   @Column()
   languages: Language[];
-  
   @Column()
   applicationForm: ApplicationForm;
-  
   @Column()
   resources: ServiceResource[];
-  
   @Column()
   targetCustomers: string;
-  
   @Column()
   status: string;
-  
   @Column()
   isPublic: boolean;
-  
   @Column()
   isPublished: boolean;
-  
   @Column()
   isArchived: boolean;
-  
   @Column()
-  tags: string;
-  
+  tags: string;  
   @Column()
-  deliveryMethod: string;
-  
+  deliveryMethod: string;  
   @Column()
   serviceOwnerId: string;  
   @Column()
@@ -86,6 +62,4 @@ export class ServiceEntity  extends CommonEntity{
   policy: string;  
   @Column()
   publishedOn: Date;   
-
-  
 }
