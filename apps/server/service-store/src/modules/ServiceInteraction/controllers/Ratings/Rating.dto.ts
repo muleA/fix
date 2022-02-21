@@ -45,6 +45,7 @@ export class CreateRatingDto {
   userId: string;
   @ApiProperty()
   @IsNotEmpty()
+  @IsNumber()
   score: number;
   /**
   *A method that mapes  CreateRatingDto object data to  Rating domain object

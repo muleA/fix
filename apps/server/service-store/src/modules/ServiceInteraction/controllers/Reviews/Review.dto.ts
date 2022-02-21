@@ -63,6 +63,7 @@ userId: string;
 @ApiProperty()
 status: string;
 @ApiProperty()
+@IsNumber()
 likes: number;
   /**
 *A method that mapes  CreateReviewDto object data to  Review domain object

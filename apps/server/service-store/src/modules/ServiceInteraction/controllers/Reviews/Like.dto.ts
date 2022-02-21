@@ -14,7 +14,7 @@ export class UpdateLikeDto {
   @ApiProperty()
   @IsNotEmpty()
   userId: string;
-  /**
+/**
 *A method that mapes  UpdateLikeDto object data to  Like domain object
 *@returns Like domain object which contains Like  information
 */
