@@ -45,7 +45,7 @@ return favorites.map((favorite) => new FavoritePresenter(favorite));
  * @returns A FavoritePresenter which contain  Favorite information
  * See the [definition of the updateFavoriteDto file]{@link updateFavoriteDto} to see a list of required properties
  */ 
- @Put('update-favorite')
+@Put('update-favorite')
 @ApiResponseType(FavoritePresenter, true)
 async updateFavorite(@Body() updateFavoriteDto: UpdateFavoriteDto) {
 await this.useCase.updateFavorite(updateFavoriteDto);
