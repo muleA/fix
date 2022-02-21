@@ -1,5 +1,3 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { EntityRepository, Repository,  } from 'typeorm';
 import { Rating } from '../../domain/ratings/rating';
 import { IRatingRepository } from '../../domain/ratings/rating.repository.interface';
@@ -8,7 +6,7 @@ import { RatingEntity } from './rating.entity';
 export class RatingRepository extends Repository<RatingEntity> implements IRatingRepository {
   constructor() {
     super()
-  }
+  }  
   /**
   * A method that updates Rating information in the database 
   */
