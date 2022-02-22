@@ -38,7 +38,7 @@ const MainNavbar = () => {
                 <div className=" tw-mr-1">
                     <IconAppStore />
                 </div>
-                <div className="tw-font-normal tw-text-sm">
+                <div className="tw-hidden sm:tw-block tw-font-normal tw-text-sm">
                     EGP | Registration
                 </div>
             </div>
