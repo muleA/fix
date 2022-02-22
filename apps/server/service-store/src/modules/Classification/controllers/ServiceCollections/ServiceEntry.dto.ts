@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsUUID,IsNumber, IsString } from 'class-validator';
 import { ServiceEntry } from '../../domain/ServiceEntrys/serviceEntry';
    
 /**
@@ -7,20 +7,20 @@ import { ServiceEntry } from '../../domain/ServiceEntrys/serviceEntry';
 */
 export class UpdateServiceEntryDto {
   
-@ApiProperty()
-id: string;
-    
-@ApiProperty()
-serviceId: string;
-    
-@ApiProperty()
-serviceCollectionId: string;
-    
-@ApiProperty()
-createdAt: Date;
-    
-@ApiProperty()
-updatedAt: Date;
+  @ApiProperty() 
+  @IsNotEmpty()
+  @IsUUID()
+  id: string;
+      
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsUUID()
+  serviceId: string;
+      
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsUUID()
+  serviceCollectionId: string;
   /**
 *A method that mapes  UpdateServiceEntryDto object data to  ServiceEntry domain object
 *@returns ServiceEntry domain object which contains ServiceEntry  information
@@ -40,13 +40,6 @@ serviceEntry.serviceId=serviceEntryDto.serviceId;
 serviceEntry.serviceCollectionId=serviceEntryDto.serviceCollectionId; 
 
 
- 
-serviceEntry.createdAt=serviceEntryDto.createdAt; 
-
-
- 
-serviceEntry.updatedAt=serviceEntryDto.updatedAt; 
-
 
 return serviceEntry;
   }
@@ -57,20 +50,20 @@ return serviceEntry;
 */
 export class CreateServiceEntryDto {
      
-@ApiProperty()
+@ApiProperty() 
+@IsNotEmpty()
+@IsUUID()
 id: string;
     
 @ApiProperty()
+@IsNotEmpty()
+@IsUUID()
 serviceId: string;
     
 @ApiProperty()
+@IsNotEmpty()
+@IsUUID()
 serviceCollectionId: string;
-    
-@ApiProperty()
-createdAt: Date;
-    
-@ApiProperty()
-updatedAt: Date;
   /**
 *A method that mapes  CreateServiceEntryDto object data to  ServiceEntry domain object
 *@returns ServiceEntry domain object which contains ServiceEntry  information
@@ -85,9 +78,6 @@ serviceEntry.serviceId=serviceEntryDto.serviceId;
  
 serviceEntry.serviceCollectionId=serviceEntryDto.serviceCollectionId; 
  
-serviceEntry.createdAt=serviceEntryDto.createdAt; 
- 
-serviceEntry.updatedAt=serviceEntryDto.updatedAt; 
      return serviceEntry;
     }
 }

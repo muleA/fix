@@ -6,7 +6,7 @@ import {
   UpdateDateColumn, OneToOne, OneToMany, ManyToOne, JoinColumn
 } from "typeorm";
 import { ServiceCollectionEntity } from "./serviceCollection.entity";
-@Entity({ name: "serviceEntry" })
+@Entity({ name: "serviceEntries" })
 export class ServiceEntryEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

@@ -7,7 +7,7 @@ import {
   UpdateDateColumn, OneToOne, OneToMany,ManyToOne
 } from "typeorm";
 import { ServiceEntryEntity } from "./ServiceEntry.entity";
-@Entity({ name: "serviceCollection" })
+@Entity({ name: "serviceCollections" })
 export class ServiceCollectionEntity {
    @PrimaryGeneratedColumn('uuid')
   id: string;  
@@ -18,7 +18,7 @@ export class ServiceCollectionEntity {
   @Column({ name: 'code' })
   code: string;
   @Column()
-@OneToMany(type =>ServiceEntryEntity, serviceEntry=>serviceEntry.serviceCollectionId )
+@OneToMany(type =>ServiceEntryEntity, serviceEntry=>serviceEntry.serviceCollection )
 serviceEntries :ServiceEntryEntity[];
   @Column({ name: 'supportedQualifications' })
   supportedQualifications: string;
@@ -31,8 +31,8 @@ serviceEntries :ServiceEntryEntity[];
   @Column({ name: 'tags' })
   tags: string;
   @Column()
-  @OneToMany(type =>ServiceResource, resource=>resource.serviceId )
-  resources: ServiceResource[];
+  @OneToMany(type =>ServiceResource, serviceResources=>serviceResources.serviceCollection )
+  serviceResources: ServiceResource[];
   @Column({ name: 'targetCustomers' })
   targetCustomers: string;
   @Column({ name: 'isArchived' })
