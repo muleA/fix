@@ -69,7 +69,7 @@ async updateTag(tagDto:UpdateTagDto): Promise<void> {
     tag =UpdateTagDto.fromDTO(tagDto);
     await this.tagRepository.updateTag( tag.id, tag);
    }else{
-   threw new Error("Not Found");
+   throw new Error("Not Found");
    }   
     
     this.logger.log('UpdateTagUseCases execute', `Tag ${ tag.id} have been updated`);
