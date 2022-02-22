@@ -2,12 +2,13 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn, @OneToOne(),@OneToMany(),@ManyToOne(),
 } from "typeorm";
+import { CommonEntity } from 'src/modules/shared/CommonEntity';
+import { ContactInfoEntity } from "./ContactInfo.entity";
+import { AddressEntity } from "./Address.entity";
 
-@Entity({ name: "serviceOwner" })
-export class ServiceOwnerEntity {
+@Entity({ name: "serviceOwners" })
+export class ServiceOwnerEntity extends CommonEntity {
    @PrimaryGeneratedColumn('uuid')
   id: string;
    
@@ -20,11 +21,11 @@ export class ServiceOwnerEntity {
   @Column()
   sector: string;
   
-  @Column()
-  contactInfo: ContactInfo;
+  @Column('jsonb')
+  contactInfo: ContactInfoEntity;
   
-  @Column()
-  address: Address;
+  @Column('jsonb')
+  address: AddressEntity;
   
   @Column()
   code: string;
@@ -34,12 +35,5 @@ export class ServiceOwnerEntity {
   
   @Column()
   organizationName: string;
-  
-  @Column()
-  createdAt: Date;
-  
-  @Column()
-  updatedAt: Date;
-  
   
 }

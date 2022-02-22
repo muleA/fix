@@ -6,11 +6,11 @@ import {
   UpdateDateColumn, @OneToOne(),@OneToMany(),@ManyToOne(),
 } from "typeorm";
 
-export default abstract class BaseEntity{
+export abstract class CommonEntity{
   @Column()
   createdBy:string;
   @Column()
-  updateddBy?:string;
+  updatedBy?:string;
   @CreateDateColumn()
   createdAt: Date;  
   @UpdateDateColumn()
