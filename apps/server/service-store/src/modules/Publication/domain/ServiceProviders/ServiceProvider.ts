@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm'; 
 import { DelegatedService } from '../serviceProviders/DelegatedService';
-import { IServiceProviderRepository } from '../../domain/serviceProviders/serviceProvider.repository.interface';
+
 import { Address } from '../ServiceOwners/address';
 import { ContactInfo } from '../serviceOwners/ContactInfo';
 export class  ServiceProvider {

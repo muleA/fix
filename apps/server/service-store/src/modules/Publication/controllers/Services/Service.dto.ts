@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-   IsBoolean, IsNotEmpty, IsNumber,
+   IsBoolean, IsNotEmpty,IsNumber,
    IsString, IsDate, MaxLength,
    IsArray, IsEnum, IsDecimal, IsUUID,
 } from 'class-validator';
@@ -106,8 +106,7 @@ export class UpdateServiceDto {
    tags: string;
 
    @ApiProperty()
-   @IsNotEmpty()
-   @IsEnum()
+   @IsNotEmpty()  
    deliveryMethod: string;
 
    @ApiProperty()
@@ -324,8 +323,8 @@ export class CreateServiceDto {
 
    @ApiProperty()
    @IsNotEmpty()
-   @IsEnum()
-   deliveryMethod: string;
+  // @IsEnum()
+   deliveryMethod: Enumerator;
 
    @ApiProperty()
    @IsNotEmpty()
@@ -364,21 +363,21 @@ export class CreateServiceDto {
       service.code = serviceDto.code;
 
       service.fullyQualifiedName = serviceDto.fullyQualifiedName;
-      service.medias = serviceDto.medias.map(item => CreateMediaDto.fromDTO(item));
+      //service.medias = serviceDto.medias.map(item => CreateMediaDto.fromDTO(item));
 
       service.supportedQualifications = serviceDto.supportedQualifications;
 
       service.version = serviceDto.version;
 
       service.procedure = serviceDto.procedure;
-      service.serviceFees = serviceDto.serviceFees.map(item => CreateServiceFeeDto.fromDTO(item));
-      service.processingTimes = serviceDto.processingTimes.map(item => CreateProcessingTimeDto.fromDTO(item));
-      service.serviceDependencies = serviceDto.serviceDependencies.map(item => CreateServiceDependencyDto.fromDTO(item));
-      service.languages = serviceDto.languages.map(item => CreateLanguageDto.fromDTO(item));
+     // service.serviceFees = serviceDto.serviceFees.map(item => CreateServiceFeeDto.fromDTO(item));
+     // service.processingTimes = serviceDto.processingTimes.map(item => CreateProcessingTimeDto.fromDTO(item));
+     // service.serviceDependencies = serviceDto.serviceDependencies.map(item => CreateServiceDependencyDto.fromDTO(item));
+     // service.languages = serviceDto.languages.map(item => CreateLanguageDto.fromDTO(item));
 
 
-      service.applicationForm = CreateApplicationFormDto.fromDTO(serviceDto.applicationForm);
-      service.serviceResources = serviceDto.serviceResources.map(item => CreateServiceResourceDto.fromDTO(item));
+     // service.applicationForm = CreateApplicationFormDto.fromDTO(serviceDto.applicationForm);
+      //service.serviceResources = serviceDto.serviceResources.map(item => CreateServiceResourceDto.fromDTO(item));
 
       service.targetCustomers = serviceDto.targetCustomers;
 

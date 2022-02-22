@@ -27,9 +27,7 @@ const serviceResource: ServiceResource = new ServiceResource();
 serviceResource.id=serviceResourceDto.id; 
 serviceResource.serviceCollectionId=serviceResourceDto.serviceCollectionId; 
 serviceResource.attachmentUrl=serviceResourceDto.attachmentUrl; 
-serviceResource.content=serviceResourceDto.content; 
-serviceResource.createdAt=serviceResourceDto.createdAt; 
-serviceResource.updatedAt=serviceResourceDto.updatedAt; 
+serviceResource.content=serviceResourceDto.content;  
 return serviceResource;
   }
 }
@@ -61,8 +59,7 @@ serviceResource.id=serviceResourceDto.id;
 serviceResource.serviceCollectionId=serviceResourceDto.serviceCollectionId; 
 serviceResource.attachmentUrl=serviceResourceDto.attachmentUrl; 
 serviceResource.content=serviceResourceDto.content; 
-serviceResource.createdAt=serviceResourceDto.createdAt; 
-serviceResource.updatedAt=serviceResourceDto.updatedAt; 
+
      return serviceResource;
     }
 }

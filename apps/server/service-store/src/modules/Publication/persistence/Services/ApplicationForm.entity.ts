@@ -1,9 +1,6 @@
 import {
   Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn, @OneToOne(),@OneToMany(),@ManyToOne(),
+  Column, 
 } from "typeorm";
 
 @Entity({ name: "applicationForm" })

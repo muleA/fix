@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ApplicationForm } from '../../domain/ApplicationForms/applicationForm';
+import { ApplicationForm } from '../../domain/services/ApplicationForm';
+
  
 /**
 *A class which contains proporties of ApplicationForm that used to put data to be returned to client

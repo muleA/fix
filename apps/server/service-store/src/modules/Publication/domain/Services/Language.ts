@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { ILanguageRepository } from '../../domain/languages/language.repository.interface';
+
 export class  Language {
  constructor() { } 
  id: string;  

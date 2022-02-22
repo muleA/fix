@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsDecimal, IsUUID, IsString, IsFQDN } from 'class-validator';
-import { ProcessingTime } from '../../domain/ProcessingTimes/processingTime';
+import { ProcessingTime } from '../../domain/services/ProcessingTime';
+
 
 /**
 *A class which contains proporties of ProcessingTime that used to put data to be returned to client

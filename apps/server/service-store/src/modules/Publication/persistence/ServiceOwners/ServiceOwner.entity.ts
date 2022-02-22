@@ -4,8 +4,8 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { CommonEntity } from 'src/modules/shared/CommonEntity';
-import { ContactInfoEntity } from "./ContactInfo.entity";
-import { AddressEntity } from "./Address.entity";
+//import { ContactInfoEntity } from "./ContactInfo.entity";
+//import { AddressEntity } from "./Address.entity";
 
 @Entity({ name: "serviceOwners" })
 export class ServiceOwnerEntity extends CommonEntity {

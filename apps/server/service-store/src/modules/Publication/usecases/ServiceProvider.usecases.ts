@@ -66,13 +66,13 @@ private serviceProviderdomain=new ServiceProvider();
  * @returns no returned data
  */ 
 async updateServiceProvider(serviceProviderDto:UpdateServiceProviderDto): Promise<void> {
-    var  var serviceProvider= await this.serviceProviderRepository.findById(serviceProviderDto.id);
+    var   serviceProvider= await this.serviceProviderRepository.findById(serviceProviderDto.id);
    if(serviceProvider!=null){
     
     serviceProvider =UpdateServiceProviderDto.fromDTO(serviceProviderDto);
     await this.serviceProviderRepository.updateServiceProvider( serviceProvider.id, serviceProvider);
    }else{
-   threw new Error("Not Found");
+   throw new Error("Not Found");
    }   
     
     this.logger.log('UpdateServiceProviderUseCases execute', `ServiceProvider ${ serviceProvider.id} have been updated`);
@@ -84,7 +84,7 @@ async updateServiceProvider(serviceProviderDto:UpdateServiceProviderDto): Promis
 async addDelegatedService(createDelegatedServiceDto: CreateDelegatedServiceDto) {
 var delegatedService = new DelegatedService();
 delegatedService =CreateDelegatedServiceDto.fromDTO(createDelegatedServiceDto); 
-this.serviceProviderdomain= await this.serviceProviderRepository.findById(createDelegatedServiceDto.id) 
+this.serviceProviderdomain= await this.serviceProviderRepository.findById(createDelegatedServiceDto.providerId) 
 this.serviceProviderdomain.addDelegatedService(delegatedService);
 const result = await this.serviceProviderRepository.insertServiceProvider(this.serviceProviderdomain);
 this.logger.log('CreateMediaUseCases execute', 'New Media have been inserted');
@@ -126,7 +126,7 @@ var delegatedService : DelegatedService[];
 delegatedService=createDelegatedServiceDto.map(item=>{  
 return CreateDelegatedServiceDto.fromDTO(item);
 })
-this.serviceProviderdomain= await this.serviceProviderRepository.findById(createDelegatedServiceDto[0].id) 
+this.serviceProviderdomain= await this.serviceProviderRepository.findById(createDelegatedServiceDto[0].providerId) 
 await this.serviceProviderdomain.updateDelegatedServices(delegatedService );
 await this.serviceProviderRepository.updateServiceProvider( this.serviceProviderdomain.id, this.serviceProviderdomain);
 }

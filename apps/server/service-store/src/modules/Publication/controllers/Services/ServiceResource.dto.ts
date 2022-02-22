@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsUUID, IsString, IsFQDN } from 'class-validator';
-import { ServiceResource } from '../../domain/ServiceResources/serviceResource';
+import { ServiceResource } from '../../domain/services/ServiceResource';
+
 
 /**
 *A class which contains proporties of ServiceResource that used to receive paramamer values to be updated in the database

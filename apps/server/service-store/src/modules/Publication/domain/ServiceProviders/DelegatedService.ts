@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { IDelegatedServiceRepository } from '../../domain/delegatedServices/delegatedService.repository.interface';
+
 export class  DelegatedService {
  constructor() { } 
  id: string;  
