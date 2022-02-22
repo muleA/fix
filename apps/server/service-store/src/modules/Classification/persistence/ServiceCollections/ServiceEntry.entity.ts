@@ -3,25 +3,24 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn, @OneToOne(),@OneToMany(),@ManyToOne(),
+  UpdateDateColumn, OneToOne, OneToMany, ManyToOne, JoinColumn
 } from "typeorm";
-
+import { ServiceCollectionEntity } from "./serviceCollection.entity";
 @Entity({ name: "serviceEntry" })
 export class ServiceEntryEntity {
-   @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
-   
-  @Column()
+  @Column({ name: 'serviceId' })
   serviceId: string;
-  
-  @Column()
+  @Column({ name: 'serviceCollectionId' })
   serviceCollectionId: string;
-  
-  @Column()
-  createdAt: Date;
-  
-  @Column()
-  updatedAt: Date;
-  
-  
+  @ManyToOne(type => ServiceCollectionEntity, serviceCollection => serviceCollection.serviceEntries)
+  @JoinColumn({ name: 'serviceCollectionId' })
+  serviceCollection: ServiceCollectionEntity;
+ 
+
+
+
+
+
 }

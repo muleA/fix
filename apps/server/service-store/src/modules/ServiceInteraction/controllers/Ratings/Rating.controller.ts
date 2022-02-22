@@ -71,4 +71,5 @@ async createRating(@Body() createRatingDto: CreateRatingDto) {
 const ratingCreated = await this.useCase.createRating( createRatingDto);
 return new RatingPresenter(ratingCreated );
 }
+
 }

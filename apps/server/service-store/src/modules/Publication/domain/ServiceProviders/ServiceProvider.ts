@@ -4,6 +4,7 @@ import { ContactInfo } from '../serviceProviders/ContactInfo';
 import { DelegatedService } from '../serviceProviders/DelegatedService';
 
 import { IServiceProviderRepository } from '../../domain/serviceProviders/serviceProvider.repository.interface';
+import { Address } from '../ServiceOwners/address';
 export class  ServiceProvider {
  constructor() { } 
  id: string;  

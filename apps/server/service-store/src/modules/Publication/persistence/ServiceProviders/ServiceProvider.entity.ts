@@ -1,51 +1,49 @@
+import { CommonEntity } from 'src/modules/shared/CommonEntity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn, @OneToOne(),@OneToMany(),@ManyToOne(),
-} from "typeorm";
+  OneToMany,
+} from 'typeorm';
+import { DelegatedServiceEntity } from './DelegatedService.entity';
+import { ContactInfo } from '../../domain/serviceOwners/ContactInfo';
+import { Address } from '../../domain/ServiceOwners/address';
 
-@Entity({ name: "serviceProvider" })
-export class ServiceProviderEntity {
-   @PrimaryGeneratedColumn('uuid')
+@Entity({ name: 'serviceProvider' })
+export class ServiceProviderEntity extends CommonEntity {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
-   
+
   @Column()
   shortName: string;
-  
+
   @Column()
   fullName: string;
-  
+
   @Column()
   sector: string;
-  
-  @Column()
+
+  @Column('jsonb')
   contactInfo: ContactInfo;
-  
-  @Column()
+
+  @Column('jsonb')
   location: Location;
-  
-  @Column()
+
+  @Column('jsonb')
   address: Address;
-  
-  @Column()
-  delegatedServices: DelegatedService[];
-  
+
+  @OneToMany(
+    (type) => DelegatedServiceEntity,
+    (delegatedService) => delegatedService.serviceProvider,
+    { cascade: true }
+  )
+  delegatedServices: DelegatedServiceEntity[];
   @Column()
   code: string;
-  
+
   @Column()
   organizationId: string;
-  
+
   @Column()
   organizationName: string;
-  
-  @Column()
-  createdAt: Date;
-  
-  @Column()
-  updatedAt: Date;
-  
-  
 }

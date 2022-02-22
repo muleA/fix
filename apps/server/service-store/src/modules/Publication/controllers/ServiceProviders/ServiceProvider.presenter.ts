@@ -1,90 +1,78 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Address } from '../../domain/ServiceOwners/address';
 import { ServiceProvider } from '../../domain/ServiceProviders/serviceProvider';
-import { ContactInfoPresenter,  } from './ContactInfo.presenter';
-import {DelegatedServicePresenter } from './DelegatedService.presenter';
-    
+import { ContactInfoPresenter } from '../ServiceOwners/ContactInfo.presenter';
+import { DelegatedServicePresenter } from './DelegatedService.presenter';
+
 /**
-*A class which contains proporties of ServiceProvider that used to put data to be returned to client
-*
-*/
+ *A class which contains proporties of ServiceProvider that used to put data to be returned to client
+ *
+ */
 export class ServiceProviderPresenter {
-     
-@ApiProperty()
-id: string;
-  
-@ApiProperty()
-shortName: string;
-  
-@ApiProperty()
-fullName: string;
-  
-@ApiProperty()
-sector: string;
-contactInfo: ContactInfoPresenter;
-     
-@ApiProperty()
-location: Location;
-  
-@ApiProperty()
-address: Address;
-@ApiProperty()
-delegatedServices:DelegatedServicePresenter[];
-     
-@ApiProperty()
-code: string;
-  
-@ApiProperty()
-organizationId: string;
-  
-@ApiProperty()
-organizationName: string;
-  
-@ApiProperty()
-createdAt: Date;
-  
-@ApiProperty()
-updatedAt: Date;
-/**
-*A constructor which copy  ServiceProvider domain object Property value to  ServiceProviderPresenter properties
-*/
-constructor(serviceProvider: ServiceProvider) {
-  
-this.id = serviceProvider.id;  
+  @ApiProperty()
+  id: string;
 
-  
-this.shortName = serviceProvider.shortName;  
+  @ApiProperty()
+  shortName: string;
 
-  
-this.fullName = serviceProvider.fullName;  
+  @ApiProperty()
+  fullName: string;
 
-  
-this.sector = serviceProvider.sector;  
+  @ApiProperty()
+  sector: string;
+  contactInfo: ContactInfoPresenter;
 
-   
-this.contactInfo = new ContactInfoPresenter( serviceProvider.contactInfo);  
-     
-this.location = serviceProvider.location;  
+  @ApiProperty()
+  location: Location;
 
-  
-this.address = serviceProvider.address;  
+  @ApiProperty()
+  address: Address;
+  @ApiProperty()
+  delegatedServices: DelegatedServicePresenter[];
 
-this.delegatedServices = serviceProvider.delegatedServices.map(item=>new DelegatedServicePresenter(item));  
-     
-this.code = serviceProvider.code;  
+  @ApiProperty()
+  code: string;
 
-  
-this.organizationId = serviceProvider.organizationId;  
+  @ApiProperty()
+  organizationId: string;
 
-  
-this.organizationName = serviceProvider.organizationName;  
+  @ApiProperty()
+  organizationName: string;
 
-  
-this.createdAt = serviceProvider.createdAt;  
+  @ApiProperty()
+  createdAt: Date;
 
-  
-this.updatedAt = serviceProvider.updatedAt;  
+  @ApiProperty()
+  updatedAt: Date;
+  /**
+   *A constructor which copy  ServiceProvider domain object Property value to  ServiceProviderPresenter properties
+   */
+  constructor(serviceProvider: ServiceProvider) {
+    this.id = serviceProvider.id;
 
-  
-    
+    this.shortName = serviceProvider.shortName;
+
+    this.fullName = serviceProvider.fullName;
+
+    this.sector = serviceProvider.sector;
+
+    this.contactInfo = new ContactInfoPresenter(serviceProvider.contactInfo);
+
+    this.location = serviceProvider.location;
+
+    this.address = serviceProvider.address;
+
+    this.delegatedServices = serviceProvider.delegatedServices.map(
+      (item) => new DelegatedServicePresenter(item)
+    );
+
+    this.code = serviceProvider.code;
+
+    this.organizationId = serviceProvider.organizationId;
+
+    this.organizationName = serviceProvider.organizationName;
+
+    this.createdAt = serviceProvider.createdAt;
+    this.updatedAt = serviceProvider.updatedAt;
   }
 }

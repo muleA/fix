@@ -1,61 +1,55 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator';
 import { ServiceRelationship } from '../../domain/ServiceRelationships/serviceRelationship';
-   
+
 /**
 *A class which contains proporties of ServiceRelationship that used to receive paramamer values to be updated in the database
 */
 export class UpdateServiceRelationshipDto {
-  
-@ApiProperty()
-id: string;
-    
-@ApiProperty()
-serviceId: string;
-    
-@ApiProperty()
-relatedToServiceId: string;
-    
-@ApiProperty()
-status: string;
-    
-@ApiProperty()
-createdAt: Date;
-    
-@ApiProperty()
-updatedAt: Date;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  id: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  serviceId: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  relatedToServiceId: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(255)
+  status: string;
+
   /**
 *A method that mapes  UpdateServiceRelationshipDto object data to  ServiceRelationship domain object
 *@returns ServiceRelationship domain object which contains ServiceRelationship  information
 */
-static fromDTO(serviceRelationshipDto:UpdateServiceRelationshipDto): ServiceRelationship
-{
-const serviceRelationship: ServiceRelationship = new ServiceRelationship();  
- 
-serviceRelationship.id=serviceRelationshipDto.id; 
+  static fromDTO(serviceRelationshipDto: UpdateServiceRelationshipDto): ServiceRelationship {
+    const serviceRelationship: ServiceRelationship = new ServiceRelationship();
+
+    serviceRelationship.id = serviceRelationshipDto.id;
 
 
- 
-serviceRelationship.serviceId=serviceRelationshipDto.serviceId; 
+
+    serviceRelationship.serviceId = serviceRelationshipDto.serviceId;
 
 
- 
-serviceRelationship.relatedToServiceId=serviceRelationshipDto.relatedToServiceId; 
+
+    serviceRelationship.relatedToServiceId = serviceRelationshipDto.relatedToServiceId;
 
 
- 
-serviceRelationship.status=serviceRelationshipDto.status; 
 
+    serviceRelationship.status = serviceRelationshipDto.status;
 
- 
-serviceRelationship.createdAt=serviceRelationshipDto.createdAt; 
-
-
- 
-serviceRelationship.updatedAt=serviceRelationshipDto.updatedAt; 
-
-
-return serviceRelationship;
+    return serviceRelationship;
   }
 }
 /**
@@ -63,43 +57,42 @@ return serviceRelationship;
 *
 */
 export class CreateServiceRelationshipDto {
-     
-@ApiProperty()
-id: string;
-    
-@ApiProperty()
-serviceId: string;
-    
-@ApiProperty()
-relatedToServiceId: string;
-    
-@ApiProperty()
-status: string;
-    
-@ApiProperty()
-createdAt: Date;
-    
-@ApiProperty()
-updatedAt: Date;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  id: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  serviceId: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  relatedToServiceId: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(255)
+  status: string;
+
   /**
 *A method that mapes  CreateServiceRelationshipDto object data to  ServiceRelationship domain object
 *@returns ServiceRelationship domain object which contains ServiceRelationship  information
-*/    
-static fromDTO(serviceRelationshipDto:CreateServiceRelationshipDto): ServiceRelationship
-{
-const serviceRelationship: ServiceRelationship = new ServiceRelationship();  
- 
-serviceRelationship.id=serviceRelationshipDto.id; 
- 
-serviceRelationship.serviceId=serviceRelationshipDto.serviceId; 
- 
-serviceRelationship.relatedToServiceId=serviceRelationshipDto.relatedToServiceId; 
- 
-serviceRelationship.status=serviceRelationshipDto.status; 
- 
-serviceRelationship.createdAt=serviceRelationshipDto.createdAt; 
- 
-serviceRelationship.updatedAt=serviceRelationshipDto.updatedAt; 
-     return serviceRelationship;
-    }
+*/
+  static fromDTO(serviceRelationshipDto: CreateServiceRelationshipDto): ServiceRelationship {
+    const serviceRelationship: ServiceRelationship = new ServiceRelationship();
+
+    serviceRelationship.id = serviceRelationshipDto.id;
+
+    serviceRelationship.serviceId = serviceRelationshipDto.serviceId;
+
+    serviceRelationship.relatedToServiceId = serviceRelationshipDto.relatedToServiceId;
+
+    serviceRelationship.status = serviceRelationshipDto.status;
+    return serviceRelationship;
+  }
 }
