@@ -1,7 +1,8 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn, OneToMany,
+  PrimaryGeneratedColumn,
+  OneToMany,
 } from "typeorm";
 import { ServiceFeeEntity } from './ServiceFee.entity';
 import { LanguageEntity } from "./Language.entity";

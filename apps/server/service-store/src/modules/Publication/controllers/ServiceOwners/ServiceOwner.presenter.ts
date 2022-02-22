@@ -1,80 +1,67 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Address } from '../../domain/ServiceOwners/address';
 import { ServiceOwner } from '../../domain/ServiceOwners/serviceOwner';
-import { ContactInfoPresenter,  } from './ContactInfo.presenter';
- 
+import { ContactInfoPresenter } from './ContactInfo.presenter';
+
 /**
-*A class which contains proporties of ServiceOwner that used to put data to be returned to client
-*
-*/
+ *A class which contains proporties of ServiceOwner that used to put data to be returned to client
+ *
+ */
 export class ServiceOwnerPresenter {
-     
-@ApiProperty()
-id: string;
-  
-@ApiProperty()
-shortName: string;
-  
-@ApiProperty()
-fullName: string;
-  
-@ApiProperty()
-sector: string;
-contactInfo: ContactInfoPresenter;
-     
-@ApiProperty()
-address: Address;
-  
-@ApiProperty()
-code: string;
-  
-@ApiProperty()
-organizationId: string;
-  
-@ApiProperty()
-organizationName: string;
-  
-@ApiProperty()
-createdAt: Date;
-  
-@ApiProperty()
-updatedAt: Date;
-/**
-*A constructor which copy  ServiceOwner domain object Property value to  ServiceOwnerPresenter properties
-*/
-constructor(serviceOwner: ServiceOwner) {
-  
-this.id = serviceOwner.id;  
+  @ApiProperty()
+  id: string;
 
-  
-this.shortName = serviceOwner.shortName;  
+  @ApiProperty()
+  shortName: string;
 
-  
-this.fullName = serviceOwner.fullName;  
+  @ApiProperty()
+  fullName: string;
 
-  
-this.sector = serviceOwner.sector;  
+  @ApiProperty()
+  sector: string;
+  contactInfo: ContactInfoPresenter;
 
-   
-this.contactInfo = new ContactInfoPresenter( serviceOwner.contactInfo);  
-     
-this.address = serviceOwner.address;  
+  @ApiProperty()
+  address: Address;
 
-  
-this.code = serviceOwner.code;  
+  @ApiProperty()
+  code: string;
 
-  
-this.organizationId = serviceOwner.organizationId;  
+  @ApiProperty()
+  organizationId: string;
 
-  
-this.organizationName = serviceOwner.organizationName;  
+  @ApiProperty()
+  organizationName: string;
 
-  
-this.createdAt = serviceOwner.createdAt;  
+  @ApiProperty()
+  createdAt: Date;
 
-  
-this.updatedAt = serviceOwner.updatedAt;  
+  @ApiProperty()
+  updatedAt: Date;
+  /**
+   *A constructor which copy  ServiceOwner domain object Property value to  ServiceOwnerPresenter properties
+   */
+  constructor(serviceOwner: ServiceOwner) {
+    this.id = serviceOwner.id;
 
-  
-    
+    this.shortName = serviceOwner.shortName;
+
+    this.fullName = serviceOwner.fullName;
+
+    this.sector = serviceOwner.sector;
+
+    this.contactInfo = new ContactInfoPresenter(serviceOwner.contactInfo);
+
+    this.address = serviceOwner.address;
+
+    this.code = serviceOwner.code;
+
+    this.organizationId = serviceOwner.organizationId;
+
+    this.organizationName = serviceOwner.organizationName;
+
+    this.createdAt = serviceOwner.createdAt;
+
+    this.updatedAt = serviceOwner.updatedAt;
   }
 }
