@@ -64,8 +64,13 @@ const serviceOwner: ServiceOwner = new ServiceOwner();
     serviceOwner.shortName= serviceOwnerEntity.shortName;
     serviceOwner.fullName= serviceOwnerEntity.fullName;
     serviceOwner.sector= serviceOwnerEntity.sector;
+<<<<<<< HEAD
    // serviceOwner.contactInfo= serviceOwnerEntity.contactInfo;
    // serviceOwner.address= serviceOwnerEntity.address;
+=======
+    //serviceOwner.contactInfo= serviceOwnerEntity.contactInfo;
+    //serviceOwner.address= serviceOwnerEntity.address;
+>>>>>>> main
     serviceOwner.code= serviceOwnerEntity.code;
     serviceOwner.organizationId= serviceOwnerEntity.organizationId;
     serviceOwner.organizationName= serviceOwnerEntity.organizationName;
@@ -85,8 +90,13 @@ const serviceOwner: ServiceOwner = new ServiceOwner();
     serviceOwnerEntity.shortName= serviceOwner.shortName;
     serviceOwnerEntity.fullName= serviceOwner.fullName;
     serviceOwnerEntity.sector= serviceOwner.sector;
+<<<<<<< HEAD
    // serviceOwnerEntity.contactInfo= serviceOwner.contactInfo;
    // serviceOwnerEntity.address= serviceOwner.address;
+=======
+    //serviceOwnerEntity.contactInfo= serviceOwner.contactInfo;
+    //serviceOwnerEntity.address= serviceOwner.address;
+>>>>>>> main
     serviceOwnerEntity.code= serviceOwner.code;
     serviceOwnerEntity.organizationId= serviceOwner.organizationId;
     serviceOwnerEntity.organizationName= serviceOwner.organizationName;

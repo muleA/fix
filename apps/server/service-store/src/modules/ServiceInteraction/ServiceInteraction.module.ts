@@ -22,7 +22,11 @@ import { SearchHistoryUseCases } from "./usecases/searchHistory.usecases";
 //import { LikeUseCases } from "./usecases/Like.usecases";
 
 @Module({
+<<<<<<< HEAD
   imports: [TypeOrmModule.forFeature([FavoriteRepository,RatingRepository, ReviewRepository,SearchHistoryRepository])],
+=======
+  imports: [TypeOrmModule.forFeature([SearchHistoryRepository,FavoriteRepository,RatingRepository,ReviewRepository ])],
+>>>>>>> main
   providers: [FavoriteUseCases, RatingUseCases,SearchHistoryUseCases,ReviewUseCases ],
   controllers: [
     FavoritesController,
