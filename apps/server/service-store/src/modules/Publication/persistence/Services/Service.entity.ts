@@ -2,13 +2,17 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,DeleteDateColumn,
-  UpdateDateColumn, OneToOne,OneToMany,ManyToOne,
+  OneToMany,
 } from "typeorm";
 
 import { ServiceFeeEntity } from './ServiceFee.entity';
-import { CommonEntity } from "src/modules/shared/BaseEntity"; 
-
+import {CommonEntity} from 'src/modules/shared/CommonEntity';
+import { Media } from "../../domain/services/Media";
+import { ProcessingTime } from "../../domain/services/ProcessingTime";
+import { ServiceDependency } from "../../domain/services/ServiceDependency";
+import { Language } from "../../domain/services/Language";
+import { ApplicationForm } from "../../domain/services/ApplicationForm";
+import { ServiceResource } from "../../domain/services/ServiceResource";
 @Entity({ name: "services" })
 export class ServiceEntity  extends CommonEntity{
    @PrimaryGeneratedColumn('uuid')
