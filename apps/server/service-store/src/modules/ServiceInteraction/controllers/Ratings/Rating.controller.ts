@@ -51,7 +51,7 @@ return 'success';
 /**
  * A method that delete a Rating from the database by id
  * @param id An id of a Rating. A Rating with this id should exist in the database
- * @returns success which  informs the status of the success
+ * @returns success which  tells us the status of the success
 */
 @Delete('delete-rating')
 @ApiResponseType(RatingPresenter, true)
