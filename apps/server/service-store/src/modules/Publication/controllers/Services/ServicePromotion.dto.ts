@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString, IsDate } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsUUID, IsString, IsDate } from 'class-validator';
 import { ServicePromotion } from '../../domain/ServicePromotions/servicePromotion';
 
 /**
@@ -9,12 +9,12 @@ export class UpdateServicePromotionDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   id: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   serviceId: string;
 
   @ApiProperty()
@@ -61,12 +61,12 @@ export class CreateServicePromotionDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   id: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   serviceId: string;
 
   @ApiProperty()
@@ -78,7 +78,6 @@ export class CreateServicePromotionDto {
   @IsNotEmpty()
   @IsDate()
   to: Date;
-
 
   /**
 *A method that mapes  CreateServicePromotionDto object data to  ServicePromotion domain object

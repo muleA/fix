@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsUUID, IsString } from 'class-validator';
 import { ServiceDependency } from '../../domain/ServiceDependencys/serviceDependency';
 
 /**
@@ -9,21 +9,20 @@ export class UpdateServiceDependencyDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   id: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   serviceId: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   dependsOn: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsString()
   type: string;
 
@@ -60,21 +59,20 @@ export class CreateServiceDependencyDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   id: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   serviceId: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   dependsOn: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsString()
   type: string;
 

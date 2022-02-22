@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsUUID, IsString, MaxLength } from 'class-validator';
 import { ServiceRelationship } from '../../domain/ServiceRelationships/serviceRelationship';
 
 /**
@@ -9,23 +9,22 @@ export class UpdateServiceRelationshipDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   id: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   serviceId: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   relatedToServiceId: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  @MaxLength(255)
   status: string;
 
   /**
@@ -60,25 +59,23 @@ export class CreateServiceRelationshipDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   id: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   serviceId: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   relatedToServiceId: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  @MaxLength(255)
   status: string;
-
   /**
 *A method that mapes  CreateServiceRelationshipDto object data to  ServiceRelationship domain object
 *@returns ServiceRelationship domain object which contains ServiceRelationship  information

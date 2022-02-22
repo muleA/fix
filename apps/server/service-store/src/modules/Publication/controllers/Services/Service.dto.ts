@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
    IsBoolean, IsNotEmpty, IsNumber,
    IsString, IsDate, MaxLength,
-   IsBooleanString, IsDecimal,
+   IsArray, IsEnum, IsDecimal, IsUUID,
 } from 'class-validator';
 import { Service } from '../../domain/Services/service';
 import { CreateMediaDto, UpdateMediaDto } from './Media.dto';
@@ -20,13 +20,12 @@ export class UpdateServiceDto {
 
    @ApiProperty()
    @IsNotEmpty()
-   @IsString()
+   @IsUUID()
    id: string;
 
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
-   @MaxLength(255)
    name: string;
 
    @ApiProperty()
@@ -35,82 +34,97 @@ export class UpdateServiceDto {
 
    @ApiProperty()
    @IsNotEmpty()
+   @IsString()
    code: string;
 
    @ApiProperty()
    @IsNotEmpty()
+   @IsString()
    fullyQualifiedName: string;
+
    @ApiProperty()
+   @IsArray()
    medias: UpdateMediaDto[];
 
    @ApiProperty()
    @IsNotEmpty()
+   @IsString()
    supportedQualifications: string;
 
    @ApiProperty()
-   @IsNotEmpty()
+   @IsString()
    version: number;
 
    @ApiProperty()
    @IsNotEmpty()
+   @IsString()
    procedure: string;
    @ApiProperty()
+   @IsArray()
    serviceFees: UpdateServiceFeeDto[];
    @ApiProperty()
+   @IsArray()
    processingTimes: UpdateProcessingTimeDto[];
    @ApiProperty()
+   @IsArray()
    serviceDependencies: UpdateServiceDependencyDto[];
    @ApiProperty()
+   @IsArray()
    languages: UpdateLanguageDto[];
+
    @IsNotEmpty()
    applicationForm: UpdateApplicationFormDto;
    @ApiProperty()
+   @IsArray()
    serviceResources: UpdateServiceResourceDto[];
-
    @ApiProperty()
    @IsNotEmpty()
+   @IsString()
    targetCustomers: string;
 
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
-   @MaxLength(255)
    status: string;
 
    @ApiProperty()
+   @IsNotEmpty()
+   @IsBoolean()
    isPublic: boolean;
 
    @ApiProperty()
-   @IsBooleanString()
+   @IsBoolean()
    isPublished: boolean;
 
    @ApiProperty()
-   @IsBooleanString()
+   @IsNotEmpty()
+   @IsBoolean()
    isArchived: boolean;
 
    @ApiProperty()
-   @IsNotEmpty()
+   @IsString()
    tags: string;
 
    @ApiProperty()
    @IsNotEmpty()
+   @IsEnum()
    deliveryMethod: string;
 
    @ApiProperty()
    @IsNotEmpty()
-   @IsString()
+   @IsUUID()
    serviceOwnerId: string;
 
    @ApiProperty()
-   @IsNotEmpty() @IsDecimal()
+   @IsDecimal()
    averageRating: number;
 
    @ApiProperty()
-   @IsBooleanString()
+   @IsBoolean()
+   @IsNotEmpty()
    enableReview: boolean;
 
    @ApiProperty()
-   @IsNotEmpty()
    @IsString()
    policy: string;
 
@@ -223,13 +237,12 @@ export class CreateServiceDto {
 
    @ApiProperty()
    @IsNotEmpty()
-   @IsString()
+   @IsUUID()
    id: string;
 
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
-   @MaxLength(255)
    name: string;
 
    @ApiProperty()
@@ -238,82 +251,97 @@ export class CreateServiceDto {
 
    @ApiProperty()
    @IsNotEmpty()
+   @IsString()
    code: string;
 
    @ApiProperty()
    @IsNotEmpty()
+   @IsString()
    fullyQualifiedName: string;
+
    @ApiProperty()
+   @IsArray()
    medias: UpdateMediaDto[];
 
    @ApiProperty()
    @IsNotEmpty()
+   @IsString()
    supportedQualifications: string;
 
    @ApiProperty()
-   @IsNotEmpty()
+   @IsString()
    version: number;
 
    @ApiProperty()
    @IsNotEmpty()
+   @IsString()
    procedure: string;
    @ApiProperty()
+   @IsArray()
    serviceFees: UpdateServiceFeeDto[];
    @ApiProperty()
+   @IsArray()
    processingTimes: UpdateProcessingTimeDto[];
    @ApiProperty()
+   @IsArray()
    serviceDependencies: UpdateServiceDependencyDto[];
    @ApiProperty()
+   @IsArray()
    languages: UpdateLanguageDto[];
+
    @IsNotEmpty()
    applicationForm: UpdateApplicationFormDto;
    @ApiProperty()
+   @IsArray()
    serviceResources: UpdateServiceResourceDto[];
-
    @ApiProperty()
    @IsNotEmpty()
+   @IsString()
    targetCustomers: string;
 
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
-   @MaxLength(255)
    status: string;
 
    @ApiProperty()
+   @IsNotEmpty()
+   @IsBoolean()
    isPublic: boolean;
 
    @ApiProperty()
-   @IsBooleanString()
+   @IsBoolean()
    isPublished: boolean;
 
    @ApiProperty()
-   @IsBooleanString()
+   @IsNotEmpty()
+   @IsBoolean()
    isArchived: boolean;
 
    @ApiProperty()
-   @IsNotEmpty()
+   @IsString()
    tags: string;
 
    @ApiProperty()
    @IsNotEmpty()
+   @IsEnum()
    deliveryMethod: string;
 
    @ApiProperty()
    @IsNotEmpty()
-   @IsString()
+   @IsUUID()
    serviceOwnerId: string;
 
    @ApiProperty()
-   @IsNotEmpty() @IsDecimal()
+   @IsDecimal()
    averageRating: number;
 
    @ApiProperty()
-   @IsBooleanString()
+   @IsBoolean()
+   @IsNotEmpty()
    enableReview: boolean;
 
    @ApiProperty()
-   @IsNotEmpty()
    @IsString()
    policy: string;
 
