@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ServiceFee } from '../../domain/ServiceFees/serviceFee';
+import { ServiceFee } from '../../domain/services/ServiceFee';
+
  
 /**
 *A class which contains proporties of ServiceFee that used to put data to be returned to client

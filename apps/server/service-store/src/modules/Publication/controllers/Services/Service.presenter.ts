@@ -120,7 +120,7 @@ this.version = service.version;
 
   
 this.procedure = service.procedure;  
-
+/*
 this.serviceFees = service.serviceFees.map(item=>new ServiceFeePresenter(item));  
    this.processingTimes = service.processingTimes.map(item=>new ProcessingTimePresenter(item));  
    this.serviceDependencies = service.serviceDependencies.map(item=>new ServiceDependencyPresenter(item));  
@@ -128,7 +128,7 @@ this.serviceFees = service.serviceFees.map(item=>new ServiceFeePresenter(item));
       
 this.applicationForm = new ApplicationFormPresenter( service.applicationForm);  
    this.resources = service.resources.map(item=>new ServiceResourcePresenter(item));  
-     
+     */
 this.targetCustomers = service.targetCustomers;  
 
   

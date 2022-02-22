@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ServiceDependency } from '../../domain/ServiceDependencys/serviceDependency';
+import { ServiceDependency } from '../../domain/services/ServiceDependency';
+
  
 /**
 *A class which contains proporties of ServiceDependency that used to put data to be returned to client

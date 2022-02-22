@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsUUID, IsString } from 'class-validator';
-import { Language } from '../../domain/Languages/language';
+import { Language } from '../../domain/services/Language';
+
 
 /**
 *A class which contains proporties of Language that used to receive paramamer values to be updated in the database

@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { IMediaRepository } from '../../domain/medias/media.repository.interface';
+
 export class  Media {
  constructor() { } 
  id: string;  

@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Media } from '../../domain/Medias/media';
+import { Media } from '../../domain/services/Media';
+//import { Media } from '../../domain/Medias/media';
  
 /**
 *A class which contains proporties of Media that used to put data to be returned to client

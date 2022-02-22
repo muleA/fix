@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsUUID, IsString, IsFQDN } from 'class-validator';
-import { Media } from '../../domain/Medias/media';
+import { Media } from '../../domain/services/Media';
+
 
 /**
 *A class which contains proporties of Media that used to receive paramamer values to be updated in the database
