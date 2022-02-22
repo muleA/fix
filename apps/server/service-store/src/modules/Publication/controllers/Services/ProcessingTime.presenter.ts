@@ -1,58 +1,57 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, IsNotEmpty, IsDecimal, IsUUID, IsString, IsFQDN } from 'class-validator';
 import { ProcessingTime } from '../../domain/ProcessingTimes/processingTime';
- 
+
 /**
 *A class which contains proporties of ProcessingTime that used to put data to be returned to client
 *
 */
 export class ProcessingTimePresenter {
-     
-@ApiProperty()
-id: string;
-  
-@ApiProperty()
-serviceId: string;
-  
-@ApiProperty()
-time: number;
-  
-@ApiProperty()
-currency: string;
-  
-@ApiProperty()
-description: string;
-  
-@ApiProperty()
-createdAt: Date;
-  
-@ApiProperty()
-updatedAt: Date;
-/**
-*A constructor which copy  ProcessingTime domain object Property value to  ProcessingTimePresenter properties
-*/
-constructor(processingTime: ProcessingTime) {
-  
-this.id = processingTime.id;  
 
-  
-this.serviceId = processingTime.serviceId;  
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsUUID()
+  id: string;
 
-  
-this.time = processingTime.time;  
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsUUID()
+  serviceId: string;
 
-  
-this.currency = processingTime.currency;  
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsDecimal()
+  time: number;
 
-  
-this.description = processingTime.description;  
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  currency: string;
 
-  
-this.createdAt = processingTime.createdAt;  
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  description: string;
+  /**
+  *A constructor which copy  ProcessingTime domain object Property value to  ProcessingTimePresenter properties
+  */
+  constructor(processingTime: ProcessingTime) {
 
-  
-this.updatedAt = processingTime.updatedAt;  
+    this.id = processingTime.id;
 
-  
-    
+
+    this.serviceId = processingTime.serviceId;
+
+
+    this.time = processingTime.time;
+
+
+    this.currency = processingTime.currency;
+
+
+    this.description = processingTime.description;
+
+
+
   }
 }

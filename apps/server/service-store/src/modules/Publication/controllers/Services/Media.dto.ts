@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString, IsFQDN } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsUUID, IsString, IsFQDN } from 'class-validator';
 import { Media } from '../../domain/Medias/media';
 
 /**
@@ -9,14 +9,16 @@ export class UpdateMediaDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   id: string;
 
   @ApiProperty()
-  @IsFQDN()
+  @IsNotEmpty()
+  @IsString()
   url: string;
 
   @ApiProperty()
+  @IsNotEmpty()
   @IsString()
   caption: string;
 
@@ -27,7 +29,7 @@ export class UpdateMediaDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   serviceId: string;
 
   /**
@@ -67,14 +69,16 @@ export class CreateMediaDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   id: string;
 
   @ApiProperty()
-  @IsFQDN()
+  @IsNotEmpty()
+  @IsString()
   url: string;
 
   @ApiProperty()
+  @IsNotEmpty()
   @IsString()
   caption: string;
 
@@ -85,7 +89,7 @@ export class CreateMediaDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   serviceId: string;
 
   /**

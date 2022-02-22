@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString, IsFQDN } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsUUID, IsString, IsFQDN } from 'class-validator';
 import { ServiceResource } from '../../domain/ServiceResources/serviceResource';
 
 /**
@@ -9,16 +9,16 @@ export class UpdateServiceResourceDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   id: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   serviceId: string;
 
   @ApiProperty()
-  @IsFQDN()
+  @IsString()
   attachmentUrl: string;
 
   @ApiProperty()
@@ -60,16 +60,16 @@ export class CreateServiceResourceDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   id: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   serviceId: string;
 
   @ApiProperty()
-  @IsFQDN()
+  @IsString()
   attachmentUrl: string;
 
   @ApiProperty()
