@@ -1,12 +1,7 @@
-Review
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { EntityRepository, Repository,  } from 'typeorm';
 import { Review } from '../../domain/reviews/review';
 import { IReviewRepository } from '../../domain/reviews/review.repository.interface';
 import { ReviewEntity } from './review.entity';
-
-//@Injectable()
 @EntityRepository(ReviewEntity)
 export class ReviewRepository extends Repository<ReviewEntity> implements IReviewRepository {
   constructor() {
@@ -76,7 +71,6 @@ const review: Review = new Review();
   *@param review An review which compraises  Review information
   *@returns A Review which contain  Review information
   */
-    
  private toReviewEntity(review: Review): ReviewEntity {
    const reviewEntity: ReviewEntity = new ReviewEntity();    
     reviewEntity.id= review.id;
@@ -85,10 +79,7 @@ const review: Review = new Review();
     reviewEntity.serviceId= review.serviceId;
     reviewEntity.userId= review.userId;
     reviewEntity.status= review.status;
-    reviewEntity.likes= review.likes;
-    reviewEntity.createdAt= review.createdAt;
-    reviewEntity.updatedAt= review.updatedAt;
+    reviewEntity.likes= review.likes;    
  return reviewEntity;
   }
- 
 }

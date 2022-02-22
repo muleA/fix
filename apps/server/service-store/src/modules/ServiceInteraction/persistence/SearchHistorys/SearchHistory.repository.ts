@@ -1,11 +1,7 @@
-SearchHistory
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { EntityRepository, Repository,  } from 'typeorm';
 import { SearchHistory } from '../../domain/searchHistorys/searchHistory';
 import { ISearchHistoryRepository } from '../../domain/searchHistorys/searchHistory.repository.interface';
 import { SearchHistoryEntity } from './searchHistory.entity';
-
 //@Injectable()
 @EntityRepository(SearchHistoryEntity)
 export class SearchHistoryRepository extends Repository<SearchHistoryEntity> implements ISearchHistoryRepository {
@@ -73,7 +69,6 @@ const searchHistory: SearchHistory = new SearchHistory();
   *@param searchHistory An searchHistory which compraises  SearchHistory information
   *@returns A SearchHistory which contain  SearchHistory information
   */
-    
  private toSearchHistoryEntity(searchHistory: SearchHistory): SearchHistoryEntity {
    const searchHistoryEntity: SearchHistoryEntity = new SearchHistoryEntity();    
     searchHistoryEntity.id= searchHistory.id;
@@ -84,5 +79,4 @@ const searchHistory: SearchHistory = new SearchHistory();
     searchHistoryEntity.updatedAt= searchHistory.updatedAt;
  return searchHistoryEntity;
   }
- 
 }

@@ -1,17 +1,12 @@
-Rating
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { EntityRepository, Repository,  } from 'typeorm';
 import { Rating } from '../../domain/ratings/rating';
 import { IRatingRepository } from '../../domain/ratings/rating.repository.interface';
 import { RatingEntity } from './rating.entity';
-
-//@Injectable()
 @EntityRepository(RatingEntity)
 export class RatingRepository extends Repository<RatingEntity> implements IRatingRepository {
   constructor() {
     super()
-  }
+  }  
   /**
   * A method that updates Rating information in the database 
   */
@@ -73,16 +68,12 @@ const rating: Rating = new Rating();
   *@param rating An rating which compraises  Rating information
   *@returns A Rating which contain  Rating information
   */
-    
  private toRatingEntity(rating: Rating): RatingEntity {
    const ratingEntity: RatingEntity = new RatingEntity();    
     ratingEntity.id= rating.id;
     ratingEntity.serviceId= rating.serviceId;
     ratingEntity.userId= rating.userId;
-    ratingEntity.score= rating.score;
-    ratingEntity.createdAt= rating.createdAt;
-    ratingEntity.updatedAt= rating.updatedAt;
+    ratingEntity.score= rating.score; 
  return ratingEntity;
   }
- 
 }

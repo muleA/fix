@@ -1,39 +1,25 @@
+import { CommonEntity } from "src/modules/shared/CommonEntity";
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn, @OneToOne(),@OneToMany(),@ManyToOne(),
+  UpdateDateColumn,
 } from "typeorm";
-
-@Entity({ name: "review" })
-export class ReviewEntity {
+@Entity({ name: "reviews" })
+export class ReviewEntity extends CommonEntity {
    @PrimaryGeneratedColumn('uuid')
   id: string;
-   
   @Column()
   title: string;
-  
   @Column()
   body: string;
-  
   @Column()
   serviceId: string;
-  
   @Column()
   userId: string;
-  
   @Column()
   status: string;
-  
-  @Column()
+  @Column('int')
   likes: number;
-  
-  @Column()
-  createdAt: Date;
-  
-  @Column()
-  updatedAt: Date;
-  
-  
 }

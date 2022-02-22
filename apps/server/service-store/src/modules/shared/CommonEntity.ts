@@ -1,21 +1,21 @@
 import {
   Column,
-  CreateDateColumn,DeleteDateColumn,
+  CreateDateColumn,
+  DeleteDateColumn,
   UpdateDateColumn,
-} from "typeorm";
+} from 'typeorm';
+export abstract class CommonEntity {
+  @Column()
+  createdBy: string;
+  @Column()
+  updatedBy?: string;
 
-export abstract class CommonEntity{
-  @Column()
-  createdBy:string;
-  @Column()
-  updatedBy?:string;
-  @CreateDateColumn()
-  createdAt: Date;  
+  @CreateDateColumn({ type: 'timestamptz', default: () => 'NOW()' })
+  createdAt: Date;
   @UpdateDateColumn()
   updatedAt: Date;
   @DeleteDateColumn()
-  deletedAt?:Date;
+  deletedAt?: Date;
   @Column()
-  deletedBy:string;
-
+  deletedBy: string;
 }
