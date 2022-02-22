@@ -39,7 +39,7 @@ export class ServiceEntity extends CommonEntity {
   serviceDependencies: ServiceDependencyEntity[];
   @OneToMany(type => LanguageEntity, language => language.serviceId, { cascade: true })
   languages: LanguageEntity[];
-  @Column()
+  @Column('jsonb')
   applicationForm: ApplicationForm; // it is a value object entity
   @OneToMany(type => ServiceResourceEntity, serviceResource => serviceResource.serviceId, { cascade: true })
   serviceResources: ServiceResourceEntity[];
