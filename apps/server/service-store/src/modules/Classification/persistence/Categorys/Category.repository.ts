@@ -1,11 +1,9 @@
-Category
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityRepository, Repository,  } from 'typeorm';
 import { Category } from '../../domain/categorys/category';
 import { ICategoryRepository } from '../../domain/categorys/category.repository.interface';
 import { CategoryEntity } from './category.entity';
-
 //@Injectable()
 @EntityRepository(CategoryEntity)
 export class CategoryRepository extends Repository<CategoryEntity> implements ICategoryRepository {
@@ -64,9 +62,7 @@ const category: Category = new Category();
     category.name= categoryEntity.name;
     category.description= categoryEntity.description;
     category.code= categoryEntity.code;
-    category.parentId= categoryEntity.parentId;
-    category.createdAt= categoryEntity.createdAt;
-    category.updatedAt= categoryEntity.updatedAt;
+    category.parentId= categoryEntity.parent.id;    
      return category;
 }
  /**
@@ -74,17 +70,15 @@ const category: Category = new Category();
   *@param category An category which compraises  Category information
   *@returns A Category which contain  Category information
   */
-    
  private toCategoryEntity(category: Category): CategoryEntity {
    const categoryEntity: CategoryEntity = new CategoryEntity();    
     categoryEntity.id= category.id;
     categoryEntity.name= category.name;
     categoryEntity.description= category.description;
     categoryEntity.code= category.code;
-    categoryEntity.parentId= category.parentId;
+   // categoryEntity.parentId= category.parentId;
     categoryEntity.createdAt= category.createdAt;
     categoryEntity.updatedAt= category.updatedAt;
  return categoryEntity;
   }
- 
 }

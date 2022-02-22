@@ -1,11 +1,7 @@
-ServiceCollection
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { EntityRepository, Repository,  } from 'typeorm';
 import { ServiceCollection } from '../../domain/serviceCollections/serviceCollection';
 import { IServiceCollectionRepository } from '../../domain/serviceCollections/serviceCollection.repository.interface';
 import { ServiceCollectionEntity } from './serviceCollection.entity';
-
 //@Injectable()
 @EntityRepository(ServiceCollectionEntity)
 export class ServiceCollectionRepository extends Repository<ServiceCollectionEntity> implements IServiceCollectionRepository {
@@ -64,13 +60,13 @@ const serviceCollection: ServiceCollection = new ServiceCollection();
     serviceCollection.name= serviceCollectionEntity.name;
     serviceCollection.description= serviceCollectionEntity.description;
     serviceCollection.code= serviceCollectionEntity.code;
-    serviceCollection.serviceEntries= serviceCollectionEntity.serviceEntries;
+   // serviceCollection.serviceEntries= serviceCollectionEntity.serviceEntries;
     serviceCollection.supportedQualifications= serviceCollectionEntity.supportedQualifications;
     serviceCollection.version= serviceCollectionEntity.version;
     serviceCollection.procedure= serviceCollectionEntity.procedure;
     serviceCollection.isPublic= serviceCollectionEntity.isPublic;
     serviceCollection.tags= serviceCollectionEntity.tags;
-    serviceCollection.resources= serviceCollectionEntity.resources;
+    //serviceCollection.resources= serviceCollectionEntity.resources;
     serviceCollection.targetCustomers= serviceCollectionEntity.targetCustomers;
     serviceCollection.isArchived= serviceCollectionEntity.isArchived;
     serviceCollection.createdAt= serviceCollectionEntity.createdAt;
@@ -82,25 +78,23 @@ const serviceCollection: ServiceCollection = new ServiceCollection();
   *@param serviceCollection An serviceCollection which compraises  ServiceCollection information
   *@returns A ServiceCollection which contain  ServiceCollection information
   */
-    
  private toServiceCollectionEntity(serviceCollection: ServiceCollection): ServiceCollectionEntity {
    const serviceCollectionEntity: ServiceCollectionEntity = new ServiceCollectionEntity();    
     serviceCollectionEntity.id= serviceCollection.id;
     serviceCollectionEntity.name= serviceCollection.name;
     serviceCollectionEntity.description= serviceCollection.description;
     serviceCollectionEntity.code= serviceCollection.code;
-    serviceCollectionEntity.serviceEntries= serviceCollection.serviceEntries;
+    //serviceCollectionEntity.serviceEntries= serviceCollection.serviceEntries.map(item=> ServiceCollection.);
     serviceCollectionEntity.supportedQualifications= serviceCollection.supportedQualifications;
     serviceCollectionEntity.version= serviceCollection.version;
     serviceCollectionEntity.procedure= serviceCollection.procedure;
     serviceCollectionEntity.isPublic= serviceCollection.isPublic;
     serviceCollectionEntity.tags= serviceCollection.tags;
-    serviceCollectionEntity.resources= serviceCollection.resources;
+    //serviceCollectionEntity.resources= serviceCollection.resources;
     serviceCollectionEntity.targetCustomers= serviceCollection.targetCustomers;
     serviceCollectionEntity.isArchived= serviceCollection.isArchived;
     serviceCollectionEntity.createdAt= serviceCollection.createdAt;
     serviceCollectionEntity.updatedAt= serviceCollection.updatedAt;
  return serviceCollectionEntity;
   }
- 
 }

@@ -1,9 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
-  
 import { ServiceEntry } from '../serviceCollections/ServiceEntry';
-  
 import { ServiceResource } from '../serviceCollections/ServiceResource';
-
 import { IServiceCollectionRepository } from '../../domain/serviceCollections/serviceCollection.repository.interface';
 export class  ServiceCollection {
  constructor() { } 
@@ -22,7 +19,6 @@ targetCustomers: string;
 isArchived: boolean;  
 createdAt: Date;  
 updatedAt: Date;  
- 
 /**
  * A method that add ServiceEntry to the database> 
  * @param serviceEntry  An information of  ServiceEntry 
@@ -31,7 +27,6 @@ updatedAt: Date;
 async addServiceEntry(createServiceEntry: ServiceEntry) {
   this.serviceEntries.push(createServiceEntry);
 }
-
 /**
  * A method that update a ServiceEntry 
  * @param serviceEntry  An information of  ServiceEntry 
@@ -59,7 +54,6 @@ async updateServiceEntries(serviceEntries: ServiceEntry[])
 this.serviceEntries=[];
 this.serviceEntries=serviceEntries;
 }
-   
 /**
  * A method that add ServiceResource to the database> 
  * @param serviceResource  An information of  ServiceResource 
@@ -68,7 +62,6 @@ this.serviceEntries=serviceEntries;
 async addServiceResource(createServiceResource: ServiceResource) {
   this.resources.push(createServiceResource);
 }
-
 /**
  * A method that update a ServiceResource 
  * @param serviceResource  An information of  ServiceResource 
@@ -96,5 +89,4 @@ async updateResources(resources: ServiceResource[])
 this.resources=[];
 this.resources=resources;
 }
-  
 }

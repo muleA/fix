@@ -1,4 +1,5 @@
-import CommonEntity from "src/modules/shared/CommonEntity";
+
+import { CommonEntity } from "src/modules/shared/CommonEntity";
 import {
   Entity,
   Column,
@@ -15,15 +16,7 @@ export class CategoryEntity extends CommonEntity {
   @Column()
   description: string;
   @Column()
-  code: string;
-  /**
-   *  for bi-directional 
-   * 
-   @ManyToOne(()=>CategoryEntity, parentCategory=>parentCategory.childCategories )
-  parentCategory: CategoryEntity;
-   @OneToMany(()=>CategoryEntity, parentCategory=>parentCategory.parentCategory )
-  childCategories: CategoryEntity[];
-   */
+  code: string; 
   @ManyToOne(() => CategoryEntity, parent => parent.parent)
   parent: CategoryEntity;
 

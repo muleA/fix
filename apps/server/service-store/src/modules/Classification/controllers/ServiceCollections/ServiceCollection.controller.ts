@@ -1,20 +1,17 @@
 import { ServiceEntryPresenter } from './ServiceEntry.presenter';
 import { CreateServiceEntryDto, UpdateServiceEntryDto } from './ServiceEntry.dto';
-   import { ServiceResourcePresenter } from './ServiceResource.presenter';
-import { CreateServiceResourceDto, UpdateServiceResourceDto } from './ServiceResource.dto';
-    
 import { Body, Controller, Delete, Get, Inject, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ServiceCollectionPresenter } from './serviceCollection.presenter';
 import { ApiResponseType } from '../../../../infrastructure/swagger/response.decorator';
 import { CreateServiceCollectionDto, UpdateServiceCollectionDto } from '../serviceCollections/serviceCollection.dto';
 import { ServiceCollectionUseCases } from '../../usecases/serviceCollection.usecases';
-
+import { ServiceResourcePresenter } from './ServiceResource.presenter';
+import { CreateServiceResourceDto, UpdateServiceResourceDto } from './ServiceResource.dto';
 @Controller('serviceCollections')
 @ApiTags('serviceCollections')
 @ApiResponse({ status: 500, description: 'Internal error' })
 @ApiExtraModels(ServiceCollectionPresenter)
-
 export class ServiceCollectionsController {
 /**
 *A constructor that injects ServiceCollectionUseCases
@@ -43,7 +40,6 @@ async getServiceCollections() {
 const serviceCollections = await this.useCase.fetServiceCollections();
 return serviceCollections.map((serviceCollection) => new ServiceCollectionPresenter(serviceCollection));
 }
-
 /**
  * A method that update a ServiceCollection 
  * @param updateServiceCollectionDto  An information of  ServiceCollection 
@@ -67,7 +63,6 @@ async deleteServiceCollection(@Query() id: string) {
 await this.useCase.deleteServiceCollection(id);
 return 'success';
 }
-
 /**
  * A method that creates a ServiceCollection 
  * @param createServiceCollectionDto  An information of  ServiceCollection  that need to be saved
@@ -80,7 +75,6 @@ async createServiceCollection(@Body() createServiceCollectionDto: CreateServiceC
 const serviceCollectionCreated = await this.useCase.createServiceCollection( createServiceCollectionDto);
 return new ServiceCollectionPresenter(serviceCollectionCreated );
 }
-   
 @Post('add-ServiceEntry')
 @ApiResponseType(ServiceEntryPresenter, true)
 async addServiceEntry(@Body() createServiceEntryDto: CreateServiceEntryDto) {
@@ -98,7 +92,6 @@ async editServiceEntry(@Body() createServiceEntryDto: UpdateServiceEntryDto) {
 await this.useCase.updateServiceEntry( createServiceEntryDto);
 return 'success';
 }
-
 /**
  * A method that delete a ServiceEntry from the database by id
  * @param id An id of a ServiceEntry. A ServiceEntry with this id should exist in the database
@@ -110,7 +103,6 @@ async removeServiceEntry(@Query() id: string) {
 await this.useCase.deleteServiceEntry(id);
 return 'success';
 }
-
 /**
  * A method that Remove  and  add  new list of ServiceEntry to database
  * @param List<createServiceEntryDto> A list of ServiceEntry to be saved into database 
@@ -122,7 +114,6 @@ async updateServiceEntry(@Body() createServiceEntryDto: CreateServiceEntryDto[])
 await this.useCase.updateServiceEntries(createServiceEntryDto);
 return 'success';
 }
-   
 @Post('add-ServiceResource')
 @ApiResponseType(ServiceResourcePresenter, true)
 async addServiceResource(@Body() createServiceResourceDto: CreateServiceResourceDto) {
@@ -140,7 +131,6 @@ async editServiceResource(@Body() createServiceResourceDto: UpdateServiceResourc
 await this.useCase.updateServiceResource( createServiceResourceDto);
 return 'success';
 }
-
 /**
  * A method that delete a ServiceResource from the database by id
  * @param id An id of a ServiceResource. A ServiceResource with this id should exist in the database
@@ -152,7 +142,6 @@ async removeServiceResource(@Query() id: string) {
 await this.useCase.deleteServiceResource(id);
 return 'success';
 }
-
 /**
  * A method that Remove  and  add  new list of ServiceResource to database
  * @param List<createServiceResourceDto> A list of ServiceResource to be saved into database 
@@ -164,6 +153,4 @@ async updateServiceResource(@Body() createServiceResourceDto: CreateServiceResou
 await this.useCase.updateResources(createServiceResourceDto);
 return 'success';
 }
-  
-
 }

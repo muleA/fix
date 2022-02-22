@@ -2,8 +2,7 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn, OneToOne, OneToMany, ManyToOne, JoinColumn
+   ManyToOne, JoinColumn
 } from "typeorm";
 import { ServiceCollectionEntity } from "./serviceCollection.entity";
 @Entity({ name: "serviceEntry" })
@@ -17,10 +16,4 @@ export class ServiceEntryEntity {
   @ManyToOne(type => ServiceCollectionEntity, serviceCollection => serviceCollection.serviceEntries)
   @JoinColumn({ name: 'serviceCollectionId' })
   serviceCollection: ServiceCollectionEntity;
- 
-
-
-
-
-
 }
