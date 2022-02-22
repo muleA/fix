@@ -7,7 +7,7 @@ import {
 } from "typeorm";
 
 import { ServiceFeeEntity } from './ServiceFee.entity';
-import BaseEntity from 'src/modules/shared/BaseEntity';
+import BaseEntity from 'src/modules/shared/CommonEntityty';
 
 @Entity({ name: "services" })
 export class ServiceEntity  extends BaseEntity{

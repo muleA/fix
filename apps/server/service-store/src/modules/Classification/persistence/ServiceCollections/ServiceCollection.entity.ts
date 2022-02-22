@@ -1,57 +1,43 @@
+import { ServiceResource } from "src/modules/Publication/domain/services/ServiceResource";
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn, @OneToOne(),@OneToMany(),@ManyToOne(),
+  UpdateDateColumn, OneToOne, OneToMany,ManyToOne
 } from "typeorm";
-
+import { ServiceEntryEntity } from "./ServiceEntry.entity";
 @Entity({ name: "serviceCollection" })
 export class ServiceCollectionEntity {
    @PrimaryGeneratedColumn('uuid')
-  id: string;
-   
-  @Column()
+  id: string;  
+  @Column({ name: 'name' })
   name: string;
-  
-  @Column()
-  description: string;
-  
-  @Column()
+  @Column({ name: 'description' })
+  description?: string;
+  @Column({ name: 'code' })
   code: string;
-  
   @Column()
-  serviceEntries: ServiceEntry[];
-  
-  @Column()
+@OneToMany(type =>ServiceEntryEntity, serviceEntry=>serviceEntry.serviceCollectionId )
+serviceEntries :ServiceEntryEntity[];
+  @Column({ name: 'supportedQualifications' })
   supportedQualifications: string;
-  
-  @Column()
+  @Column({ name: 'version' })
   version: number;
-  
-  @Column()
+  @Column({ name: 'procedure' })
   procedure: string;
-  
-  @Column()
+  @Column({ name: 'isPublic' })
   isPublic: boolean;
-  
-  @Column()
+  @Column({ name: 'tags' })
   tags: string;
-  
   @Column()
+  @OneToMany(type =>ServiceResource, resource=>resource.serviceId )
   resources: ServiceResource[];
-  
-  @Column()
+  @Column({ name: 'targetCustomers' })
   targetCustomers: string;
-  
-  @Column()
+  @Column({ name: 'isArchived' })
   isArchived: boolean;
-  
-  @Column()
-  createdAt: Date;
-  
-  @Column()
-  updatedAt: Date;
+
   
   
 }

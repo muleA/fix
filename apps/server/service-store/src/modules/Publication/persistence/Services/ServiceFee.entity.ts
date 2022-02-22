@@ -4,29 +4,29 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn, OneToOne,OneToMany,ManyToOne,JoinColumn
+  UpdateDateColumn, OneToOne, OneToMany, ManyToOne, JoinColumn
 } from "typeorm";
-import BaseEntity from "src/modules/shared/BaseEntity";
+import CommonEntity from "src/modules/shared/CommonEntity";
 
 @Entity({ name: "serviceFee" })
-export class ServiceFeeEntity extends BaseEntity {
-   @PrimaryGeneratedColumn('uuid')
+export class ServiceFeeEntity extends CommonEntity {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
-   
-  @ManyToOne(type => ServiceEntity, service=> service.serviceFees)
-   @JoinColumn({name: 'serviceId'})
-   service: ServiceEntity;  
-  
+
+  @ManyToOne(type => ServiceEntity, service => service.serviceFees)
+  @JoinColumn({ name: 'serviceId' })
+  service: ServiceEntity;
+
   @Column('double')
   fee: number;
-  
+
   @Column()
   currency: string;
-  
+
   @Column('text')
   description?: string;
-  
- 
-  
-  
+
+
+
+
 }
