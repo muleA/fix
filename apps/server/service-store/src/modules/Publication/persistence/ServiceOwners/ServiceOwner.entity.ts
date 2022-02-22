@@ -20,13 +20,13 @@ export class ServiceOwnerEntity extends CommonEntity {
   
   @Column()
   sector: string;
-  
+  /*
   @Column('jsonb')
   contactInfo: ContactInfoEntity;
   
   @Column('jsonb')
   address: AddressEntity;
-  
+  */
   @Column()
   code: string;
   

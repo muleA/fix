@@ -8,6 +8,7 @@ import {
 import { DelegatedServiceEntity } from './DelegatedService.entity';
 import { ContactInfo } from '../../domain/serviceOwners/ContactInfo';
 import { Address } from '../../domain/ServiceOwners/address';
+import { ProviderLocation } from '../../domain/ServiceProviders/ProviderLocation';
 
 @Entity({ name: 'serviceProvider' })
 export class ServiceProviderEntity extends CommonEntity {
@@ -27,7 +28,7 @@ export class ServiceProviderEntity extends CommonEntity {
   contactInfo: ContactInfo;
 
   @Column('jsonb')
-  location: Location;
+  location: ProviderLocation;
 
   @Column('jsonb')
   address: Address;

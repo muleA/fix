@@ -12,49 +12,39 @@ import { CreateServiceDependencyDto, UpdateServiceDependencyDto } from './Servic
 import { CreateLanguageDto, UpdateLanguageDto } from './Language.dto';
 import { CreateApplicationFormDto, UpdateApplicationFormDto } from './ApplicationForm.dto';
 import { CreateServiceResourceDto, UpdateServiceResourceDto } from './ServiceResource.dto';
-
 /**
 *A class which contains proporties of Service that used to receive paramamer values to be updated in the database
 */
 export class UpdateServiceDto {
-
    @ApiProperty()
    @IsNotEmpty()
    @IsUUID()
    id: string;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    name: string;
-
    @ApiProperty()
    @IsString()
    description: string;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    code: string;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    fullyQualifiedName: string;
-
    @ApiProperty()
    @IsArray()
    medias: UpdateMediaDto[];
-
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    supportedQualifications: string;
-
    @ApiProperty()
    @IsString()
    version: number;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
@@ -71,7 +61,6 @@ export class UpdateServiceDto {
    @ApiProperty()
    @IsArray()
    languages: UpdateLanguageDto[];
-
    @IsNotEmpty()
    applicationForm: UpdateApplicationFormDto;
    @ApiProperty()
@@ -81,52 +70,41 @@ export class UpdateServiceDto {
    @IsNotEmpty()
    @IsString()
    targetCustomers: string;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    status: string;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsBoolean()
    isPublic: boolean;
-
    @ApiProperty()
    @IsBoolean()
    isPublished: boolean;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsBoolean()
    isArchived: boolean;
-
    @ApiProperty()
    @IsString()
    tags: string;
-
    @ApiProperty()
    @IsNotEmpty()  
    deliveryMethod: string;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsUUID()
    serviceOwnerId: string;
-
    @ApiProperty()
    @IsDecimal()
    averageRating: number;
-
    @ApiProperty()
    @IsBoolean()
    @IsNotEmpty()
    enableReview: boolean;
-
    @ApiProperty()
    @IsString()
    policy: string;
-
    @ApiProperty()
    @IsDate()
    publishedOn: Date;
@@ -136,95 +114,35 @@ export class UpdateServiceDto {
  */
    static fromDTO(serviceDto: UpdateServiceDto): Service {
       const service: Service = new Service();
-
       service.id = serviceDto.id;
-
-
-
       service.name = serviceDto.name;
-
-
-
       service.description = serviceDto.description;
-
-
-
       service.code = serviceDto.code;
-
-
-
       service.fullyQualifiedName = serviceDto.fullyQualifiedName;
-
-
       service.medias = serviceDto.medias.map(item => UpdateMediaDto.fromDTO(item));
-
       service.supportedQualifications = serviceDto.supportedQualifications;
-
-
-
       service.version = serviceDto.version;
-
-
-
       service.procedure = serviceDto.procedure;
-
-
+/*
       service.serviceFees = serviceDto.serviceFees.map(item => UpdateServiceFeeDto.fromDTO(item));
       service.processingTimes = serviceDto.processingTimes.map(item => UpdateProcessingTimeDto.fromDTO(item));
       service.serviceDependencies = serviceDto.serviceDependencies.map(item => UpdateServiceDependencyDto.fromDTO(item));
       service.languages = serviceDto.languages.map(item => UpdateLanguageDto.fromDTO(item));
-
-
       service.applicationForm = UpdateApplicationFormDto.fromDTO(serviceDto.applicationForm);
       service.serviceResources = serviceDto.serviceResources.map(item => UpdateServiceResourceDto.fromDTO(item));
-
+*/
       service.targetCustomers = serviceDto.targetCustomers;
-
-
-
       service.status = serviceDto.status;
-
-
-
       service.isPublic = serviceDto.isPublic;
-
-
-
       service.isPublished = serviceDto.isPublished;
-
-
-
       service.isArchived = serviceDto.isArchived;
-
-
-
       service.tags = serviceDto.tags;
-
-
-
       service.deliveryMethod = serviceDto.deliveryMethod;
-
-
-
       service.serviceOwnerId = serviceDto.serviceOwnerId;
-
-
-
       service.averageRating = serviceDto.averageRating;
-
-
-
       service.enableReview = serviceDto.enableReview;
-
-
-
       service.policy = serviceDto.policy;
-
-
-
       service.publishedOn = serviceDto.publishedOn;
-
-
       return service;
    }
 }
@@ -233,44 +151,35 @@ export class UpdateServiceDto {
 *
 */
 export class CreateServiceDto {
-
    @ApiProperty()
    @IsNotEmpty()
    @IsUUID()
    id: string;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    name: string;
-
    @ApiProperty()
    @IsString()
    description: string;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    code: string;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    fullyQualifiedName: string;
-
    @ApiProperty()
    @IsArray()
    medias: UpdateMediaDto[];
-
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    supportedQualifications: string;
-
    @ApiProperty()
    @IsString()
    version: number;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
@@ -287,7 +196,6 @@ export class CreateServiceDto {
    @ApiProperty()
    @IsArray()
    languages: UpdateLanguageDto[];
-
    @IsNotEmpty()
    applicationForm: UpdateApplicationFormDto;
    @ApiProperty()
@@ -297,53 +205,42 @@ export class CreateServiceDto {
    @IsNotEmpty()
    @IsString()
    targetCustomers: string;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    status: string;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsBoolean()
    isPublic: boolean;
-
    @ApiProperty()
    @IsBoolean()
    isPublished: boolean;
-
    @ApiProperty()
    @IsNotEmpty()
    @IsBoolean()
    isArchived: boolean;
-
    @ApiProperty()
    @IsString()
    tags: string;
-
    @ApiProperty()
    @IsNotEmpty()
   // @IsEnum()
-   deliveryMethod: Enumerator;
-
+   deliveryMethod: string;
    @ApiProperty()
    @IsNotEmpty()
    @IsUUID()
    serviceOwnerId: string;
-
    @ApiProperty()
    @IsDecimal()
    averageRating: number;
-
    @ApiProperty()
    @IsBoolean()
    @IsNotEmpty()
    enableReview: boolean;
-
    @ApiProperty()
    @IsString()
    policy: string;
-
    @ApiProperty()
    @IsDate()
    publishedOn: Date;
@@ -353,54 +250,32 @@ export class CreateServiceDto {
  */
    static fromDTO(serviceDto: CreateServiceDto): Service {
       const service: Service = new Service();
-
       service.id = serviceDto.id;
-
       service.name = serviceDto.name;
-
       service.description = serviceDto.description;
-
       service.code = serviceDto.code;
-
       service.fullyQualifiedName = serviceDto.fullyQualifiedName;
       //service.medias = serviceDto.medias.map(item => CreateMediaDto.fromDTO(item));
-
       service.supportedQualifications = serviceDto.supportedQualifications;
-
       service.version = serviceDto.version;
-
       service.procedure = serviceDto.procedure;
      // service.serviceFees = serviceDto.serviceFees.map(item => CreateServiceFeeDto.fromDTO(item));
      // service.processingTimes = serviceDto.processingTimes.map(item => CreateProcessingTimeDto.fromDTO(item));
      // service.serviceDependencies = serviceDto.serviceDependencies.map(item => CreateServiceDependencyDto.fromDTO(item));
      // service.languages = serviceDto.languages.map(item => CreateLanguageDto.fromDTO(item));
-
-
      // service.applicationForm = CreateApplicationFormDto.fromDTO(serviceDto.applicationForm);
       //service.serviceResources = serviceDto.serviceResources.map(item => CreateServiceResourceDto.fromDTO(item));
-
       service.targetCustomers = serviceDto.targetCustomers;
-
       service.status = serviceDto.status;
-
       service.isPublic = serviceDto.isPublic;
-
       service.isPublished = serviceDto.isPublished;
-
       service.isArchived = serviceDto.isArchived;
-
       service.tags = serviceDto.tags;
-
       service.deliveryMethod = serviceDto.deliveryMethod;
-
       service.serviceOwnerId = serviceDto.serviceOwnerId;
-
       service.averageRating = serviceDto.averageRating;
-
       service.enableReview = serviceDto.enableReview;
-
       service.policy = serviceDto.policy;
-
       service.publishedOn = serviceDto.publishedOn;
       return service;
    }

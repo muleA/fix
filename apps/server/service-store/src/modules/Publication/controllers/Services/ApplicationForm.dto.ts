@@ -1,25 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsNumber, IsFQDN, IsString, MaxLength } from 'class-validator';
-import { ApplicationForm } from '../../domain/ApplicationForms/applicationForm';
-
+import { ApplicationForm } from '../../domain/services/ApplicationForm';
+//import { ApplicationForm } from '../../domain/ApplicationForms/applicationForm';
 /**
 *A class which contains proporties of ApplicationForm that used to receive paramamer values to be updated in the database
 */
 export class UpdateApplicationFormDto {
-
   @ApiProperty()
   @IsString()
   @MaxLength(255)
   title: string;
-
   @ApiProperty()
   @IsFQDN()
   formUrl: string;
-
   @ApiProperty()
   @IsNotEmpty()
   status: string;
-
   @ApiProperty()
   @IsNotEmpty()
   taskName: string;
@@ -29,22 +25,10 @@ export class UpdateApplicationFormDto {
 */
   static fromDTO(applicationFormDto: UpdateApplicationFormDto): ApplicationForm {
     const applicationForm: ApplicationForm = new ApplicationForm();
-
     applicationForm.title = applicationFormDto.title;
-
-
-
     applicationForm.formUrl = applicationFormDto.formUrl;
-
-
-
     applicationForm.status = applicationFormDto.status;
-
-
-
     applicationForm.taskName = applicationFormDto.taskName;
-
-
     return applicationForm;
   }
 }
@@ -53,20 +37,16 @@ export class UpdateApplicationFormDto {
 *
 */
 export class CreateApplicationFormDto {
-
   @ApiProperty()
   @IsString()
   @MaxLength(255)
   title: string;
-
   @ApiProperty()
   @IsFQDN()
   formUrl: string;
-
   @ApiProperty()
   @IsNotEmpty()
   status: string;
-
   @ApiProperty()
   @IsNotEmpty()
   taskName: string;
@@ -76,13 +56,9 @@ export class CreateApplicationFormDto {
 */
   static fromDTO(applicationFormDto: CreateApplicationFormDto): ApplicationForm {
     const applicationForm: ApplicationForm = new ApplicationForm();
-
     applicationForm.title = applicationFormDto.title;
-
     applicationForm.formUrl = applicationFormDto.formUrl;
-
     applicationForm.status = applicationFormDto.status;
-
     applicationForm.taskName = applicationFormDto.taskName;
     return applicationForm;
   }

@@ -5,6 +5,8 @@ import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { DbConfig } from '../typeormconfig';
 import { InteractionsModule } from "./modules/ServiceInteraction/ServiceInteraction.module";
+import { ClassificationsModule } from "./modules/Classification/Classification.module";
+import { ServicesModule } from "./modules/Publication/Publication.module";
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -24,7 +26,9 @@ import { InteractionsModule } from "./modules/ServiceInteraction/ServiceInteract
     }),
     LoggerModule,
     ExceptionsModule,
-    InteractionsModule
+    ServicesModule,
+   // InteractionsModule, 
+   // ClassificationsModule    
   ],
   controllers: [],
   providers: [],

@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Language } from '../../domain/Languages/language';
+import { Language } from '../../domain/services/Language';
+
  
 /**
 *A class which contains proporties of Language that used to put data to be returned to client

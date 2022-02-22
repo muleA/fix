@@ -1,8 +1,9 @@
-import { InjectRepository } from '@nestjs/typeorm'; 
+
 import { DelegatedService } from '../serviceProviders/DelegatedService';
 
 import { Address } from '../ServiceOwners/address';
 import { ContactInfo } from '../serviceOwners/ContactInfo';
+import { ProviderLocation } from './ProviderLocation';
 export class  ServiceProvider {
  constructor() { } 
  id: string;  
@@ -10,7 +11,7 @@ shortName: string;
 fullName: string;  
 sector: string;  
 contactInfo: ContactInfo;  
-location: Location;  
+location: ProviderLocation;  
 address: Address;  
 delegatedServices: DelegatedService[];  
 code: string;  

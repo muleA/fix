@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 
-export class  Location {
+export class  ProviderLocation {
  constructor() { } 
  city: string;  
 latitude: number;  

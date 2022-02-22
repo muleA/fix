@@ -1,6 +1,3 @@
-ServiceOwner
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { EntityRepository, Repository,  } from 'typeorm';
 import { ServiceOwner } from '../../domain/serviceOwners/serviceOwner';
 import { IServiceOwnerRepository } from '../../domain/serviceOwners/serviceOwner.repository.interface';

@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsUUID, IsString, IsDecimal } from 'class-validator';
-import { ServiceFee } from '../../domain/ServiceFees/serviceFee';
+import {  IsNotEmpty, IsUUID, IsString, IsDecimal } from 'class-validator';
+import { ServiceFee } from '../../domain/services/ServiceFee';
+
 
 /**
 *A class which contains proporties of ServiceFee that used to receive paramamer values to be updated in the database
