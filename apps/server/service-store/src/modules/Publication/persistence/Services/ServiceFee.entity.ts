@@ -4,7 +4,7 @@ import {
   Column,
   PrimaryGeneratedColumn, ManyToOne, JoinColumn
 } from "typeorm";
-import { CommonEntity } from "src/modules/shared/CommonEntity";
+import {CommonEntity} from "src/modules/shared/CommonEntity";
 @Entity({ name: "serviceFees" })
 export class ServiceFeeEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')

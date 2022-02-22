@@ -1,30 +1,34 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString } from 'class-validator';
 import { Category } from '../../domain/Categorys/category';
    
 /**
 *A class which contains proporties of Category that used to receive paramamer values to be updated in the database
 */
 export class UpdateCategoryDto {
-  
 @ApiProperty()
-id: string;
-    
+@IsNumberString()
+id: string;   
 @ApiProperty()
-name: string;
-    
+@IsString()
+@IsNotEmpty()
+name: string;  
 @ApiProperty()
-description: string;
-    
+@IsOptional()
+@IsString()
+description: string;  
 @ApiProperty()
-code: string;
-    
+@IsString()
+@IsNotEmpty()
+code: string;  
 @ApiProperty()
-parentId: string;
-    
+@IsString()
+@IsNotEmpty()
+parentId: string;  
 @ApiProperty()
-createdAt: Date;
-    
+@IsDate()
+@IsNotEmpty()
+createdAt: Date;   
 @ApiProperty()
 updatedAt: Date;
   /**
@@ -69,27 +73,33 @@ return category;
 *A class wich contains proporties of Category that used to receive paramamer values to be saved to database
 *
 */
-export class CreateCategoryDto {
-     
+export class CreateCategoryDto {    
 @ApiProperty()
+@IsNumberString()
 id: string;
-    
 @ApiProperty()
-name: string;
-    
+@IsString()
+@IsNotEmpty()
+name: string;   
 @ApiProperty()
-description: string;
-    
+@IsString()
+@IsOptional()
+description: string;   
 @ApiProperty()
-code: string;
-    
+@IsString()
+@IsNotEmpty()
+code: string;   
 @ApiProperty()
-parentId: string;
-    
+@IsString()
+@IsNotEmpty()
+parentId: string;   
 @ApiProperty()
-createdAt: Date;
-    
+@IsDate()
+@IsNotEmpty()
+createdAt: Date;   
 @ApiProperty()
+@IsDate()
+@IsNotEmpty()
 updatedAt: Date;
   /**
 *A method that mapes  CreateCategoryDto object data to  Category domain object
