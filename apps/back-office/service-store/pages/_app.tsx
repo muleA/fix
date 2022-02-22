@@ -1,12 +1,13 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import './styles.css';
+import '../styles/tailwind/main.css';
+import '../styles/tabler/main.scss';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Welcome to service-store!</title>
+        <title className="tw-text-red-900 bg-blue-lt">Welcome to service-store!</title>
       </Head>
       <main className="app">
         <Component {...pageProps} />
