@@ -1,7 +1,8 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { ServiceEntry } from '../serviceCollections/ServiceEntry';
-import { ServiceResource } from '../serviceCollections/ServiceResource';
+
 import { IServiceCollectionRepository } from '../../domain/serviceCollections/serviceCollection.repository.interface';
+import { ServiceResource } from 'src/modules/Publication/domain/services/ServiceResource';
 export class  ServiceCollection {
  constructor() { } 
  id: string;  
