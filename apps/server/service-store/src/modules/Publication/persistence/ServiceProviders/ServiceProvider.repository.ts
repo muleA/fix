@@ -94,8 +94,7 @@ const serviceProvider: ServiceProvider = new ServiceProvider();
     serviceProviderEntity.code= serviceProvider.code;
     serviceProviderEntity.organizationId= serviceProvider.organizationId;
     serviceProviderEntity.organizationName= serviceProvider.organizationName;
-    serviceProviderEntity.createdAt= serviceProvider.createdAt;
-    serviceProviderEntity.updatedAt= serviceProvider.updatedAt;
+   
  return serviceProviderEntity;
   }
  

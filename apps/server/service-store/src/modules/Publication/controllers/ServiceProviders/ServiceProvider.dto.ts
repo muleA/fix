@@ -5,6 +5,7 @@ import {
   IsUUID,
 } from 'class-validator';
 import { Address } from '../../domain/ServiceOwners/address';
+import { ProviderLocation } from '../../domain/ServiceProviders/ProviderLocation';
 import { ServiceProvider } from '../../domain/ServiceProviders/serviceProvider';
 import {
   CreateContactInfoDto,
@@ -39,7 +40,7 @@ export class UpdateServiceProviderDto {
   contactInfo: UpdateContactInfoDto;
 
   @ApiProperty()
-  location: Location;
+  location: ProviderLocation;
 
   @ApiProperty()
   address: Address;
@@ -121,7 +122,7 @@ export class CreateServiceProviderDto {
   contactInfo: CreateContactInfoDto;
 
   @ApiProperty()
-  location: Location;
+  location: ProviderLocation;
 
   @ApiProperty()
   address: Address;
