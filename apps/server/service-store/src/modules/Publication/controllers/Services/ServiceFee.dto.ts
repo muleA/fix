@@ -1,68 +1,63 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsNumber, IsString, IsDecimal } from 'class-validator';
 import { ServiceFee } from '../../domain/ServiceFees/serviceFee';
-   
+
 /**
 *A class which contains proporties of ServiceFee that used to receive paramamer values to be updated in the database
 */
 export class UpdateServiceFeeDto {
-  
-@ApiProperty()
-id: string;
-    
-@ApiProperty()
-serviceId: string;
-    
-@ApiProperty()
-fee: number;
-    
-@ApiProperty()
-currency: string;
-    
-@ApiProperty()
-description: string;
-    
-@ApiProperty()
-createdAt: Date;
-    
-@ApiProperty()
-updatedAt: Date;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  id: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  serviceId: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsDecimal()
+  fee: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  currency: string;
+
+  @ApiProperty()
+  @IsString()
+  description: string;
+
   /**
 *A method that mapes  UpdateServiceFeeDto object data to  ServiceFee domain object
 *@returns ServiceFee domain object which contains ServiceFee  information
 */
-static fromDTO(serviceFeeDto:UpdateServiceFeeDto): ServiceFee
-{
-const serviceFee: ServiceFee = new ServiceFee();  
- 
-serviceFee.id=serviceFeeDto.id; 
+  static fromDTO(serviceFeeDto: UpdateServiceFeeDto): ServiceFee {
+    const serviceFee: ServiceFee = new ServiceFee();
+
+    serviceFee.id = serviceFeeDto.id;
 
 
- 
-serviceFee.serviceId=serviceFeeDto.serviceId; 
+
+    serviceFee.serviceId = serviceFeeDto.serviceId;
 
 
- 
-serviceFee.fee=serviceFeeDto.fee; 
+
+    serviceFee.fee = serviceFeeDto.fee;
 
 
- 
-serviceFee.currency=serviceFeeDto.currency; 
+
+    serviceFee.currency = serviceFeeDto.currency;
 
 
- 
-serviceFee.description=serviceFeeDto.description; 
+
+    serviceFee.description = serviceFeeDto.description;
 
 
- 
-serviceFee.createdAt=serviceFeeDto.createdAt; 
-
-
- 
-serviceFee.updatedAt=serviceFeeDto.updatedAt; 
-
-
-return serviceFee;
+    return serviceFee;
   }
 }
 /**
@@ -70,48 +65,47 @@ return serviceFee;
 *
 */
 export class CreateServiceFeeDto {
-     
-@ApiProperty()
-id: string;
-    
-@ApiProperty()
-serviceId: string;
-    
-@ApiProperty()
-fee: number;
-    
-@ApiProperty()
-currency: string;
-    
-@ApiProperty()
-description: string;
-    
-@ApiProperty()
-createdAt: Date;
-    
-@ApiProperty()
-updatedAt: Date;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  id: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  serviceId: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsDecimal()
+  fee: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  currency: string;
+
+  @ApiProperty()
+  @IsString()
+  description: string;
+
   /**
 *A method that mapes  CreateServiceFeeDto object data to  ServiceFee domain object
 *@returns ServiceFee domain object which contains ServiceFee  information
-*/    
-static fromDTO(serviceFeeDto:CreateServiceFeeDto): ServiceFee
-{
-const serviceFee: ServiceFee = new ServiceFee();  
- 
-serviceFee.id=serviceFeeDto.id; 
- 
-serviceFee.serviceId=serviceFeeDto.serviceId; 
- 
-serviceFee.fee=serviceFeeDto.fee; 
- 
-serviceFee.currency=serviceFeeDto.currency; 
- 
-serviceFee.description=serviceFeeDto.description; 
- 
-serviceFee.createdAt=serviceFeeDto.createdAt; 
- 
-serviceFee.updatedAt=serviceFeeDto.updatedAt; 
-     return serviceFee;
-    }
+*/
+  static fromDTO(serviceFeeDto: CreateServiceFeeDto): ServiceFee {
+    const serviceFee: ServiceFee = new ServiceFee();
+
+    serviceFee.id = serviceFeeDto.id;
+
+    serviceFee.serviceId = serviceFeeDto.serviceId;
+
+    serviceFee.fee = serviceFeeDto.fee;
+
+    serviceFee.currency = serviceFeeDto.currency;
+
+    serviceFee.description = serviceFeeDto.description;
+    return serviceFee;
+  }
 }
