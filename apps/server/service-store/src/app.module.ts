@@ -24,7 +24,7 @@ import { InteractionsModule } from "./modules/ServiceInteraction/ServiceInteract
     }),
     LoggerModule,
     ExceptionsModule,
-    InteractionsModule
+    InteractionsModule,     
   ],
   controllers: [],
   providers: [],
