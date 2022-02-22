@@ -6,6 +6,10 @@ import { FavoritesController } from "./controllers/Favorites/Favorite.controller
 import { RatingsController } from "./controllers/Ratings/Rating.controller";
 import { ReviewsController } from "./controllers/Reviews/Review.controller";
 import { SearchHistorysController } from "./controllers/SearchHistorys/SearchHistory.controller";
+import { FavoriteRepository } from "./persistence/favorites/favorite.repository";
+import { RatingRepository } from "./persistence/ratings/rating.repository";
+import { ReviewRepository } from "./persistence/reviews/review.repository";
+import { SearchHistoryRepository } from "./persistence/searchHistorys/searchHistory.repository";
 import { FavoriteUseCases } from "./usecases/favorite.usecases";
 import { RatingUseCases } from "./usecases/rating.usecases";
 import { ReviewUseCases } from "./usecases/review.usecases";
@@ -18,7 +22,7 @@ import { SearchHistoryUseCases } from "./usecases/searchHistory.usecases";
 //import { LikeUseCases } from "./usecases/Like.usecases";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([])],
+  imports: [TypeOrmModule.forFeature([FavoriteRepository,RatingRepository, ReviewRepository,SearchHistoryRepository])],
   providers: [FavoriteUseCases, RatingUseCases,SearchHistoryUseCases,ReviewUseCases ],
   controllers: [
     FavoritesController,

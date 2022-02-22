@@ -7,7 +7,7 @@ import { IServiceProviderRepository } from '../../domain/serviceProviders/servic
 import { ServiceProviderEntity } from './serviceProvider.entity';
 
 //@Injectable()
-@EntityRepository(ServiceProviderEntity)
+@EntityRepository(ServiceProviderRepository)
 export class ServiceProviderRepository extends Repository<ServiceProviderEntity> implements IServiceProviderRepository {
   constructor() {
     super()
@@ -94,8 +94,8 @@ const serviceProvider: ServiceProvider = new ServiceProvider();
     serviceProviderEntity.code= serviceProvider.code;
     serviceProviderEntity.organizationId= serviceProvider.organizationId;
     serviceProviderEntity.organizationName= serviceProvider.organizationName;
-    serviceProviderEntity.createdAt= serviceProvider.createdAt;
-    serviceProviderEntity.updatedAt= serviceProvider.updatedAt;
+   // serviceProviderEntity.createdAt= serviceProvider.createdAt;
+   // serviceProviderEntity.updatedAt= serviceProvider.updatedAt;
  return serviceProviderEntity;
   }
  

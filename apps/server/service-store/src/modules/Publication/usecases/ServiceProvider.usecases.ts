@@ -9,6 +9,7 @@ import { ServiceProvider } from '../domain/serviceProviders/serviceProvider';
 import { IServiceProviderRepository } from '../domain/serviceProviders/serviceProvider.repository.interface';
 import { ServiceProviderRepository } from '../persistence/serviceProviders/serviceProvider.repository';
 import { CreateServiceProviderDto, UpdateServiceProviderDto } from '../controllers/serviceProviders/serviceProvider.dto';
+import { ServiceProviderEntity } from '../persistence/serviceProviders/serviceProvider.entity';
 @Injectable()
 export class ServiceProviderUseCases {
 private serviceProviderdomain=new ServiceProvider();
@@ -16,7 +17,7 @@ private serviceProviderdomain=new ServiceProvider();
   /**
   * A constructor which injects a repository class that used to manage record in the database
   */
-  constructor(@InjectRepository(ServiceProviderRepository)
+  constructor(@InjectRepository(ServiceProviderEntity)
   private serviceProviderRepository: IServiceProviderRepository) { }
 
 /**

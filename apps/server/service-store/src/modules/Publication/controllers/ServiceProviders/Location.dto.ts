@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { Location } from '../../domain/ServiceProviders/location';
+import { ProviderLocation } from '../../domain/ServiceProviders/ProviderLocation';
 /**
  *A class which contains proporties of Location that used to receive paramamer values to be updated in the database
  */
@@ -20,8 +20,8 @@ export class UpdateLocationDto {
    *A method that mapes  UpdateLocationDto object data to  Location domain object
    *@returns Location domain object which contains Location  information
    */
-  static fromDTO(locationDto: UpdateLocationDto): Location {
-    const location: Location = new Location();
+  static fromDTO(locationDto: UpdateLocationDto): ProviderLocation {
+    const location: ProviderLocation = new ProviderLocation();
 
     location.city = locationDto.city;
 
@@ -60,8 +60,8 @@ export class CreateLocationDto {
    *A method that mapes  CreateLocationDto object data to  Location domain object
    *@returns Location domain object which contains Location  information
    */
-  static fromDTO(locationDto: CreateLocationDto): Location {
-    const location: Location = new Location();
+  static fromDTO(locationDto: CreateLocationDto): ProviderLocation {
+    const location: ProviderLocation = new ProviderLocation();
 
     location.city = locationDto.city;
 

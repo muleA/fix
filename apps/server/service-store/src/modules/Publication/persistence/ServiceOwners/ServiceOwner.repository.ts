@@ -1,6 +1,3 @@
-ServiceOwner
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { EntityRepository, Repository,  } from 'typeorm';
 import { ServiceOwner } from '../../domain/serviceOwners/serviceOwner';
 import { IServiceOwnerRepository } from '../../domain/serviceOwners/serviceOwner.repository.interface';
@@ -64,8 +61,8 @@ const serviceOwner: ServiceOwner = new ServiceOwner();
     serviceOwner.shortName= serviceOwnerEntity.shortName;
     serviceOwner.fullName= serviceOwnerEntity.fullName;
     serviceOwner.sector= serviceOwnerEntity.sector;
-   // serviceOwner.contactInfo= serviceOwnerEntity.contactInfo;
-   // serviceOwner.address= serviceOwnerEntity.address;
+    //serviceOwner.contactInfo= serviceOwnerEntity.contactInfo;
+    //serviceOwner.address= serviceOwnerEntity.address;
     serviceOwner.code= serviceOwnerEntity.code;
     serviceOwner.organizationId= serviceOwnerEntity.organizationId;
     serviceOwner.organizationName= serviceOwnerEntity.organizationName;
@@ -85,8 +82,8 @@ const serviceOwner: ServiceOwner = new ServiceOwner();
     serviceOwnerEntity.shortName= serviceOwner.shortName;
     serviceOwnerEntity.fullName= serviceOwner.fullName;
     serviceOwnerEntity.sector= serviceOwner.sector;
-   // serviceOwnerEntity.contactInfo= serviceOwner.contactInfo;
-   // serviceOwnerEntity.address= serviceOwner.address;
+    //serviceOwnerEntity.contactInfo= serviceOwner.contactInfo;
+    //serviceOwnerEntity.address= serviceOwner.address;
     serviceOwnerEntity.code= serviceOwner.code;
     serviceOwnerEntity.organizationId= serviceOwner.organizationId;
     serviceOwnerEntity.organizationName= serviceOwner.organizationName;
