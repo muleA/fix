@@ -10,7 +10,7 @@ export default interface service{
     Description?:string;
     Code:string;
     FQName:string;
-    images:Image[];
+    Images:Image[];
     Qualifications:Qualification[];
     Versions:Version[];
     Instructions:Instruction[];
