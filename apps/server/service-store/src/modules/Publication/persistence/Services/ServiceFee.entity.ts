@@ -6,7 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn, OneToOne,OneToMany,ManyToOne,JoinColumn
 } from "typeorm";
-import BaseEntity from "src/modules/shared/BaseEntity";
+import BaseEntity from "src/modules/shared/CommonEntity";
 
 @Entity({ name: "serviceFee" })
 export class ServiceFeeEntity extends BaseEntity {

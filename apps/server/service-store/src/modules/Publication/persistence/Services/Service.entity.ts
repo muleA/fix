@@ -7,10 +7,10 @@ import {
 } from "typeorm";
 
 import { ServiceFeeEntity } from './ServiceFee.entity';
-import BaseEntity from 'src/modules/shared/BaseEntity';
+import {CommonEntity} from 'src/modules/shared/CommonEntity';
 
 @Entity({ name: "services" })
-export class ServiceEntity  extends BaseEntity{
+export class ServiceEntity  extends CommonEntity{
    @PrimaryGeneratedColumn('uuid')
   id: string;
    

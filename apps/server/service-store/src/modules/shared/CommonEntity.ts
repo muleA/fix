@@ -1,16 +1,14 @@
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
   CreateDateColumn,DeleteDateColumn,
-  UpdateDateColumn, OneToOne,OneToMany,ManyToOne,
+  UpdateDateColumn,
 } from "typeorm";
 
-export default abstract class BaseEntity{
+export abstract class CommonEntity{
   @Column()
   createdBy:string;
   @Column()
-  updateddBy?:string;
+  updatedBy?:string;
   @CreateDateColumn()
   createdAt: Date;  
   @UpdateDateColumn()
