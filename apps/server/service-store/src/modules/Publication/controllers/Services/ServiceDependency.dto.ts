@@ -1,8 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsUUID, IsString } from 'class-validator';
 import { ServiceDependency } from '../../domain/services/ServiceDependency';
-
-
 /**
 *A class which contains proporties of ServiceDependency that used to receive paramamer values to be updated in the database
 */
