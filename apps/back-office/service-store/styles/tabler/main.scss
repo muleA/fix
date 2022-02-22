@@ -1,0 +1,21 @@
+$theme-colors: (
+  "primary": #0d6efd,
+  "secondary":#6c757d,
+  "success": #198754,
+  "info": #0dcaf0,
+  "warning": #ffc107,
+  "danger": #dc3545,
+  "light": rgb(238, 245, 245),
+  "dark":  #232316,
+  "muted": #dadac0
+) !default;
+$google-font: 'serif';
+
+
+
+
+@import './scss//tabler.scss';
+
+.active{
+  background-color: #333;
+}
