@@ -1,4 +1,7 @@
 import IconAppStore from "../../shared/components/icons/IconAppStore";
+import IconArrowDown from "../../shared/components/icons/IconArrowDown";
+import IconQuestionMark from "../../shared/components/icons/IconQuestionMark";
+
 import Link from "next/link";
 import { useState } from "react";
 
@@ -6,6 +9,7 @@ const MainNavbar = () => {
 
     const [languageDropDown, setLanguageDropDown] = useState<boolean>(false);
     const [profileDropDown, setProfileDropDown] = useState<boolean>(false);
+    const [moreDropDown, setMoreDropDown] = useState<boolean>(false);
 
     const onLanguageMouseOver = () => {
         setLanguageDropDown(true);
@@ -21,8 +25,15 @@ const MainNavbar = () => {
         setProfileDropDown(false);
     }
 
+    const onMoreMouseOver = () => {
+        setMoreDropDown(true);
+    }
+    const onMoreMouseLeave = () => {
+        setMoreDropDown(false);
+    }
+
     return (
-        <nav className="tw-flex tw-justify-between tw-py-0 tw-px-2 navbar navbar-expand-sm bg-primary">
+        <nav className="tw-h-[40px] tw-flex tw-justify-between tw-py-0 tw-px-2 bg-primary">
             <div className="tw-flex tw-items-center tw-text-gray-100 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-cursor-pointer tw-px-2 tw-border-r tw-border-r-gray-100">
                 <div className=" tw-mr-1">
                     <IconAppStore />
@@ -31,26 +42,41 @@ const MainNavbar = () => {
                     EGP | Registration
                 </div>
             </div>
-            <ul className="navbar-nav tw-grow tw-text-gray-100">
-                <li className="tw-flex tw-items-center tw-ml-2">
+            <ul className="tw-flex tw-items-center tw-grow tw-text-gray-100 tw-ml-2">
+                <li className="tw-h-full tw-flex tw-items-center">
                     <Link href="/registration/home"><a className="tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline" >Home </a></Link>
                 </li>
-                <li className="tw-flex tw-items-center md:tw-hidden">
-                    <Link href="/registration/home"><a className="tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline">More </a></Link>
-                </li>
-                <li className="tw-flex tw-items-center">
+                <li className="tw-h-full tw-hidden sm:tw-flex sm:tw-items-center">
                     <Link href="/registration/home"><a className="tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline">Organization </a></Link>
                 </li>
-                <li className="tw-flex tw-items-center">
+                <li className="tw-h-full tw-flex tw-items-center md:tw-hidden hover:tw-text-blue-900 hover:tw-bg-white hover:tw-cursor-pointer tw-relative" onMouseOver={onMoreMouseOver} onMouseLeave={onMoreMouseLeave}>
+                    <span className="tw-h-full tw-flex tw-px-2 tw-py-2">More <IconArrowDown /> </span>
+                    {moreDropDown &&
+                        <div className="tw-flex tw-flex-col tw-text-gray-500 tw-bg-white tw-absolute tw-top-[40px] tw-right-0 tw-shadow-md tw-min-w-[180px]">
+                            <div className="tw-pl-3 tw-py-2 sm:tw-hidden hover:tw-bg-gray-200" >
+                                <Link href="/registration/home"><a className="tw-text-gray-500 hover:tw-no-underline hover:tw-text-gray-500">Organization</a></Link>
+                            </div>
+                            <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200">
+                                <Link href="/registration/home"><a className="tw-text-gray-500 hover:tw-no-underline hover:tw-text-gray-500">Administration</a></Link>
+                            </div>
+                            <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200" >
+                                <Link href="/registration/home"><a className="tw-text-gray-500 hover:tw-no-underline hover:tw-text-gray-500">Reports</a></Link>
+                            </div>
+                        </div>
+                    }
+                </li>
+                <li className="tw-h-full tw-hidden md:tw-flex md:tw-items-center">
                     <Link href="/registration/home"><a className="tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline">Administration </a></Link>
                 </li>
-                <li className="tw-flex tw-items-center">
+                <li className="tw-h-full tw-hidden md:tw-flex md:tw-items-center">
                     <Link href="/registration/home"><a className="tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline">Reports </a></Link>
                 </li>
             </ul>
-            <ul className="navbar-nav tw-text-gray-100">
-                <li className="nav-item tw-px-2 hover:tw-cursor-pointer">?</li>
-                <li className="nav-item tw-px-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-cursor-pointer tw-relative" onMouseOver={onLanguageMouseOver} onMouseLeave={onLanguageMouseLeave}>English
+            <ul className="tw-flex tw-items-center tw-text-gray-100">
+                <li className="tw-h-full tw-flex tw-items-center tw-px-2 hover:tw-cursor-pointer">
+                    <Link href="/registration/home"><a><IconQuestionMark /></a></Link>
+                </li>
+                <li className="tw-h-full tw-flex tw-items-center tw-px-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-cursor-pointer tw-relative" onMouseOver={onLanguageMouseOver} onMouseLeave={onLanguageMouseLeave}>English
                     {languageDropDown &&
                         <div className="tw-flex tw-flex-col tw-text-gray-500 tw-bg-white tw-absolute tw-top-[40px] tw-right-0 tw-shadow-md tw-min-w-[100px]">
                             <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200" >
@@ -66,19 +92,19 @@ const MainNavbar = () => {
                     }
 
                 </li>
-                <li className="nav-item tw-px-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-cursor-pointer tw-relative" onMouseOver={onProfileMouseOver} onMouseLeave={onProfileMouseLeave}>
+                <li className="tw-h-full tw-flex tw-items-center tw-px-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-cursor-pointer tw-relative" onMouseOver={onProfileMouseOver} onMouseLeave={onProfileMouseLeave}>
                     <div className="tw-flex tw-flex-row tw-items-center">
                         <div>
                             <span className="avatar avatar-sm rounded-circle">JD</span>
                         </div>
-                        <div className="tw-pl-2">
-                            <h4>John Dessie</h4>
+                        <div className="tw-hidden lg:tw-block tw-pl-2">
+                            <h4 className="tw-text-base">John Dessie</h4>
                             <p className="tw-text-xs">PIS \ Organization administrator</p>
                         </div>
                     </div>
 
                     {profileDropDown &&
-                        <div className="tw-flex tw-flex-col tw-text-gray-500 tw-bg-white  tw-absolute tw-w-full tw-top-[40px] tw-left-0 tw-shadow-md ">
+                        <div className="tw-flex tw-flex-col tw-text-gray-500 tw-bg-white  tw-absolute tw-min-w-[200px] md:tw-min-w-0 md:tw-w-full tw-top-[40px] tw-right-0 md:tw-left-0 tw-shadow-md ">
                             <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200" >
                                 Profile
                             </div>
