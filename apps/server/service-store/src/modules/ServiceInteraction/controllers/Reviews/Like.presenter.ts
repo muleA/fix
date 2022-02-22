@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Like } from '../../domain/Reviews/like';
 /**
 *A class which contains proporties of Like that used to put data to be returned to client
-*
 */
 export class LikePresenter {
 @ApiProperty()
@@ -24,5 +23,5 @@ this.reviewId = like.reviewId;
 this.userId = like.userId;  
 this.createdAt = like.createdAt;  
 this.updatedAt = like.updatedAt;  
-  }
+}
 }
