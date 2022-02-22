@@ -9,6 +9,7 @@ import { ProcessingTimeEntity } from "./ProcessingTime.entity";
 import { ServiceDependencyEntity } from "./ServiceDependency.entity";
 import { ServiceResourceEntity } from "./ServiceResource.entity";
 import { CommonEntity } from "src/modules/shared/CommonEntity";
+import { ApplicationForm } from "../../domain/services/ApplicationForm";
 @Entity({ name: "services" })
 export class ServiceEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
