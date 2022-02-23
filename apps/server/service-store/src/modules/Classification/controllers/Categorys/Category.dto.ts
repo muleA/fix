@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsDate, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsDate, IsNotEmpty, IsUUID, IsNumberString, IsOptional, IsString } from 'class-validator';
 import { Category } from '../../domain/Categorys/category';
    
 /**
@@ -7,30 +7,26 @@ import { Category } from '../../domain/Categorys/category';
 */
 export class UpdateCategoryDto {
 @ApiProperty()
-@IsNumberString()
+@IsNotEmpty()
+@IsUUID()
 id: string;   
 @ApiProperty()
 @IsString()
 @IsNotEmpty()
 name: string;  
 @ApiProperty()
-@IsOptional()
 @IsString()
+@IsNotEmpty()
 description: string;  
 @ApiProperty()
 @IsString()
 @IsNotEmpty()
 code: string;  
 @ApiProperty()
-@IsString()
 @IsNotEmpty()
+@IsUUID()
 parentId: string;  
-@ApiProperty()
-@IsDate()
-@IsNotEmpty()
-createdAt: Date;   
-@ApiProperty()
-updatedAt: Date;
+
   /**
 *A method that mapes  UpdateCategoryDto object data to  Category domain object
 *@returns Category domain object which contains Category  information
@@ -58,12 +54,6 @@ category.code=categoryDto.code;
 category.parentId=categoryDto.parentId; 
 
 
- 
-category.createdAt=categoryDto.createdAt; 
-
-
- 
-category.updatedAt=categoryDto.updatedAt; 
 
 
 return category;
@@ -74,33 +64,26 @@ return category;
 *
 */
 export class CreateCategoryDto {    
-@ApiProperty()
-@IsNumberString()
-id: string;
-@ApiProperty()
-@IsString()
-@IsNotEmpty()
-name: string;   
-@ApiProperty()
-@IsString()
-@IsOptional()
-description: string;   
-@ApiProperty()
-@IsString()
-@IsNotEmpty()
-code: string;   
-@ApiProperty()
-@IsString()
-@IsNotEmpty()
-parentId: string;   
-@ApiProperty()
-@IsDate()
-@IsNotEmpty()
-createdAt: Date;   
-@ApiProperty()
-@IsDate()
-@IsNotEmpty()
-updatedAt: Date;
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsUUID()
+  id: string;   
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  name: string;  
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  description: string;  
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  code: string;  
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsUUID()
+  parentId: string;  
   /**
 *A method that mapes  CreateCategoryDto object data to  Category domain object
 *@returns Category domain object which contains Category  information
@@ -118,10 +101,6 @@ category.description=categoryDto.description;
 category.code=categoryDto.code; 
  
 category.parentId=categoryDto.parentId; 
- 
-category.createdAt=categoryDto.createdAt; 
- 
-category.updatedAt=categoryDto.updatedAt; 
      return category;
     }
 }
