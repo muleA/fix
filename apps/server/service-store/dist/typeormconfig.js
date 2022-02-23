@@ -10,14 +10,15 @@ exports.DbConfig = {
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
     schema: process.env.DATABASE_SCHEMA,
-    entities: [__dirname + "/**/*.entity{.ts,.js}"],
-    synchronize: false,
+    autoLoadEntities: true,
+    entities: ["dist/**/**/**/**/*.entity{.ts,.js}"],
+    synchronize: true,
     migrationsRun: false,
     logging: true,
     logger: "file",
-    migrations: ["src/migrations/**/*{.ts,.js}"],
+    migrations: ["/src/migrations/**/*{.ts,.js}"],
     cli: {
-        migrationsDir: "src/migrations",
+        migrationsDir: "database/migrations",
     },
 };
 //# sourceMappingURL=typeormconfig.js.map

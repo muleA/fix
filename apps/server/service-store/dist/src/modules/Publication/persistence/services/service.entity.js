@@ -50,7 +50,7 @@ __decorate([
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "supportedQualifications", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)('double precision'),
     __metadata("design:type", Number)
 ], ServiceEntity.prototype, "version", void 0);
 __decorate([
@@ -114,7 +114,7 @@ __decorate([
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "serviceOwnerId", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)('double precision'),
     __metadata("design:type", Number)
 ], ServiceEntity.prototype, "averageRating", void 0);
 __decorate([

@@ -32,7 +32,7 @@ __decorate([
     __metadata("design:type", serviceCollection_entity_1.ServiceCollectionEntity)
 ], ServiceEntryEntity.prototype, "serviceCollection", void 0);
 ServiceEntryEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: "serviceEntry" })
+    (0, typeorm_1.Entity)({ name: "serviceEntries" })
 ], ServiceEntryEntity);
 exports.ServiceEntryEntity = ServiceEntryEntity;
 //# sourceMappingURL=ServiceEntry.entity.js.map

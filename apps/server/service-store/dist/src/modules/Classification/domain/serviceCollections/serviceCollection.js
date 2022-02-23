@@ -18,18 +18,17 @@ class ServiceCollection {
         this.serviceEntries = serviceEntries;
     }
     async addServiceResource(createServiceResource) {
-        this.resources.push(createServiceResource);
+        this.serviceResources.push(createServiceResource);
     }
     async updateServiceResource(serviceResource) {
-        var existIndex = this.resources.findIndex(element => element.id == serviceResource.id);
-        this.resources[existIndex] = serviceResource;
+        var existIndex = this.serviceResources.findIndex(element => element.id == serviceResource.id);
+        this.serviceResources[existIndex] = serviceResource;
     }
     async removeServiceResource(id) {
-        this.resources = this.resources.filter(element => element.id != id);
+        this.serviceResources = this.serviceResources.filter(element => element.id != id);
     }
-    async updateResources(resources) {
-        this.resources = [];
-        this.resources = resources;
+    async updateResources(serviceResources) {
+        this.serviceResources = serviceResources;
     }
 }
 exports.ServiceCollection = ServiceCollection;

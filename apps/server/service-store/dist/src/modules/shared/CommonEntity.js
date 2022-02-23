@@ -22,7 +22,7 @@ __decorate([
     __metadata("design:type", String)
 ], CommonEntity.prototype, "updatedBy", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)(),
+    (0, typeorm_1.CreateDateColumn)({ type: 'timestamptz' }),
     __metadata("design:type", Date)
 ], CommonEntity.prototype, "createdAt", void 0);
 __decorate([

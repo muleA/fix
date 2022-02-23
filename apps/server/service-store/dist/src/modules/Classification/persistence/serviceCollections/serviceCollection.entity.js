@@ -33,7 +33,6 @@ __decorate([
     __metadata("design:type", String)
 ], ServiceCollectionEntity.prototype, "code", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
     (0, typeorm_1.OneToMany)(type => ServiceEntry_entity_1.ServiceEntryEntity, serviceEntry => serviceEntry.serviceCollectionId),
     __metadata("design:type", Array)
 ], ServiceCollectionEntity.prototype, "serviceEntries", void 0);
@@ -58,7 +57,6 @@ __decorate([
     __metadata("design:type", String)
 ], ServiceCollectionEntity.prototype, "tags", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
     (0, typeorm_1.OneToMany)(type => ServiceResource_entity_1.ServiceResourceEntity, resource => resource.service),
     __metadata("design:type", Array)
 ], ServiceCollectionEntity.prototype, "resources", void 0);

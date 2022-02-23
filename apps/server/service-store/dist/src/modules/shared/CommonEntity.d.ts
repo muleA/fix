@@ -4,5 +4,5 @@ export declare abstract class CommonEntity {
     createdAt: Date;
     updatedAt: Date;
     deletedAt?: Date;
-    deletedBy: string;
+    deletedBy?: string;
 }

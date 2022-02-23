@@ -6,6 +6,7 @@ export declare const DbConfig: {
     password: string;
     database: string;
     schema: string;
+    autoLoadEntities: boolean;
     entities: string[];
     synchronize: boolean;
     migrationsRun: boolean;

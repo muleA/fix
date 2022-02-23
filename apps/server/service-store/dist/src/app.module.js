@@ -16,7 +16,7 @@ const exceptions_module_1 = require("./infrastructure/exceptions/exceptions.modu
 const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeormconfig_1 = require("../typeormconfig");
-const Publication_module_1 = require("./modules/Publication/Publication.module");
+const ServiceInteraction_module_1 = require("./modules/ServiceInteraction/ServiceInteraction.module");
 let AppModule = class AppModule {
     constructor() {
         console.log(typeormconfig_1.DbConfig);
@@ -42,7 +42,7 @@ AppModule = __decorate([
             }),
             logger_module_1.LoggerModule,
             exceptions_module_1.ExceptionsModule,
-            Publication_module_1.ServicesModule,
+            ServiceInteraction_module_1.InteractionsModule,
         ],
         controllers: [],
         providers: [],

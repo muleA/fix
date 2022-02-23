@@ -1,6 +1,6 @@
 import { ServiceCollection } from '../../domain/ServiceCollections/serviceCollection';
-import { CreateServiceEntryDto, UpdateServiceEntryDto } from './ServiceEntry.dto';
-import { CreateServiceResourceDto, UpdateServiceResourceDto } from './ServiceResource.dto';
+import { UpdateServiceEntryDto } from './ServiceEntry.dto';
+import { UpdateServiceResourceDto } from './ServiceResource.dto';
 export declare class UpdateServiceCollectionDto {
     id: string;
     name: string;
@@ -12,11 +12,9 @@ export declare class UpdateServiceCollectionDto {
     procedure: string;
     isPublic: boolean;
     tags: string;
-    resources: UpdateServiceResourceDto[];
+    serviceResources: UpdateServiceResourceDto[];
     targetCustomers: string;
     isArchived: boolean;
-    createdAt: Date;
-    updatedAt: Date;
     static fromDTO(serviceCollectionDto: UpdateServiceCollectionDto): ServiceCollection;
 }
 export declare class CreateServiceCollectionDto {
@@ -24,16 +22,14 @@ export declare class CreateServiceCollectionDto {
     name: string;
     description: string;
     code: string;
-    serviceEntries: CreateServiceEntryDto[];
+    serviceEntries: UpdateServiceEntryDto[];
     supportedQualifications: string;
     version: number;
     procedure: string;
     isPublic: boolean;
     tags: string;
-    resources: CreateServiceResourceDto[];
+    serviceResources: UpdateServiceResourceDto[];
     targetCustomers: string;
     isArchived: boolean;
-    createdAt: Date;
-    updatedAt: Date;
     static fromDTO(serviceCollectionDto: CreateServiceCollectionDto): ServiceCollection;
 }

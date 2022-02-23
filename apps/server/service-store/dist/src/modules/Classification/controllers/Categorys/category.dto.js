@@ -21,14 +21,13 @@ class UpdateCategoryDto {
         category.description = categoryDto.description;
         category.code = categoryDto.code;
         category.parentId = categoryDto.parentId;
-        category.createdAt = categoryDto.createdAt;
-        category.updatedAt = categoryDto.updatedAt;
         return category;
     }
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNumberString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], UpdateCategoryDto.prototype, "id", void 0);
 __decorate([
@@ -39,8 +38,8 @@ __decorate([
 ], UpdateCategoryDto.prototype, "name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], UpdateCategoryDto.prototype, "description", void 0);
 __decorate([
@@ -51,20 +50,10 @@ __decorate([
 ], UpdateCategoryDto.prototype, "code", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], UpdateCategoryDto.prototype, "parentId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsDate)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Date)
-], UpdateCategoryDto.prototype, "createdAt", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Date)
-], UpdateCategoryDto.prototype, "updatedAt", void 0);
 exports.UpdateCategoryDto = UpdateCategoryDto;
 class CreateCategoryDto {
     static fromDTO(categoryDto) {
@@ -74,14 +63,13 @@ class CreateCategoryDto {
         category.description = categoryDto.description;
         category.code = categoryDto.code;
         category.parentId = categoryDto.parentId;
-        category.createdAt = categoryDto.createdAt;
-        category.updatedAt = categoryDto.updatedAt;
         return category;
     }
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsNumberString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], CreateCategoryDto.prototype, "id", void 0);
 __decorate([
@@ -93,7 +81,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateCategoryDto.prototype, "description", void 0);
 __decorate([
@@ -104,21 +92,9 @@ __decorate([
 ], CreateCategoryDto.prototype, "code", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], CreateCategoryDto.prototype, "parentId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsDate)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Date)
-], CreateCategoryDto.prototype, "createdAt", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsDate)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Date)
-], CreateCategoryDto.prototype, "updatedAt", void 0);
 exports.CreateCategoryDto = CreateCategoryDto;
 //# sourceMappingURL=category.dto.js.map

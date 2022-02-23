@@ -5,8 +5,6 @@ export declare class UpdateCategoryDto {
     description: string;
     code: string;
     parentId: string;
-    createdAt: Date;
-    updatedAt: Date;
     static fromDTO(categoryDto: UpdateCategoryDto): Category;
 }
 export declare class CreateCategoryDto {
@@ -15,7 +13,5 @@ export declare class CreateCategoryDto {
     description: string;
     code: string;
     parentId: string;
-    createdAt: Date;
-    updatedAt: Date;
     static fromDTO(categoryDto: CreateCategoryDto): Category;
 }

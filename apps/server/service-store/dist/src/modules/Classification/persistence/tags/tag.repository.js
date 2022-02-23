@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TagRepository = void 0;
-tag_1.Tag;
 const typeorm_1 = require("typeorm");
 const tag_1 = require("../../domain/tags/tag");
 const tag_entity_1 = require("./tag.entity");

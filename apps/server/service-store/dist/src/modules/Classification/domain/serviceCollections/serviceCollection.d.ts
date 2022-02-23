@@ -12,7 +12,7 @@ export declare class ServiceCollection {
     procedure: string;
     isPublic: boolean;
     tags: string;
-    resources: ServiceResource[];
+    serviceResources: ServiceResource[];
     targetCustomers: string;
     isArchived: boolean;
     createdAt: Date;
@@ -24,5 +24,5 @@ export declare class ServiceCollection {
     addServiceResource(createServiceResource: ServiceResource): Promise<void>;
     updateServiceResource(serviceResource: ServiceResource): Promise<void>;
     removeServiceResource(id: string): Promise<void>;
-    updateResources(resources: ServiceResource[]): Promise<void>;
+    updateResources(serviceResources: ServiceResource[]): Promise<void>;
 }

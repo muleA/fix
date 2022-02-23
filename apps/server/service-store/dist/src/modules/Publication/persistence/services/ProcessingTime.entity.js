@@ -25,7 +25,7 @@ __decorate([
     __metadata("design:type", service_entity_1.ServiceEntity)
 ], ProcessingTimeEntity.prototype, "service", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)('double precision'),
     __metadata("design:type", Number)
 ], ProcessingTimeEntity.prototype, "time", void 0);
 __decorate([

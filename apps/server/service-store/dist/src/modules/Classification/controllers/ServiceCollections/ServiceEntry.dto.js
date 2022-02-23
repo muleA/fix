@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateServiceEntryDto = exports.UpdateServiceEntryDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
+const class_validator_1 = require("class-validator");
 const ServiceEntry_1 = require("../../domain/serviceCollections/ServiceEntry");
 class UpdateServiceEntryDto {
     static fromDTO(serviceEntryDto) {
@@ -18,31 +19,27 @@ class UpdateServiceEntryDto {
         serviceEntry.id = serviceEntryDto.id;
         serviceEntry.serviceId = serviceEntryDto.serviceId;
         serviceEntry.serviceCollectionId = serviceEntryDto.serviceCollectionId;
-        serviceEntry.createdAt = serviceEntryDto.createdAt;
-        serviceEntry.updatedAt = serviceEntryDto.updatedAt;
         return serviceEntry;
     }
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], UpdateServiceEntryDto.prototype, "id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], UpdateServiceEntryDto.prototype, "serviceId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], UpdateServiceEntryDto.prototype, "serviceCollectionId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Date)
-], UpdateServiceEntryDto.prototype, "createdAt", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Date)
-], UpdateServiceEntryDto.prototype, "updatedAt", void 0);
 exports.UpdateServiceEntryDto = UpdateServiceEntryDto;
 class CreateServiceEntryDto {
     static fromDTO(serviceEntryDto) {
@@ -50,30 +47,26 @@ class CreateServiceEntryDto {
         serviceEntry.id = serviceEntryDto.id;
         serviceEntry.serviceId = serviceEntryDto.serviceId;
         serviceEntry.serviceCollectionId = serviceEntryDto.serviceCollectionId;
-        serviceEntry.createdAt = serviceEntryDto.createdAt;
-        serviceEntry.updatedAt = serviceEntryDto.updatedAt;
         return serviceEntry;
     }
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], CreateServiceEntryDto.prototype, "id", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], CreateServiceEntryDto.prototype, "serviceId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsUUID)(),
     __metadata("design:type", String)
 ], CreateServiceEntryDto.prototype, "serviceCollectionId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Date)
-], CreateServiceEntryDto.prototype, "createdAt", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Date)
-], CreateServiceEntryDto.prototype, "updatedAt", void 0);
 exports.CreateServiceEntryDto = CreateServiceEntryDto;
 //# sourceMappingURL=ServiceEntry.dto.js.map

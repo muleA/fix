@@ -25,7 +25,7 @@ __decorate([
     __metadata("design:type", service_entity_1.ServiceEntity)
 ], ServiceFeeEntity.prototype, "service", void 0);
 __decorate([
-    (0, typeorm_1.Column)('double'),
+    (0, typeorm_1.Column)('double precision'),
     __metadata("design:type", Number)
 ], ServiceFeeEntity.prototype, "fee", void 0);
 __decorate([
@@ -33,7 +33,7 @@ __decorate([
     __metadata("design:type", String)
 ], ServiceFeeEntity.prototype, "currency", void 0);
 __decorate([
-    (0, typeorm_1.Column)('text'),
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], ServiceFeeEntity.prototype, "description", void 0);
 ServiceFeeEntity = __decorate([
