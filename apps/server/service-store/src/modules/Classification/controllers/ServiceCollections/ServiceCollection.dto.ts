@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsUUID, IsArray, IsDecimal, IsString } from 'class-validator';
-import { CreateServiceResourceDto, UpdateServiceResourceDto } from 'src/modules/Publication/controllers/Services/ServiceResource.dto';
+//import { CreateServiceResourceDto, UpdateServiceResourceDto } from 'src/modules/Publication/controllers/Services/ServiceResource.dto';
 import { ServiceCollection } from '../../domain/ServiceCollections/serviceCollection';
 import { CreateServiceEntryDto, UpdateServiceEntryDto } from './ServiceEntry.dto';
+import { UpdateServiceResourceDto, CreateServiceResourceDto } from './ServiceResource.dto';
 
 /**
 *A class which contains proporties of ServiceCollection that used to receive paramamer values to be updated in the database
@@ -111,7 +112,7 @@ export class UpdateServiceCollectionDto {
     serviceCollection.tags = serviceCollectionDto.tags;
 
 
-    serviceCollection.serviceResources = serviceCollectionDto.serviceResources.map(item => UpdateServiceResourceDto.fromDTO(item));
+    serviceCollection.serviceResources = serviceCollectionDto.serviceResources.map(item =>{ return UpdateServiceResourceDto.fromDTO(item)});
 
     serviceCollection.targetCustomers = serviceCollectionDto.targetCustomers;
 
