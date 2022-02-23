@@ -1,7 +1,5 @@
-import { InjectRepository } from '@nestjs/typeorm';
-import { ServiceEntry } from '../serviceCollections/ServiceEntry';
 
-import { IServiceCollectionRepository } from '../../domain/serviceCollections/serviceCollection.repository.interface';
+import { ServiceEntry } from '../serviceCollections/ServiceEntry';
 import { ServiceResource } from './ServiceResource';
 
 export class  ServiceCollection {
@@ -88,7 +86,7 @@ async removeServiceResource( id: string) {
 */ 
 async updateResources(serviceResources: ServiceResource[]) 
 {
-this.serviceResources=[];
+//this.serviceResources=[];
 this.serviceResources=serviceResources;
 }
 }
