@@ -1,0 +1,37 @@
+import { ServiceFeeEntity } from './ServiceFee.entity';
+import { LanguageEntity } from "./Language.entity";
+import { ProcessingTimeEntity } from "./ProcessingTime.entity";
+import { ServiceDependencyEntity } from "./ServiceDependency.entity";
+import { ServiceResourceEntity } from "./ServiceResource.entity";
+import { CommonEntity } from "src/modules/shared/CommonEntity";
+import { ApplicationForm } from "../../domain/services/ApplicationForm";
+import { MediaEntity } from "./Media.entity";
+export declare class ServiceEntity extends CommonEntity {
+    id: string;
+    name: string;
+    description: string;
+    code: string;
+    fullyQualifiedName: string;
+    medias: MediaEntity[];
+    supportedQualifications: string;
+    version: number;
+    procedure: string;
+    serviceFees: ServiceFeeEntity[];
+    processingTimes: ProcessingTimeEntity[];
+    serviceDependencies: ServiceDependencyEntity[];
+    languages: LanguageEntity[];
+    applicationForm: ApplicationForm;
+    serviceResources: ServiceResourceEntity[];
+    targetCustomers: string;
+    status: string;
+    isPublic: boolean;
+    isPublished: boolean;
+    isArchived: boolean;
+    tags: string;
+    deliveryMethod: string;
+    serviceOwnerId: string;
+    averageRating: number;
+    enableReview: boolean;
+    policy: string;
+    publishedOn: Date;
+}

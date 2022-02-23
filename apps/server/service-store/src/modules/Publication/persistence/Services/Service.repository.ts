@@ -1,12 +1,10 @@
 Service
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { EntityRepository, Repository, } from 'typeorm';
+import { EntityRepository, Repository } from "typeorm";
 import { Service } from '../../domain/services/service';
 import { IServiceRepository } from '../../domain/services/service.repository.interface';
 import { ServiceEntity } from './service.entity';
 
-//@Injectable()
+// @Injectable()
 @EntityRepository(ServiceEntity)
 export class ServiceRepository extends Repository<ServiceEntity> implements IServiceRepository {
   constructor() {
@@ -65,16 +63,16 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
     service.description = serviceEntity.description;
     service.code = serviceEntity.code;
     service.fullyQualifiedName = serviceEntity.fullyQualifiedName;
-   // service.medias = serviceEntity.medias;
+    // service.medias = serviceEntity.medias;
     service.supportedQualifications = serviceEntity.supportedQualifications;
     service.version = serviceEntity.version;
     service.procedure = serviceEntity.procedure;
-   // service.serviceFees = serviceEntity.serviceFees;
-   // service.processingTimes = serviceEntity.processingTimes;
-   // service.serviceDependencies = serviceEntity.serviceDependencies;
-   // service.languages = serviceEntity.languages;
+    // service.serviceFees = serviceEntity.serviceFees;
+    // service.processingTimes = serviceEntity.processingTimes;
+    // service.serviceDependencies = serviceEntity.serviceDependencies;
+    // service.languages = serviceEntity.languages;
     service.applicationForm = serviceEntity.applicationForm;
-   // service.serviceResources = serviceEntity.serviceResources;
+    // service.serviceResources = serviceEntity.serviceResources;
     service.targetCustomers = serviceEntity.targetCustomers;
     service.status = serviceEntity.status;
     service.isPublic = serviceEntity.isPublic;
@@ -108,10 +106,10 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
     serviceEntity.supportedQualifications = service.supportedQualifications;
     serviceEntity.version = service.version;
     serviceEntity.procedure = service.procedure;
-   // serviceEntity.serviceFees = service.serviceFees;
-   // serviceEntity.processingTimes = service.processingTimes;
-   // serviceEntity.serviceDependencies = service.serviceDependencies;
-   // serviceEntity.languages = service.languages;
+    // serviceEntity.serviceFees = service.serviceFees;
+    // serviceEntity.processingTimes = service.processingTimes;
+    // serviceEntity.serviceDependencies = service.serviceDependencies;
+    // serviceEntity.languages = service.languages;
     serviceEntity.applicationForm = service.applicationForm;
     //serviceEntity.serviceResources = service.serviceResources;
     serviceEntity.targetCustomers = service.targetCustomers;
