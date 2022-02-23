@@ -19,7 +19,7 @@ export class ServiceCollectionEntity extends CommonEntity {
   description?: string;
   @Column({ name: 'code' })
   code: string;
-  @Column()
+ 
   @OneToMany(type => ServiceEntryEntity, serviceEntry => serviceEntry.serviceCollectionId)
   serviceEntries: ServiceEntryEntity[];
   @Column({ name: 'supportedQualifications' })
@@ -32,7 +32,7 @@ export class ServiceCollectionEntity extends CommonEntity {
   isPublic: boolean;
   @Column({ name: 'tags' })
   tags: string;
-  @Column()
+
   @OneToMany(type => ServiceResourceEntity, resource => resource.service)
   resources: ServiceResource[];
   @Column({ name: 'targetCustomers' })

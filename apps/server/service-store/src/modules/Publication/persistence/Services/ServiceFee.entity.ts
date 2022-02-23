@@ -12,7 +12,7 @@ export class ServiceFeeEntity extends CommonEntity {
   @ManyToOne(type => ServiceEntity, service => service.serviceFees)
   @JoinColumn({ name: 'serviceId' })
   service: ServiceEntity;
-  @Column('double')
+  @Column('double precision') //double precision
   fee: number;
   @Column()
   currency: string;
