@@ -9,7 +9,7 @@ export abstract class CommonEntity{
   createdBy:string;
   @Column()
   updatedBy?:string;
-  @CreateDateColumn('timestamptz')
+  @CreateDateColumn({type:'timestamptz'})
   createdAt: Date;  
   @UpdateDateColumn()
   updatedAt: Date;
