@@ -6,13 +6,13 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn, OneToOne, OneToMany, ManyToOne
+  UpdateDateColumn, OneToOne, OneToMany,ManyToOne
 } from "typeorm";
 import { ServiceEntryEntity } from "./ServiceEntry.entity";
-@Entity({ name: "serviceCollection" })
-export class ServiceCollectionEntity extends CommonEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+@Entity({ name: "serviceCollections" })
+export class ServiceCollectionEntity {
+   @PrimaryGeneratedColumn('uuid')
+  id: string;  
   @Column({ name: 'name' })
   name: string;
   @Column({ name: 'description' })
@@ -20,8 +20,8 @@ export class ServiceCollectionEntity extends CommonEntity {
   @Column({ name: 'code' })
   code: string;
   @Column()
-  @OneToMany(type => ServiceEntryEntity, serviceEntry => serviceEntry.serviceCollectionId)
-  serviceEntries: ServiceEntryEntity[];
+@OneToMany(type =>ServiceEntryEntity, serviceEntry=>serviceEntry.serviceCollection )
+serviceEntries :ServiceEntryEntity[];
   @Column({ name: 'supportedQualifications' })
   supportedQualifications: string;
   @Column({ name: 'version' })
@@ -33,13 +33,13 @@ export class ServiceCollectionEntity extends CommonEntity {
   @Column({ name: 'tags' })
   tags: string;
   @Column()
-  @OneToMany(type => ServiceResourceEntity, resource => resource.service)
-  resources: ServiceResource[];
+  @OneToMany(type =>ServiceResource, serviceResources=>serviceResources.serviceCollection )
+  serviceResources: ServiceResource[];
   @Column({ name: 'targetCustomers' })
   targetCustomers: string;
   @Column({ name: 'isArchived' })
   isArchived: boolean;
 
-
-
+  
+  
 }
