@@ -1,4 +1,4 @@
-Service
+
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EntityRepository, Repository, } from 'typeorm';
@@ -7,11 +7,13 @@ import { IServiceRepository } from '../../domain/services/service.repository.int
 import { ServiceEntity } from './service.entity';
 
 //@Injectable()
-@EntityRepository(ServiceEntity)
+@EntityRepository(ServiceRepository)
 export class ServiceRepository extends Repository<ServiceEntity> implements IServiceRepository {
   constructor() {
     super()
+
   }
+  
   /**
   * A method that updates Service information in the database 
   */
@@ -130,5 +132,6 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
     serviceEntity.updatedAt = service.updatedAt;
     return serviceEntity;
   }
+  
 
 }
