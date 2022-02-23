@@ -1,4 +1,3 @@
-import { InjectRepository } from '@nestjs/typeorm';
 
 import { Media } from '../services/Media';
 
@@ -13,7 +12,6 @@ import { ApplicationForm } from '../services/ApplicationForm';
 
 import { ServiceResource } from '../services/ServiceResource';
 
-import { IServiceRepository } from '../../domain/services/service.repository.interface';
 export class Service {
   constructor() { }
   id: string;
