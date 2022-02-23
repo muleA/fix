@@ -7,6 +7,7 @@ import { ServiceOwnersController } from "./controllers/ServiceOwners/ServiceOwne
 ///import { ServicePromotionsController } from "./controllers/ServicePromotions/ServicePromotion.controller";
 import { ServiceProvidersController } from "./controllers/ServiceProviders/ServiceProvider.controller";
 import { ServicesController } from "./controllers/Services/Service.controller";
+import { ServicePromotionEntity } from "./persistence/Services/ServicePromotion.entity";
 import { ServiceUseCases } from "./usecases/service.usecases";
 import { ServiceOwnerUseCases } from "./usecases/serviceOwner.usecases";
 import { ServiceProviderUseCases } from "./usecases/serviceProvider.usecases";
