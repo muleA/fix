@@ -9,6 +9,8 @@
   },
   "private": true,
   "dependencies": {
+    "@mantine/core": "^3.6.9",
+    "@mantine/next": "^3.6.9",
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
