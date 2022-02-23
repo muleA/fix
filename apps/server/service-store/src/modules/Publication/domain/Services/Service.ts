@@ -255,9 +255,9 @@ export class Service {
    * @param List<createServiceResource> A list of ServiceResource to be saved into database 
    * @returns Success Which notify the  ServiceResource information saved successfully
   */
-  async updateResources(resources: ServiceResource[]) {
+  async updateResources(serviceResources: ServiceResource[]) {
     this.serviceResources = [];
-    this.serviceResources = resources;
+    this.serviceResources = serviceResources;
   }
 
 }
