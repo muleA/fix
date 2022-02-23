@@ -7,14 +7,13 @@ import ApplicationForm from "./application_form";
 export default interface service{
     Id:string;
     Name:string;
-    Description?:string;
+    Description:string;
     Code:string;
     FQName:string;
     Images:Image[];
     Qualifications:Qualification[];
     Versions:Version[];
     Instructions:Instruction[];
-    ServiceInstruction:string[];
     Languages:Language[];
     ApplicationForms:ApplicationForm[];
     Status:"Draft"|"Approve"|"Adjust"|"Reject";
