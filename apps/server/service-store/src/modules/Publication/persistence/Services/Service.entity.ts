@@ -28,7 +28,7 @@ export class ServiceEntity extends CommonEntity {
   medias: MediaEntity[];
   @Column()
   supportedQualifications: string;
-  @Column()
+  @Column('double precision')
   version: number;
   @Column()
   procedure: string;
@@ -60,7 +60,7 @@ export class ServiceEntity extends CommonEntity {
   deliveryMethod: string;
   @Column()
   serviceOwnerId: string;
-  @Column()
+  @Column('double precision')
   averageRating: number;
   @Column()
   enableReview: boolean;
