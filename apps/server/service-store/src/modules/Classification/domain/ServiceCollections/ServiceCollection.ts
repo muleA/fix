@@ -16,7 +16,7 @@ version: number;
 procedure: string;  
 isPublic: boolean;  
 tags: string;  
-resources: ServiceResource[];  
+serviceResources: ServiceResource[];  
 targetCustomers: string;  
 isArchived: boolean;  
 createdAt: Date;  
@@ -62,7 +62,7 @@ this.serviceEntries=serviceEntries;
  * @returns do not return any data
 */ 
 async addServiceResource(createServiceResource: ServiceResource) {
-  this.resources.push(createServiceResource);
+  this.serviceResources.push(createServiceResource);
 }
 /**
  * A method that update a ServiceResource 
@@ -70,8 +70,8 @@ async addServiceResource(createServiceResource: ServiceResource) {
  * @returns Success Which notify the  ServiceResource information updated
 */ 
 async updateServiceResource(serviceResource: ServiceResource) {
-var existIndex=this.resources.findIndex( element=>element.id==serviceResource.id);
-this.resources[existIndex]= serviceResource;
+var existIndex=this.serviceResources.findIndex( element=>element.id==serviceResource.id);
+this.serviceResources[existIndex]= serviceResource;
 }
 /**
  * A method that delete a ServiceResource from the database by id
@@ -79,16 +79,16 @@ this.resources[existIndex]= serviceResource;
  * @returns success which  informs the status of the remove operation successed 
 */
 async removeServiceResource( id: string) {
- this.resources=this.resources.filter( element=>element.id!=id);
+ this.serviceResources=this.serviceResources.filter( element=>element.id!=id);
 }
 /**
  * A method that Remove  and  add  new list of ServiceResource to database
  * @param List<createServiceResource> A list of ServiceResource to be saved into database 
  * @returns Success Which notify the  ServiceResource information saved successfully
 */ 
-async updateResources(resources: ServiceResource[]) 
+async updateResources(serviceResources: ServiceResource[]) 
 {
-this.resources=[];
-this.resources=resources;
+this.serviceResources=[];
+this.serviceResources=serviceResources;
 }
 }
