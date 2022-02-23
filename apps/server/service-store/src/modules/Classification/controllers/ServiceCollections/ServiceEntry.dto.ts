@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsNotEmpty, IsUUID,IsNumber, IsString } from 'class-validator';
-import { ServiceEntry } from '../../domain/ServiceEntrys/serviceEntry';
+import { ServiceEntry } from '../../domain/serviceCollections/ServiceEntry';
+
    
 /**
 *A class which contains proporties of ServiceEntry that used to receive paramamer values to be updated in the database

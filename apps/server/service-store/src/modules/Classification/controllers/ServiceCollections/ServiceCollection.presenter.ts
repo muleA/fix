@@ -51,7 +51,7 @@ this.version = serviceCollection.version;
 this.procedure = serviceCollection.procedure;  
 this.isPublic = serviceCollection.isPublic;  
 this.tags = serviceCollection.tags;  
-this.resources = serviceCollection.resources.map(item=> { return new ServiceResourcePresenter(item)});  
+this.resources = serviceCollection.serviceResources.map(item=> { return new ServiceResourcePresenter(item)});  
 this.targetCustomers = serviceCollection.targetCustomers;  
 this.isArchived = serviceCollection.isArchived;  
 this.createdAt = serviceCollection.createdAt;  
