@@ -7,6 +7,9 @@ import { ServiceOwnersController } from "./controllers/ServiceOwners/ServiceOwne
 ///import { ServicePromotionsController } from "./controllers/ServicePromotions/ServicePromotion.controller";
 import { ServiceProvidersController } from "./controllers/ServiceProviders/ServiceProvider.controller";
 import { ServicesController } from "./controllers/Services/Service.controller";
+import { ServiceOwnerRepository } from "./persistence/serviceOwners/serviceOwner.repository";
+import { ServiceProviderRepository } from "./persistence/serviceProviders/serviceProvider.repository";
+import { ServiceRepository } from "./persistence/services/service.repository";
 import { ServicePromotionEntity } from "./persistence/Services/ServicePromotion.entity";
 import { ServiceUseCases } from "./usecases/service.usecases";
 import { ServiceOwnerUseCases } from "./usecases/serviceOwner.usecases";
@@ -15,8 +18,10 @@ import { ServiceProviderUseCases } from "./usecases/serviceProvider.usecases";
 //import { ServicePromotionRepository } from "./persistence/ServicePromotions/ServicePromotion.repository";
 //import { ServicePromotionUseCases } from "./usecases/ServicePromotion.usecases";
 @Module({
-  imports: [TypeOrmModule.forFeature([])],
+  imports: [
+    TypeOrmModule.forFeature([ServiceRepository, ServiceOwnerRepository, ServiceProviderRepository])
+  ],
   providers: [ServiceUseCases, ServiceOwnerUseCases, ServiceProviderUseCases],
-  controllers: [ ServiceOwnersController, ServiceProvidersController, ServicesController],
+  controllers: [ServicesController, ServiceOwnersController, ServiceProvidersController],
 })
-export class ServicesModule {}
+export class ServicesModule { }

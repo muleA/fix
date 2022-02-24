@@ -1,4 +1,3 @@
-Service
 import { EntityRepository, Repository } from "typeorm";
 import { Service } from '../../domain/services/service';
 import { IServiceRepository } from '../../domain/services/service.repository.interface';
