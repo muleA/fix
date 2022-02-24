@@ -5047,7 +5047,7 @@
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
-        "version": "d904c1dcf3116cebb3dac60fc064375b19cf859d8beeb606c8dc323fd7ee7be6",
+        "version": "6aa60beac32fd6f88fa1bd1f5afb838cbb6701fc487ab38f40dd28800bcaa0ed",
         "signature": "921db1cd2917ed9d0331106b2a6df73f52f1af1b240723b5e17b6dbc95094a0a",
         "affectsGlobalScope": false
       },
@@ -16059,6 +16059,7 @@
       "../node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "../node_modules/typescript/lib/lib.scripthost.d.ts",
       "../node_modules/typescript/lib/lib.webworker.importscripts.d.ts",
+      "../src/app.module.ts",
       "../src/app/app.controller.ts",
       "../src/app/app.module.ts",
       "../src/app/app.service.ts",
@@ -16128,6 +16129,7 @@
       "../src/modules/publication/controllers/services/media.presenter.ts",
       "../src/modules/publication/controllers/services/processingtime.dto.ts",
       "../src/modules/publication/controllers/services/processingtime.presenter.ts",
+      "../src/modules/publication/controllers/services/service.controller.ts",
       "../src/modules/publication/controllers/services/service.dto.ts",
       "../src/modules/publication/controllers/services/service.presenter.ts",
       "../src/modules/publication/controllers/services/servicedependency.dto.ts",
@@ -16159,6 +16161,7 @@
       "../src/modules/publication/domain/services/processingtime.repository.interface.ts",
       "../src/modules/publication/domain/services/processingtime.ts",
       "../src/modules/publication/domain/services/service.repository.interface.ts",
+      "../src/modules/publication/domain/services/service.ts",
       "../src/modules/publication/domain/services/servicedependency.repository.interface.ts",
       "../src/modules/publication/domain/services/servicedependency.ts",
       "../src/modules/publication/domain/services/servicefee.repository.interface.ts",
@@ -16170,15 +16173,25 @@
       "../src/modules/publication/domain/services/serviceresource.repository.interface.ts",
       "../src/modules/publication/domain/services/serviceresource.ts",
       "../src/modules/publication/persistence/serviceowners/serviceowner.entity.ts",
+      "../src/modules/publication/persistence/serviceowners/serviceowner.repository.ts",
       "../src/modules/publication/persistence/serviceproviders/delegatedservice.entity.ts",
       "../src/modules/publication/persistence/serviceproviders/serviceprovider.entity.ts",
+      "../src/modules/publication/persistence/serviceproviders/serviceprovider.repository.ts",
+      "../src/modules/publication/persistence/services/applicationform.ts",
       "../src/modules/publication/persistence/services/language.entity.ts",
       "../src/modules/publication/persistence/services/media.entity.ts",
+      "../src/modules/publication/persistence/services/processingtime.entity.ts",
+      "../src/modules/publication/persistence/services/service.entity.ts",
+      "../src/modules/publication/persistence/services/service.repository.ts",
       "../src/modules/publication/persistence/services/servicedependency.entity.ts",
+      "../src/modules/publication/persistence/services/servicefee.entity.ts",
       "../src/modules/publication/persistence/services/servicepromotion.entity.ts",
       "../src/modules/publication/persistence/services/servicerelationship.entity.ts",
       "../src/modules/publication/persistence/services/serviceresource.entity.ts",
+      "../src/modules/publication/publication.module.ts",
+      "../src/modules/publication/usecases/service.usecases.ts",
       "../src/modules/publication/usecases/serviceowner.usecases.ts",
+      "../src/modules/publication/usecases/serviceprovider.usecases.ts",
       "../src/modules/serviceinteraction/controllers/favorites/favorite.controller.ts",
       "../src/modules/serviceinteraction/controllers/favorites/favorite.dto.ts",
       "../src/modules/serviceinteraction/controllers/favorites/favorite.presenter.ts",
@@ -16220,7 +16233,8 @@
       "../src/shared/db-config/database.interface.ts",
       "../src/shared/exceptions/exceptions.interface.ts",
       "../src/shared/logger/logger.interface.ts",
-      "../src/shared/usecases-proxy/usecases-proxy.ts"
+      "../src/shared/usecases-proxy/usecases-proxy.ts",
+      "../typeormconfig.ts"
     ]
   },
   "version": "4.2.3"
