@@ -3,9 +3,9 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
+  OneToMany  
 } from "typeorm";
+import { LikeEntity } from "./Like.entity";
 @Entity({ name: "reviews" })
 export class ReviewEntity extends CommonEntity {
    @PrimaryGeneratedColumn('uuid')
@@ -22,4 +22,6 @@ export class ReviewEntity extends CommonEntity {
   status: string;
   @Column('int')
   likes: number;
+  @OneToMany(type => LikeEntity, like => like.review)
+  likesDetail: LikeEntity[];
 }
