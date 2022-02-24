@@ -1,17 +1,11 @@
-<<<<<<< HEAD
-import { EntityRepository, Repository } from "typeorm";
-=======
 
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { EntityRepository, Repository, } from 'typeorm';
->>>>>>> f2a6b908b25f2c05f98be81524f77c16822794c6
+import { EntityRepository, Repository } from "typeorm";
 import { Service } from '../../domain/services/service';
 import { IServiceRepository } from '../../domain/services/service.repository.interface';
 import { ServiceEntity } from './service.entity';
 
-//@Injectable()
-@EntityRepository(ServiceRepository)
+//@Injectable() 
+@EntityRepository(ServiceEntity)
 export class ServiceRepository extends Repository<ServiceEntity> implements IServiceRepository {
   constructor() {
     super()
@@ -134,6 +128,6 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
     serviceEntity.updatedAt = service.updatedAt;
     return serviceEntity;
   }
-  
+
 
 }

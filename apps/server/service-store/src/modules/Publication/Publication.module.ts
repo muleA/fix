@@ -16,7 +16,7 @@ import { ServiceProviderUseCases } from "./usecases/serviceProvider.usecases";
 //import { ServicePromotionUseCases } from "./usecases/ServicePromotion.usecases";
 @Module({
 
-  imports: [TypeOrmModule.forFeature([ServiceProviderRepository, ServiceOwnerRepository, ServiceRepository])],
+  imports: [TypeOrmModule.forFeature([ServiceRepository, ServiceOwnerRepository, ServiceProviderRepository])],
   providers: [ServiceUseCases, ServiceOwnerUseCases, ServiceProviderUseCases],
   controllers: [ServicesController, ServiceOwnersController, ServiceProvidersController],
 })

@@ -6,7 +6,7 @@ import { IServiceProviderRepository } from '../../domain/serviceProviders/servic
 import { ServiceProviderEntity } from './serviceProvider.entity';
 
 //@Injectable()
-@EntityRepository(ServiceProviderRepository)
+@EntityRepository(ServiceProviderEntity)
 export class ServiceProviderRepository extends Repository<ServiceProviderEntity> implements IServiceProviderRepository {
   constructor() {
     super()
