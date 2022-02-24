@@ -1,7 +1,5 @@
-import { Logger, Module } from "@nestjs/common";
+import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { LoggerModule } from "src/infrastructure/logger/logger.module";
-import { LoggerService } from "src/infrastructure/logger/logger.service";
 import { ServiceOwnersController } from "./controllers/ServiceOwners/ServiceOwner.controller";
 //import { ControllersModule } from "./controllers/controllers.module";
 ///import { ServicePromotionsController } from "./controllers/ServicePromotions/ServicePromotion.controller";
@@ -10,7 +8,6 @@ import { ServicesController } from "./controllers/Services/Service.controller";
 import { ServiceOwnerRepository } from "./persistence/serviceOwners/serviceOwner.repository";
 import { ServiceProviderRepository } from "./persistence/serviceProviders/serviceProvider.repository";
 import { ServiceRepository } from "./persistence/services/service.repository";
-import { ServicePromotionEntity } from "./persistence/Services/ServicePromotion.entity";
 import { ServiceUseCases } from "./usecases/service.usecases";
 import { ServiceOwnerUseCases } from "./usecases/serviceOwner.usecases";
 import { ServiceProviderUseCases } from "./usecases/serviceProvider.usecases";
@@ -18,9 +15,8 @@ import { ServiceProviderUseCases } from "./usecases/serviceProvider.usecases";
 //import { ServicePromotionRepository } from "./persistence/ServicePromotions/ServicePromotion.repository";
 //import { ServicePromotionUseCases } from "./usecases/ServicePromotion.usecases";
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([ServiceRepository, ServiceOwnerRepository, ServiceProviderRepository])
-  ],
+
+  imports: [TypeOrmModule.forFeature([ServiceProviderRepository, ServiceOwnerRepository, ServiceRepository])],
   providers: [ServiceUseCases, ServiceOwnerUseCases, ServiceProviderUseCases],
   controllers: [ServicesController, ServiceOwnersController, ServiceProvidersController],
 })

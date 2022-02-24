@@ -38,4 +38,4 @@ export const DbConfig = {
     migrationsDir: "src/migrations",
   },
 };
-//export config;
+//export config;s
