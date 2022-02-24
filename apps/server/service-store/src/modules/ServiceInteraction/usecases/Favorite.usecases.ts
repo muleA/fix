@@ -23,7 +23,8 @@ private favoritedomain=new Favorite();
  */
   async createFavorite( favoriteDto:CreateFavoriteDto): Promise<Favorite> {
     var favorite = new Favorite();
-    favorite =CreateFavoriteDto.fromDTO(favoriteDto);  
+    favorite =CreateFavoriteDto.fromDTO(favoriteDto); 
+
     const result = await this.favoriteRepository.insertFavorite(favorite);
     this.logger.log('CreateFavoriteUseCases execute', 'New favorite have been inserted');
     return result;

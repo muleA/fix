@@ -20,7 +20,9 @@ export class FavoriteRepository extends Repository<FavoriteEntity> implements IF
    */
   async insertFavorite(favorite: Favorite): Promise<Favorite> {
     const favoriteEntity = this.toFavoriteEntity(favorite);
+    //favoriteEntity.createdAt=now();
     const result = await this.insert(favoriteEntity);
+
     console.log(result.generatedMaps);
     return this.toFavorite(result.generatedMaps[0] as FavoriteEntity);
   }
