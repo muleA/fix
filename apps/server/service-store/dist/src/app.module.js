@@ -16,6 +16,8 @@ const exceptions_module_1 = require("./infrastructure/exceptions/exceptions.modu
 const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeormconfig_1 = require("../typeormconfig");
+const ServiceInteraction_module_1 = require("./modules/ServiceInteraction/ServiceInteraction.module");
+const Classification_module_1 = require("./modules/Classification/Classification.module");
 const Publication_module_1 = require("./modules/Publication/Publication.module");
 let AppModule = class AppModule {
     constructor() {
@@ -23,7 +25,7 @@ let AppModule = class AppModule {
     }
 };
 AppModule = __decorate([
-    (0, common_1.Module)({
+    common_1.Module({
         imports: [
             config_1.ConfigModule.forRoot({
                 envFilePath: '.env',
@@ -43,6 +45,8 @@ AppModule = __decorate([
             logger_module_1.LoggerModule,
             exceptions_module_1.ExceptionsModule,
             Publication_module_1.ServicesModule,
+            ServiceInteraction_module_1.InteractionsModule,
+            Classification_module_1.ClassificationsModule
         ],
         controllers: [],
         providers: [],

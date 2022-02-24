@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { Repository } from 'typeorm';
 import { Service } from '../../domain/services/service';
 import { IServiceRepository } from '../../domain/services/service.repository.interface';
 import { ServiceEntity } from './service.entity';

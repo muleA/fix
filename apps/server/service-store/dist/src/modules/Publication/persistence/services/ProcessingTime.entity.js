@@ -16,28 +16,28 @@ const CommonEntity_1 = require("../../../shared/CommonEntity");
 let ProcessingTimeEntity = class ProcessingTimeEntity extends CommonEntity_1.CommonEntity {
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    typeorm_1.PrimaryGeneratedColumn('uuid'),
     __metadata("design:type", String)
 ], ProcessingTimeEntity.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(type => service_entity_1.ServiceEntity, service => service.processingTimes),
-    (0, typeorm_1.JoinColumn)({ name: 'serviceId' }),
+    typeorm_1.ManyToOne(type => service_entity_1.ServiceEntity, service => service.processingTimes),
+    typeorm_1.JoinColumn({ name: 'serviceId' }),
     __metadata("design:type", service_entity_1.ServiceEntity)
 ], ProcessingTimeEntity.prototype, "service", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", Number)
 ], ProcessingTimeEntity.prototype, "time", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ProcessingTimeEntity.prototype, "currency", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ProcessingTimeEntity.prototype, "description", void 0);
 ProcessingTimeEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: "processingTimes" })
+    typeorm_1.Entity({ name: "processingTimes" })
 ], ProcessingTimeEntity);
 exports.ProcessingTimeEntity = ProcessingTimeEntity;
 //# sourceMappingURL=ProcessingTime.entity.js.map

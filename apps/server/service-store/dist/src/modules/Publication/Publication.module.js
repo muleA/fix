@@ -12,16 +12,19 @@ const typeorm_1 = require("@nestjs/typeorm");
 const ServiceOwner_controller_1 = require("./controllers/ServiceOwners/ServiceOwner.controller");
 const ServiceProvider_controller_1 = require("./controllers/ServiceProviders/ServiceProvider.controller");
 const Service_controller_1 = require("./controllers/Services/Service.controller");
+const serviceOwner_repository_1 = require("./persistence/serviceOwners/serviceOwner.repository");
+const serviceProvider_repository_1 = require("./persistence/serviceProviders/serviceProvider.repository");
+const service_repository_1 = require("./persistence/services/service.repository");
 const service_usecases_1 = require("./usecases/service.usecases");
 const serviceOwner_usecases_1 = require("./usecases/serviceOwner.usecases");
 const serviceProvider_usecases_1 = require("./usecases/serviceProvider.usecases");
 let ServicesModule = class ServicesModule {
 };
 ServicesModule = __decorate([
-    (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([])],
+    common_1.Module({
+        imports: [typeorm_1.TypeOrmModule.forFeature([serviceProvider_repository_1.ServiceProviderRepository, serviceOwner_repository_1.ServiceOwnerRepository, service_repository_1.ServiceRepository])],
         providers: [service_usecases_1.ServiceUseCases, serviceOwner_usecases_1.ServiceOwnerUseCases, serviceProvider_usecases_1.ServiceProviderUseCases],
-        controllers: [ServiceOwner_controller_1.ServiceOwnersController, ServiceProvider_controller_1.ServiceProvidersController, Service_controller_1.ServicesController],
+        controllers: [Service_controller_1.ServicesController, ServiceOwner_controller_1.ServiceOwnersController, ServiceProvider_controller_1.ServiceProvidersController],
     })
 ], ServicesModule);
 exports.ServicesModule = ServicesModule;

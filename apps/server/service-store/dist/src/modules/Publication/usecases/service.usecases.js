@@ -253,8 +253,8 @@ let ServiceUseCases = class ServiceUseCases {
     }
 };
 ServiceUseCases = __decorate([
-    (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(service_repository_1.ServiceRepository)),
+    common_1.Injectable(),
+    __param(0, typeorm_1.InjectRepository(service_repository_1.ServiceRepository)),
     __metadata("design:paramtypes", [service_repository_1.ServiceRepository])
 ], ServiceUseCases);
 exports.ServiceUseCases = ServiceUseCases;

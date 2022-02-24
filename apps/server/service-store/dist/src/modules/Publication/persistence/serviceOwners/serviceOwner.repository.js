@@ -8,12 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var ServiceOwnerRepository_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ServiceOwnerRepository = void 0;
 const typeorm_1 = require("typeorm");
 const serviceOwner_1 = require("../../domain/serviceOwners/serviceOwner");
 const serviceOwner_entity_1 = require("./serviceOwner.entity");
-let ServiceOwnerRepository = class ServiceOwnerRepository extends typeorm_1.Repository {
+let ServiceOwnerRepository = ServiceOwnerRepository_1 = class ServiceOwnerRepository extends typeorm_1.Repository {
     constructor() {
         super();
     }
@@ -65,8 +66,8 @@ let ServiceOwnerRepository = class ServiceOwnerRepository extends typeorm_1.Repo
         return serviceOwnerEntity;
     }
 };
-ServiceOwnerRepository = __decorate([
-    (0, typeorm_1.EntityRepository)(serviceOwner_entity_1.ServiceOwnerEntity),
+ServiceOwnerRepository = ServiceOwnerRepository_1 = __decorate([
+    typeorm_1.EntityRepository(ServiceOwnerRepository_1),
     __metadata("design:paramtypes", [])
 ], ServiceOwnerRepository);
 exports.ServiceOwnerRepository = ServiceOwnerRepository;

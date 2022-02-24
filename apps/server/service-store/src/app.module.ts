@@ -26,9 +26,16 @@ import { ServicesModule } from "./modules/Publication/Publication.module";
     }),
     LoggerModule,
     ExceptionsModule,
+<<<<<<< HEAD
     ServicesModule,
     InteractionsModule, 
    ClassificationsModule    
+=======
+ 
+    InteractionsModule, 
+    ServicesModule,
+   // ClassificationsModule    
+>>>>>>> origin/main
   ],
   controllers: [],
   providers: [],

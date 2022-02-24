@@ -16,28 +16,28 @@ const CommonEntity_1 = require("../../../shared/CommonEntity");
 let ServiceFeeEntity = class ServiceFeeEntity extends CommonEntity_1.CommonEntity {
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    typeorm_1.PrimaryGeneratedColumn('uuid'),
     __metadata("design:type", String)
 ], ServiceFeeEntity.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(type => service_entity_1.ServiceEntity, service => service.serviceFees),
-    (0, typeorm_1.JoinColumn)({ name: 'serviceId' }),
+    typeorm_1.ManyToOne(type => service_entity_1.ServiceEntity, service => service.serviceFees),
+    typeorm_1.JoinColumn({ name: 'serviceId' }),
     __metadata("design:type", service_entity_1.ServiceEntity)
 ], ServiceFeeEntity.prototype, "service", void 0);
 __decorate([
-    (0, typeorm_1.Column)('double'),
+    typeorm_1.Column('double precision'),
     __metadata("design:type", Number)
 ], ServiceFeeEntity.prototype, "fee", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ServiceFeeEntity.prototype, "currency", void 0);
 __decorate([
-    (0, typeorm_1.Column)('text'),
+    typeorm_1.Column('text'),
     __metadata("design:type", String)
 ], ServiceFeeEntity.prototype, "description", void 0);
 ServiceFeeEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: "serviceFees" })
+    typeorm_1.Entity({ name: "serviceFees" })
 ], ServiceFeeEntity);
 exports.ServiceFeeEntity = ServiceFeeEntity;
 //# sourceMappingURL=ServiceFee.entity.js.map

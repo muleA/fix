@@ -8,13 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var ServiceRepository_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ServiceRepository = void 0;
-service_1.Service;
 const typeorm_1 = require("typeorm");
 const service_1 = require("../../domain/services/service");
 const service_entity_1 = require("./service.entity");
-let ServiceRepository = class ServiceRepository extends typeorm_1.Repository {
+let ServiceRepository = ServiceRepository_1 = class ServiceRepository extends typeorm_1.Repository {
     constructor() {
         super();
     }
@@ -94,8 +94,8 @@ let ServiceRepository = class ServiceRepository extends typeorm_1.Repository {
         return serviceEntity;
     }
 };
-ServiceRepository = __decorate([
-    (0, typeorm_1.EntityRepository)(service_entity_1.ServiceEntity),
+ServiceRepository = ServiceRepository_1 = __decorate([
+    typeorm_1.EntityRepository(ServiceRepository_1),
     __metadata("design:paramtypes", [])
 ], ServiceRepository);
 exports.ServiceRepository = ServiceRepository;

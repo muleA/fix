@@ -19,8 +19,8 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const logger_service_1 = require("../../../infrastructure/logger/logger.service");
 const serviceProvider_1 = require("../domain/serviceProviders/serviceProvider");
+const serviceProvider_repository_1 = require("../persistence/serviceProviders/serviceProvider.repository");
 const serviceProvider_dto_1 = require("../controllers/serviceProviders/serviceProvider.dto");
-const serviceProvider_entity_1 = require("../persistence/serviceProviders/serviceProvider.entity");
 let ServiceProviderUseCases = class ServiceProviderUseCases {
     constructor(serviceProviderRepository) {
         this.serviceProviderRepository = serviceProviderRepository;
@@ -88,8 +88,8 @@ let ServiceProviderUseCases = class ServiceProviderUseCases {
     }
 };
 ServiceProviderUseCases = __decorate([
-    (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(serviceProvider_entity_1.ServiceProviderEntity)),
+    common_1.Injectable(),
+    __param(0, typeorm_1.InjectRepository(serviceProvider_repository_1.ServiceProviderRepository)),
     __metadata("design:paramtypes", [Object])
 ], ServiceProviderUseCases);
 exports.ServiceProviderUseCases = ServiceProviderUseCases;

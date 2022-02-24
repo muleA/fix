@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ServiceProviderRepository_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ServiceProviderRepository = void 0;
-serviceProvider_1.ServiceProvider;
 const typeorm_1 = require("typeorm");
 const serviceProvider_1 = require("../../domain/serviceProviders/serviceProvider");
 const serviceProvider_entity_1 = require("./serviceProvider.entity");
@@ -73,7 +72,7 @@ let ServiceProviderRepository = ServiceProviderRepository_1 = class ServiceProvi
     }
 };
 ServiceProviderRepository = ServiceProviderRepository_1 = __decorate([
-    (0, typeorm_1.EntityRepository)(ServiceProviderRepository_1),
+    typeorm_1.EntityRepository(ServiceProviderRepository_1),
     __metadata("design:paramtypes", [])
 ], ServiceProviderRepository);
 exports.ServiceProviderRepository = ServiceProviderRepository;

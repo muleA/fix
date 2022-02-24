@@ -10,7 +10,7 @@ exports.DbConfig = {
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
     schema: process.env.DATABASE_SCHEMA,
-    entities: [__dirname + "/**/*.entity{.ts,.js}"],
+    entities: [__dirname + "/src/**/**/**/**/*.entity{.ts,.js}"],
     synchronize: false,
     migrationsRun: false,
     logging: true,

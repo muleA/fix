@@ -22,115 +22,115 @@ const Media_entity_1 = require("./Media.entity");
 let ServiceEntity = class ServiceEntity extends CommonEntity_1.CommonEntity {
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    typeorm_1.PrimaryGeneratedColumn('uuid'),
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "name", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "description", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "code", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "fullyQualifiedName", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(type => Media_entity_1.MediaEntity, media => media.service, { cascade: true }),
+    typeorm_1.OneToMany(type => Media_entity_1.MediaEntity, media => media.service, { cascade: true }),
     __metadata("design:type", Array)
 ], ServiceEntity.prototype, "medias", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "supportedQualifications", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", Number)
 ], ServiceEntity.prototype, "version", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "procedure", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(type => ServiceFee_entity_1.ServiceFeeEntity, serviceFee => serviceFee.service, { cascade: true }),
+    typeorm_1.OneToMany(type => ServiceFee_entity_1.ServiceFeeEntity, serviceFee => serviceFee.service, { cascade: true }),
     __metadata("design:type", Array)
 ], ServiceEntity.prototype, "serviceFees", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(type => ProcessingTime_entity_1.ProcessingTimeEntity, processingTime => processingTime.service, { cascade: true }),
+    typeorm_1.OneToMany(type => ProcessingTime_entity_1.ProcessingTimeEntity, processingTime => processingTime.service, { cascade: true }),
     __metadata("design:type", Array)
 ], ServiceEntity.prototype, "processingTimes", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(type => ServiceDependency_entity_1.ServiceDependencyEntity, serviceDependency => serviceDependency.service, { cascade: true }),
+    typeorm_1.OneToMany(type => ServiceDependency_entity_1.ServiceDependencyEntity, serviceDependency => serviceDependency.service, { cascade: true }),
     __metadata("design:type", Array)
 ], ServiceEntity.prototype, "serviceDependencies", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(type => Language_entity_1.LanguageEntity, language => language.service, { cascade: true }),
+    typeorm_1.OneToMany(type => Language_entity_1.LanguageEntity, language => language.service, { cascade: true }),
     __metadata("design:type", Array)
 ], ServiceEntity.prototype, "languages", void 0);
 __decorate([
-    (0, typeorm_1.Column)('jsonb'),
+    typeorm_1.Column('jsonb'),
     __metadata("design:type", ApplicationForm_1.ApplicationForm)
 ], ServiceEntity.prototype, "applicationForm", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(type => ServiceResource_entity_1.ServiceResourceEntity, serviceResource => serviceResource.service, { cascade: true }),
+    typeorm_1.OneToMany(type => ServiceResource_entity_1.ServiceResourceEntity, serviceResource => serviceResource.service, { cascade: true }),
     __metadata("design:type", Array)
 ], ServiceEntity.prototype, "serviceResources", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "targetCustomers", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "status", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", Boolean)
 ], ServiceEntity.prototype, "isPublic", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", Boolean)
 ], ServiceEntity.prototype, "isPublished", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", Boolean)
 ], ServiceEntity.prototype, "isArchived", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "tags", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "deliveryMethod", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "serviceOwnerId", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", Number)
 ], ServiceEntity.prototype, "averageRating", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", Boolean)
 ], ServiceEntity.prototype, "enableReview", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", String)
 ], ServiceEntity.prototype, "policy", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    typeorm_1.Column(),
     __metadata("design:type", Date)
 ], ServiceEntity.prototype, "publishedOn", void 0);
 ServiceEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: "services" })
+    typeorm_1.Entity({ name: "services" })
 ], ServiceEntity);
 exports.ServiceEntity = ServiceEntity;
 //# sourceMappingURL=service.entity.js.map
