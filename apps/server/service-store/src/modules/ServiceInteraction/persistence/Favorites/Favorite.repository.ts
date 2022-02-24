@@ -11,19 +11,21 @@ export class FavoriteRepository extends Repository<FavoriteEntity> implements IF
   * A method that updates Favorite information in the database 
   */
   async updateFavorite(id: string, favorite: Favorite): Promise<void> {
-    const favoriteEntity = this.toFavoriteEntity(favorite);
-    await this.update({ id: favorite.id }, favoriteEntity);
+    const result=await this.findById(id);
+    if(result){
+      const favoriteEntity = this.toFavoriteEntity(favorite);
+      await this.update({ id: favorite.id }, favoriteEntity);
+    }
+    
+    
   }
   /**
    * A method that inserts FavoriteEntity  into  database 
    *
    */
   async insertFavorite(favorite: Favorite): Promise<Favorite> {
-    const favoriteEntity = this.toFavoriteEntity(favorite);
-    //favoriteEntity.createdAt=now();
-    const result = await this.insert(favoriteEntity);
-
-    console.log(result.generatedMaps);
+    const favoriteEntity = this.toFavoriteEntity(favorite);    
+    const result = await this.insert(favoriteEntity);    
     return this.toFavorite(result.generatedMaps[0] as FavoriteEntity);
   }
   /**

@@ -45,8 +45,7 @@ export class UpdateReviewDto {
 *
 */
 export class CreateReviewDto {
-  @ApiProperty()
-  id: string;
+
   @ApiProperty()
   @IsNotEmpty()
   title: string;
@@ -69,8 +68,7 @@ export class CreateReviewDto {
 *@returns Review domain object which contains Review  information
 */
   static fromDTO(reviewDto: CreateReviewDto): Review {
-    const review: Review = new Review();
-    review.id = reviewDto.id;
+    const review: Review = new Review(); 
     review.title = reviewDto.title;
     review.body = reviewDto.body;
     review.serviceId = reviewDto.serviceId;
