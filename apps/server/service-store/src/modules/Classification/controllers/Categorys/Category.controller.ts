@@ -4,12 +4,10 @@ import { CategoryPresenter } from './category.presenter';
 import { ApiResponseType } from '../../../../infrastructure/swagger/response.decorator';
 import { CreateCategoryDto, UpdateCategoryDto } from '../categorys/category.dto';
 import { CategoryUseCases } from '../../usecases/category.usecases';
-
 @Controller('categorys')
 @ApiTags('categorys')
 @ApiResponse({ status: 500, description: 'Internal error' })
 @ApiExtraModels(CategoryPresenter)
-
 export class CategorysController {
 /**
 *A constructor that injects CategoryUseCases
@@ -38,7 +36,6 @@ async getCategorys() {
 const categorys = await this.useCase.fetCategorys();
 return categorys.map((category) => new CategoryPresenter(category));
 }
-
 /**
  * A method that update a Category 
  * @param updateCategoryDto  An information of  Category 
@@ -62,7 +59,6 @@ async deleteCategory(@Query() id: string) {
 await this.useCase.deleteCategory(id);
 return 'success';
 }
-
 /**
  * A method that creates a Category 
  * @param createCategoryDto  An information of  Category  that need to be saved
@@ -75,6 +71,4 @@ async createCategory(@Body() createCategoryDto: CreateCategoryDto) {
 const categoryCreated = await this.useCase.createCategory( createCategoryDto);
 return new CategoryPresenter(categoryCreated );
 }
-  
-
 }

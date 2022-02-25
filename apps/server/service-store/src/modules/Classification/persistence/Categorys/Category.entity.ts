@@ -4,8 +4,7 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn, OneToOne, OneToMany, ManyToOne,
+ ManyToOne,
 } from "typeorm";
 @Entity({ name: "category" })
 export class CategoryEntity extends CommonEntity {
