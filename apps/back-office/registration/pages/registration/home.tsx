@@ -1,9 +1,9 @@
 import HomePage from "../../features/home/pages/home";
 
-const Home =  ()=>{
+const Home = () => {
 
-    return(
-    <HomePage/>
+    return (
+        <HomePage />
     );
 }
 

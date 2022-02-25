@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+table tr:hover {
+  background-color: rgb(229 231 235);
+}
+
 ::selection {
     color: #ffffff;
     background-color: #1d2861;

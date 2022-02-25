@@ -104,7 +104,7 @@ const MainNavbar = () => {
                     </div>
 
                     {profileDropDown &&
-                        <div className="tw-flex tw-flex-col tw-text-gray-500 tw-bg-white  tw-absolute tw-min-w-[200px] md:tw-min-w-0 md:tw-w-full tw-top-[40px] tw-right-0 md:tw-left-0 tw-shadow-md ">
+                        <div className="tw-flex tw-flex-col tw-text-gray-500 tw-bg-white  tw-absolute tw-min-w-[200px] lg:tw-min-w-0 lg:tw-w-full tw-top-[40px] tw-right-0 lg:tw-left-0 tw-shadow-md ">
                             <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200" >
                                 Profile
                             </div>

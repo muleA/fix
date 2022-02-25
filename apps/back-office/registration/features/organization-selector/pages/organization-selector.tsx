@@ -1,6 +1,5 @@
 import Image from 'next/image';
-import IconBuilding from '../../../shared/components/icons/IconBuilding';
-import IconChevronRight from '../../../shared/components/icons/IconChevronRight';
+import {IconBuilding,IconChevronRight} from '@tabler/icons';
 
 const OrganizationSelectorPage = () => {
 
