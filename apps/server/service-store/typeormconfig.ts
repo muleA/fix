@@ -17,8 +17,9 @@ export const DbConfig = {
   database: process.env.DATABASE_NAME,
   schema: process.env.DATABASE_SCHEMA,
   autoLoadEntities: true,
-  entities: [__dirname + "/src/**/**/**/**/*.entity{.ts,.js}"],// we reduced the searching time
-
+  entities: ["dist/**/**/**/**/*.entity{.ts,.js}"],
+//src/modules/Publication/controllers/Services/*.entity{}
+//src\modules\ServiceInteraction\controllers\Reviews/*.entity{}
   // We are using migrations, synchronize should be set to false.
   synchronize: true,
 
@@ -31,11 +32,11 @@ export const DbConfig = {
   // Allow both start:prod and start:dev to use migrations
   // __dirname is either dist or src folder, meaning either
   // the compiled js in prod or the ts in dev.
-  migrations: ["src/migrations/**/*{.ts,.js}"],
+  migrations: ["/src/migrations/**/*{.ts,.js}"],
   cli: {
     // Location of migration should be inside src folder
     // to be compiled into dist/ folder.
-    migrationsDir: "src/migrations",
+    migrationsDir: "database/migrations",
   },
 };
 //export config;s
