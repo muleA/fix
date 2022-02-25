@@ -121,18 +121,18 @@ export class ReviewRepository extends Repository<ReviewEntity> implements IRevie
   }
 
  async removeAndSaveLikes( review:Review){
-   await getConnection()
+  await getConnection()
     .createQueryBuilder()
     .delete()
     .from(LikeEntity)
     .where("reviewId=:reviewId", { reviewId: review.id })
     .execute();  
-    const reviewEntity = this.toReviewEntity(review);
+    const reviewEntity = this.toReviewEntity(review);    
    let Result= await this.save(reviewEntity);
    return this.toReview(Result);
   }
 
-  a /**
+  /**
   * A method that make soft delete a specific Review by id  from the database 
   *@param  review review domain object
   *@returns A Promise of Review object

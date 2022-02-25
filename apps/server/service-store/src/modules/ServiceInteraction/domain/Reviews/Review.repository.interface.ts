@@ -8,5 +8,6 @@ export interface IReviewRepository {
   updateReview(id: string, review: Review): Promise<void>;
   removeAndSaveLikes(review: Review): Promise<Review>;
   softDeleteReview(review: Review): Promise<Review>;
+  restoreReview(review:Review);
 
 }
