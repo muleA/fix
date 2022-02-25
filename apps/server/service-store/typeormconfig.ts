@@ -16,9 +16,11 @@ export const DbConfig = {
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
   schema: process.env.DATABASE_SCHEMA,
-  entities: [__dirname + "/src/**/**/**/**/*.entity{.ts,.js}"],
+  autoLoadEntities: true,
+  entities: [__dirname + "/src/**/**/**/**/*.entity{.ts,.js}"],// we reduced the searching time
+
   // We are using migrations, synchronize should be set to false.
-  synchronize: false,
+  synchronize: true,
 
   // Run migrations automatically,
   // you can disable this if you prefer running migration manually.

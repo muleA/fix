@@ -1,4 +1,4 @@
-import {  Module } from "@nestjs/common";
+import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ServiceOwnersController } from "./controllers/ServiceOwners/ServiceOwner.controller";
 //import { ControllersModule } from "./controllers/controllers.module";
@@ -15,8 +15,9 @@ import { ServiceProviderUseCases } from "./usecases/serviceProvider.usecases";
 //import { ServicePromotionRepository } from "./persistence/ServicePromotions/ServicePromotion.repository";
 //import { ServicePromotionUseCases } from "./usecases/ServicePromotion.usecases";
 @Module({
-  imports: [TypeOrmModule.forFeature([ServiceProviderRepository,ServiceOwnerRepository,ServiceRepository])],
+
+  imports: [TypeOrmModule.forFeature([ServiceRepository, ServiceOwnerRepository, ServiceProviderRepository])],
   providers: [ServiceUseCases, ServiceOwnerUseCases, ServiceProviderUseCases],
   controllers: [ServicesController, ServiceOwnersController, ServiceProvidersController],
 })
-export class ServicesModule {}
+export class ServicesModule { }
