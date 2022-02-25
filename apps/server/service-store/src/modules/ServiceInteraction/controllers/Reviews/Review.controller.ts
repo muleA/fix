@@ -4,6 +4,8 @@ import { ReviewPresenter } from './review.presenter';
 import { ApiResponseType } from '../../../../infrastructure/swagger/response.decorator';
 import { CreateReviewDto, UpdateReviewDto } from '../reviews/review.dto';
 import { ReviewUseCases } from '../../usecases/review.usecases';
+import { LikePresenter } from './Like.presenter';
+import { CreateLikeDto,DeleteLikeDto } from './Like.dto';
 @Controller('reviews')
 @ApiTags('reviews')
 @ApiResponse({ status: 500, description: 'Internal error' })
@@ -71,4 +73,25 @@ async createReview(@Body() createReviewDto: CreateReviewDto) {
 const reviewCreated = await this.useCase.createReview( createReviewDto);
 return new ReviewPresenter(reviewCreated );
 }
+// child mwthods
+@Post('create-like')
+@ApiResponseType(LikePresenter, true)
+async createLike(@Body() createLikeDto: CreateLikeDto) {
+const likeCreated = await this.useCase.createLike(createLikeDto);
+return true;
+}
+/**
+ * A method that delete a like from the database by likesId and review id
+ * @param id An id of a Review. A Review with this id should exist in the database
+ * @returns success which  informs the status of the success
+*/
+@Post('delete-like')
+@ApiResponseType(LikePresenter, true)
+async deleteLike(@Body() deleteLikeDto : DeleteLikeDto) {
+await this.useCase.deleteLike(deleteLikeDto.reviewId, deleteLikeDto.LikeId);
+return 'success';
+}
+
+
+
 }

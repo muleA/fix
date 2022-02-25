@@ -23,7 +23,8 @@ private favoritedomain=new Favorite();
  */
   async createFavorite( favoriteDto:CreateFavoriteDto): Promise<Favorite> {
     var favorite = new Favorite();
-    favorite =CreateFavoriteDto.fromDTO(favoriteDto);  
+    favorite =CreateFavoriteDto.fromDTO(favoriteDto); 
+
     const result = await this.favoriteRepository.insertFavorite(favorite);
     this.logger.log('CreateFavoriteUseCases execute', 'New favorite have been inserted');
     return result;
@@ -62,6 +63,7 @@ async updateFavorite(favoriteDto:UpdateFavoriteDto): Promise<void> {
     var   favorite= await this.favoriteRepository.findById(favoriteDto.id);
    if(favorite!=null){
     favorite =UpdateFavoriteDto.fromDTO(favoriteDto);
+    favorite.updatedAt=  new Date();    
     await this.favoriteRepository.updateFavorite( favorite.id, favorite);
    }else{
    throw new Error("Not Found");

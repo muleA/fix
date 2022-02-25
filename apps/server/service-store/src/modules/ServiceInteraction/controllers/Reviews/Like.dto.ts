@@ -42,10 +42,18 @@ export class CreateLikeDto {
 *@returns Like domain object which contains Like  information
 */
   static fromDTO(likeDto: CreateLikeDto): Like {
-    const like: Like = new Like();
-    like.id = likeDto.id;
+    const like: Like = new Like();    
     like.reviewId = likeDto.reviewId;
     like.userId = likeDto.userId;
     return like;
   }
+}
+export class DeleteLikeDto{
+  @ApiProperty()
+  @IsNotEmpty()
+  reviewId: string;
+  @ApiProperty()
+  @IsNotEmpty()
+  LikeId: string;
+  
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Inject, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete,Param, Get, Inject, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FavoritePresenter } from './favorite.presenter';
 import { ApiResponseType } from '../../../../infrastructure/swagger/response.decorator';
@@ -21,7 +21,7 @@ constructor(private useCase: FavoriteUseCases) {}
  * @returns A FavoritePresenter which contain  Favorite information
  * See the [definition of the FavoritePresenter file]{@link FavoritePresenter} to see a list of required properties
  */
-@Get(':id/get-favorite')
+@Get('get-favorite/:id')
 @ApiResponseType(FavoritePresenter, false)
 async getFavorite(@Query() id: string) {
 const favorite = await this.useCase.getFavorite(id);
@@ -35,6 +35,7 @@ return new FavoritePresenter(favorite);
 @Get('get-favorites')
 @ApiResponseType(FavoritePresenter, true)
 async getFavorites() {
+//return "welcome to here";
 const favorites = await this.useCase.fetFavorites();
 return favorites.map((favorite) => new FavoritePresenter(favorite));
 }
@@ -56,9 +57,9 @@ return 'success';
  * @param id An id of a Favorite. A Favorite with this id should exist in the database
  * @returns success which  informs the status of the success
 */
-@Delete(':id/delete-favorite')
+@Delete('delete-favorite/:id')
 @ApiResponseType(FavoritePresenter, true)
-async deleteFavorite(@Query() id: string) {
+async deleteFavorite(@Param('id') id: string) {
 await this.useCase.deleteFavorite(id);
 return 'success';
 }

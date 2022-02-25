@@ -1,3 +1,6 @@
+import { Logger } from "@nestjs/common";
+import { Like } from "./like";
+
 export class Review {
     constructor() { }
     id: string;
@@ -9,4 +12,14 @@ export class Review {
     likes: number;
     createdAt: Date;
     updatedAt: Date;
+    likesDetail: Like[];
+    
+async createLike(createLike: Like) {
+        this.likesDetail.push(createLike);
+        Logger.log(this.likesDetail);
+
+    }
+    async deleteLike(likeId: string) {
+        this.likesDetail = this.likesDetail.filter(element => element.id != likeId);
+    }
 }
