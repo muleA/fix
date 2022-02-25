@@ -9,13 +9,13 @@ export abstract class CommonEntity{
   createdBy:string;
   @Column()
   updatedBy?:string;
-  @CreateDateColumn({type:'timestamptz'})
+  @CreateDateColumn({type:'timestamptz', default:'now()'})
   createdAt: Date;  
-  @UpdateDateColumn()
+  @UpdateDateColumn({type:'timestamptz', default:'now()'})
   updatedAt: Date;
-  @DeleteDateColumn()
-  deletedAt?:Date;
-  @Column()
-  deletedBy?:string;
+  @DeleteDateColumn({nullable: true })
+  deletedAt:Date;
+  @Column({nullable: true })
+  deletedBy:string;
 
 }

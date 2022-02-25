@@ -1,17 +1,20 @@
 import { CommonEntity } from "src/modules/shared/CommonEntity";
 import {
   Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn
+  Column,JoinTable,
+  PrimaryGeneratedColumn,  
+  ManyToOne
 } from "typeorm";
+import { ReviewEntity } from "./review.entity";
 @Entity({ name: "likes" })
-export class LikeEntity extends CommonEntity {
+export class LikeEntity  {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @Column()
+  @Column()  
   reviewId: string;
   @Column()
   userId: string;
+  @ManyToOne(type => ReviewEntity, review => review.likesDetail)
+  @JoinTable()
+  review: ReviewEntity;
 }

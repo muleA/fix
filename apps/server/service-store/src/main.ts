@@ -28,8 +28,8 @@ async function bootstrap() {
   if (env !== 'production') {
     const config = new DocumentBuilder()
       .addBearerAuth()
-      .setTitle('Clean Architecture Nestjs')
-      .setDescription('Example with user list')
+      .setTitle('Service Store')
+      .setDescription('Service store')
       .setVersion('1.0')
       .build();
     const document = SwaggerModule.createDocument(app, config, {

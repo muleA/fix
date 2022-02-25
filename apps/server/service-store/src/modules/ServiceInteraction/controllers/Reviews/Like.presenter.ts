@@ -21,7 +21,6 @@ constructor(like: Like) {
 this.id = like.id;  
 this.reviewId = like.reviewId;  
 this.userId = like.userId;  
-this.createdAt = like.createdAt;  
-this.updatedAt = like.updatedAt;  
+ 
 }
 }
