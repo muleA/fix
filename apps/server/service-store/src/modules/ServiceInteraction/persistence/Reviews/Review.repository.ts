@@ -72,6 +72,7 @@ export class ReviewRepository extends Repository<ReviewEntity> implements IRevie
     return review;
   }
 /**
+ * 
  * A method that maps Like Entity object to Like domain object
  *@param likeEntity An Like which compraises  userid and review id 
  *@returns A Review which contain  Review information
