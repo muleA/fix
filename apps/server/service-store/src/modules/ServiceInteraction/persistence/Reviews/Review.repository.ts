@@ -4,11 +4,14 @@ import { Review } from '../../domain/reviews/review';
 import { IReviewRepository } from '../../domain/reviews/review.repository.interface';
 import { LikeEntity } from './Like.entity';
 import { ReviewEntity } from './review.entity';
+import {getConnection,createConnection} from "typeorm";
 @EntityRepository(ReviewEntity)
 export class ReviewRepository extends Repository<ReviewEntity> implements IReviewRepository {
   constructor() {
     super()
   }
+ 
+
   /**
   * A method that updates Review information in the database 
   */
@@ -100,6 +103,7 @@ export class ReviewRepository extends Repository<ReviewEntity> implements IRevie
     reviewEntity.likes = review.likes;
     reviewEntity.likesDetail= review.likesDetail.map(element=> {return this.toLikeEntity(element)});
     console.log("review entity",reviewEntity);
+   
     return reviewEntity;
   }
   
@@ -112,8 +116,38 @@ export class ReviewRepository extends Repository<ReviewEntity> implements IRevie
     const likeenetity:LikeEntity=new LikeEntity();
     likeenetity.reviewId=like.reviewId;
     likeenetity.userId=like.userId;
-    likeenetity.id=like.id;
-   // likeenetity.review= this.toReviewEntity(like.review);
+    likeenetity.id=like.id;   
     return likeenetity;
   }
+
+ async removeAndSaveLikes( review:Review){
+   await getConnection()
+    .createQueryBuilder()
+    .delete()
+    .from(LikeEntity)
+    .where("reviewId=:reviewId", { reviewId: review.id })
+    .execute();  
+    const reviewEntity = this.toReviewEntity(review);
+   let Result= await this.save(reviewEntity);
+   return this.toReview(Result);
+  }
+
+  a /**
+  * A method that make soft delete a specific Review by id  from the database 
+  *@param  review review domain object
+  *@returns A Promise of Review object
+  */
+  async softDeleteReview(review: Review): Promise <Review> {
+  let result=this.toReviewEntity(review);
+  this.softDelete(result);
+  return this.toReview(result);
+  }
+
+  async restoreReview(review:Review){
+    let result=this.toReviewEntity(review);   
+   let review_= await this.restore(result);
+   console.log(review_);
+  // return this.toReview(review_);
+  }
+
 }

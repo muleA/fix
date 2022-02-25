@@ -59,7 +59,7 @@ export class ReviewUseCases {
    * A method that invokes a repository method updateReview(review) to update a Review 
    * @param updateReviewDto  An information of  Review 
    * @returns no returned data
-   */
+   */  
   async updateReview(reviewDto: UpdateReviewDto): Promise<void> {
     var review = await this.reviewRepository.findById(reviewDto.id);
     if (review != null) {
@@ -93,7 +93,8 @@ export class ReviewUseCases {
     if (review) {
     await review.deleteLike(likeId);
      //console.log(review);
-    this.reviewRepository.updateReview(reviewId, review);
+   // this.reviewRepository.updateReview(reviewId, review);
+   this.reviewRepository.removeAndSaveLikes(review);
     }
   }
 
