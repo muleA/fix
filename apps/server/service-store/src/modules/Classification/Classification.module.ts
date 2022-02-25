@@ -1,21 +1,22 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { CategorysController } from "./controllers/Categorys/Category.controller";
-import { ServiceCollectionsController } from "./controllers/ServiceCollections/ServiceCollection.controller";
+import { CategorysController } from "./controllers/Categorys/category.controller";
+import { ServiceCollectionsController } from "./controllers/serviceCollections/ServiceCollection.controller";
 //import { ControllersModule } from "./controllers/controllers.module";
-import { TagsController } from "./controllers/Tags/Tag.controller";
+import { TagsController } from "./controllers/tags/tag.controller";
 import { CategoryRepository } from "./persistence/categorys/category.repository";
 import { ServiceCollectionRepository } from "./persistence/serviceCollections/serviceCollection.repository";
-import { TagRepository } from "./persistence/Tags/Tag.repository";
-//import { TagRepository } from "./persistence/Tags/Tag.repository";
+//import { TagsEntity } from "./persistence/Categorys/ServiceTags.entity";
+//import { TagEntity } from "./persistence/Tags/Tags.entity";
+
+import { TagRepository } from "./persistence/tags/tag.repository";
 import { CategoryUseCases } from "./usecases/category.usecases";
 import { ServiceCollectionUseCases } from "./usecases/serviceCollection.usecases";
-import { TagUseCases } from "./usecases/Tag.usecases";
-
+import { TagUseCases } from "./usecases/tag.usecases";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CategoryRepository, ServiceCollectionRepository])],
-  providers: [CategoryUseCases, ServiceCollectionUseCases],
-  controllers: [CategorysController, ServiceCollectionsController]
+  imports: [TypeOrmModule.forFeature([CategoryRepository,TagRepository, ServiceCollectionRepository])],
+  providers: [CategoryUseCases, ServiceCollectionUseCases,TagUseCases],
+  controllers: [CategorysController, ServiceCollectionsController, TagsController]
 })
 export class ClassificationsModule { }

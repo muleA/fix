@@ -1,9 +1,9 @@
-import { Tag } from './tag';
+import { Tags } from "./tags";
 export interface ITagRepository {
-  insertTag(tag: Tag): Promise<Tag>;
-  findAll(): Promise<Tag[]>;
-  findById(id: string): Promise<Tag>; 
-  updateTag(id: string,tag: Tag): Promise<void>;
+  insertTag(tag: Tags): Promise<Tags>;
+  findAll(): Promise<Tags[]>;
+  findById(id: string): Promise<Tags>; 
+  updateTag(id: string,tag: Tags): Promise<void>;
   deleteById(id: string): Promise<void>;
 
 }
