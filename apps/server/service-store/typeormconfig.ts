@@ -17,7 +17,7 @@ export const DbConfig = {
   database: process.env.DATABASE_NAME,
   schema: process.env.DATABASE_SCHEMA,
   autoLoadEntities: true,
-  entities: [__dirname + "/src/**/**/**/**/*.entity{.ts,.js}"],// we reduced the searching time
+  entities: [__dirname + "/src/modules/**/**/**/*.entity{.ts,.js}"],// we reduced the searching time
 
   // We are using migrations, synchronize should be set to false.
   synchronize: true,

@@ -9,8 +9,8 @@ import { Media } from '../../domain/services/Media';
 export class UpdateMediaDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()  
+  // @IsUUID() // commented for test only
   id: string;
 
   @ApiProperty()
@@ -69,8 +69,8 @@ export class UpdateMediaDto {
 export class CreateMediaDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()  
+  // @IsUUID() // commented for test only
   id: string;
 
   @ApiProperty()

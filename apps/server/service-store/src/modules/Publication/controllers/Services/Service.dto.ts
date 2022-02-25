@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-   IsBoolean, IsNotEmpty,IsNumber,
+   IsBoolean, IsNotEmpty, IsNumber,
    IsString, IsDate, MaxLength,
-   IsArray, IsEnum, IsDecimal, IsUUID,
+   IsArray, IsEnum, IsDecimal, IsUUID, IsBooleanString,
 } from 'class-validator';
 import { Service } from '../../domain/Services/service';
 import { CreateMediaDto, UpdateMediaDto } from './Media.dto';
@@ -16,8 +16,8 @@ import { CreateServiceResourceDto, UpdateServiceResourceDto } from './ServiceRes
 *A class which contains proporties of Service that used to receive paramamer values to be updated in the database
 */
 export class UpdateServiceDto {
-   @ApiProperty()
-   @IsNotEmpty()
+   // @ApiProperty()
+   // @IsNotEmpty()  commented for testing only
    @IsUUID()
    id: string;
    @ApiProperty()
@@ -32,39 +32,38 @@ export class UpdateServiceDto {
    @IsString()
    code: string;
    @ApiProperty()
-   @IsNotEmpty()
    @IsString()
    fullyQualifiedName: string;
    @ApiProperty()
-   @IsArray()
+   // @IsArray()   //commented for testing
    medias: UpdateMediaDto[];
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    supportedQualifications: string;
    @ApiProperty()
-   @IsString()
+   @IsDecimal()
    version: number;
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    procedure: string;
    @ApiProperty()
-   @IsArray()
+   // @IsArray()   //commented for testing
    serviceFees: UpdateServiceFeeDto[];
    @ApiProperty()
-   @IsArray()
+   // @IsArray()   //commented for testing
    processingTimes: UpdateProcessingTimeDto[];
    @ApiProperty()
-   @IsArray()
+   // @IsArray()   //commented for testing
    serviceDependencies: UpdateServiceDependencyDto[];
    @ApiProperty()
-   @IsArray()
-   languages: UpdateLanguageDto[];
-   @IsNotEmpty()
-   applicationForm: UpdateApplicationFormDto;
+   // @IsArray()   //commented for testing
+   // languages: UpdateLanguageDto[];
+   // @IsNotEmpty()
+   applicationForm: UpdateApplicationFormDto;  // commented for testing only
    @ApiProperty()
-   @IsArray()
+   // @IsArray()   //commented for testing
    serviceResources: UpdateServiceResourceDto[];
    @ApiProperty()
    @IsNotEmpty()
@@ -76,20 +75,20 @@ export class UpdateServiceDto {
    status: string;
    @ApiProperty()
    @IsNotEmpty()
-   @IsBoolean()
+   @IsBooleanString()
    isPublic: boolean;
    @ApiProperty()
-   @IsBoolean()
+   @IsBooleanString()
    isPublished: boolean;
    @ApiProperty()
+   @IsBooleanString()
    @IsNotEmpty()
-   @IsBoolean()
    isArchived: boolean;
    @ApiProperty()
    @IsString()
    tags: string;
    @ApiProperty()
-   @IsNotEmpty()  
+   @IsNotEmpty()
    deliveryMethod: string;
    @ApiProperty()
    @IsNotEmpty()
@@ -99,14 +98,14 @@ export class UpdateServiceDto {
    @IsDecimal()
    averageRating: number;
    @ApiProperty()
-   @IsBoolean()
+   @IsBooleanString()
    @IsNotEmpty()
    enableReview: boolean;
    @ApiProperty()
    @IsString()
    policy: string;
    @ApiProperty()
-   @IsDate()
+   // @IsDate()    commented for testing only
    publishedOn: Date;
    /**
  *A method that mapes  UpdateServiceDto object data to  Service domain object
@@ -123,14 +122,14 @@ export class UpdateServiceDto {
       service.supportedQualifications = serviceDto.supportedQualifications;
       service.version = serviceDto.version;
       service.procedure = serviceDto.procedure;
-/*
-      service.serviceFees = serviceDto.serviceFees.map(item => UpdateServiceFeeDto.fromDTO(item));
-      service.processingTimes = serviceDto.processingTimes.map(item => UpdateProcessingTimeDto.fromDTO(item));
-      service.serviceDependencies = serviceDto.serviceDependencies.map(item => UpdateServiceDependencyDto.fromDTO(item));
-      service.languages = serviceDto.languages.map(item => UpdateLanguageDto.fromDTO(item));
-      service.applicationForm = UpdateApplicationFormDto.fromDTO(serviceDto.applicationForm);
-      service.serviceResources = serviceDto.serviceResources.map(item => UpdateServiceResourceDto.fromDTO(item));
-*/
+      /*
+            service.serviceFees = serviceDto.serviceFees.map(item => UpdateServiceFeeDto.fromDTO(item));
+            service.processingTimes = serviceDto.processingTimes.map(item => UpdateProcessingTimeDto.fromDTO(item));
+            service.serviceDependencies = serviceDto.serviceDependencies.map(item => UpdateServiceDependencyDto.fromDTO(item));
+            service.languages = serviceDto.languages.map(item => UpdateLanguageDto.fromDTO(item));
+            service.applicationForm = UpdateApplicationFormDto.fromDTO(serviceDto.applicationForm);
+            service.serviceResources = serviceDto.serviceResources.map(item => UpdateServiceResourceDto.fromDTO(item));
+      */
       service.targetCustomers = serviceDto.targetCustomers;
       service.status = serviceDto.status;
       service.isPublic = serviceDto.isPublic;
@@ -152,8 +151,8 @@ export class UpdateServiceDto {
 */
 export class CreateServiceDto {
    @ApiProperty()
-   @IsNotEmpty()
-   @IsUUID()
+   // @IsNotEmpty()
+   // @IsUUID() commented for testing only
    id: string;
    @ApiProperty()
    @IsNotEmpty()
@@ -167,39 +166,38 @@ export class CreateServiceDto {
    @IsString()
    code: string;
    @ApiProperty()
-   @IsNotEmpty()
    @IsString()
    fullyQualifiedName: string;
    @ApiProperty()
-   @IsArray()
+   // @IsArray()   //commented for testing
    medias: UpdateMediaDto[];
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    supportedQualifications: string;
    @ApiProperty()
-   @IsString()
+   @IsDecimal()
    version: number;
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    procedure: string;
    @ApiProperty()
-   @IsArray()
+   // @IsArray()   //commented for testing
    serviceFees: UpdateServiceFeeDto[];
    @ApiProperty()
-   @IsArray()
+   // @IsArray()   //commented for testing
    processingTimes: UpdateProcessingTimeDto[];
    @ApiProperty()
-   @IsArray()
+   // @IsArray()   //commented for testing
    serviceDependencies: UpdateServiceDependencyDto[];
    @ApiProperty()
-   @IsArray()
+   // @IsArray()   //commented for testing
    languages: UpdateLanguageDto[];
-   @IsNotEmpty()
+   // @IsNotEmpty()  commented for testing only
    applicationForm: UpdateApplicationFormDto;
    @ApiProperty()
-   @IsArray()
+   // @IsArray()   //commented for testing
    serviceResources: UpdateServiceResourceDto[];
    @ApiProperty()
    @IsNotEmpty()
@@ -211,38 +209,37 @@ export class CreateServiceDto {
    status: string;
    @ApiProperty()
    @IsNotEmpty()
-   @IsBoolean()
+   @IsBooleanString()
    isPublic: boolean;
    @ApiProperty()
-   @IsBoolean()
+   @IsBooleanString()
    isPublished: boolean;
    @ApiProperty()
+   @IsBooleanString()
    @IsNotEmpty()
-   @IsBoolean()
    isArchived: boolean;
    @ApiProperty()
    @IsString()
    tags: string;
    @ApiProperty()
    @IsNotEmpty()
-  // @IsEnum()
    deliveryMethod: string;
    @ApiProperty()
-   @IsNotEmpty()
-   @IsUUID()
+   // @IsNotEmpty()
+   // @IsUUID()   // commented for testing only
    serviceOwnerId: string;
    @ApiProperty()
    @IsDecimal()
    averageRating: number;
    @ApiProperty()
-   @IsBoolean()
+   @IsBooleanString()
    @IsNotEmpty()
    enableReview: boolean;
    @ApiProperty()
    @IsString()
    policy: string;
    @ApiProperty()
-   @IsDate()
+   // @IsDate()    commented for testing only
    publishedOn: Date;
    /**
  *A method that mapes  CreateServiceDto object data to  Service domain object
@@ -259,11 +256,11 @@ export class CreateServiceDto {
       service.supportedQualifications = serviceDto.supportedQualifications;
       service.version = serviceDto.version;
       service.procedure = serviceDto.procedure;
-     // service.serviceFees = serviceDto.serviceFees.map(item => CreateServiceFeeDto.fromDTO(item));
-     // service.processingTimes = serviceDto.processingTimes.map(item => CreateProcessingTimeDto.fromDTO(item));
-     // service.serviceDependencies = serviceDto.serviceDependencies.map(item => CreateServiceDependencyDto.fromDTO(item));
-     // service.languages = serviceDto.languages.map(item => CreateLanguageDto.fromDTO(item));
-     // service.applicationForm = CreateApplicationFormDto.fromDTO(serviceDto.applicationForm);
+      // service.serviceFees = serviceDto.serviceFees.map(item => CreateServiceFeeDto.fromDTO(item));
+      // service.processingTimes = serviceDto.processingTimes.map(item => CreateProcessingTimeDto.fromDTO(item));
+      // service.serviceDependencies = serviceDto.serviceDependencies.map(item => CreateServiceDependencyDto.fromDTO(item));
+      // service.languages = serviceDto.languages.map(item => CreateLanguageDto.fromDTO(item));
+      // service.applicationForm = CreateApplicationFormDto.fromDTO(serviceDto.applicationForm);
       //service.serviceResources = serviceDto.serviceResources.map(item => CreateServiceResourceDto.fromDTO(item));
       service.targetCustomers = serviceDto.targetCustomers;
       service.status = serviceDto.status;

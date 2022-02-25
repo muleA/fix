@@ -26,7 +26,7 @@ export class ServiceUseCases {
   /**
   * A constructor which injects a repository class that used to manage record in the database
   */
-  constructor(@InjectRepository(ServiceRepository) 
+  constructor(@InjectRepository(ServiceRepository)
   private serviceRepository: ServiceRepository) { }
 
   /**
@@ -91,15 +91,60 @@ export class ServiceUseCases {
 
 
 
+  // async addMedia(createMediaDto: CreateMediaDto) {
+  //   var media = new Media();
+  //   media = CreateMediaDto.fromDTO(createMediaDto);
+  //   this.servicedomain = await this.serviceRepository.findById(createMediaDto.id)
+  //   this.servicedomain.addMedia(media);
+  //   const result = await this.serviceRepository.insertService(this.servicedomain);
+  //   this.logger.log('CreateMediaUseCases execute', 'New Media have been inserted');
+  //   return result;
+  // }
+
+
   async addMedia(createMediaDto: CreateMediaDto) {
     var media = new Media();
-    media = CreateMediaDto.fromDTO(createMediaDto);
-    this.servicedomain = await this.serviceRepository.findById(createMediaDto.id)
-    this.servicedomain.addMedia(media);
-    const result = await this.serviceRepository.insertService(this.servicedomain);
-    this.logger.log('CreateMediaUseCases execute', 'New Media have been inserted');
-    return result;
+    this.servicedomain = await this.serviceRepository.findById(createMediaDto.id);
+    console.log(" Medias", this.servicedomain);
+    if (this.servicedomain) {
+      media = CreateMediaDto.fromDTO(createMediaDto);
+      if (!this.servicedomain.medias) {
+        this.servicedomain.medias = [];
+      } ~
+        this.servicedomain.addMedia(media);
+      console.log(this.servicedomain);
+      const result = await this.serviceRepository.updateService(this.servicedomain.id, this.servicedomain);
+      this.logger.log('CreateMediaUseCases execute', 'New Media have been inserted');
+      console.log(result);
+      return result;
+    }
+    return "error";
   }
+
+
+  // async addMedia(createMediaDto: CreateMediaDto): Promise<boolean> {
+  //   let service = new Service();
+  //   service = await this.serviceRepository.findById(createMediaDto.id);
+  //   console.log(" service", service);
+  //   if (service) {
+  //     let mediaDomain = CreateMediaDto.fromDTO(createMediaDto);
+  //     if (!service.medias) {
+  //       service.medias = [];
+  //     }
+  //     service.addMedia(mediaDomain);
+  //     console.log(service);
+  //     const result = await this.serviceRepository.updateService(service.id, service);
+  //     console.log(result);
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+
+
+
+
+
   /**
    * A method that update a Media 
    * @param updateMediaDto  An information of  Media 

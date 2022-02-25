@@ -93,7 +93,8 @@ export class ServicesController {
    @ApiResponseType(MediaPresenter, true)
    async addMedia(@Body() createMediaDto: CreateMediaDto) {
       const mediaCreated = await this.useCase.addMedia(createMediaDto);
-      return new ServicePresenter(mediaCreated);
+      // return new ServicePresenter(mediaCreated);  commented for test only
+      return mediaCreated;
    }
    /**
     * A method that update a Media 

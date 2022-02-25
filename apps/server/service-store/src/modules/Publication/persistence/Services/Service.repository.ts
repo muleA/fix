@@ -80,7 +80,7 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
     service.isArchived = serviceEntity.isArchived;
     service.tags = serviceEntity.tags;
     service.deliveryMethod = serviceEntity.deliveryMethod;
-    service.serviceOwnerId = serviceEntity.serviceOwnerId;
+    service.serviceOwnerId = serviceEntity.serviceOwner;
     service.averageRating = serviceEntity.averageRating;
     service.enableReview = serviceEntity.enableReview;
     service.policy = serviceEntity.policy;
@@ -119,7 +119,7 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
     serviceEntity.isArchived = service.isArchived;
     serviceEntity.tags = service.tags;
     serviceEntity.deliveryMethod = service.deliveryMethod;
-    serviceEntity.serviceOwnerId = service.serviceOwnerId;
+    serviceEntity.serviceOwner = service.serviceOwnerId;
     serviceEntity.averageRating = service.averageRating;
     serviceEntity.enableReview = service.enableReview;
     serviceEntity.policy = service.policy;
