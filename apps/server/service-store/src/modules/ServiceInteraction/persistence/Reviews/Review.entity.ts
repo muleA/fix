@@ -22,6 +22,6 @@ export class ReviewEntity extends CommonEntity {
   status: string;
   @Column('int')
   likes: number;
-  @OneToMany(type => LikeEntity, like => like.review)
+  @OneToMany(type => LikeEntity, like => like.review, {eager:true, cascade:true})
   likesDetail: LikeEntity[];
 }

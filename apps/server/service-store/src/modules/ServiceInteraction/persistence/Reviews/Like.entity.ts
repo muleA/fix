@@ -1,13 +1,13 @@
 import { CommonEntity } from "src/modules/shared/CommonEntity";
 import {
   Entity,
-  Column,
+  Column,JoinTable,
   PrimaryGeneratedColumn,  
   ManyToOne
 } from "typeorm";
 import { ReviewEntity } from "./review.entity";
 @Entity({ name: "likes" })
-export class LikeEntity extends CommonEntity {
+export class LikeEntity  {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column()
@@ -15,5 +15,6 @@ export class LikeEntity extends CommonEntity {
   @Column()
   userId: string;
   @ManyToOne(type => ReviewEntity, review => review.likesDetail)
+  @JoinTable()
   review: ReviewEntity;
 }

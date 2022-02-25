@@ -1,6 +1,8 @@
-import { EntityRepository, Repository,  } from 'typeorm';
+import { EntityRepository, Repository, } from 'typeorm';
+import { Like } from '../../domain/Reviews/like';
 import { Review } from '../../domain/reviews/review';
 import { IReviewRepository } from '../../domain/reviews/review.repository.interface';
+import { LikeEntity } from './Like.entity';
 import { ReviewEntity } from './review.entity';
 @EntityRepository(ReviewEntity)
 export class ReviewRepository extends Repository<ReviewEntity> implements IReviewRepository {
@@ -10,19 +12,19 @@ export class ReviewRepository extends Repository<ReviewEntity> implements IRevie
   /**
   * A method that updates Review information in the database 
   */
-  async updateReview(id:string,review: Review): Promise<void> {
+  async updateReview(id: string, review: Review): Promise<void> {
     const reviewEntity = this.toReviewEntity(review);
-    await this.update( {id: review.id}, reviewEntity);
+    await this.update({ id: review.id }, reviewEntity);
   }
- /**
-  * A method that inserts ReviewEntity  into  database 
-  *
-  */
+  /**
+   * A method that inserts ReviewEntity  into  database 
+   *
+   */
   async insertReview(review: Review): Promise<Review> {
     const reviewEntity = this.toReviewEntity(review);
-    const result = await this.insert(reviewEntity);
-    console.log(result.generatedMaps);
-    return  this.toReview(result.generatedMaps[0] as ReviewEntity);   
+    const result = await this.save(reviewEntity);
+    console.log(result);
+    return this.toReview(result as ReviewEntity);
   }
   /**
   * A method that fetches all Reviews from the database 
@@ -36,50 +38,77 @@ export class ReviewRepository extends Repository<ReviewEntity> implements IRevie
   * A method that fetches a specific Review by id  from the database 
   *@param  an Id of Review
   *@returns A Promise of Review
-  */ 
+  */
   async findById(id: string): Promise<Review> {
     const reviewEntity = await this.findOneOrFail(id);
     return this.toReview(reviewEntity);
   }
-/**
-  * A method that deletes a specific Review by id from the database
-  *@param  an Id of Review
-   */
+  /**
+    * A method that deletes a specific Review by id from the database
+    *@param  an Id of Review
+     */
   async deleteById(id: string): Promise<void> {
-   await this.delete({ id: id });
+    await this.delete({ id: id });
   }
   /**
   *A method that copy ReviewEntity data  a  Review domain  
   *@param reviewEntity which compraises  Review information
   *@returns Review information
   */
-private toReview(reviewEntity: ReviewEntity): Review {
-const review: Review = new Review();   
-    review.id= reviewEntity.id;
-    review.title= reviewEntity.title;
-    review.body= reviewEntity.body;
-    review.serviceId= reviewEntity.serviceId;
-    review.userId= reviewEntity.userId;
-    review.status= reviewEntity.status;
-    review.likes= reviewEntity.likes;
-    review.createdAt= reviewEntity.createdAt;
-    review.updatedAt= reviewEntity.updatedAt;
-     return review;
-}
- /**
-  *A method that copy Review data to a ReviewEntity   object 
-  *@param review An review which compraises  Review information
-  *@returns A Review which contain  Review information
-  */
- private toReviewEntity(review: Review): ReviewEntity {
-   const reviewEntity: ReviewEntity = new ReviewEntity();    
-    reviewEntity.id= review.id;
-    reviewEntity.title= review.title;
-    reviewEntity.body= review.body;
-    reviewEntity.serviceId= review.serviceId;
-    reviewEntity.userId= review.userId;
-    reviewEntity.status= review.status;
-    reviewEntity.likes= review.likes;    
- return reviewEntity;
+  private toReview(reviewEntity: ReviewEntity): Review {
+    const review: Review = new Review();
+    review.id = reviewEntity.id;
+    review.title = reviewEntity.title;
+    review.body = reviewEntity.body;
+    review.serviceId = reviewEntity.serviceId;
+    review.userId = reviewEntity.userId;
+    review.status = reviewEntity.status;
+    review.likes = reviewEntity.likes;
+    review.likesDetail = reviewEntity.likesDetail.map(element => { return this.toLike(element) });
+    review.createdAt = reviewEntity.createdAt;
+    review.updatedAt = reviewEntity.updatedAt;
+    return review;
+  }
+/**
+ * A method that maps Like Entity object to Like domain object
+ *@param likeEntity An Like which compraises  userid and review id 
+ *@returns A Review which contain  Review information
+ */
+  private toLike(likeEntity: LikeEntity): Like {
+    let l = new Like();
+    l.id = likeEntity.id;
+    l.reviewId = likeEntity.reviewId;
+    l.userId = likeEntity.userId;
+    return l;
+  }
+  /**
+   *A method that copy Review data to a ReviewEntity   object 
+   *@param review An review which compraises  Review information
+   *@returns A Review which contain  Review information
+   */
+  private toReviewEntity(review: Review): ReviewEntity {
+    const reviewEntity: ReviewEntity = new ReviewEntity();
+    reviewEntity.id = review.id;
+    reviewEntity.title = review.title;
+    reviewEntity.body = review.body;
+    reviewEntity.serviceId = review.serviceId;
+    reviewEntity.userId = review.userId;
+    reviewEntity.status = review.status;
+    reviewEntity.likes = review.likes;
+    reviewEntity.likesDetail= review.likesDetail.map(element=> {return this.toLikeEntity(element)});
+    return reviewEntity;
+  }
+  
+  /**
+ * A method that maps Like Entity object to Like domain object
+ *@param Like A Like domain model object which compraises  userid and review id 
+ *@returns A likeentity which contain  Like  information userid and review id
+ */
+  private toLikeEntity(like:Like): LikeEntity{
+    const likeenetity:LikeEntity=new LikeEntity();
+    likeenetity.reviewId=like.reviewId;
+    likeenetity.userId=like.userId;
+    likeenetity.id=like.id;
+    return likeenetity;
   }
 }
