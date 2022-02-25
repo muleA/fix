@@ -5,9 +5,9 @@ import {
 } from "typeorm";
 
 export abstract class CommonEntity{
-  @Column({default:'6ecd8c99-4036-403d-bf84-cf8400f67836'})
+  @Column()
   createdBy:string;
-  @Column({default:'6ecd8c99-4036-403d-bf84-cf8400f67836'})
+  @Column()
   updatedBy?:string;
   @CreateDateColumn({type:'timestamptz', default:'now()'})
   createdAt: Date;  

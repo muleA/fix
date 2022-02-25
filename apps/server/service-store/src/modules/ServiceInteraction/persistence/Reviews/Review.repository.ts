@@ -14,7 +14,7 @@ export class ReviewRepository extends Repository<ReviewEntity> implements IRevie
   */
   async updateReview(id: string, review: Review): Promise<void> {
     const reviewEntity = this.toReviewEntity(review);
-    await this.update({ id: review.id }, reviewEntity);
+    await this.save(reviewEntity);
   }
   /**
    * A method that inserts ReviewEntity  into  database 
@@ -22,9 +22,9 @@ export class ReviewRepository extends Repository<ReviewEntity> implements IRevie
    */
   async insertReview(review: Review): Promise<Review> {
     const reviewEntity = this.toReviewEntity(review);
-    const result = await this.save(reviewEntity);
+    const result = await this.insert(reviewEntity);
     console.log(result);
-    return this.toReview(result as ReviewEntity);
+    return this.toReview(result.generatedMaps[0] as ReviewEntity);
   }
   /**
   * A method that fetches all Reviews from the database 
@@ -41,6 +41,7 @@ export class ReviewRepository extends Repository<ReviewEntity> implements IRevie
   */
   async findById(id: string): Promise<Review> {
     const reviewEntity = await this.findOneOrFail(id);
+    console.log("find by id" ,reviewEntity);
     return this.toReview(reviewEntity);
   }
   /**
@@ -79,6 +80,8 @@ export class ReviewRepository extends Repository<ReviewEntity> implements IRevie
     l.id = likeEntity.id;
     l.reviewId = likeEntity.reviewId;
     l.userId = likeEntity.userId;
+   // l.review.id=likeEntity.review.id;
+   // console.log(l);
     return l;
   }
   /**
@@ -96,6 +99,7 @@ export class ReviewRepository extends Repository<ReviewEntity> implements IRevie
     reviewEntity.status = review.status;
     reviewEntity.likes = review.likes;
     reviewEntity.likesDetail= review.likesDetail.map(element=> {return this.toLikeEntity(element)});
+    console.log("review entity",reviewEntity);
     return reviewEntity;
   }
   
@@ -109,6 +113,7 @@ export class ReviewRepository extends Repository<ReviewEntity> implements IRevie
     likeenetity.reviewId=like.reviewId;
     likeenetity.userId=like.userId;
     likeenetity.id=like.id;
+   // likeenetity.review= this.toReviewEntity(like.review);
     return likeenetity;
   }
 }

@@ -10,7 +10,7 @@ import { ReviewEntity } from "./review.entity";
 export class LikeEntity  {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @Column()
+  @Column()  
   reviewId: string;
   @Column()
   userId: string;

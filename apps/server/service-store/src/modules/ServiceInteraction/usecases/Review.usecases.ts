@@ -80,17 +80,20 @@ export class ReviewUseCases {
       review.likesDetail=[]
       review.createLike(likeDomain);
       console.log(review);
-      const result = await this.reviewRepository.insertReview( review);
+      const result = await this.reviewRepository.updateReview(review.id ,review);
       console.log(result);
       return true;
     }
     return false;   
   }
   async deleteLike(reviewId: string, likeId: string) {
-    let result = await this.reviewRepository.findById(reviewId);
-    if (result) {
-      await result.deleteLike(likeId);
-      this.reviewRepository.updateReview(reviewId, result);
+    let  review=new Review();
+    review = await this.reviewRepository.findById(reviewId);
+    //console.log(review);
+    if (review) {
+    await review.deleteLike(likeId);
+     //console.log(review);
+    this.reviewRepository.updateReview(reviewId, review);
     }
   }
 
