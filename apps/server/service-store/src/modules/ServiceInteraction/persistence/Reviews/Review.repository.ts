@@ -9,9 +9,7 @@ import {getConnection,createConnection} from "typeorm";
 export class ReviewRepository extends Repository<ReviewEntity> implements IReviewRepository {
   constructor() {
     super()
-  }
- 
-
+  } 
   /**
   * A method that updates Review information in the database 
   */
