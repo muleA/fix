@@ -1,8 +1,7 @@
 import { EntityRepository, Repository, } from 'typeorm';
 import { Tags } from "../../domain/tags/tags";
-import { ITagRepository } from "../../domain/tags/tag.repository.interface";
+import { ITagRepository } from '../../domain/tags/tag.repository.interface';
 import { TagsEntity } from './serviceTags.entity';
-
 //@Injectable()
 @EntityRepository(TagsEntity)
 export class TagRepository extends Repository<TagsEntity> implements ITagRepository {
@@ -17,7 +16,7 @@ export class TagRepository extends Repository<TagsEntity> implements ITagReposit
     await this.update({ id: tag.id }, tagEntity);
   }
   /**
-   * A method that inserts TagsEntity  into  database 
+   * A method that inserts TagEntity  into  database 
    *
    */
   async insertTag(tag: Tags): Promise<Tags> {
@@ -51,7 +50,7 @@ export class TagRepository extends Repository<TagsEntity> implements ITagReposit
     await this.delete({ id: id });
   }
   /**
-  *A method that copy TagsEntity data  a  Tag domain  
+  *A method that copy TagEntity data  a  Tag domain  
   *@param tagEntity which compraises  Tag information
   *@returns Tag information
   */
@@ -65,7 +64,7 @@ export class TagRepository extends Repository<TagsEntity> implements ITagReposit
     return tag;
   }
   /**
-   *A method that copy Tag data to a TagsEntity   object 
+   *A method that copy Tag data to a TagEntity   object 
    *@param tag An tag which compraises  Tag information
    *@returns A Tag which contain  Tag information
    */
