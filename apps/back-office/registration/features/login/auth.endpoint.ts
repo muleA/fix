@@ -1,5 +1,5 @@
 const authEndpoint = {
-    login: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/auth`
+    login: `http://localhost:8080/realms/perago/protocol/openid-connect/token`
 };
 
 export default authEndpoint;
