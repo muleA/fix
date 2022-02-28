@@ -17,9 +17,11 @@ export const DbConfig = {
   database: process.env.DATABASE_NAME,
   schema: process.env.DATABASE_SCHEMA,
   autoLoadEntities: true,
-  entities: ["dist/**/**/**/**/*.entity{.ts,.js}"],
-//src/modules/Publication/controllers/Services/*.entity{}
-//src\modules\ServiceInteraction\controllers\Reviews/*.entity{}
+
+  entities: [__dirname + "/src/modules/**/**/**/*.entity{.ts,.js}"],// we reduced the searching time
+
+  //src/modules/Publication/controllers/Services/*.entity{}
+  //src\modules\ServiceInteraction\controllers\Reviews/*.entity{}
   // We are using migrations, synchronize should be set to false.
   synchronize: true,
 

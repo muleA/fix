@@ -10,6 +10,8 @@ export class MediaEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column()
+  serviceId: string;
+  @Column()
   url: string;
   @Column()
   caption: string;

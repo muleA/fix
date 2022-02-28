@@ -33,6 +33,16 @@ export class ProcessingTimePresenter {
   @IsNotEmpty()
   @IsString()
   description: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  createdBy: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  updatedBy: string;
   /**
   *A constructor which copy  ProcessingTime domain object Property value to  ProcessingTimePresenter properties
   */
@@ -51,6 +61,12 @@ export class ProcessingTimePresenter {
 
 
     this.description = processingTime.description;
+
+
+    this.createdBy = processingTime.createdBy;
+
+
+    this.updatedBy = processingTime.updatedBy;
 
 
 

@@ -1,12 +1,13 @@
+import { CommonEntity } from "src/modules/shared/CommonEntity";
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-   ManyToOne, JoinColumn
+  ManyToOne, JoinColumn
 } from "typeorm";
 import { ServiceCollectionEntity } from "./serviceCollection.entity";
 @Entity({ name: "serviceEntries" })
-export class ServiceEntryEntity {
+export class ServiceEntryEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column({ name: 'serviceId' })

@@ -9,6 +9,8 @@ import { CommonEntity } from "src/modules/shared/CommonEntity";
 export class ServiceResourceEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+  @Column()
+  serviceId: string;
   @ManyToOne(type => ServiceEntity, service => service.serviceResources)
   @JoinColumn({ name: 'serviceId' })
   service: ServiceEntity;
