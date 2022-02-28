@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Inject, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, ParseIntPipe, Post, Put, Query, Param } from '@nestjs/common';
 import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RatingPresenter } from './rating.presenter';
 import { ApiResponseType } from '../../../../infrastructure/swagger/response.decorator';
@@ -19,9 +19,9 @@ constructor(private useCase: RatingUseCases) {}
  * @returns A RatingPresenter which contain  Rating information
  * See the [definition of the RatingPresenter file]{@link RatingPresenter} to see a list of required properties
  */
-@Get('get-rating')
+@Get('get-rating/:id')
 @ApiResponseType(RatingPresenter, false)
-async getRating(@Query() id: string) {
+async getRating(@Param('id') id: string) {
 const rating = await this.useCase.getRating(id);
 return new RatingPresenter(rating);
 }

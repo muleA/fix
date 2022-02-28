@@ -10,7 +10,7 @@ import { ContactInfo } from '../../domain/serviceOwners/ContactInfo';
 import { Address } from '../../domain/ServiceOwners/address';
 import { ProviderLocation } from '../../domain/ServiceProviders/ProviderLocation';
 
-@Entity({ name: 'serviceProvider' })
+@Entity({ name: 'serviceProviders' })
 export class ServiceProviderEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

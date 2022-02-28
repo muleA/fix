@@ -11,7 +11,11 @@ import { CreateLanguageDto, UpdateLanguageDto } from './Language.dto';
 import { ServiceResourcePresenter } from './ServiceResource.presenter';
 import { CreateServiceResourceDto, UpdateServiceResourceDto } from './ServiceResource.dto';
 
+<<<<<<< HEAD
 import { Body, Controller, Delete, Get, Inject, Param, ParseIntPipe, Patch, Post, Put, Query } from '@nestjs/common';
+=======
+import { Body, Controller, Delete, Get, Inject, ParseIntPipe, Post, Put, Query, Param } from '@nestjs/common';
+>>>>>>> e68633d312a45daf5037c1a8826d5095b2ca46fb
 import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ServicePresenter } from './service.presenter';
 import { ApiResponseType } from '../../../../infrastructure/swagger/response.decorator';
@@ -36,11 +40,18 @@ export class ServicesController {
     * See the [definition of the ServicePresenter file]{@link ServicePresenter} to see a list of required properties
     */
    @Get('get-service/:id')
+<<<<<<< HEAD
    @ApiResponseType(ServicePresenter, true)
    async getService(@Param('id') id: string) {
       return await this.useCase.getService(id);
       // return service;
       // return service.map(service => new ServicePresenter(service));
+=======
+   @ApiResponseType(ServicePresenter, false)
+   async getService(@Param('id') id: string) {
+      const service = await this.useCase.getService(id);
+      return new ServicePresenter(service);
+>>>>>>> e68633d312a45daf5037c1a8826d5095b2ca46fb
    }
    /**   
     * A method that fetchs all Service from the database 
@@ -107,7 +118,11 @@ export class ServicesController {
       // return new ServicePresenter(serviceCreated);
    }
 
+<<<<<<< HEAD
    @Post('add-media')
+=======
+   @Post('add-medias')
+>>>>>>> e68633d312a45daf5037c1a8826d5095b2ca46fb
    @ApiResponseType(MediaPresenter, true)
    async addMedia(@Body() createMediaDto: CreateMediaDto) {
       const mediaCreated = await this.useCase.addMedia(createMediaDto);
@@ -119,7 +134,11 @@ export class ServicesController {
     * @param updateMediaDto  An information of  Media 
     * @returns Success Which notify the  Media information updated
    */
+<<<<<<< HEAD
    @Patch('edit-media/:id')
+=======
+   @Put('edit-medias')
+>>>>>>> e68633d312a45daf5037c1a8826d5095b2ca46fb
    @ApiResponseType(MediaPresenter, true)
    async editMedia(@Param('id') id: string, @Body() updateMediaDto: UpdateMediaDto) {
       await this.useCase.updateMedia(id, updateMediaDto);
@@ -131,6 +150,7 @@ export class ServicesController {
     * @param id An id of a Media. A Media with this id should exist in the database
     * @returns success which  informs the status of the remove operation successed 
    */
+<<<<<<< HEAD
    //  @Delete('remove-Media')
    //  @ApiResponseType(MediaPresenter, true)
    //  async deleteMedia( @Body() deleteMediaDto: DeleteMediaDto) {
@@ -143,6 +163,9 @@ export class ServicesController {
    //    return await this.useCase.deleteService(id);
    // }
    @Delete('remove-media/:serviceId/:id')
+=======
+   @Delete('remove-medias')
+>>>>>>> e68633d312a45daf5037c1a8826d5095b2ca46fb
    @ApiResponseType(MediaPresenter, true)
    async deleteMedia(@Param('serviceId') serviceId: string, @Param('id') id: string) {
       await this.useCase.deleteMedia(serviceId, id);
@@ -160,7 +183,11 @@ export class ServicesController {
       return 'success';
    }
 
+<<<<<<< HEAD
    @Post('add-service-fee')
+=======
+   @Post('add-service-fees')
+>>>>>>> e68633d312a45daf5037c1a8826d5095b2ca46fb
    @ApiResponseType(ServiceFeePresenter, true)
    async addServiceFee(@Body() createServiceFeeDto: CreateServiceFeeDto) {
       const serviceFeeCreated = await this.useCase.addServiceFee(createServiceFeeDto);
@@ -172,7 +199,11 @@ export class ServicesController {
     * @param updateServiceFeeDto  An information of  ServiceFee 
     * @returns Success Which notify the  ServiceFee information updated
    */
+<<<<<<< HEAD
    @Put('edit-service-fee')
+=======
+   @Put('edit-service-fees')
+>>>>>>> e68633d312a45daf5037c1a8826d5095b2ca46fb
    @ApiResponseType(ServiceFeePresenter, true)
    async editServiceFee(@Body() createServiceFeeDto: UpdateServiceFeeDto) {
       await this.useCase.updateServiceFee(createServiceFeeDto);
@@ -184,7 +215,11 @@ export class ServicesController {
     * @param id An id of a ServiceFee. A ServiceFee with this id should exist in the database
     * @returns success which  informs the status of the remove operation successed 
    */
+<<<<<<< HEAD
    @Delete('remove-service-fee')
+=======
+   @Delete('remove-service-fees')
+>>>>>>> e68633d312a45daf5037c1a8826d5095b2ca46fb
    @ApiResponseType(ServiceFeePresenter, true)
    async removeServiceFee(@Query() id: string) {
       await this.useCase.deleteServiceFee(id);
@@ -196,7 +231,11 @@ export class ServicesController {
     * @param List<createServiceFeeDto> A list of ServiceFee to be saved into database 
     * @returns Success Which notify the  ServiceFee information saved successfully
    */
+<<<<<<< HEAD
    @Put('update-service-fee')
+=======
+   @Put('update-service-fees')
+>>>>>>> e68633d312a45daf5037c1a8826d5095b2ca46fb
    @ApiResponseType(ServiceFeePresenter, true)
    async updateServiceFee(@Body() createServiceFeeDto: CreateServiceFeeDto[]) {
       await this.useCase.updateServiceFees(createServiceFeeDto);
@@ -282,7 +321,11 @@ export class ServicesController {
     * @param List<createServiceDependencyDto> A list of ServiceDependency to be saved into database 
     * @returns Success Which notify the  ServiceDependency information saved successfully
    */
+<<<<<<< HEAD
    @Put('update-service-dependency')
+=======
+   @Put('update-service-dependencies')
+>>>>>>> e68633d312a45daf5037c1a8826d5095b2ca46fb
    @ApiResponseType(ServiceDependencyPresenter, true)
    async updateServiceDependency(@Body() createServiceDependencyDto: CreateServiceDependencyDto[]) {
       await this.useCase.updateServiceDependencies(createServiceDependencyDto);
@@ -368,7 +411,11 @@ export class ServicesController {
     * @param List<createServiceResourceDto> A list of ServiceResource to be saved into database 
     * @returns Success Which notify the  ServiceResource information saved successfully
    */
+<<<<<<< HEAD
    @Put('update-service-resources')
+=======
+   @Put('update-resources')
+>>>>>>> e68633d312a45daf5037c1a8826d5095b2ca46fb
    @ApiResponseType(ServiceResourcePresenter, true)
    async updateServiceResource(@Body() createServiceResourceDto: CreateServiceResourceDto[]) {
       await this.useCase.updateResources(createServiceResourceDto);

@@ -1,15 +1,13 @@
-import { Body, Controller, Delete, Get, Inject, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, ParseIntPipe, Post, Put, Query, Param } from '@nestjs/common';
 import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CategoryPresenter } from './category.presenter';
 import { ApiResponseType } from '../../../../infrastructure/swagger/response.decorator';
 import { CreateCategoryDto, UpdateCategoryDto } from '../categorys/category.dto';
 import { CategoryUseCases } from '../../usecases/category.usecases';
-
-@Controller('categorys')
-@ApiTags('categorys')
+@Controller('categories')
+@ApiTags('categories')
 @ApiResponse({ status: 500, description: 'Internal error' })
 @ApiExtraModels(CategoryPresenter)
-
 export class CategorysController {
 /**
 *A constructor that injects CategoryUseCases
@@ -21,9 +19,9 @@ constructor(private useCase: CategoryUseCases) {}
  * @returns A CategoryPresenter which contain  Category information
  * See the [definition of the CategoryPresenter file]{@link CategoryPresenter} to see a list of required properties
  */
-@Get('get-category')
+@Get('get-category/:id')
 @ApiResponseType(CategoryPresenter, false)
-async getCategory(@Query() id: string) {
+async getCategory(@Param('id') id: string) {
 const category = await this.useCase.getCategory(id);
 return new CategoryPresenter(category);
 }
@@ -32,13 +30,12 @@ return new CategoryPresenter(category);
  * @returns A list of  CategoryPresenter which contain  Category information
  * See the [definition of the CategoryPresenter file]{@link CategoryPresenter} to see a list of required properties
  */
-@Get('get-categorys')
+@Get('get-categories')
 @ApiResponseType(CategoryPresenter, true)
 async getCategorys() {
 const categorys = await this.useCase.fetCategorys();
 return categorys.map((category) => new CategoryPresenter(category));
 }
-
 /**
  * A method that update a Category 
  * @param updateCategoryDto  An information of  Category 
@@ -62,7 +59,6 @@ async deleteCategory(@Query() id: string) {
 await this.useCase.deleteCategory(id);
 return 'success';
 }
-
 /**
  * A method that creates a Category 
  * @param createCategoryDto  An information of  Category  that need to be saved
@@ -75,6 +71,4 @@ async createCategory(@Body() createCategoryDto: CreateCategoryDto) {
 const categoryCreated = await this.useCase.createCategory( createCategoryDto);
 return new CategoryPresenter(categoryCreated );
 }
-  
-
 }

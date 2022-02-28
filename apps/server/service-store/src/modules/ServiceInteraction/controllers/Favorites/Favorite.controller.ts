@@ -23,7 +23,7 @@ constructor(private useCase: FavoriteUseCases) {}
  */
 @Get('get-favorite/:id')
 @ApiResponseType(FavoritePresenter, false)
-async getFavorite(@Query() id: string) {
+async getFavorite(@Param('id') id: string) {
 const favorite = await this.useCase.getFavorite(id);
 return new FavoritePresenter(favorite);
 }

@@ -1,5 +1,4 @@
-
-export class Tag {
+export class Tags {
     constructor() { }
     id: string;
     name: string;

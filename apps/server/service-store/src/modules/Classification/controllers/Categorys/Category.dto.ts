@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsBoolean, IsDate, IsNotEmpty, IsUUID, IsNumberString, IsOptional, IsString } from 'class-validator';
-import { Category } from '../../domain/Categorys/category';
-   
+import { Category } from '../../domain/categorys/category';
 /**
 *A class which contains proporties of Category that used to receive paramamer values to be updated in the database
 */
@@ -26,7 +25,6 @@ code: string;
 @IsNotEmpty()
 @IsUUID()
 parentId: string;  
-
   /**
 *A method that mapes  UpdateCategoryDto object data to  Category domain object
 *@returns Category domain object which contains Category  information
@@ -34,28 +32,11 @@ parentId: string;
 static fromDTO(categoryDto:UpdateCategoryDto): Category
 {
 const category: Category = new Category();  
- 
 category.id=categoryDto.id; 
-
-
- 
 category.name=categoryDto.name; 
-
-
- 
 category.description=categoryDto.description; 
-
-
- 
 category.code=categoryDto.code; 
-
-
- 
 category.parentId=categoryDto.parentId; 
-
-
-
-
 return category;
   }
 }
@@ -91,15 +72,10 @@ export class CreateCategoryDto {
 static fromDTO(categoryDto:CreateCategoryDto): Category
 {
 const category: Category = new Category();  
- 
 category.id=categoryDto.id; 
- 
 category.name=categoryDto.name; 
- 
 category.description=categoryDto.description; 
- 
 category.code=categoryDto.code; 
- 
 category.parentId=categoryDto.parentId; 
      return category;
     }
