@@ -4,8 +4,8 @@ import {
   IsString,
   IsUUID,
 } from 'class-validator';
-import { Address } from '../../domain/ServiceOwners/address';
 import { ServiceOwner } from '../../domain/ServiceOwners/serviceOwner';
+import { CreateAddressDto, UpdateAddressDto } from './Address.dto';
 import { CreateContactInfoDto, UpdateContactInfoDto } from './ContactInfo.dto';
 
 /**
@@ -28,10 +28,11 @@ export class UpdateServiceOwnerDto {
   @IsString()
   @ApiProperty()
   sector: string;
+  @ApiProperty()
   contactInfo: UpdateContactInfoDto;
 
   @ApiProperty()
-  address: Address;
+  address: UpdateAddressDto;
   @ApiProperty()
   code: string;
   @IsNotEmpty()
@@ -62,7 +63,7 @@ export class UpdateServiceOwnerDto {
       serviceOwnerDto.contactInfo
     );
 
-    serviceOwner.address = serviceOwnerDto.address;
+    serviceOwner.address = UpdateAddressDto.fromDTO(serviceOwnerDto.address);
 
     serviceOwner.code = serviceOwnerDto.code;
 
@@ -91,10 +92,11 @@ export class CreateServiceOwnerDto {
   @IsNotEmpty()
   @IsString()
   sector: string;
+  @ApiProperty()
   contactInfo: CreateContactInfoDto;
 
   @ApiProperty()
-  address: Address;
+  address: CreateAddressDto;
 
   @ApiProperty()
   code: string;
@@ -124,13 +126,14 @@ export class CreateServiceOwnerDto {
       serviceOwnerDto.contactInfo
     );
 
-    serviceOwner.address = serviceOwnerDto.address;
+    serviceOwner.address = CreateAddressDto.fromDTO(serviceOwnerDto.address);
 
     serviceOwner.code = serviceOwnerDto.code;
 
     serviceOwner.organizationId = serviceOwnerDto.organizationId;
 
     serviceOwner.organizationName = serviceOwnerDto.organizationName;
+    console.log(serviceOwner);
     return serviceOwner;
   }
 }
