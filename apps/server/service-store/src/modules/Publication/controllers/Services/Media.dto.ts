@@ -32,6 +32,10 @@ export class UpdateMediaDto {
   @IsNotEmpty()
   @IsUUID()
   serviceId: string;
+  @ApiProperty()
+  createdBy: string;
+  @ApiProperty()
+  updatedBy: string;
 
   /**
 *A method that mapes  UpdateMediaDto object data to  Media domain object
@@ -57,6 +61,14 @@ export class UpdateMediaDto {
 
 
     media.serviceId = mediaDto.serviceId;
+
+
+
+    media.createdBy = mediaDto.createdBy;
+
+
+
+    media.updatedBy = mediaDto.updatedBy;
 
 
     return media;
@@ -93,6 +105,11 @@ export class CreateMediaDto {
   @IsUUID()
   serviceId: string;
 
+  @ApiProperty()
+  createdBy: string;
+  @ApiProperty()
+  updatedBy: string;
+
   /**
 *A method that mapes  CreateMediaDto object data to  Media domain object
 *@returns Media domain object which contains Media  information
@@ -100,7 +117,7 @@ export class CreateMediaDto {
   static fromDTO(mediaDto: CreateMediaDto): Media {
     const media: Media = new Media();
 
-    media.id = mediaDto.id;
+    // media.id = mediaDto.id;  // should delete to insert child entity
 
     media.url = mediaDto.url;
 
@@ -109,6 +126,26 @@ export class CreateMediaDto {
     media.type = mediaDto.type;
 
     media.serviceId = mediaDto.serviceId;
+
+    media.createdBy = mediaDto.createdBy;
+
+    media.updatedBy = mediaDto.updatedBy;
     return media;
   }
+
+}
+export class DeleteMediaDto {
+
+  @ApiProperty()
+  // @IsNotEmpty()  
+  // @IsUUID() // commented for test only
+  serviceId: string;
+
+  @ApiProperty()
+  // @IsNotEmpty()  
+  // @IsUUID() // commented for test only
+  mediaId: string;
+
+
+
 }

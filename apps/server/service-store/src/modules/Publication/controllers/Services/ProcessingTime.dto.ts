@@ -9,8 +9,8 @@ import { ProcessingTime } from '../../domain/services/ProcessingTime';
 export class UpdateProcessingTimeDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsString()
   id: string;
 
   @ApiProperty()
@@ -31,6 +31,14 @@ export class UpdateProcessingTimeDto {
   @ApiProperty()
   @IsString()
   description: string;
+
+  @ApiProperty()
+  @IsString()
+  createdBy: string;
+
+  @ApiProperty()
+  @IsString()
+  updatedBy: string;
 
   /**
 *A method that mapes  UpdateProcessingTimeDto object data to  ProcessingTime domain object
@@ -58,6 +66,14 @@ export class UpdateProcessingTimeDto {
     processingTime.description = processingTimeDto.description;
 
 
+
+    processingTime.createdBy = processingTimeDto.createdBy;
+
+
+
+    processingTime.updatedBy = processingTimeDto.updatedBy;
+
+
     return processingTime;
   }
 }
@@ -68,8 +84,8 @@ export class UpdateProcessingTimeDto {
 export class CreateProcessingTimeDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsString()
   id: string;
 
   @ApiProperty()
@@ -91,6 +107,14 @@ export class CreateProcessingTimeDto {
   @IsString()
   description: string;
 
+  @ApiProperty()
+  @IsString()
+  createdBy: string;
+
+  @ApiProperty()
+  @IsString()
+  updatedBy: string;
+
   /**
 *A method that mapes  CreateProcessingTimeDto object data to  ProcessingTime domain object
 *@returns ProcessingTime domain object which contains ProcessingTime  information
@@ -107,6 +131,10 @@ export class CreateProcessingTimeDto {
     processingTime.currency = processingTimeDto.currency;
 
     processingTime.description = processingTimeDto.description;
+
+    processingTime.createdBy = processingTimeDto.createdBy;
+
+    processingTime.updatedBy = processingTimeDto.updatedBy;
     return processingTime;
   }
 }

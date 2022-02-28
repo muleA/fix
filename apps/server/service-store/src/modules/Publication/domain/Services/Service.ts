@@ -11,6 +11,7 @@ import { Language } from '../services/Language';
 import { ApplicationForm } from '../services/ApplicationForm';
 
 import { ServiceResource } from '../services/ServiceResource';
+import { Logger } from "@nestjs/common";
 
 export class Service {
   constructor() { }
@@ -43,14 +44,17 @@ export class Service {
   publishedOn: Date;
   createdAt: Date;
   updatedAt: Date;
+  createdBy: string;
+  updatedBy: string;
 
   /**
    * A method that add Media to the database> 
    * @param media  An information of  Media 
    * @returns do not return any data
   */
-  async addMedia(createMedia: Media) {
-    this.medias.push(createMedia);
+  async addMedia(addMedia: Media) {
+    this.medias.push(addMedia);
+    Logger.log(this.addMedia);
   }
 
   /**

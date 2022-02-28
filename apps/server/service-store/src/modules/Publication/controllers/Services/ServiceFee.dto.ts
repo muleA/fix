@@ -9,8 +9,8 @@ import { ServiceFee } from '../../domain/services/ServiceFee';
 export class UpdateServiceFeeDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
 
   @ApiProperty()
@@ -32,6 +32,16 @@ export class UpdateServiceFeeDto {
   @IsNotEmpty()
   @IsString()
   description: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  createdBy: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  updatedBy: string;
 
   /**
 *A method that mapes  UpdateServiceFeeDto object data to  ServiceFee domain object
@@ -59,6 +69,15 @@ export class UpdateServiceFeeDto {
     serviceFee.description = serviceFeeDto.description;
 
 
+
+    serviceFee.createdBy = serviceFeeDto.createdBy;
+
+
+
+    serviceFee.updatedBy = serviceFeeDto.updatedBy;
+
+
+
     return serviceFee;
   }
 }
@@ -69,8 +88,8 @@ export class UpdateServiceFeeDto {
 export class CreateServiceFeeDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
 
   @ApiProperty()
@@ -93,6 +112,16 @@ export class CreateServiceFeeDto {
   @IsString()
   description: string;
 
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  createdBy: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  updatedBy: string;
+
   /**
 *A method that mapes  CreateServiceFeeDto object data to  ServiceFee domain object
 *@returns ServiceFee domain object which contains ServiceFee  information
@@ -109,6 +138,10 @@ export class CreateServiceFeeDto {
     serviceFee.currency = serviceFeeDto.currency;
 
     serviceFee.description = serviceFeeDto.description;
+
+    serviceFee.createdBy = serviceFeeDto.createdBy;
+
+    serviceFee.updatedBy = serviceFeeDto.updatedBy;
     return serviceFee;
   }
 }

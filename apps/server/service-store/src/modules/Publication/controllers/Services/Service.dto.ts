@@ -17,8 +17,8 @@ import { CreateServiceResourceDto, UpdateServiceResourceDto } from './ServiceRes
 */
 export class UpdateServiceDto {
    // @ApiProperty()
-   // @IsNotEmpty()  commented for testing only
-   @IsUUID()
+   // @IsNotEmpty()
+   // @IsUUID() commented for testing only
    id: string;
    @ApiProperty()
    @IsNotEmpty()
@@ -28,7 +28,7 @@ export class UpdateServiceDto {
    @IsString()
    description: string;
    @ApiProperty()
-   @IsNotEmpty()
+   // @IsNotEmpty()
    @IsString()
    code: string;
    @ApiProperty()
@@ -45,7 +45,7 @@ export class UpdateServiceDto {
    @IsDecimal()
    version: number;
    @ApiProperty()
-   @IsNotEmpty()
+   // @IsNotEmpty()
    @IsString()
    procedure: string;
    @ApiProperty()
@@ -59,9 +59,9 @@ export class UpdateServiceDto {
    serviceDependencies: UpdateServiceDependencyDto[];
    @ApiProperty()
    // @IsArray()   //commented for testing
-   // languages: UpdateLanguageDto[];
-   // @IsNotEmpty()
-   applicationForm: UpdateApplicationFormDto;  // commented for testing only
+   languages: UpdateLanguageDto[];
+   // @IsNotEmpty()  commented for testing only
+   applicationForm: UpdateApplicationFormDto;
    @ApiProperty()
    // @IsArray()   //commented for testing
    serviceResources: UpdateServiceResourceDto[];
@@ -91,8 +91,8 @@ export class UpdateServiceDto {
    @IsNotEmpty()
    deliveryMethod: string;
    @ApiProperty()
-   @IsNotEmpty()
-   @IsUUID()
+   // @IsNotEmpty()
+   // @IsUUID()   // commented for testing only
    serviceOwnerId: string;
    @ApiProperty()
    @IsDecimal()
@@ -107,6 +107,11 @@ export class UpdateServiceDto {
    @ApiProperty()
    // @IsDate()    commented for testing only
    publishedOn: Date;
+   @ApiProperty()
+   createdBy: string;
+   @ApiProperty()
+   updatedBy: string;
+
    /**
  *A method that mapes  UpdateServiceDto object data to  Service domain object
  *@returns Service domain object which contains Service  information
@@ -118,18 +123,23 @@ export class UpdateServiceDto {
       service.description = serviceDto.description;
       service.code = serviceDto.code;
       service.fullyQualifiedName = serviceDto.fullyQualifiedName;
-      service.medias = serviceDto.medias.map(item => UpdateMediaDto.fromDTO(item));
+      if (service.medias)
+         service.medias = serviceDto.medias.map(item => UpdateMediaDto.fromDTO(item));
       service.supportedQualifications = serviceDto.supportedQualifications;
       service.version = serviceDto.version;
       service.procedure = serviceDto.procedure;
-      /*
-            service.serviceFees = serviceDto.serviceFees.map(item => UpdateServiceFeeDto.fromDTO(item));
-            service.processingTimes = serviceDto.processingTimes.map(item => UpdateProcessingTimeDto.fromDTO(item));
-            service.serviceDependencies = serviceDto.serviceDependencies.map(item => UpdateServiceDependencyDto.fromDTO(item));
-            service.languages = serviceDto.languages.map(item => UpdateLanguageDto.fromDTO(item));
-            service.applicationForm = UpdateApplicationFormDto.fromDTO(serviceDto.applicationForm);
-            service.serviceResources = serviceDto.serviceResources.map(item => UpdateServiceResourceDto.fromDTO(item));
-      */
+      if (service.serviceFees)
+         service.serviceFees = serviceDto.serviceFees.map(item => UpdateServiceFeeDto.fromDTO(item));
+      if (service.processingTimes)
+         service.processingTimes = serviceDto.processingTimes.map(item => UpdateProcessingTimeDto.fromDTO(item));
+      if (service.serviceDependencies)
+         service.serviceDependencies = serviceDto.serviceDependencies.map(item => UpdateServiceDependencyDto.fromDTO(item));
+      if (service.languages)
+         service.languages = serviceDto.languages.map(item => UpdateLanguageDto.fromDTO(item));
+      if (service.serviceResources)
+         service.serviceResources = serviceDto.serviceResources.map(item => UpdateServiceResourceDto.fromDTO(item));
+      if (service.applicationForm)
+         service.applicationForm = UpdateApplicationFormDto.fromDTO(serviceDto.applicationForm);
       service.targetCustomers = serviceDto.targetCustomers;
       service.status = serviceDto.status;
       service.isPublic = serviceDto.isPublic;
@@ -137,11 +147,14 @@ export class UpdateServiceDto {
       service.isArchived = serviceDto.isArchived;
       service.tags = serviceDto.tags;
       service.deliveryMethod = serviceDto.deliveryMethod;
-      service.serviceOwnerId = serviceDto.serviceOwnerId;
+      if (service.serviceOwnerId)
+         service.serviceOwnerId = serviceDto.serviceOwnerId;
       service.averageRating = serviceDto.averageRating;
       service.enableReview = serviceDto.enableReview;
       service.policy = serviceDto.policy;
       service.publishedOn = serviceDto.publishedOn;
+      service.createdBy = serviceDto.createdBy;
+      service.updatedBy = serviceDto.updatedBy;
       return service;
    }
 }
@@ -241,6 +254,10 @@ export class CreateServiceDto {
    @ApiProperty()
    // @IsDate()    commented for testing only
    publishedOn: Date;
+   @ApiProperty()
+   createdBy: string;
+   @ApiProperty()
+   updatedBy: string;
    /**
  *A method that mapes  CreateServiceDto object data to  Service domain object
  *@returns Service domain object which contains Service  information
@@ -252,7 +269,8 @@ export class CreateServiceDto {
       service.description = serviceDto.description;
       service.code = serviceDto.code;
       service.fullyQualifiedName = serviceDto.fullyQualifiedName;
-      //service.medias = serviceDto.medias.map(item => CreateMediaDto.fromDTO(item));
+      // if (!service.medias)
+      //    service.medias = serviceDto.medias.map(item => CreateMediaDto.fromDTO(item));
       service.supportedQualifications = serviceDto.supportedQualifications;
       service.version = serviceDto.version;
       service.procedure = serviceDto.procedure;
@@ -260,8 +278,9 @@ export class CreateServiceDto {
       // service.processingTimes = serviceDto.processingTimes.map(item => CreateProcessingTimeDto.fromDTO(item));
       // service.serviceDependencies = serviceDto.serviceDependencies.map(item => CreateServiceDependencyDto.fromDTO(item));
       // service.languages = serviceDto.languages.map(item => CreateLanguageDto.fromDTO(item));
-      // service.applicationForm = CreateApplicationFormDto.fromDTO(serviceDto.applicationForm);
       //service.serviceResources = serviceDto.serviceResources.map(item => CreateServiceResourceDto.fromDTO(item));
+      // service.applicationForm = CreateApplicationFormDto.fromDTO(serviceDto.applicationForm);
+      service.applicationForm = serviceDto.applicationForm;
       service.targetCustomers = serviceDto.targetCustomers;
       service.status = serviceDto.status;
       service.isPublic = serviceDto.isPublic;
@@ -274,6 +293,8 @@ export class CreateServiceDto {
       service.enableReview = serviceDto.enableReview;
       service.policy = serviceDto.policy;
       service.publishedOn = serviceDto.publishedOn;
+      service.createdBy = serviceDto.createdBy;
+      service.updatedBy = serviceDto.updatedBy;
       return service;
    }
 }
