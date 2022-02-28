@@ -1,13 +1,13 @@
 // import { ConnectionOptions } from "typeorm";
 // // eslint-disable-next-line @typescript-eslint/no-var-requires
-require("dotenv").config();
-// import * as dotenv from "dotenv";
 
 // if (process.env.NODE_ENV === "local") {
 //   dotenv.config({ path: "./env/local.env" });
 // }
 ////
 // Check typeORM documentation for more information.
+import * as dotenv from "dotenv";
+dotenv.config({ path: '.env' });
 export const DbConfig = {
   type: "postgres",
   host: process.env.DATABASE_HOST,
