@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { ServiceProviderEntity } from './serviceProvider.entity';
 
-@Entity({ name: 'delegatedService' })
+@Entity({ name: 'delegatedServices' })
 export class DelegatedServiceEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
