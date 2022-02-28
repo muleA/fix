@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Inject, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, ParseIntPipe, Post, Put, Query, Param } from '@nestjs/common';
 import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ReviewPresenter } from './review.presenter';
 import { ApiResponseType } from '../../../../infrastructure/swagger/response.decorator';
@@ -21,9 +21,9 @@ constructor(private useCase: ReviewUseCases) {}
  * @returns A ReviewPresenter which contain  Review information
  * See the [definition of the ReviewPresenter file]{@link ReviewPresenter} to see a list of required properties
  */
-@Get('get-review')
+@Get('get-review/:id')
 @ApiResponseType(ReviewPresenter, false)
-async getReview(@Query() id: string) {
+async getReview(@Param('id') id: string) {
 const review = await this.useCase.getReview(id);
 return new ReviewPresenter(review);
 }

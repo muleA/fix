@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get,  Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put, Query, Param } from '@nestjs/common';
 import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TagPresenter } from './tag.presenter';
 import { ApiResponseType } from '../../../../infrastructure/swagger/response.decorator';
@@ -19,9 +19,9 @@ constructor(private useCase: TagUseCases) {}
  * @returns A TagPresenter which contain  Tag information
  * See the [definition of the TagPresenter file]{@link TagPresenter} to see a list of required properties
  */
-@Get('get-tag')
+@Get('get-tag/:id')
 @ApiResponseType(TagPresenter, false)
-async getTag(@Query() id: string) {
+async getTag(@Param('id') id: string) {
 const tag = await this.useCase.getTag(id);
 return new TagPresenter(tag);
 }

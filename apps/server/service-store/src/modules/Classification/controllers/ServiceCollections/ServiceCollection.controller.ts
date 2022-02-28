@@ -1,6 +1,6 @@
 import { ServiceEntryPresenter } from './ServiceEntry.presenter';
 import { CreateServiceEntryDto, UpdateServiceEntryDto } from './ServiceEntry.dto';
-import { Body, Controller, Delete, Get, Inject, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, ParseIntPipe, Post, Put, Query, Param } from '@nestjs/common';
 import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ServiceCollectionPresenter } from './serviceCollection.presenter';
 import { ApiResponseType } from '../../../../infrastructure/swagger/response.decorator';
@@ -8,8 +8,8 @@ import { CreateServiceCollectionDto, UpdateServiceCollectionDto } from '../servi
 import { ServiceCollectionUseCases } from '../../usecases/serviceCollection.usecases';
 import { ServiceResourcePresenter } from './ServiceResource.presenter';
 import { CreateServiceResourceDto, UpdateServiceResourceDto } from './ServiceResource.dto';
-@Controller('serviceCollections')
-@ApiTags('serviceCollections')
+@Controller('service-collections')
+@ApiTags('service-collections')
 @ApiResponse({ status: 500, description: 'Internal error' })
 @ApiExtraModels(ServiceCollectionPresenter)
 export class ServiceCollectionsController {
@@ -23,9 +23,9 @@ constructor(private useCase: ServiceCollectionUseCases) {}
  * @returns A ServiceCollectionPresenter which contain  ServiceCollection information
  * See the [definition of the ServiceCollectionPresenter file]{@link ServiceCollectionPresenter} to see a list of required properties
  */
-@Get('get-serviceCollection')
+@Get('get-service-collection/:id')
 @ApiResponseType(ServiceCollectionPresenter, false)
-async getServiceCollection(@Query() id: string) {
+async getServiceCollection(@Param('id') id: string) {
 const serviceCollection = await this.useCase.getServiceCollection(id);
 return new ServiceCollectionPresenter(serviceCollection);
 }
@@ -34,7 +34,7 @@ return new ServiceCollectionPresenter(serviceCollection);
  * @returns A list of  ServiceCollectionPresenter which contain  ServiceCollection information
  * See the [definition of the ServiceCollectionPresenter file]{@link ServiceCollectionPresenter} to see a list of required properties
  */
-@Get('get-serviceCollections')
+@Get('get-service-collections')
 @ApiResponseType(ServiceCollectionPresenter, true)
 async getServiceCollections() {
 const serviceCollections = await this.useCase.fetServiceCollections();
@@ -46,7 +46,7 @@ return serviceCollections.map((serviceCollection) => new ServiceCollectionPresen
  * @returns A ServiceCollectionPresenter which contain  ServiceCollection information
  * See the [definition of the updateServiceCollectionDto file]{@link updateServiceCollectionDto} to see a list of required properties
  */ 
- @Put('update-serviceCollection')
+ @Put('update-service-collection')
 @ApiResponseType(ServiceCollectionPresenter, true)
 async updateServiceCollection(@Body() updateServiceCollectionDto: UpdateServiceCollectionDto) {
 await this.useCase.updateServiceCollection(updateServiceCollectionDto);
@@ -57,7 +57,7 @@ return 'success';
  * @param id An id of a ServiceCollection. A ServiceCollection with this id should exist in the database
  * @returns success which  informs the status of the success
 */
-@Delete('delete-serviceCollection')
+@Delete('delete-service-collection')
 @ApiResponseType(ServiceCollectionPresenter, true)
 async deleteServiceCollection(@Query() id: string) {
 await this.useCase.deleteServiceCollection(id);
@@ -69,13 +69,13 @@ return 'success';
  * @returns A ServiceCollectionPresenter which contain  created ServiceCollection information
  * See the [definition of the CreateServiceCollectionDto file]{@link CreateServiceCollectionDto} to see a list of required properties
  */ 
-@Post('create-serviceCollection')
+@Post('create-service-collection')
 @ApiResponseType(ServiceCollectionPresenter, true)
 async createServiceCollection(@Body() createServiceCollectionDto: CreateServiceCollectionDto) {
 const serviceCollectionCreated = await this.useCase.createServiceCollection( createServiceCollectionDto);
 return new ServiceCollectionPresenter(serviceCollectionCreated );
 }
-@Post('add-ServiceEntry')
+@Post('add-service-entry')
 @ApiResponseType(ServiceEntryPresenter, true)
 async addServiceEntry(@Body() createServiceEntryDto: CreateServiceEntryDto) {
 const serviceEntryCreated = await this.useCase.addServiceEntry( createServiceEntryDto);
@@ -86,7 +86,7 @@ return new ServiceCollectionPresenter(serviceEntryCreated );
  * @param updateServiceEntryDto  An information of  ServiceEntry 
  * @returns Success Which notify the  ServiceEntry information updated
 */ 
-@Put('edit-ServiceEntry')
+@Put('edit-service-entry')
 @ApiResponseType(ServiceEntryPresenter, true)
 async editServiceEntry(@Body() createServiceEntryDto: UpdateServiceEntryDto) {
 await this.useCase.updateServiceEntry( createServiceEntryDto);
@@ -97,7 +97,7 @@ return 'success';
  * @param id An id of a ServiceEntry. A ServiceEntry with this id should exist in the database
  * @returns success which  informs the status of the remove operation successed 
 */
-@Delete('remove-ServiceEntry')
+@Delete('remove-service-entry')
 @ApiResponseType(ServiceEntryPresenter, true)
 async removeServiceEntry(@Query() id: string) {
 await this.useCase.deleteServiceEntry(id);
@@ -108,13 +108,13 @@ return 'success';
  * @param List<createServiceEntryDto> A list of ServiceEntry to be saved into database 
  * @returns Success Which notify the  ServiceEntry information saved successfully
 */ 
-@Put('update-ServiceEntries')
+@Put('update-service-entries')
 @ApiResponseType(ServiceEntryPresenter, true)
 async updateServiceEntry(@Body() createServiceEntryDto: CreateServiceEntryDto[]) {
 await this.useCase.updateServiceEntries(createServiceEntryDto);
 return 'success';
 }
-@Post('add-ServiceResource')
+@Post('add-service-resource')
 @ApiResponseType(ServiceResourcePresenter, true)
 async addServiceResource(@Body() createServiceResourceDto: CreateServiceResourceDto) {
 const serviceResourceCreated = await this.useCase.addServiceResource( createServiceResourceDto);
@@ -125,7 +125,7 @@ return new ServiceCollectionPresenter(serviceResourceCreated );
  * @param updateServiceResourceDto  An information of  ServiceResource 
  * @returns Success Which notify the  ServiceResource information updated
 */ 
-@Put('edit-ServiceResource')
+@Put('edit-service-resource')
 @ApiResponseType(ServiceResourcePresenter, true)
 async editServiceResource(@Body() createServiceResourceDto: UpdateServiceResourceDto) {
 await this.useCase.updateServiceResource( createServiceResourceDto);
@@ -136,7 +136,7 @@ return 'success';
  * @param id An id of a ServiceResource. A ServiceResource with this id should exist in the database
  * @returns success which  informs the status of the remove operation successed 
 */
-@Delete('remove-ServiceResource')
+@Delete('remove-service-resource')
 @ApiResponseType(ServiceResourcePresenter, true)
 async removeServiceResource(@Query() id: string) {
 await this.useCase.deleteServiceResource(id);
@@ -147,7 +147,7 @@ return 'success';
  * @param List<createServiceResourceDto> A list of ServiceResource to be saved into database 
  * @returns Success Which notify the  ServiceResource information saved successfully
 */ 
-@Put('update-Resources')
+@Put('update-resources')
 @ApiResponseType(ServiceResourcePresenter, true)
 async updateServiceResource(@Body() createServiceResourceDto: CreateServiceResourceDto[]) {
 await this.useCase.updateResources(createServiceResourceDto);
