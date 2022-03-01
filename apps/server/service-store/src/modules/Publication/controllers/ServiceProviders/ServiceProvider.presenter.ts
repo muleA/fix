@@ -18,6 +18,7 @@ export class ServiceProviderPresenter {
   fullName: string;
   @ApiProperty()
   sector: string;
+  @ApiProperty()
   contactInfo: ContactInfoPresenter;
   @ApiProperty()
   location: ProviderLocation;

@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Address } from '../../domain/ServiceOwners/address';
+import { ContactInfo } from '../../domain/serviceOwners/ContactInfo';
 import { ServiceOwner } from '../../domain/ServiceOwners/serviceOwner';
 import { ContactInfoPresenter } from './ContactInfo.presenter';
 
@@ -19,7 +20,7 @@ export class ServiceOwnerPresenter {
 
   @ApiProperty()
   sector: string;
-  contactInfo: ContactInfoPresenter;
+  contactInfo: ContactInfo;
 
   @ApiProperty()
   address: Address;
@@ -38,6 +39,14 @@ export class ServiceOwnerPresenter {
 
   @ApiProperty()
   updatedAt: Date;
+  @ApiProperty()
+  createdBy?: string;
+  @ApiProperty()
+  updatedBy?: string;
+  @ApiProperty()
+  deletedAt: Date;
+  @ApiProperty()
+  deletedBy: string;
   /**
    *A constructor which copy  ServiceOwner domain object Property value to  ServiceOwnerPresenter properties
    */
@@ -50,7 +59,7 @@ export class ServiceOwnerPresenter {
 
     this.sector = serviceOwner.sector;
 
-    this.contactInfo = new ContactInfoPresenter(serviceOwner.contactInfo);
+    this.contactInfo = serviceOwner.contactInfo;
 
     this.address = serviceOwner.address;
 
@@ -63,5 +72,11 @@ export class ServiceOwnerPresenter {
     this.createdAt = serviceOwner.createdAt;
 
     this.updatedAt = serviceOwner.updatedAt;
+    this.createdBy = serviceOwner.createdBy;
+    this.updatedBy = serviceOwner.updatedBy;
+
+    this.deletedAt = serviceOwner.deletedAt;
+
+    this.deletedBy = serviceOwner.deletedBy;
   }
 }

@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { CommonEntity } from 'src/modules/shared/CommonEntity';
+import { Address } from "../../domain/ServiceOwners/address";
+import { ContactInfo } from "../../domain/serviceOwners/ContactInfo";
 //import { ContactInfoEntity } from "./ContactInfo.entity";
 //import { AddressEntity } from "./Address.entity";
 
@@ -20,13 +22,12 @@ export class ServiceOwnerEntity extends CommonEntity {
   
   @Column()
   sector: string;
-  /*
-  @Column('jsonb')
-  contactInfo: ContactInfoEntity;
+
+  @Column({type:'jsonb'})
+  contactInfo: ContactInfo;
   
-  @Column('jsonb')
-  address: AddressEntity;
-  */
+  @Column({type:'jsonb'})
+  address: Address;
   @Column()
   code: string;
   

@@ -61,8 +61,8 @@ export class ServiceOwnerRepository extends Repository<ServiceOwnerEntity> imple
     serviceOwner.shortName = serviceOwnerEntity.shortName;
     serviceOwner.fullName = serviceOwnerEntity.fullName;
     serviceOwner.sector = serviceOwnerEntity.sector;
-    //serviceOwner.contactInfo= serviceOwnerEntity.contactInfo;
-    //serviceOwner.address= serviceOwnerEntity.address;
+    serviceOwner.contactInfo= serviceOwnerEntity.contactInfo;
+    serviceOwner.address= serviceOwnerEntity.address;
     serviceOwner.code = serviceOwnerEntity.code;
     serviceOwner.organizationId = serviceOwnerEntity.organizationId;
     serviceOwner.organizationName = serviceOwnerEntity.organizationName;
@@ -82,8 +82,8 @@ export class ServiceOwnerRepository extends Repository<ServiceOwnerEntity> imple
     serviceOwnerEntity.shortName = serviceOwner.shortName;
     serviceOwnerEntity.fullName = serviceOwner.fullName;
     serviceOwnerEntity.sector = serviceOwner.sector;
-    //serviceOwnerEntity.contactInfo= serviceOwner.contactInfo;
-    //serviceOwnerEntity.address= serviceOwner.address;
+    serviceOwnerEntity.contactInfo= serviceOwner.contactInfo;
+    serviceOwnerEntity.address= serviceOwner.address;
     serviceOwnerEntity.code = serviceOwner.code;
     serviceOwnerEntity.organizationId = serviceOwner.organizationId;
     serviceOwnerEntity.organizationName = serviceOwner.organizationName;
