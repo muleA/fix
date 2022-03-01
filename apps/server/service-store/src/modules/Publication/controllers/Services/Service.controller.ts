@@ -110,10 +110,10 @@ export class ServicesController {
    }
 
 
-   @Post('add-media')
+   @Post('add-media/:serviceId') //the id is service id
    @ApiResponseType(MediaPresenter, true)
-   async addMedia(@Body() createMediaDto: CreateMediaDto) {
-      const mediaCreated = await this.useCase.addMedia(createMediaDto);
+   async addMedia(@Param('serviceId') serviceId: string, @Body() createMediaDto: CreateMediaDto) {
+      const mediaCreated = await this.useCase.addMedia(serviceId, createMediaDto);
       // return new ServicePresenter(mediaCreated);  commented for test only
       return true;
    }
@@ -146,7 +146,7 @@ export class ServicesController {
    // async deleteService(@Param('id') id: string) {
    //    return await this.useCase.deleteService(id);
    // }
-   @Delete('remove-media/:serviceId/:id')
+   @Post('remove-media/:serviceId/:id')
    @ApiResponseType(MediaPresenter, true)
    async deleteMedia(@Param('serviceId') serviceId: string, @Param('id') id: string) {
       await this.useCase.deleteMedia(serviceId, id);
@@ -163,10 +163,10 @@ export class ServicesController {
       await this.useCase.updateMedias(createMediaDto);
       return 'success';
    }
-   @Post('add-service-fee')
+   @Post('add-service-fee/:serviceId')
    @ApiResponseType(ServiceFeePresenter, true)
-   async addServiceFee(@Body() createServiceFeeDto: CreateServiceFeeDto) {
-      const serviceFeeCreated = await this.useCase.addServiceFee(createServiceFeeDto);
+   async addServiceFee(@Param('serviceId') serviceId: string, @Body() createServiceFeeDto: CreateServiceFeeDto) {
+      const serviceFeeCreated = await this.useCase.addServiceFee(serviceId, createServiceFeeDto);
       // return new ServicePresenter(serviceFeeCreated);
       return "added";
    }
@@ -206,10 +206,10 @@ export class ServicesController {
       return 'success';
    }
 
-   @Post('add-processing-time')
+   @Post('add-processing-time/:serviceId')
    @ApiResponseType(ProcessingTimePresenter, true)
-   async addProcessingTime(@Body() createProcessingTimeDto: CreateProcessingTimeDto) {
-      const processingTimeCreated = await this.useCase.addProcessingTime(createProcessingTimeDto);
+   async addProcessingTime(@Param('serviceId') serviceId: string, @Body() createProcessingTimeDto: CreateProcessingTimeDto) {
+      const processingTimeCreated = await this.useCase.addProcessingTime(serviceId, createProcessingTimeDto);
       // return new ServicePresenter(processingTimeCreated);
       return "Added Processing time"
    }
@@ -249,10 +249,10 @@ export class ServicesController {
       return 'success';
    }
 
-   @Post('add-service-dependency')
+   @Post('add-service-dependency/:serviceId')
    @ApiResponseType(ServiceDependencyPresenter, true)
-   async addServiceDependency(@Body() createServiceDependencyDto: CreateServiceDependencyDto) {
-      const serviceDependencyCreated = await this.useCase.addServiceDependency(createServiceDependencyDto);
+   async addServiceDependency(@Param('serviceId') serviceId: string, @Body() createServiceDependencyDto: CreateServiceDependencyDto) {
+      const serviceDependencyCreated = await this.useCase.addServiceDependency(serviceId, createServiceDependencyDto);
       // return new ServicePresenter(serviceDependencyCreated);
       return "Added Service Dependency";
    }
@@ -293,10 +293,10 @@ export class ServicesController {
       return 'success';
    }
 
-   @Post('add-language')
+   @Post('add-language/:serviceId')
    @ApiResponseType(LanguagePresenter, true)
-   async addLanguage(@Body() createLanguageDto: CreateLanguageDto) {
-      const languageCreated = await this.useCase.addLanguage(createLanguageDto);
+   async addLanguage(@Param('serviceId') serviceId: string, @Body() createLanguageDto: CreateLanguageDto) {
+      const languageCreated = await this.useCase.addLanguage(serviceId, createLanguageDto);
       // return new ServicePresenter(languageCreated);
       return "Added Language";
    }
@@ -336,10 +336,10 @@ export class ServicesController {
       return 'success';
    }
 
-   @Post('add-service-resource')
+   @Post('add-service-resource/:serviceId')
    @ApiResponseType(ServiceResourcePresenter, true)
-   async addServiceResource(@Body() createServiceResourceDto: CreateServiceResourceDto) {
-      const serviceResourceCreated = await this.useCase.addServiceResource(createServiceResourceDto);
+   async addServiceResource(@Param('serviceId') serviceId: string, @Body() createServiceResourceDto: CreateServiceResourceDto) {
+      const serviceResourceCreated = await this.useCase.addServiceResource(serviceId, createServiceResourceDto);
       // return new ServicePresenter(serviceResourceCreated);
       return "Added Service Resource";
    }

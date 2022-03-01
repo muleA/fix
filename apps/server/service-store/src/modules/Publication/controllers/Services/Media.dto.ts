@@ -101,8 +101,8 @@ export class CreateMediaDto {
   type: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
 
   @ApiProperty()
@@ -117,7 +117,7 @@ export class CreateMediaDto {
   static fromDTO(mediaDto: CreateMediaDto): Media {
     const media: Media = new Media();
 
-    // media.id = mediaDto.id;  // should delete to insert child entity
+    // media.id = mediaDto.id;  // should delete to insert child entity because the system generates an id automatically
 
     media.url = mediaDto.url;
 
@@ -125,7 +125,7 @@ export class CreateMediaDto {
 
     media.type = mediaDto.type;
 
-    media.serviceId = mediaDto.serviceId;
+    // media.serviceId = mediaDto.serviceId;
 
     media.createdBy = mediaDto.createdBy;
 

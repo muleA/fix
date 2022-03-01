@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {  IsNotEmpty, IsUUID, IsString, IsDecimal } from 'class-validator';
+import { IsNotEmpty, IsUUID, IsString, IsDecimal } from 'class-validator';
 import { ServiceFee } from '../../domain/services/ServiceFee';
 
 
@@ -14,8 +14,8 @@ export class UpdateServiceFeeDto {
   id: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
 
   @ApiProperty()
@@ -93,8 +93,8 @@ export class CreateServiceFeeDto {
   id: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
 
   @ApiProperty()

@@ -60,13 +60,13 @@ export class UpdateServiceResourceDto {
 export class CreateServiceResourceDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
 
   @ApiProperty()
@@ -77,6 +77,16 @@ export class CreateServiceResourceDto {
   @IsNotEmpty()
   @IsString()
   content: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  createdBy: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  updatedBy: string;
 
 
   /**
@@ -93,6 +103,10 @@ export class CreateServiceResourceDto {
     serviceResource.attachmentUrl = serviceResourceDto.attachmentUrl;
 
     serviceResource.content = serviceResourceDto.content;
+
+    serviceResource.createdBy = serviceResourceDto.createdBy;
+
+    serviceResource.updatedBy = serviceResourceDto.updatedBy;
     return serviceResource;
   }
 }

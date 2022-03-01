@@ -42,10 +42,10 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
    *
    */
   async insertService(service: Service): Promise<Service> {
-    const serviceEntity = this.toServiceEntity(service);
+    const serviceEntity = this.toServiceEntityInsert(service);
     const result = await this.insert(serviceEntity);
     console.log(result.generatedMaps);
-    return this.toService(result.generatedMaps[0] as ServiceEntity);
+    return this.toServiceInsert(result.generatedMaps[0] as ServiceEntity);
   }
   /**
   * A method that fetches all Services from the database 
@@ -61,7 +61,10 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
   *@returns A Promise of Service
   */
   async findById(id: string): Promise<Service> {
-    const serviceEntity = await this.findOneOrFail(id);
+    const serviceEntity = await this.findOne(id,
+      {
+        relations: ['medias', 'serviceFees', 'serviceResources', 'processingTimes', 'serviceDependencies', 'languages']
+      });
     return this.toService(serviceEntity);
   }
   /**
@@ -115,6 +118,50 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
       service.languages = serviceEntity.languages.map(element => { return this.toLanguage(element) });
     if (service.serviceResources !== null)
       service.serviceResources = serviceEntity.serviceResources.map(element => { return this.toServiceResource(element) });
+
+    service.applicationForm = serviceEntity.applicationForm;
+    service.targetCustomers = serviceEntity.targetCustomers;
+    service.status = serviceEntity.status;
+    service.isPublic = serviceEntity.isPublic;
+    service.isPublished = serviceEntity.isPublished;
+    service.isArchived = serviceEntity.isArchived;
+    service.tags = serviceEntity.tags;
+    service.deliveryMethod = serviceEntity.deliveryMethod;
+    service.serviceOwnerId = serviceEntity.serviceOwner;
+    service.averageRating = serviceEntity.averageRating;
+    service.enableReview = serviceEntity.enableReview;
+    service.policy = serviceEntity.policy;
+    service.publishedOn = serviceEntity.publishedOn;
+    service.createdBy = serviceEntity.createdBy;
+    service.updatedBy = serviceEntity.updatedBy;
+    return service;
+  }
+
+
+  // it used for insert services to solve merging conflict
+  private toServiceInsert(serviceEntity: ServiceEntity): Service {
+    const service: Service = new Service();
+    service.id = serviceEntity.id;
+    service.name = serviceEntity.name;
+    service.description = serviceEntity.description;
+    service.code = serviceEntity.code;
+    service.fullyQualifiedName = serviceEntity.fullyQualifiedName;
+    // if (service.medias !== null)
+    //   service.medias = serviceEntity.medias.map(element => { return this.toMedia(element) });
+    service.supportedQualifications = serviceEntity.supportedQualifications;
+    service.version = serviceEntity.version;
+    service.procedure = serviceEntity.procedure;
+    // if (service.serviceFees !== null)
+    //   service.serviceFees = serviceEntity.serviceFees.map(element => { return this.toServiceFee(element) });
+    // if (service.processingTimes !== null)
+    //   service.processingTimes = serviceEntity.processingTimes.map(element => { return this.toProcessingTime(element) });
+
+    // if (service.serviceDependencies !== null)
+    //   service.serviceDependencies = serviceEntity.serviceDependencies.map(element => { return this.toServiceDependency(element) });
+    // if (service.languages !== null)
+    //   service.languages = serviceEntity.languages.map(element => { return this.toLanguage(element) });
+    // if (service.serviceResources !== null)
+    //   service.serviceResources = serviceEntity.serviceResources.map(element => { return this.toServiceResource(element) });
 
     service.applicationForm = serviceEntity.applicationForm;
     service.targetCustomers = serviceEntity.targetCustomers;
@@ -225,7 +272,7 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
 
   private toServiceEntity(service: Service): ServiceEntity {
     const serviceEntity: ServiceEntity = new ServiceEntity();
-    // serviceEntity.id = service.id;
+    serviceEntity.id = service.id;  // do not comment it b/c it helps to get a service id when we add child entities
     serviceEntity.name = service.name;
     serviceEntity.description = service.description;
     serviceEntity.code = service.code;
@@ -286,6 +333,48 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
     serviceEntity.updatedBy = service.updatedBy;
     return serviceEntity;
   }
+  private toServiceEntityInsert(service: Service): ServiceEntity {
+    const serviceEntity: ServiceEntity = new ServiceEntity();
+    // serviceEntity.id = service.id;
+    serviceEntity.name = service.name;
+    serviceEntity.description = service.description;
+    serviceEntity.code = service.code;
+    serviceEntity.fullyQualifiedName = service.fullyQualifiedName;
+    /**
+     * The if statement is used to determine whether or not
+     *  the child object has a value. 
+     * We can map a child to the parent entity => service entity if it has a value; 
+     * otherwise, we can't pass anything about the child entity => media.
+     */
+    serviceEntity.supportedQualifications = service.supportedQualifications;
+    serviceEntity.version = service.version;
+    serviceEntity.procedure = service.procedure;
+    /**
+ * The if statement is used to determine whether or not
+ *  the child object has a value. 
+ * We can map a child to the parent entity => service entity if it has a value; 
+ * otherwise, we can't pass anything about the child entity => serviceFees.
+ */
+    serviceEntity.applicationForm = service.applicationForm;
+    serviceEntity.targetCustomers = service.targetCustomers;
+    serviceEntity.status = service.status;
+    serviceEntity.isPublic = service.isPublic;
+    serviceEntity.isPublished = service.isPublished;
+    serviceEntity.isArchived = service.isArchived;
+    serviceEntity.tags = service.tags;
+    serviceEntity.deliveryMethod = service.deliveryMethod;
+    serviceEntity.serviceOwner = service.serviceOwnerId;
+    serviceEntity.averageRating = service.averageRating;
+    serviceEntity.enableReview = service.enableReview;
+    serviceEntity.policy = service.policy;
+    serviceEntity.publishedOn = service.publishedOn;
+    serviceEntity.createdBy = service.createdBy;
+    serviceEntity.updatedBy = service.updatedBy;
+    return serviceEntity;
+  }
+
+
+
 
 
   /**
