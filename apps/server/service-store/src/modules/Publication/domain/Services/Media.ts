@@ -9,8 +9,6 @@ export class Media {
     caption: string;
     type: string;
     serviceId: string;
-    createdAt: Date;
-    updatedAt: Date;
     createdBy: string;
     updatedBy: string;
 

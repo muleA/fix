@@ -18,12 +18,22 @@ export class UpdateServiceDependencyDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsUUID()
+  @IsString()
   dependsOn: string;
 
   @ApiProperty()
   @IsString()
   type: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  createdBy: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  updatedBy: string;
 
   /**
 *A method that mapes  UpdateServiceDependencyDto object data to  ServiceDependency domain object
@@ -47,6 +57,14 @@ export class UpdateServiceDependencyDto {
     serviceDependency.type = serviceDependencyDto.type;
 
 
+
+    serviceDependency.createdBy = serviceDependencyDto.createdBy;
+
+
+
+    serviceDependency.updatedBy = serviceDependencyDto.updatedBy;
+
+
     return serviceDependency;
   }
 }
@@ -57,23 +75,34 @@ export class UpdateServiceDependencyDto {
 export class CreateServiceDependencyDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsUUID()
+  @IsString()
   dependsOn: string;
 
   @ApiProperty()
   @IsString()
   type: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  createdBy: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  updatedBy: string;
+
 
   /**
 *A method that mapes  CreateServiceDependencyDto object data to  ServiceDependency domain object
@@ -89,6 +118,10 @@ export class CreateServiceDependencyDto {
     serviceDependency.dependsOn = serviceDependencyDto.dependsOn;
 
     serviceDependency.type = serviceDependencyDto.type;
+
+    serviceDependency.createdBy = serviceDependencyDto.createdBy;
+
+    serviceDependency.updatedBy = serviceDependencyDto.updatedBy;
     return serviceDependency;
   }
 }
