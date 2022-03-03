@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsDecimal, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { ProcessingTime } from '../../domain/services/ProcessingTime';
 
 
@@ -14,13 +14,13 @@ export class UpdateProcessingTimeDto {
   id: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsString()
   serviceId: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsNumber()
+  @IsDecimal()
   time: number;
 
   @ApiProperty()
@@ -89,13 +89,13 @@ export class CreateProcessingTimeDto {
   id: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsString()
   serviceId: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsNumber()
+  @IsDecimal()
   time: number;
 
   @ApiProperty()

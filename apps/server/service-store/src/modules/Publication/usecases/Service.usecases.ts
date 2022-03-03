@@ -131,8 +131,8 @@ export class ServiceUseCases {
   // }
 
 
-  async addMedia(createMediaDto: CreateMediaDto): Promise<boolean> {
-    this.servicedomain = await this.serviceRepository.findById(createMediaDto.serviceId);
+  async addMedia(id: string, createMediaDto: CreateMediaDto): Promise<boolean> {
+    this.servicedomain = await this.serviceRepository.findById(id); // id is service id
     console.log(" service = ", this.servicedomain);
     if (this.servicedomain) {
       let mediaDomain = CreateMediaDto.fromDTO(createMediaDto);
@@ -193,8 +193,9 @@ export class ServiceUseCases {
     service = await this.serviceRepository.findById(serviceId);
     if (service) {
       await service.removeMedia(id);
-      // this.serviceRepository.removeAndSaveMedias(service);
-      this.logger.log('DeleteMediaUseCases execute', `Media ${id} have been deleted`);
+      this.serviceRepository.removeAndSaveMedias(service);
+      console.log(service);
+      this.logger.log('DeleteMediaUseCases execute', `Service id ${serviceId} and Media ${id} have been filtered`);
     }
   }
   /**
@@ -213,8 +214,8 @@ export class ServiceUseCases {
   }
 
 
-  async addServiceFee(createServiceFeeDto: CreateServiceFeeDto) {
-    this.servicedomain = await this.serviceRepository.findById(createServiceFeeDto.serviceId);
+  async addServiceFee(id: string, createServiceFeeDto: CreateServiceFeeDto) {
+    this.servicedomain = await this.serviceRepository.findById(id);
     if (this.servicedomain) {
       let serviceFeeDomain = CreateServiceFeeDto.fromDTO(createServiceFeeDto);
       if (!this.servicedomain.serviceFees) {
@@ -277,8 +278,8 @@ export class ServiceUseCases {
   }
 
 
-  async addProcessingTime(createProcessingTimeDto: CreateProcessingTimeDto) {
-    this.servicedomain = await this.serviceRepository.findById(createProcessingTimeDto.serviceId);
+  async addProcessingTime(id: string, createProcessingTimeDto: CreateProcessingTimeDto) {
+    this.servicedomain = await this.serviceRepository.findById(id);
     if (this.servicedomain) {
       let createProcessingTime = CreateProcessingTimeDto.fromDTO(createProcessingTimeDto);
       if (!this.servicedomain.processingTimes) {
@@ -332,8 +333,8 @@ export class ServiceUseCases {
   }
 
 
-  async addServiceDependency(createServiceDependencyDto: CreateServiceDependencyDto) {
-    this.servicedomain = await this.serviceRepository.findById(createServiceDependencyDto.serviceId);
+  async addServiceDependency(id: string, createServiceDependencyDto: CreateServiceDependencyDto) {
+    this.servicedomain = await this.serviceRepository.findById(id);
     if (this.servicedomain) {
       let createServiceDependency = CreateServiceDependencyDto.fromDTO(createServiceDependencyDto);
       if (!this.servicedomain.serviceDependencies) {
@@ -387,8 +388,8 @@ export class ServiceUseCases {
   }
 
 
-  async addLanguage(createLanguageDto: CreateLanguageDto) {
-    this.servicedomain = await this.serviceRepository.findById(createLanguageDto.serviceId);
+  async addLanguage(id: string, createLanguageDto: CreateLanguageDto) {
+    this.servicedomain = await this.serviceRepository.findById(id);
     if (this.servicedomain) {
       let createLanguage = CreateLanguageDto.fromDTO(createLanguageDto);
       if (!this.servicedomain.languages) {
@@ -442,8 +443,8 @@ export class ServiceUseCases {
   }
 
 
-  async addServiceResource(createServiceResourceDto: CreateServiceResourceDto) {
-    this.servicedomain = await this.serviceRepository.findById(createServiceResourceDto.serviceId);
+  async addServiceResource(id: string, createServiceResourceDto: CreateServiceResourceDto) {
+    this.servicedomain = await this.serviceRepository.findById(id);
     if (this.servicedomain) {
       let createServiceResource = CreateServiceResourceDto.fromDTO(createServiceResourceDto);
       if (!this.servicedomain.serviceResources) {

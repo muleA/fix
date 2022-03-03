@@ -270,7 +270,8 @@ export class CreateServiceDto {
       service.code = serviceDto.code;
       service.fullyQualifiedName = serviceDto.fullyQualifiedName;
       // if (!service.medias)
-      //    service.medias = serviceDto.medias.map(item => CreateMediaDto.fromDTO(item));
+      service.medias = serviceDto.medias;
+      // .map(item => CreateMediaDto.fromDTO(item));
       service.supportedQualifications = serviceDto.supportedQualifications;
       service.version = serviceDto.version;
       service.procedure = serviceDto.procedure;

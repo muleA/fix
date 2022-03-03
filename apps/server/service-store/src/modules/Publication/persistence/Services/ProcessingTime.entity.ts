@@ -14,7 +14,7 @@ export class ProcessingTimeEntity extends CommonEntity {
   @ManyToOne(type => ServiceEntity, service => service.processingTimes)
   @JoinColumn({ name: 'serviceId' })
   service: ServiceEntity;
-  @Column()
+  @Column('double precision')
   time: number;
   @Column()
   currency: string;
