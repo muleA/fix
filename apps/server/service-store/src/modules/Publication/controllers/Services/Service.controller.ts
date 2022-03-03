@@ -1,5 +1,5 @@
 import { MediaPresenter } from './Media.presenter';
-import { CreateMediaDto, DeleteMediaDto, UpdateMediaDto } from './Media.dto';
+import { CreateMediaDto, UpdateMediaDto } from './Media.dto';
 import { ServiceFeePresenter } from './ServiceFee.presenter';
 import { CreateServiceFeeDto, UpdateServiceFeeDto } from './ServiceFee.dto';
 import { ProcessingTimePresenter } from './ProcessingTime.presenter';
@@ -12,7 +12,7 @@ import { ServiceResourcePresenter } from './ServiceResource.presenter';
 import { CreateServiceResourceDto, UpdateServiceResourceDto } from './ServiceResource.dto';
 
 
-import { Body, Controller, Delete, Get, Inject, Param, ParseIntPipe, Patch, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ServicePresenter } from './service.presenter';
 import { ApiResponseType } from '../../../../infrastructure/swagger/response.decorator';
@@ -29,6 +29,7 @@ export class ServicesController {
    /**
    *A constructor that injects ServiceUseCases
    */
+   defaultUserName: string = "95d50138-333e-4451-a51d-a6568d0561bd";
    constructor(private useCase: ServiceUseCases) { }
    /**
     * A method that fetchs a Service from the database by id
@@ -104,15 +105,19 @@ export class ServicesController {
    @Post('create-service')
    @ApiResponseType(ServicePresenter, true)
    async createService(@Body() createServiceDto: CreateServiceDto) {
+      createServiceDto.createdBy = this.defaultUserName;
+      createServiceDto.updatedBy = this.defaultUserName;
       const serviceCreated = await this.useCase.createService(createServiceDto);
       return serviceCreated;
       // return new ServicePresenter(serviceCreated);
    }
 
 
-   @Post('add-media/:serviceId') //the id is service id
+   @Post('add-media/:serviceId')
    @ApiResponseType(MediaPresenter, true)
    async addMedia(@Param('serviceId') serviceId: string, @Body() createMediaDto: CreateMediaDto) {
+      createMediaDto.createdBy = this.defaultUserName;
+      createMediaDto.updatedBy = this.defaultUserName;
       const mediaCreated = await this.useCase.addMedia(serviceId, createMediaDto);
       // return new ServicePresenter(mediaCreated);  commented for test only
       return true;
@@ -123,10 +128,11 @@ export class ServicesController {
     * @returns Success Which notify the  Media information updated
    */
 
-   @Patch('edit-media/:id')
+   @Patch('edit-media/:serviceId/:id')
    @ApiResponseType(MediaPresenter, true)
-   async editMedia(@Param('id') id: string, @Body() updateMediaDto: UpdateMediaDto) {
-      await this.useCase.updateMedia(id, updateMediaDto);
+   async editMedia(@Param('serviceId') serviceId: string, @Param('id') id: string, @Body() updateMediaDto: UpdateMediaDto) {
+      updateMediaDto.id = id;
+      await this.useCase.updateMedia(serviceId, id, updateMediaDto);
       return 'success';
    }
 
@@ -135,17 +141,6 @@ export class ServicesController {
     * @param id An id of a Media. A Media with this id should exist in the database
     * @returns success which  informs the status of the remove operation successed 
    */
-   //  @Delete('remove-Media')
-   //  @ApiResponseType(MediaPresenter, true)
-   //  async deleteMedia( @Body() deleteMediaDto: DeleteMediaDto) {
-   //     await this.useCase.deleteMedia( deleteMediaDto.serviceId, deleteMediaDto.mediaId);
-   //     return 'success';
-   //  }
-   // @Delete('delete-service/:id')
-   // @ApiResponseType(ServicePresenter, true)
-   // async deleteService(@Param('id') id: string) {
-   //    return await this.useCase.deleteService(id);
-   // }
    @Post('remove-media/:serviceId/:id')
    @ApiResponseType(MediaPresenter, true)
    async deleteMedia(@Param('serviceId') serviceId: string, @Param('id') id: string) {
@@ -166,6 +161,8 @@ export class ServicesController {
    @Post('add-service-fee/:serviceId')
    @ApiResponseType(ServiceFeePresenter, true)
    async addServiceFee(@Param('serviceId') serviceId: string, @Body() createServiceFeeDto: CreateServiceFeeDto) {
+      createServiceFeeDto.createdBy = this.defaultUserName;
+      createServiceFeeDto.updatedBy = this.defaultUserName;
       const serviceFeeCreated = await this.useCase.addServiceFee(serviceId, createServiceFeeDto);
       // return new ServicePresenter(serviceFeeCreated);
       return "added";
@@ -175,10 +172,12 @@ export class ServicesController {
     * @param updateServiceFeeDto  An information of  ServiceFee 
     * @returns Success Which notify the  ServiceFee information updated
    */
-   @Put('edit-service-fee')
+
+   @Patch('edit-service-fee/:serviceId/:id')
    @ApiResponseType(ServiceFeePresenter, true)
-   async editServiceFee(@Body() createServiceFeeDto: UpdateServiceFeeDto) {
-      await this.useCase.updateServiceFee(createServiceFeeDto);
+   async editServiceFee(@Param('serviceId') serviceId: string, @Param('id') id: string, @Body() updateServiceFeeDto: UpdateServiceFeeDto) {
+      updateServiceFeeDto.id = id;
+      await this.useCase.updateServiceFee(serviceId, id, updateServiceFeeDto);
       return 'success';
    }
 
@@ -187,11 +186,11 @@ export class ServicesController {
     * @param id An id of a ServiceFee. A ServiceFee with this id should exist in the database
     * @returns success which  informs the status of the remove operation successed 
    */
-   @Delete('remove-service-fee')
+   @Post('remove-service-fee/:serviceId/:id')
    @ApiResponseType(ServiceFeePresenter, true)
-   async removeServiceFee(@Query() id: string) {
-      await this.useCase.deleteServiceFee(id);
-      return 'success';
+   async removeServiceFee(@Param('serviceId') serviceId: string, @Param('id') id: string) {
+      await this.useCase.deleteServiceFee(serviceId, id);
+      return `service fee with id ${id} is deleted from service of ${serviceId} `;
    }
 
    /**
@@ -209,6 +208,8 @@ export class ServicesController {
    @Post('add-processing-time/:serviceId')
    @ApiResponseType(ProcessingTimePresenter, true)
    async addProcessingTime(@Param('serviceId') serviceId: string, @Body() createProcessingTimeDto: CreateProcessingTimeDto) {
+      createProcessingTimeDto.createdBy = this.defaultUserName;
+      createProcessingTimeDto.updatedBy = this.defaultUserName;
       const processingTimeCreated = await this.useCase.addProcessingTime(serviceId, createProcessingTimeDto);
       // return new ServicePresenter(processingTimeCreated);
       return "Added Processing time"
@@ -218,12 +219,14 @@ export class ServicesController {
     * @param updateProcessingTimeDto  An information of  ProcessingTime 
     * @returns Success Which notify the  ProcessingTime information updated
    */
-   @Put('edit-processing-time')
+   @Patch('edit-processing-time/:serviceId/:id')
    @ApiResponseType(ProcessingTimePresenter, true)
-   async editProcessingTime(@Body() createProcessingTimeDto: UpdateProcessingTimeDto) {
-      await this.useCase.updateProcessingTime(createProcessingTimeDto);
+   async editProcessingTime(@Param('serviceId') serviceId: string, @Param('id') id: string, @Body() updateProcessingTime: UpdateProcessingTimeDto) {
+      updateProcessingTime.id = id;
+      await this.useCase.updateProcessingTime(serviceId, id, updateProcessingTime);
       return 'success';
    }
+
 
    /**
     * A method that delete a ProcessingTime from the database by id
@@ -252,6 +255,8 @@ export class ServicesController {
    @Post('add-service-dependency/:serviceId')
    @ApiResponseType(ServiceDependencyPresenter, true)
    async addServiceDependency(@Param('serviceId') serviceId: string, @Body() createServiceDependencyDto: CreateServiceDependencyDto) {
+      createServiceDependencyDto.createdBy = this.defaultUserName;
+      createServiceDependencyDto.updatedBy = this.defaultUserName;
       const serviceDependencyCreated = await this.useCase.addServiceDependency(serviceId, createServiceDependencyDto);
       // return new ServicePresenter(serviceDependencyCreated);
       return "Added Service Dependency";
@@ -261,10 +266,11 @@ export class ServicesController {
     * @param updateServiceDependencyDto  An information of  ServiceDependency 
     * @returns Success Which notify the  ServiceDependency information updated
    */
-   @Put('edit-service-dependency')
+   @Patch('edit-service-dependency/:serviceId/:id')
    @ApiResponseType(ServiceDependencyPresenter, true)
-   async editServiceDependency(@Body() createServiceDependencyDto: UpdateServiceDependencyDto) {
-      await this.useCase.updateServiceDependency(createServiceDependencyDto);
+   async editServiceDependency(@Param('serviceId') serviceId: string, @Param('id') id: string, @Body() updateServiceDependencyDto: UpdateServiceDependencyDto) {
+      updateServiceDependencyDto.id = id;
+      await this.useCase.updateServiceDependency(serviceId, id, updateServiceDependencyDto);
       return 'success';
    }
 
@@ -296,6 +302,8 @@ export class ServicesController {
    @Post('add-language/:serviceId')
    @ApiResponseType(LanguagePresenter, true)
    async addLanguage(@Param('serviceId') serviceId: string, @Body() createLanguageDto: CreateLanguageDto) {
+      createLanguageDto.createdBy = this.defaultUserName;
+      createLanguageDto.updatedBy = this.defaultUserName;
       const languageCreated = await this.useCase.addLanguage(serviceId, createLanguageDto);
       // return new ServicePresenter(languageCreated);
       return "Added Language";
@@ -305,13 +313,13 @@ export class ServicesController {
     * @param updateLanguageDto  An information of  Language 
     * @returns Success Which notify the  Language information updated
    */
-   @Put('edit-language')
+   @Patch('edit-language/:serviceId/:id')
    @ApiResponseType(LanguagePresenter, true)
-   async editLanguage(@Body() createLanguageDto: UpdateLanguageDto) {
-      await this.useCase.updateLanguage(createLanguageDto);
+   async editLanguage(@Param('serviceId') serviceId: string, @Param('id') id: string, @Body() updateLanguageDto: UpdateLanguageDto) {
+      updateLanguageDto.id = id;
+      await this.useCase.updateLanguage(serviceId, id, updateLanguageDto);
       return 'success';
    }
-
    /**
     * A method that delete a Language from the database by id
     * @param id An id of a Language. A Language with this id should exist in the database
@@ -339,6 +347,8 @@ export class ServicesController {
    @Post('add-service-resource/:serviceId')
    @ApiResponseType(ServiceResourcePresenter, true)
    async addServiceResource(@Param('serviceId') serviceId: string, @Body() createServiceResourceDto: CreateServiceResourceDto) {
+      createServiceResourceDto.createdBy = this.defaultUserName;
+      createServiceResourceDto.updatedBy = this.defaultUserName;
       const serviceResourceCreated = await this.useCase.addServiceResource(serviceId, createServiceResourceDto);
       // return new ServicePresenter(serviceResourceCreated);
       return "Added Service Resource";
@@ -348,10 +358,11 @@ export class ServicesController {
     * @param updateServiceResourceDto  An information of  ServiceResource 
     * @returns Success Which notify the  ServiceResource information updated
    */
-   @Put('edit-service-resource')
+   @Patch('edit-service-resource/:serviceId/:id')
    @ApiResponseType(ServiceResourcePresenter, true)
-   async editServiceResource(@Body() createServiceResourceDto: UpdateServiceResourceDto) {
-      await this.useCase.updateServiceResource(createServiceResourceDto);
+   async editServiceResource(@Param('serviceId') serviceId: string, id: string, @Body() updateServiceResourceDto: UpdateServiceResourceDto) {
+      updateServiceResourceDto.id = id;
+      await this.useCase.updateServiceResource(serviceId, id, updateServiceResourceDto);
       return 'success';
    }
 

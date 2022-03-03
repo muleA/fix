@@ -32,15 +32,9 @@ export class UpdateServiceFeeDto {
   @IsNotEmpty()
   @IsString()
   description: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  createdBy: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
   updatedBy: string;
 
   /**
@@ -70,10 +64,6 @@ export class UpdateServiceFeeDto {
 
 
 
-    serviceFee.createdBy = serviceFeeDto.createdBy;
-
-
-
     serviceFee.updatedBy = serviceFeeDto.updatedBy;
 
 
@@ -87,12 +77,12 @@ export class UpdateServiceFeeDto {
 */
 export class CreateServiceFeeDto {
 
-  @ApiProperty()
+  // @ApiProperty()
   // @IsNotEmpty()
   // @IsUUID()
   id: string;
 
-  @ApiProperty()
+  // @ApiProperty()
   // @IsNotEmpty()
   // @IsUUID()
   serviceId: string;
@@ -112,14 +102,13 @@ export class CreateServiceFeeDto {
   @IsString()
   description: string;
 
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @ApiProperty() 
+  // @IsNotEmpty()
+  // @IsUUID()// will un comment when we build the user management
   createdBy: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
   updatedBy: string;
 
   /**
@@ -128,8 +117,6 @@ export class CreateServiceFeeDto {
 */
   static fromDTO(serviceFeeDto: CreateServiceFeeDto): ServiceFee {
     const serviceFee: ServiceFee = new ServiceFee();
-
-    serviceFee.id = serviceFeeDto.id;
 
     serviceFee.serviceId = serviceFeeDto.serviceId;
 

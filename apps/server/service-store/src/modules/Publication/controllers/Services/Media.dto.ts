@@ -28,13 +28,13 @@ export class UpdateMediaDto {
   @IsString()
   type: string;
 
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
-  @ApiProperty()
-  createdBy: string;
-  @ApiProperty()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
   updatedBy: string;
 
   /**
@@ -60,11 +60,7 @@ export class UpdateMediaDto {
 
 
 
-    media.serviceId = mediaDto.serviceId;
-
-
-
-    media.createdBy = mediaDto.createdBy;
+    // media.serviceId = mediaDto.serviceId;
 
 
 
@@ -81,8 +77,8 @@ export class UpdateMediaDto {
 export class CreateMediaDto {
 
   @ApiProperty()
-  // @IsNotEmpty()  
-  // @IsUUID() // commented for test only
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
 
   @ApiProperty()
@@ -105,9 +101,13 @@ export class CreateMediaDto {
   // @IsUUID()
   serviceId: string;
 
-  @ApiProperty()
+  // @ApiProperty() 
+  // @IsNotEmpty()
+  // @IsUUID()// will un comment when we build the user management
   createdBy: string;
-  @ApiProperty()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
   updatedBy: string;
 
   /**
@@ -117,7 +117,7 @@ export class CreateMediaDto {
   static fromDTO(mediaDto: CreateMediaDto): Media {
     const media: Media = new Media();
 
-    // media.id = mediaDto.id;  // should delete to insert child entity because the system generates an id automatically
+    // media.id = mediaDto.id;  // no need of id child entity because the system generates an id automatically
 
     media.url = mediaDto.url;
 
@@ -125,27 +125,12 @@ export class CreateMediaDto {
 
     media.type = mediaDto.type;
 
-    // media.serviceId = mediaDto.serviceId;
+    media.serviceId = mediaDto.serviceId;
 
     media.createdBy = mediaDto.createdBy;
 
     media.updatedBy = mediaDto.updatedBy;
     return media;
   }
-
-}
-export class DeleteMediaDto {
-
-  @ApiProperty()
-  // @IsNotEmpty()  
-  // @IsUUID() // commented for test only
-  serviceId: string;
-
-  @ApiProperty()
-  // @IsNotEmpty()  
-  // @IsUUID() // commented for test only
-  mediaId: string;
-
-
 
 }

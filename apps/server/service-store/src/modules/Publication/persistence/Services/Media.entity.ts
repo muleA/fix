@@ -17,7 +17,7 @@ export class MediaEntity extends CommonEntity {
   caption: string;
   @Column()
   type: string;
-  @ManyToOne(type => ServiceEntity, service => service.medias)
+  @ManyToOne(type => ServiceEntity, service => service.medias, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'serviceId' })
   service: ServiceEntity;
 }
