@@ -36,6 +36,14 @@ export class ServiceProviderPresenter {
   createdAt: Date;
   @ApiProperty()
   updatedAt: Date;
+  @ApiProperty()
+  createdBy?: string;
+  @ApiProperty()
+  updatedBy?: string;
+  @ApiProperty()
+  deletedAt: Date;
+  @ApiProperty()
+  deletedBy: string;
   /**
    *A constructor which copy  ServiceProvider domain object Property value to  ServiceProviderPresenter properties
    */
@@ -44,7 +52,7 @@ export class ServiceProviderPresenter {
     this.shortName = serviceProvider.shortName;
     this.fullName = serviceProvider.fullName;
     this.sector = serviceProvider.sector;
-    this.contactInfo = new ContactInfoPresenter(serviceProvider.contactInfo);
+    this.contactInfo = serviceProvider.contactInfo;
     this.location = serviceProvider.location;
     this.address = serviceProvider.address;
     this.delegatedServices = serviceProvider.delegatedServices.map(
@@ -55,5 +63,9 @@ export class ServiceProviderPresenter {
     this.organizationName = serviceProvider.organizationName;
     this.createdAt = serviceProvider.createdAt;
     this.updatedAt = serviceProvider.updatedAt;
+    this.deletedAt = serviceProvider.deletedAt;
+    this.createdBy = serviceProvider.createdBy;
+    this.updatedBy = serviceProvider.updatedBy;
+    this.deletedBy = serviceProvider.deletedBy;
   }
 }
