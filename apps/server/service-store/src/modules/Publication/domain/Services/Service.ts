@@ -12,6 +12,7 @@ import { ApplicationForm } from '../services/ApplicationForm';
 
 import { ServiceResource } from '../services/ServiceResource';
 import { Logger } from "@nestjs/common";
+import { CategoryEntity } from 'src/modules/Classification/persistence/categorys/category.entity';
 
 export class Service {
   constructor() { }
@@ -31,7 +32,6 @@ export class Service {
   applicationForm: ApplicationForm;
   serviceResources: ServiceResource[];
   targetCustomers: string;
-  status: string;
   isPublic: boolean;
   isPublished: boolean;
   isArchived: boolean;
@@ -42,6 +42,7 @@ export class Service {
   enableReview: boolean;
   policy: string;
   publishedOn: Date;
+  categories: CategoryEntity[];
   createdAt: Date;
   updatedAt: Date;
   createdBy: string;
@@ -54,7 +55,6 @@ export class Service {
   */
   async addMedia(addMedia: Media) {
     this.medias.push(addMedia);
-    Logger.log(this.addMedia);
   }
 
   /**

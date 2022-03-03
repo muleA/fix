@@ -30,8 +30,8 @@ export class CategoryRepository extends Repository<CategoryEntity> implements IC
   *
   */
   async findAll(): Promise<Category[]> {
-    const categorysEntity = await this.find();
-    return categorysEntity.map((categoryEntity) => this.toCategory(categoryEntity));
+    const categoriesEntity = await this.find();
+    return categoriesEntity.map((categoryEntity) => this.toCategory(categoryEntity));
   }
   /**
   * A method that fetches a specific Category by id  from the database 
@@ -60,7 +60,8 @@ export class CategoryRepository extends Repository<CategoryEntity> implements IC
     category.name = categoryEntity.name;
     category.description = categoryEntity.description;
     category.code = categoryEntity.code;
-    category.parentId = categoryEntity.parent.id;
+    category.parentId = categoryEntity.parentId;
+    // category.serviceId = categoryEntity.serviceId;
     return category;
   }
   /**
@@ -74,7 +75,8 @@ export class CategoryRepository extends Repository<CategoryEntity> implements IC
     categoryEntity.name = category.name;
     categoryEntity.description = category.description;
     categoryEntity.code = category.code;
-    // categoryEntity.parentId= category.parentId;
+    categoryEntity.parentId = category.parentId;
+    // categoryEntity.serviceId = category.serviceId;
     categoryEntity.createdAt = category.createdAt;
     categoryEntity.updatedAt = category.updatedAt;
     return categoryEntity;

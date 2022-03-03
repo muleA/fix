@@ -11,7 +11,7 @@ export class LanguageEntity extends CommonEntity {
   id: string;
   @Column()
   serviceId: string;
-  @ManyToOne(type => ServiceEntity, service => service.languages)
+  @ManyToOne(type => ServiceEntity, service => service.languages, { onDelete: 'CASCADE'  })
   @JoinColumn({ name: 'serviceId' })
   service: ServiceEntity;
   @Column()

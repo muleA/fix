@@ -11,7 +11,7 @@ export class ServiceFeeEntity extends CommonEntity {
   id: string;
   @Column()
   serviceId: string;
-  @ManyToOne(type => ServiceEntity, service => service.serviceFees)
+  @ManyToOne(type => ServiceEntity, service => service.serviceFees, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'serviceId' })
   service: ServiceEntity;
   @Column('double precision') //double precision

@@ -24,15 +24,9 @@ export class UpdateServiceDependencyDto {
   @ApiProperty()
   @IsString()
   type: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  createdBy: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
   updatedBy: string;
 
   /**
@@ -55,10 +49,6 @@ export class UpdateServiceDependencyDto {
 
 
     serviceDependency.type = serviceDependencyDto.type;
-
-
-
-    serviceDependency.createdBy = serviceDependencyDto.createdBy;
 
 
 
@@ -93,14 +83,13 @@ export class CreateServiceDependencyDto {
   @IsString()
   type: string;
 
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @ApiProperty() 
+  // @IsNotEmpty()
+  // @IsUUID()// will un comment when we build the user management
   createdBy: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
   updatedBy: string;
 
 

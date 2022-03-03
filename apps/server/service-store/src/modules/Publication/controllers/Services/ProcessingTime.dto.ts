@@ -14,8 +14,8 @@ export class UpdateProcessingTimeDto {
   id: string;
 
   @ApiProperty()
-  // @IsNotEmpty()
-  // @IsString()
+  @IsNotEmpty()
+  @IsString()
   serviceId: string;
 
   @ApiProperty()
@@ -32,12 +32,9 @@ export class UpdateProcessingTimeDto {
   @IsString()
   description: string;
 
-  @ApiProperty()
-  @IsString()
-  createdBy: string;
-
-  @ApiProperty()
-  @IsString()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
   updatedBy: string;
 
   /**
@@ -64,10 +61,6 @@ export class UpdateProcessingTimeDto {
 
 
     processingTime.description = processingTimeDto.description;
-
-
-
-    processingTime.createdBy = processingTimeDto.createdBy;
 
 
 
@@ -107,12 +100,13 @@ export class CreateProcessingTimeDto {
   @IsString()
   description: string;
 
-  @ApiProperty()
-  @IsString()
+  // @ApiProperty() 
+  // @IsNotEmpty()
+  // @IsUUID()// will un comment when we build the user management
   createdBy: string;
-
-  @ApiProperty()
-  @IsString()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
   updatedBy: string;
 
   /**

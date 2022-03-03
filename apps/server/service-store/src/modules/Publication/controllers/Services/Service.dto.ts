@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
    IsBoolean, IsNotEmpty, IsNumber,
    IsString, IsDate, MaxLength,
-   IsArray, IsEnum, IsDecimal, IsUUID, IsBooleanString,
+   IsArray, IsEnum, IsDecimal, IsUUID, IsBooleanString, IsObject, IsOptional,
 } from 'class-validator';
 import { Service } from '../../domain/Services/service';
 import { CreateMediaDto, UpdateMediaDto } from './Media.dto';
@@ -16,7 +16,7 @@ import { CreateServiceResourceDto, UpdateServiceResourceDto } from './ServiceRes
 *A class which contains proporties of Service that used to receive paramamer values to be updated in the database
 */
 export class UpdateServiceDto {
-   // @ApiProperty()
+   // @ApiProperty() 
    // @IsNotEmpty()
    // @IsUUID() commented for testing only
    id: string;
@@ -28,14 +28,12 @@ export class UpdateServiceDto {
    @IsString()
    description: string;
    @ApiProperty()
-   // @IsNotEmpty()
    @IsString()
    code: string;
    @ApiProperty()
    @IsString()
    fullyQualifiedName: string;
    @ApiProperty()
-   // @IsArray()   //commented for testing
    medias: UpdateMediaDto[];
    @ApiProperty()
    @IsNotEmpty()
@@ -45,34 +43,26 @@ export class UpdateServiceDto {
    @IsDecimal()
    version: number;
    @ApiProperty()
-   // @IsNotEmpty()
    @IsString()
    procedure: string;
    @ApiProperty()
-   // @IsArray()   //commented for testing
    serviceFees: UpdateServiceFeeDto[];
    @ApiProperty()
-   // @IsArray()   //commented for testing
    processingTimes: UpdateProcessingTimeDto[];
    @ApiProperty()
-   // @IsArray()   //commented for testing
    serviceDependencies: UpdateServiceDependencyDto[];
    @ApiProperty()
-   // @IsArray()   //commented for testing
    languages: UpdateLanguageDto[];
-   // @IsNotEmpty()  commented for testing only
+   // @ApiProperty() commented for test only
+   // @IsNotEmpty()
+   // @IsObject()
    applicationForm: UpdateApplicationFormDto;
    @ApiProperty()
-   // @IsArray()   //commented for testing
    serviceResources: UpdateServiceResourceDto[];
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    targetCustomers: string;
-   @ApiProperty()
-   @IsNotEmpty()
-   @IsString()
-   status: string;
    @ApiProperty()
    @IsNotEmpty()
    @IsBooleanString()
@@ -108,8 +98,12 @@ export class UpdateServiceDto {
    // @IsDate()    commented for testing only
    publishedOn: Date;
    @ApiProperty()
-   createdBy: string;
-   @ApiProperty()
+   @IsOptional()
+   @IsUUID()
+   categoryId: string;
+   // @ApiProperty()
+   // @IsNotEmpty()
+   // @IsUUID() // will un comment when we build the user management
    updatedBy: string;
 
    /**
@@ -118,7 +112,7 @@ export class UpdateServiceDto {
  */
    static fromDTO(serviceDto: UpdateServiceDto): Service {
       const service: Service = new Service();
-      service.id = serviceDto.id;
+      // service.id = serviceDto.id;
       service.name = serviceDto.name;
       service.description = serviceDto.description;
       service.code = serviceDto.code;
@@ -138,10 +132,8 @@ export class UpdateServiceDto {
          service.languages = serviceDto.languages.map(item => UpdateLanguageDto.fromDTO(item));
       if (service.serviceResources)
          service.serviceResources = serviceDto.serviceResources.map(item => UpdateServiceResourceDto.fromDTO(item));
-      if (service.applicationForm)
-         service.applicationForm = UpdateApplicationFormDto.fromDTO(serviceDto.applicationForm);
+      service.applicationForm = UpdateApplicationFormDto.fromDTO(serviceDto.applicationForm);
       service.targetCustomers = serviceDto.targetCustomers;
-      service.status = serviceDto.status;
       service.isPublic = serviceDto.isPublic;
       service.isPublished = serviceDto.isPublished;
       service.isArchived = serviceDto.isArchived;
@@ -153,7 +145,9 @@ export class UpdateServiceDto {
       service.enableReview = serviceDto.enableReview;
       service.policy = serviceDto.policy;
       service.publishedOn = serviceDto.publishedOn;
-      service.createdBy = serviceDto.createdBy;
+      // if (service.categories)
+      //    service.categories = serviceDto.categories.map(item => UpdateCatagoryDto.fromDTO(item));
+      // service.categoryId = serviceDto.categoryId;
       service.updatedBy = serviceDto.updatedBy;
       return service;
    }
@@ -163,10 +157,6 @@ export class UpdateServiceDto {
 *
 */
 export class CreateServiceDto {
-   @ApiProperty()
-   // @IsNotEmpty()
-   // @IsUUID() commented for testing only
-   id: string;
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
@@ -182,9 +172,6 @@ export class CreateServiceDto {
    @IsString()
    fullyQualifiedName: string;
    @ApiProperty()
-   // @IsArray()   //commented for testing
-   medias: UpdateMediaDto[];
-   @ApiProperty()
    @IsNotEmpty()
    @IsString()
    supportedQualifications: string;
@@ -195,42 +182,25 @@ export class CreateServiceDto {
    @IsNotEmpty()
    @IsString()
    procedure: string;
-   @ApiProperty()
-   // @IsArray()   //commented for testing
-   serviceFees: UpdateServiceFeeDto[];
-   @ApiProperty()
-   // @IsArray()   //commented for testing
-   processingTimes: UpdateProcessingTimeDto[];
-   @ApiProperty()
-   // @IsArray()   //commented for testing
-   serviceDependencies: UpdateServiceDependencyDto[];
-   @ApiProperty()
-   // @IsArray()   //commented for testing
-   languages: UpdateLanguageDto[];
-   // @IsNotEmpty()  commented for testing only
+   // @ApiProperty() commented for test only
+   // @IsNotEmpty()
+   // @IsObject()
    applicationForm: UpdateApplicationFormDto;
-   @ApiProperty()
-   // @IsArray()   //commented for testing
-   serviceResources: UpdateServiceResourceDto[];
    @ApiProperty()
    @IsNotEmpty()
    @IsString()
    targetCustomers: string;
    @ApiProperty()
    @IsNotEmpty()
-   @IsString()
-   status: string;
-   @ApiProperty()
-   @IsNotEmpty()
    @IsBooleanString()
-   isPublic: boolean;
+   isPublic: boolean; // default false
    @ApiProperty()
    @IsBooleanString()
-   isPublished: boolean;
+   isPublished: boolean;  // will set by using method 
    @ApiProperty()
    @IsBooleanString()
    @IsNotEmpty()
-   isArchived: boolean;
+   isArchived: boolean;  // default  false , wi set by using method
    @ApiProperty()
    @IsString()
    tags: string;
@@ -243,20 +213,31 @@ export class CreateServiceDto {
    serviceOwnerId: string;
    @ApiProperty()
    @IsDecimal()
-   averageRating: number;
+   averageRating: number;   // default  0 , will set by using method
    @ApiProperty()
    @IsBooleanString()
    @IsNotEmpty()
-   enableReview: boolean;
+   enableReview: boolean;  // is enable for comment, it should have default value
    @ApiProperty()
    @IsString()
    policy: string;
    @ApiProperty()
    // @IsDate()    commented for testing only
-   publishedOn: Date;
+   publishedOn: Date;  // we can use by default null=> false, !null => true published on, no need of published on
+
    @ApiProperty()
+   @IsOptional()
+   @IsUUID()
+   categoryId: string;
+   // @ApiProperty() //commented until the user management works
+
+   // @ApiProperty() 
+   // @IsNotEmpty()
+   // @IsUUID()// will un comment when we build the user management
    createdBy: string;
-   @ApiProperty()
+   // @ApiProperty()
+   // @IsNotEmpty()
+   // @IsUUID() // will un comment when we build the user management
    updatedBy: string;
    /**
  *A method that mapes  CreateServiceDto object data to  Service domain object
@@ -264,26 +245,16 @@ export class CreateServiceDto {
  */
    static fromDTO(serviceDto: CreateServiceDto): Service {
       const service: Service = new Service();
-      service.id = serviceDto.id;
+      // service.id = serviceDto.id;
       service.name = serviceDto.name;
       service.description = serviceDto.description;
       service.code = serviceDto.code;
       service.fullyQualifiedName = serviceDto.fullyQualifiedName;
-      // if (!service.medias)
-      service.medias = serviceDto.medias;
-      // .map(item => CreateMediaDto.fromDTO(item));
       service.supportedQualifications = serviceDto.supportedQualifications;
       service.version = serviceDto.version;
       service.procedure = serviceDto.procedure;
-      // service.serviceFees = serviceDto.serviceFees.map(item => CreateServiceFeeDto.fromDTO(item));
-      // service.processingTimes = serviceDto.processingTimes.map(item => CreateProcessingTimeDto.fromDTO(item));
-      // service.serviceDependencies = serviceDto.serviceDependencies.map(item => CreateServiceDependencyDto.fromDTO(item));
-      // service.languages = serviceDto.languages.map(item => CreateLanguageDto.fromDTO(item));
-      //service.serviceResources = serviceDto.serviceResources.map(item => CreateServiceResourceDto.fromDTO(item));
-      // service.applicationForm = CreateApplicationFormDto.fromDTO(serviceDto.applicationForm);
       service.applicationForm = serviceDto.applicationForm;
       service.targetCustomers = serviceDto.targetCustomers;
-      service.status = serviceDto.status;
       service.isPublic = serviceDto.isPublic;
       service.isPublished = serviceDto.isPublished;
       service.isArchived = serviceDto.isArchived;
@@ -295,6 +266,7 @@ export class CreateServiceDto {
       service.policy = serviceDto.policy;
       service.publishedOn = serviceDto.publishedOn;
       service.createdBy = serviceDto.createdBy;
+      // service.categoryId = serviceDto.categoryId;
       service.updatedBy = serviceDto.updatedBy;
       return service;
    }
