@@ -1,6 +1,7 @@
 import { DelegatedServicePresenter } from './DelegatedService.presenter';
 import {
   CreateDelegatedServiceDto,
+  DeleteDelegateServiceDto,
   UpdateDelegatedServiceDto,
 } from './DelegatedService.dto';
 
@@ -108,10 +109,8 @@ export class ServiceProvidersController {
   async addDelegatedService(
     @Body() createDelegatedServiceDto: CreateDelegatedServiceDto
   ) {
-    const delegatedServiceCreated = await this.useCase.addDelegatedService(
-      createDelegatedServiceDto
-    );
-    return 'Created';
+    await this.useCase.addDelegatedService(createDelegatedServiceDto);
+    return true;
   }
   /**
    * A method that update a DelegatedService
@@ -134,9 +133,14 @@ export class ServiceProvidersController {
    */
   @Delete('remove-delegated-service')
   @ApiResponseType(DelegatedServicePresenter, true)
-  async removeDelegatedService(@Query() id: string) {
-    await this.useCase.deleteDelegatedService(id);
-    return 'success';
+  async removeDelegatedService(@Query() query: DeleteDelegateServiceDto) {
+    if (query.id && query.serviceProviderId) {
+      console.log(query);
+      await this.useCase.deleteDelegatedService(query);
+      return 'success';
+    }
+
+    return 'failed';
   }
 
   /**

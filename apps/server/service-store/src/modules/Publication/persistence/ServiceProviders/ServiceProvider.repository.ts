@@ -21,7 +21,7 @@ export class ServiceProviderRepository
     serviceProvider: ServiceProvider
   ): Promise<void> {
     const serviceProviderEntity = this.toServiceProviderEntity(serviceProvider);
-    await this.update({ id: serviceProvider.id }, serviceProviderEntity);
+    await this.save(serviceProviderEntity);
   }
 
   /**
@@ -116,11 +116,17 @@ export class ServiceProviderRepository
     serviceProviderEntity.contactInfo = serviceProvider.contactInfo;
     serviceProviderEntity.location = serviceProvider.location;
     serviceProviderEntity.address = serviceProvider.address;
-    serviceProviderEntity.delegatedServices = serviceProvider.delegatedServices
-      ? serviceProvider.delegatedServices.map((element) => {
+    if (
+      serviceProvider.delegatedServices &&
+      serviceProvider.delegatedServices !== null
+    ) {
+      serviceProviderEntity.delegatedServices = serviceProvider.delegatedServices.map(
+        (element) => {
           return this.toDelegatedServiceEntity(element);
-        })
-      : [];
+        }
+      );
+    }
+
     serviceProviderEntity.code = serviceProvider.code;
     serviceProviderEntity.organizationId = serviceProvider.organizationId;
     serviceProviderEntity.organizationName = serviceProvider.organizationName;

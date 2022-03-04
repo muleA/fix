@@ -1,6 +1,7 @@
 import { LoggerService } from './../../../infrastructure/logger/logger.service';
 import {
   CreateDelegatedServiceDto,
+  DeleteDelegateServiceDto,
   UpdateDelegatedServiceDto,
 } from '../controllers/serviceProviders/DelegatedService.dto';
 import { DelegatedService } from '../domain/serviceProviders/DelegatedService';
@@ -155,14 +156,25 @@ export class ServiceProviderUseCases {
 
   /**
    * A method that delete a DelegatedService from the database by id
-   * @param id An id of a DelegatedService. A DelegatedService with this id should exist in the database
+   * @param deleteDelegateServiceDto An id of a DelegatedService. A DelegatedService with this id should exist in the database
    * @returns success which  informs the status of the remove operation successed
    */
-  async deleteDelegatedService(id: string) {
-    await this.serviceProviderDomain.removeDelegatedService(id);
+  async deleteDelegatedService(
+    deleteDelegateServiceDto: DeleteDelegateServiceDto
+  ) {
+    this.serviceProviderDomain = await this.serviceProviderRepository.findById(
+      deleteDelegateServiceDto.serviceProviderId
+    );
+    await this.serviceProviderDomain.removeDelegatedService(
+      deleteDelegateServiceDto.id
+    );
+    await this.serviceProviderRepository.updateServiceProvider(
+      this.serviceProviderDomain.id,
+      this.serviceProviderDomain
+    );
     this.logger.log(
       'DeleteDelegatedServiceUseCases execute',
-      `DelegatedService ${id} have been deleted`
+      `DelegatedService ${deleteDelegateServiceDto.id} have been deleted`
     );
   }
 

@@ -30,7 +30,8 @@ export class ServiceProviderEntity extends CommonEntity {
 
   @OneToMany(
     (type) => DelegatedServiceEntity,
-    (delegatedService) => delegatedService.serviceProvider
+    (delegatedService) => delegatedService.serviceProvider,
+    { eager: true, cascade: true, onDelete: 'CASCADE' }
   )
   delegatedServices: DelegatedServiceEntity[];
   @Column()

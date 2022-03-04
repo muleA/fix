@@ -18,12 +18,7 @@ export class DelegatedServiceEntity extends CommonEntity {
 
   @ManyToOne(
     (type) => ServiceProviderEntity,
-    (serviceProvider) => serviceProvider.delegatedServices,
-    {
-      cascade: true,
-      onDelete: 'CASCADE',
-      onUpdate: 'CASCADE',
-    }
+    (serviceProvider) => serviceProvider.delegatedServices
   )
   @JoinColumn({ name: 'providerId' })
   serviceProvider: ServiceProviderEntity;
