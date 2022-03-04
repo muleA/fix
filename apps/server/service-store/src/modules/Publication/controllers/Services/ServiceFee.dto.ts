@@ -13,7 +13,7 @@ export class UpdateServiceFeeDto {
   // @IsUUID()
   id: string;
 
-  @ApiProperty()
+  // @ApiProperty()
   // @IsNotEmpty()
   // @IsUUID()
   serviceId: string;

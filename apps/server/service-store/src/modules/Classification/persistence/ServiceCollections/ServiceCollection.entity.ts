@@ -1,5 +1,3 @@
-import { ServiceResource } from "src/modules/Publication/domain/services/ServiceResource";
-import { ServiceResourceEntity } from "src/modules/Publication/persistence/services/ServiceResource.entity";
 import { CommonEntity } from "src/modules/shared/CommonEntity";
 import {
   Entity,
@@ -9,37 +7,38 @@ import {
   UpdateDateColumn, OneToOne, OneToMany, ManyToOne
 } from "typeorm";
 import { ServiceEntryEntity } from "./ServiceEntry.entity";
-@Entity({ name: "serviceCollection" })
+import { ServiceResourceEntity } from "./ServiceResource.entity";
+@Entity({ name: "serviceCollections" })
 export class ServiceCollectionEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column({ name: 'name' })
   name: string;
-  @Column({ name: 'description' })
+  @Column({ name: 'description', nullable: true })
   description?: string;
   @Column({ name: 'code' })
   code: string;
- 
-  @OneToMany(type => ServiceEntryEntity, serviceEntry => serviceEntry.serviceCollectionId)
+
+  @OneToMany(type => ServiceEntryEntity, serviceEntry => serviceEntry.serviceCollection, { eager: true, cascade: true })
   serviceEntries: ServiceEntryEntity[];
-  @Column({ name: 'supportedQualifications' })
+  @Column({ name: 'supportedQualifications', nullable: true })
   supportedQualifications: string;
-  @Column({ name: 'version' })
+  @Column('double precision', { nullable: true })
   version: number;
   @Column({ name: 'procedure' })
   procedure: string;
   @Column({ name: 'isPublic' })
   isPublic: boolean;
-  @Column({ name: 'tags' })
+  @Column({ name: 'tags', nullable: true })
   tags: string;
 
-  @OneToMany(type => ServiceResourceEntity, resource => resource.service)
-  resources: ServiceResource[];
+  @OneToMany(type => ServiceResourceEntity, resource => resource.serviceCollection, { eager: true, cascade: true })
+  serviceResources: ServiceResourceEntity[];
   @Column({ name: 'targetCustomers' })
   targetCustomers: string;
-  @Column({ name: 'isArchived' })
+  @Column({ name: 'isArchived', default: false })
   isArchived: boolean;
 
-  
-  
+
+
 }
