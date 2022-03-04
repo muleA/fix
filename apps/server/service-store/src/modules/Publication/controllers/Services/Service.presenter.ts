@@ -55,9 +55,6 @@ export class ServicePresenter {
    targetCustomers: string;
 
    @ApiProperty()
-   status: string;
-
-   @ApiProperty()
    isPublic: boolean;
 
    @ApiProperty()
@@ -86,6 +83,9 @@ export class ServicePresenter {
 
    @ApiProperty()
    publishedOn: Date;
+
+   @ApiProperty()
+   categoryId: string;
 
    @ApiProperty()
    createdAt: Date;
@@ -145,8 +145,6 @@ export class ServicePresenter {
 
       this.targetCustomers = service.targetCustomers;
 
-      this.status = service.status;
-
 
       this.isPublic = service.isPublic;
 
@@ -176,6 +174,9 @@ export class ServicePresenter {
 
 
       this.publishedOn = service.publishedOn;
+
+
+      // this.categoryId = service.categoryId;
 
 
       this.createdAt = service.createdAt;

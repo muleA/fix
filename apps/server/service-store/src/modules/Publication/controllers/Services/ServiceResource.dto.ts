@@ -9,13 +9,13 @@ import { ServiceResource } from '../../domain/services/ServiceResource';
 export class UpdateServiceResourceDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
 
   @ApiProperty()
@@ -26,6 +26,10 @@ export class UpdateServiceResourceDto {
   @IsNotEmpty()
   @IsString()
   content: string;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
 
 
   /**
@@ -49,6 +53,8 @@ export class UpdateServiceResourceDto {
 
     serviceResource.content = serviceResourceDto.content;
 
+    serviceResource.updatedBy = serviceResourceDto.updatedBy;
+
 
     return serviceResource;
   }
@@ -59,14 +65,13 @@ export class UpdateServiceResourceDto {
 */
 export class CreateServiceResourceDto {
 
-  @ApiProperty()
+  // @ApiProperty()
   // @IsNotEmpty()
   // @IsUUID()
   id: string;
-
   @ApiProperty()
-  // @IsNotEmpty()
-  // @IsUUID()
+  @IsNotEmpty()
+  @IsUUID()
   serviceId: string;
 
   @ApiProperty()
@@ -78,14 +83,13 @@ export class CreateServiceResourceDto {
   @IsString()
   content: string;
 
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @ApiProperty() 
+  // @IsNotEmpty()
+  // @IsUUID()// will un comment when we build the user management
   createdBy: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
   updatedBy: string;
 
 

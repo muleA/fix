@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsUUID, IsArray, IsDecimal, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsUUID, IsArray, IsDecimal, IsString, IsOptional } from 'class-validator';
 //import { CreateServiceResourceDto, UpdateServiceResourceDto } from 'src/modules/Publication/controllers/Services/ServiceResource.dto';
 import { ServiceCollection } from '../../domain/ServiceCollections/serviceCollection';
 import { CreateServiceEntryDto, UpdateServiceEntryDto } from './ServiceEntry.dto';
@@ -11,8 +11,8 @@ import { UpdateServiceResourceDto, CreateServiceResourceDto } from './ServiceRes
 export class UpdateServiceCollectionDto {
 
   @ApiProperty()
-  @IsUUID()
-  @IsNotEmpty()
+  // @IsUUID()
+  // @IsNotEmpty()
   id: string;
 
   @ApiProperty()
@@ -22,6 +22,7 @@ export class UpdateServiceCollectionDto {
 
   @ApiProperty()
   @IsString()
+  @IsOptional()
   description: string;
 
   @ApiProperty()
@@ -30,15 +31,18 @@ export class UpdateServiceCollectionDto {
   code: string;
 
   @ApiProperty()
-  @IsArray()
+  // @IsArray()
+  @IsOptional()
   serviceEntries: UpdateServiceEntryDto[];
 
   @ApiProperty()
   @IsString()
+  @IsOptional()
   supportedQualifications: string;
 
   @ApiProperty()
   @IsString()
+  @IsOptional()
   @IsDecimal()
   version: number;
 
@@ -48,16 +52,18 @@ export class UpdateServiceCollectionDto {
   procedure: string;
 
   @ApiProperty()
-  @IsNotEmpty()
+  // @IsNotEmpty()
   @IsBoolean()
   isPublic: boolean;
 
   @ApiProperty()
   @IsString()
+  @IsOptional()
   tags: string;
 
   @ApiProperty()
-  @IsArray()
+  // @IsArray()
+  @IsOptional()
   serviceResources: UpdateServiceResourceDto[];
 
   @ApiProperty()
@@ -66,9 +72,13 @@ export class UpdateServiceCollectionDto {
   targetCustomers: string;
 
   @ApiProperty()
-  @IsNotEmpty()
+  // @IsNotEmpty()
   @IsBoolean()
   isArchived: boolean;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
   /**
 *A method that mapes  UpdateServiceCollectionDto object data to  ServiceCollection domain object
 *@returns ServiceCollection domain object which contains ServiceCollection  information
@@ -90,8 +100,8 @@ export class UpdateServiceCollectionDto {
 
     serviceCollection.code = serviceCollectionDto.code;
 
-
-    serviceCollection.serviceEntries = serviceCollectionDto.serviceEntries.map(item => UpdateServiceEntryDto.fromDTO(item));
+    if (serviceCollection.serviceEntries)
+      serviceCollection.serviceEntries = serviceCollectionDto.serviceEntries.map(item => UpdateServiceEntryDto.fromDTO(item));
 
     serviceCollection.supportedQualifications = serviceCollectionDto.supportedQualifications;
 
@@ -111,8 +121,8 @@ export class UpdateServiceCollectionDto {
 
     serviceCollection.tags = serviceCollectionDto.tags;
 
-
-    serviceCollection.serviceResources = serviceCollectionDto.serviceResources.map(item =>{ return UpdateServiceResourceDto.fromDTO(item)});
+    if (serviceCollection.serviceResources)
+      serviceCollection.serviceResources = serviceCollectionDto.serviceResources.map(item => { return UpdateServiceResourceDto.fromDTO(item) });
 
     serviceCollection.targetCustomers = serviceCollectionDto.targetCustomers;
 
@@ -133,9 +143,9 @@ export class UpdateServiceCollectionDto {
 */
 export class CreateServiceCollectionDto {
 
-  @ApiProperty()
-  @IsUUID()
-  @IsNotEmpty()
+  // @ApiProperty()
+  // @IsUUID()
+  // @IsNotEmpty()
   id: string;
 
   @ApiProperty()
@@ -145,6 +155,7 @@ export class CreateServiceCollectionDto {
 
   @ApiProperty()
   @IsString()
+  @IsOptional()
   description: string;
 
   @ApiProperty()
@@ -153,15 +164,13 @@ export class CreateServiceCollectionDto {
   code: string;
 
   @ApiProperty()
-  @IsArray()
-  serviceEntries: UpdateServiceEntryDto[];
-
-  @ApiProperty()
   @IsString()
+  @IsOptional()
   supportedQualifications: string;
 
   @ApiProperty()
   @IsString()
+  @IsOptional()
   @IsDecimal()
   version: number;
 
@@ -172,16 +181,13 @@ export class CreateServiceCollectionDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsBoolean()
+  // @IsBoolean()
   isPublic: boolean;
 
   @ApiProperty()
   @IsString()
+  @IsOptional()
   tags: string;
-
-  @ApiProperty()
-  @IsArray()
-  serviceResources: UpdateServiceResourceDto[];
 
   @ApiProperty()
   @IsString()
@@ -190,8 +196,18 @@ export class CreateServiceCollectionDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsBoolean()
+  // @IsBoolean()
   isArchived: boolean;
+  // @ApiProperty() //commented until the user management works
+
+  // @ApiProperty() 
+  // @IsNotEmpty()
+  // @IsUUID()// will un comment when we build the user management
+  createdBy: string;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
   /**
 *A method that mapes  CreateServiceCollectionDto object data to  ServiceCollection domain object
 *@returns ServiceCollection domain object which contains ServiceCollection  information
@@ -206,7 +222,7 @@ export class CreateServiceCollectionDto {
     serviceCollection.description = serviceCollectionDto.description;
 
     serviceCollection.code = serviceCollectionDto.code;
-    serviceCollection.serviceEntries = serviceCollectionDto.serviceEntries.map(item => CreateServiceEntryDto.fromDTO(item));
+    // serviceCollection.serviceEntries = serviceCollectionDto.serviceEntries.map(item => CreateServiceEntryDto.fromDTO(item));
 
     serviceCollection.supportedQualifications = serviceCollectionDto.supportedQualifications;
 
@@ -217,7 +233,7 @@ export class CreateServiceCollectionDto {
     serviceCollection.isPublic = serviceCollectionDto.isPublic;
 
     serviceCollection.tags = serviceCollectionDto.tags;
-    serviceCollection.serviceResources = serviceCollectionDto.serviceResources.map(item => CreateServiceResourceDto.fromDTO(item));
+    // serviceCollection.serviceResources = serviceCollectionDto.serviceResources.map(item => CreateServiceResourceDto.fromDTO(item));
 
     serviceCollection.targetCustomers = serviceCollectionDto.targetCustomers;
 

@@ -6,6 +6,8 @@ export class ServiceResource {
     serviceCollectionId: string;
     attachmentUrl: string;
     content: string;
+    createdBy: string;
+    updatedBy: string;
     createdAt: Date;
     updatedAt: Date;
 

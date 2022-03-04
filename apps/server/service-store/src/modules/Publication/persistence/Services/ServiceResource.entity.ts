@@ -13,7 +13,9 @@ export class ServiceResourceEntity extends CommonEntity {
   id: string;
   @Column()
   serviceId: string;
-  @ManyToOne((type) => ServiceEntity, (service) => service.serviceResources)
+  @ManyToOne((type) => ServiceEntity, (service) => service.serviceResources, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'serviceId' })
   service: ServiceEntity;
   @Column()

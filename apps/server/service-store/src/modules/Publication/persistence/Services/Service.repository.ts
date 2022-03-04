@@ -3,9 +3,8 @@ import { EntityRepository, getConnection, Repository } from "typeorm";
 import { Service } from '../../domain/services/service';
 import { IServiceRepository } from '../../domain/services/service.repository.interface';
 import { ServiceEntity } from './service.entity';
-import { Media } from '../../domain/Services/media';
+import { Media } from '../../domain/Services/Media';
 import { MediaEntity } from './media.entity';
-import { string } from "yup/lib/locale";
 import { NotFoundException } from "@nestjs/common";
 import { UpdateServiceDto } from "../../controllers/services/service.dto";
 import { ServiceFeeEntity } from "./ServiceFee.entity";
@@ -18,6 +17,8 @@ import { ServiceDependency } from "../../domain/services/ServiceDependency";
 import { ServiceDependencyEntity } from "./ServiceDependency.entity";
 import { ServiceResource } from "../../domain/services/ServiceResource";
 import { ServiceResourceEntity } from "./ServiceResource.entity";
+import { Category } from "src/modules/Classification/domain/categorys/category";
+import { CategoryEntity } from "src/modules/Classification/persistence/categorys/category.entity";
 //@Injectable() 
 @EntityRepository(ServiceEntity)
 export class ServiceRepository extends Repository<ServiceEntity> implements IServiceRepository {
@@ -31,6 +32,7 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
   */
   async updateService(id: string, service: Service): Promise<void> {
     const serviceEntity = this.toServiceEntity(service);
+    console.log(serviceEntity);
     await this.save(serviceEntity);
   }
 
@@ -121,18 +123,20 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
 
     service.applicationForm = serviceEntity.applicationForm;
     service.targetCustomers = serviceEntity.targetCustomers;
-    service.status = serviceEntity.status;
     service.isPublic = serviceEntity.isPublic;
     service.isPublished = serviceEntity.isPublished;
     service.isArchived = serviceEntity.isArchived;
     service.tags = serviceEntity.tags;
     service.deliveryMethod = serviceEntity.deliveryMethod;
-    service.serviceOwnerId = serviceEntity.serviceOwner;
+    service.serviceOwnerId = serviceEntity.serviceOwnerId;
     service.averageRating = serviceEntity.averageRating;
     service.enableReview = serviceEntity.enableReview;
     service.policy = serviceEntity.policy;
     service.publishedOn = serviceEntity.publishedOn;
-    service.createdBy = serviceEntity.createdBy;
+    if (service.categories !== null)
+      // service.categories = serviceEntity.categories.map(element => { return this.toCategory(element) });
+      // service.categories = serviceEntity.categories;
+      service.createdBy = serviceEntity.createdBy;
     service.updatedBy = serviceEntity.updatedBy;
     return service;
   }
@@ -165,17 +169,17 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
 
     service.applicationForm = serviceEntity.applicationForm;
     service.targetCustomers = serviceEntity.targetCustomers;
-    service.status = serviceEntity.status;
     service.isPublic = serviceEntity.isPublic;
     service.isPublished = serviceEntity.isPublished;
     service.isArchived = serviceEntity.isArchived;
     service.tags = serviceEntity.tags;
     service.deliveryMethod = serviceEntity.deliveryMethod;
-    service.serviceOwnerId = serviceEntity.serviceOwner;
+    service.serviceOwnerId = serviceEntity.serviceOwnerId;
     service.averageRating = serviceEntity.averageRating;
     service.enableReview = serviceEntity.enableReview;
     service.policy = serviceEntity.policy;
     service.publishedOn = serviceEntity.publishedOn;
+    // service.categoryId = serviceEntity.categoryId;
     service.createdBy = serviceEntity.createdBy;
     service.updatedBy = serviceEntity.updatedBy;
     return service;
@@ -264,6 +268,18 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
     return serviceResource;
   }
 
+  private toCategory(categoryEntity: CategoryEntity): Category {
+    let category = new Category();
+    category.id = categoryEntity.id;
+    category.name = category.name;
+    category.code = categoryEntity.code;
+    category.description = categoryEntity.description;
+    category.parentId = categoryEntity.parentId;
+    category.createdBy = categoryEntity.createdBy;
+    category.updatedBy = categoryEntity.updatedBy;
+    return category;
+  }
+
   /**
    *A method that copy Service data to a ServiceEntity   object 
    *@param service An service which comprises  Service information
@@ -318,17 +334,17 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
       serviceEntity.serviceResources = service.serviceResources.map(element => { return this.toServiceResourceEntity(element) });
     }
     serviceEntity.targetCustomers = service.targetCustomers;
-    serviceEntity.status = service.status;
     serviceEntity.isPublic = service.isPublic;
     serviceEntity.isPublished = service.isPublished;
     serviceEntity.isArchived = service.isArchived;
     serviceEntity.tags = service.tags;
     serviceEntity.deliveryMethod = service.deliveryMethod;
-    serviceEntity.serviceOwner = service.serviceOwnerId;
+    serviceEntity.serviceOwnerId = service.serviceOwnerId;
     serviceEntity.averageRating = service.averageRating;
     serviceEntity.enableReview = service.enableReview;
     serviceEntity.policy = service.policy;
     serviceEntity.publishedOn = service.publishedOn;
+    // serviceEntity.categoryId = service.categoryId;
     serviceEntity.createdBy = service.createdBy;
     serviceEntity.updatedBy = service.updatedBy;
     return serviceEntity;
@@ -357,17 +373,17 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
  */
     serviceEntity.applicationForm = service.applicationForm;
     serviceEntity.targetCustomers = service.targetCustomers;
-    serviceEntity.status = service.status;
     serviceEntity.isPublic = service.isPublic;
     serviceEntity.isPublished = service.isPublished;
     serviceEntity.isArchived = service.isArchived;
     serviceEntity.tags = service.tags;
     serviceEntity.deliveryMethod = service.deliveryMethod;
-    serviceEntity.serviceOwner = service.serviceOwnerId;
+    serviceEntity.serviceOwnerId = service.serviceOwnerId;
     serviceEntity.averageRating = service.averageRating;
     serviceEntity.enableReview = service.enableReview;
     serviceEntity.policy = service.policy;
     serviceEntity.publishedOn = service.publishedOn;
+    // serviceEntity.categoryId = service.categoryId;
     serviceEntity.createdBy = service.createdBy;
     serviceEntity.updatedBy = service.updatedBy;
     return serviceEntity;
@@ -455,19 +471,82 @@ export class ServiceRepository extends Repository<ServiceEntity> implements ISer
     return serviceResourceEntity;
   }
 
-
-
-  async removeAndSaveMedias(service: Service) {
+  async removeAndSaveMedia(service: Service) {
     await getConnection()
       .createQueryBuilder()
       .delete()
       .from(MediaEntity)
-      .where("serviceId:serviceId", { serviceId: service.id })
+      .where("serviceId = :serviceId", { serviceId: service.id })
       .execute();
     const serviceEntity = this.toServiceEntity(service);
     let result = await this.save(serviceEntity);
     return this.toService(result);
   }
+
+
+  async removeAndSaveServiceFee(service: Service) {
+    await getConnection()
+      .createQueryBuilder()
+      .delete()
+      .from(ServiceFeeEntity)
+      .where("serviceId = :serviceId", { serviceId: service.id })
+      .execute();
+    const serviceEntity = this.toServiceEntity(service);
+    let result = await this.save(serviceEntity);
+    return this.toService(result);
+  }
+
+
+  async removeAndSaveProcessingTime(service: Service) {
+    await getConnection()
+      .createQueryBuilder()
+      .delete()
+      .from(ProcessingTimeEntity)
+      .where("serviceId = :serviceId", { serviceId: service.id })
+      .execute();
+    const serviceEntity = this.toServiceEntity(service);
+    let result = await this.save(serviceEntity);
+    return this.toService(result);
+  }
+
+
+  async removeAndSaveServiceDependency(service: Service) {
+    await getConnection()
+      .createQueryBuilder()
+      .delete()
+      .from(ServiceDependencyEntity)
+      .where("serviceId = :serviceId", { serviceId: service.id })
+      .execute();
+    const serviceEntity = this.toServiceEntity(service);
+    let result = await this.save(serviceEntity);
+    return this.toService(result);
+  }
+
+  async removeAndSaveLanguage(service: Service) {
+    await getConnection()
+      .createQueryBuilder()
+      .delete()
+      .from(LanguageEntity)
+      .where("serviceId = :serviceId", { serviceId: service.id })
+      .execute();
+    const serviceEntity = this.toServiceEntity(service);
+    let result = await this.save(serviceEntity);
+    return this.toService(result);
+  }
+
+
+  async removeAndSaveServiceResource(service: Service) {
+    await getConnection()
+      .createQueryBuilder()
+      .delete()
+      .from(ServiceResourceEntity)
+      .where("serviceId = :serviceId", { serviceId: service.id })
+      .execute();
+    const serviceEntity = this.toServiceEntity(service);
+    let result = await this.save(serviceEntity);
+    return this.toService(result);
+  }
+
 
 
 }

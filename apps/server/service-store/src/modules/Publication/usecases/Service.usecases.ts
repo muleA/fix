@@ -27,7 +27,7 @@ export class ServiceUseCases {
   * A constructor which injects a repository class that used to manage record in the database
   */
   constructor(@InjectRepository(ServiceRepository)
-  private serviceRepository: ServiceRepository) { }
+  private serviceRepository: IServiceRepository) { }
 
   /**
    * A method that calls the repository insert method to save  Service to databse
@@ -68,10 +68,10 @@ export class ServiceUseCases {
    * See the [definition of the Service file]{@link Service} to see a list of required properties
    */
   async getService(id: string) {
-    return await this.serviceRepository.findOne(id,
-      {
-        relations: ['medias', 'serviceFees', 'serviceResources', 'processingTimes', 'serviceDependencies', 'languages']
-      });
+    return await this.serviceRepository.findById(id)
+    // {
+    //   relations: ['medias', 'serviceFees', 'serviceResources', 'processingTimes', 'serviceDependencies', 'languages']
+    // });
   }
 
   /**
@@ -96,46 +96,12 @@ export class ServiceUseCases {
     return result;
   }
 
-
-
-
-  // async addMedia(createMediaDto: CreateMediaDto) {
-  //   var media = new Media();
-  //   media = CreateMediaDto.fromDTO(createMediaDto);
-  //   this.servicedomain = await this.serviceRepository.findById(createMediaDto.id)
-  //   this.servicedomain.addMedia(media);
-  //   const result = await this.serviceRepository.insertService(this.servicedomain);
-  //   this.logger.log('CreateMediaUseCases execute', 'New Media have been inserted');
-  //   return result;
-  // }
-
-
-  // async addMedia(createMediaDto: CreateMediaDto): Promise<boolean> {
-  //   let service = new Service();
-  //   service = await this.serviceRepository.findById(createMediaDto.serviceId);
-  //   console.log(" FetchedMedias", service);
-  //   if (service) {
-  //     let mediaDomain = CreateMediaDto.fromDTO(createMediaDto);
-  //     if (!service.medias)
-  //       service.medias = [];
-  //     service.addMedia(mediaDomain);
-  //     console.log(service);
-  //     const result = await this.serviceRepository.updateService(service.id, service);
-  //     // const result = await this.serviceRepository.insertService(this.servicedomain);
-  //      console.log("result= "+result);
-  //     // this.logger.log('CreateMediaUseCases execute', 'New Media have been inserted');
-
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
-
   async addMedia(id: string, createMediaDto: CreateMediaDto): Promise<boolean> {
-    this.servicedomain = await this.serviceRepository.findById(id); // id is service id
-    console.log(" service = ", this.servicedomain);
+    this.servicedomain = await this.serviceRepository.findById(id); // this id is service id
+    console.log(` service found by id= ${id}`, this.servicedomain);
     if (this.servicedomain) {
       let mediaDomain = CreateMediaDto.fromDTO(createMediaDto);
+      console.log(mediaDomain);
       if (!this.servicedomain.medias) {
         this.servicedomain.medias = [];
       }
@@ -143,7 +109,7 @@ export class ServiceUseCases {
       console.log(this.servicedomain);
       const result = await this.serviceRepository.updateService(this.servicedomain.id, this.servicedomain);
       this.logger.log('CreateMediaUseCases execute', 'New Media have been inserted');
-      console.log("Service with media" + result);
+      console.log(result);
       return true;
     }
     return false;
@@ -155,33 +121,18 @@ export class ServiceUseCases {
    * @param updateMediaDto  An information of  Media 
    * @returns Success Which notify the  Media information updated
   */
-  async updateMedia(id: string, updateMediaDto: UpdateMediaDto): Promise<void> {
-    this.servicedomain = await this.serviceRepository.findById(updateMediaDto.serviceId);
+  async updateMedia(serviceId: string, id: string, updateMediaDto: UpdateMediaDto): Promise<void> {
+    this.servicedomain = await this.serviceRepository.findById(serviceId);
     let mediaDomain = UpdateMediaDto.fromDTO(updateMediaDto);
     this.servicedomain.updateMedia(mediaDomain);
     console.log(this.servicedomain);
     this.servicedomain.updateMedia(mediaDomain);
     const result = await this.serviceRepository.updateService(id, this.servicedomain);
     this.logger.log('UpdateMediaUseCases execute', ' Media have been Update');
-    console.log("Updated Service with media" + result);
+    console.log("Updated Service with media");
     return result;
 
   }
-
-  // async updateMedia(reviewDto: UpdateReviewDto): Promise<void> {
-  //     await this.reviewRepository.findById(reviewDto.id);
-  //   if (review != null) {
-  //     review = UpdateReviewDto.fromDTO(reviewDto);
-  //     await this.reviewRepository.updateReview(review.id, review);
-  //   } else {
-  //     throw new Error("Not Found");
-  //   }
-  //   this.logger.log('UpdateReviewUseCases execute', `Review ${review.id} have been updated`);
-  // }
-
-
-
-
   /**
    * A method that delete a Media from the database by id
    * @param id An id of a Media. A Media with this id should exist in the database
@@ -193,7 +144,7 @@ export class ServiceUseCases {
     service = await this.serviceRepository.findById(serviceId);
     if (service) {
       await service.removeMedia(id);
-      this.serviceRepository.removeAndSaveMedias(service);
+      this.serviceRepository.removeAndSaveMedia(service);
       console.log(service);
       this.logger.log('DeleteMediaUseCases execute', `Service id ${serviceId} and Media ${id} have been filtered`);
     }
@@ -229,26 +180,18 @@ export class ServiceUseCases {
     }
     return false;
   }
-  //   serviceFee = CreateServiceFeeDto.fromDTO(createServiceFeeDto);
-  //   this.servicedomain = await this.serviceRepository.findById(createServiceFeeDto.id)
-  //   this.servicedomain.addServiceFee(serviceFee);
-  //   const result = await this.serviceRepository.insertService(this.servicedomain);
-  //   this.logger.log('CreateMediaUseCases execute', 'New Media have been inserted');
-  //   return result;
-  // }
 
   /**
    * A method that update a ServiceFee 
    * @param updateServiceFeeDto  An information of  ServiceFee 
    * @returns Success Which notify the  ServiceFee information updated
   */
-  async updateServiceFee(updateServiceFeeDto: UpdateServiceFeeDto) {
-    var serviceFee = new ServiceFee();
-    serviceFee = UpdateServiceFeeDto.fromDTO(updateServiceFeeDto);
-    this.servicedomain = await this.serviceRepository.findById(updateServiceFeeDto.id)
-    this.servicedomain.updateServiceFee(serviceFee);
-    const result = await this.serviceRepository.updateService(this.servicedomain.id, this.servicedomain);
-    this.logger.log('CreateServiceFeeUseCases execute', 'New Media have been inserted');
+  async updateServiceFee(serviceId: string, id: string, updateServiceFeeDto: UpdateServiceFeeDto) {
+    this.servicedomain = await this.serviceRepository.findById(serviceId);
+    let mediaDomain = UpdateServiceFeeDto.fromDTO(updateServiceFeeDto);
+    this.servicedomain.updateServiceFee(mediaDomain);
+    const result = await this.serviceRepository.updateService(id, this.servicedomain);
+    this.logger.log('UpdateServiceFeeUseCases execute', ' serviceFee have been updated');
     return result;
   }
 
@@ -257,9 +200,14 @@ export class ServiceUseCases {
    * @param id An id of a ServiceFee. A ServiceFee with this id should exist in the database
    * @returns success which  informs the status of the remove operation successed 
   */
-  async deleteServiceFee(id: string) {
-    await this.servicedomain.removeServiceFee(id);
-    this.logger.log('DeleteServiceFeeUseCases execute', `ServiceFee ${id} have been deleted`);
+  async deleteServiceFee(serviceId: string, id: string): Promise<void> {
+    this.servicedomain = await this.serviceRepository.findById(serviceId);
+    if (this.servicedomain) {
+      await this.servicedomain.removeServiceFee(id);
+      this.serviceRepository.removeAndSaveServiceFee(this.servicedomain);
+      console.log(this.servicedomain);
+      this.logger.log('DeleteServiceFeeUseCases execute', `ServiceFee ${id} have been deleted`);
+    }
   }
 
   /**
@@ -297,16 +245,14 @@ export class ServiceUseCases {
    * @param updateProcessingTimeDto  An information of  ProcessingTime 
    * @returns Success Which notify the  ProcessingTime information updated
   */
-  async updateProcessingTime(updateProcessingTimeDto: UpdateProcessingTimeDto) {
-    var processingTime = new ProcessingTime();
-    processingTime = UpdateProcessingTimeDto.fromDTO(updateProcessingTimeDto);
-    this.servicedomain = await this.serviceRepository.findById(updateProcessingTimeDto.id)
-    this.servicedomain.updateProcessingTime(processingTime);
-    const result = await this.serviceRepository.updateService(this.servicedomain.id, this.servicedomain);
-    this.logger.log('CreateProcessingTimeUseCases execute', 'New Media have been inserted');
+  async updateProcessingTime(serviceId: string, id: string, updateProcessingTimeDto: UpdateProcessingTimeDto) {
+    this.servicedomain = await this.serviceRepository.findById(serviceId);
+    let mediaDomain = UpdateProcessingTimeDto.fromDTO(updateProcessingTimeDto);
+    this.servicedomain.updateProcessingTime(mediaDomain);
+    const result = await this.serviceRepository.updateService(id, this.servicedomain);
+    this.logger.log('UpdateProcessingTimeUseCases execute', 'Processing time has being updated');
     return result;
   }
-
   /**
    * A method that delete a ProcessingTime from the database by id
    * @param id An id of a ProcessingTime. A ProcessingTime with this id should exist in the database
@@ -352,16 +298,14 @@ export class ServiceUseCases {
    * @param updateServiceDependencyDto  An information of  ServiceDependency 
    * @returns Success Which notify the  ServiceDependency information updated
   */
-  async updateServiceDependency(updateServiceDependencyDto: UpdateServiceDependencyDto) {
-    var serviceDependency = new ServiceDependency();
-    serviceDependency = UpdateServiceDependencyDto.fromDTO(updateServiceDependencyDto);
-    this.servicedomain = await this.serviceRepository.findById(updateServiceDependencyDto.id)
-    this.servicedomain.updateServiceDependency(serviceDependency);
-    const result = await this.serviceRepository.updateService(this.servicedomain.id, this.servicedomain);
-    this.logger.log('CreateServiceDependencyUseCases execute', 'New Media have been inserted');
+  async updateServiceDependency(serviceId: string, id: string, updateServiceDependencyDto: UpdateServiceDependencyDto) {
+    this.servicedomain = await this.serviceRepository.findById(serviceId);
+    let mediaDomain = UpdateServiceDependencyDto.fromDTO(updateServiceDependencyDto);
+    this.servicedomain.updateServiceDependency(mediaDomain);
+    const result = await this.serviceRepository.updateService(id, this.servicedomain);
+    this.logger.log('UpdateServiceDependencyUseCases execute', 'Updated service dependency');
     return result;
   }
-
   /**
    * A method that delete a ServiceDependency from the database by id
    * @param id An id of a ServiceDependency. A ServiceDependency with this id should exist in the database
@@ -407,13 +351,12 @@ export class ServiceUseCases {
    * @param updateLanguageDto  An information of  Language 
    * @returns Success Which notify the  Language information updated
   */
-  async updateLanguage(updateLanguageDto: UpdateLanguageDto) {
-    var language = new Language();
-    language = UpdateLanguageDto.fromDTO(updateLanguageDto);
-    this.servicedomain = await this.serviceRepository.findById(updateLanguageDto.id)
-    this.servicedomain.updateLanguage(language);
-    const result = await this.serviceRepository.updateService(this.servicedomain.id, this.servicedomain);
-    this.logger.log('CreateLanguageUseCases execute', 'New Media have been inserted');
+  async updateLanguage(serviceId: string, id: string, updateLanguageDto: UpdateLanguageDto) {
+    this.servicedomain = await this.serviceRepository.findById(serviceId);
+    let mediaDomain = UpdateLanguageDto.fromDTO(updateLanguageDto);
+    this.servicedomain.updateLanguage(mediaDomain);
+    const result = await this.serviceRepository.updateService(id, this.servicedomain);
+    this.logger.log('update LanguageUseCases execute', 'Language is updated');
     return result;
   }
 
@@ -462,13 +405,12 @@ export class ServiceUseCases {
    * @param updateServiceResourceDto  An information of  ServiceResource 
    * @returns Success Which notify the  ServiceResource information updated
   */
-  async updateServiceResource(updateServiceResourceDto: UpdateServiceResourceDto) {
-    var serviceResource = new ServiceResource();
-    serviceResource = UpdateServiceResourceDto.fromDTO(updateServiceResourceDto);
-    this.servicedomain = await this.serviceRepository.findById(updateServiceResourceDto.id)
-    this.servicedomain.updateServiceResource(serviceResource);
-    const result = await this.serviceRepository.updateService(this.servicedomain.id, this.servicedomain);
-    this.logger.log('CreateServiceResourceUseCases execute', 'New Media have been inserted');
+  async updateServiceResource(serviceId: string, id: string, updateServiceResourceDto: UpdateServiceResourceDto) {
+    this.servicedomain = await this.serviceRepository.findById(serviceId);
+    let mediaDomain = UpdateServiceResourceDto.fromDTO(updateServiceResourceDto);
+    this.servicedomain.updateServiceResource(mediaDomain);
+    const result = await this.serviceRepository.updateService(id, this.servicedomain);
+    this.logger.log('Update ServiceResourceUseCases execute', 'service resource updated');
     return result;
   }
 
