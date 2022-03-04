@@ -14,16 +14,13 @@ export class DelegatedServiceEntity extends CommonEntity {
   id: string;
 
   @Column()
-  providerId: string;
-
-  @Column()
   serviceId: string;
 
   @ManyToOne(
     (type) => ServiceProviderEntity,
     (serviceProvider) => serviceProvider.delegatedServices
   )
-  @JoinColumn({ name: 'serviceOwnerId' })
+  @JoinColumn({ name: 'providerId' })
   serviceProvider: ServiceProviderEntity;
   @Column()
   title: string;

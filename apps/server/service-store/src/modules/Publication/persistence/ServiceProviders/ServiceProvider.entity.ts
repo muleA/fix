@@ -1,10 +1,5 @@
 import { CommonEntity } from 'src/modules/shared/CommonEntity';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToMany,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { DelegatedServiceEntity } from './DelegatedService.entity';
 import { ContactInfo } from '../../domain/serviceOwners/ContactInfo';
 import { Address } from '../../domain/ServiceOwners/address';
@@ -36,7 +31,7 @@ export class ServiceProviderEntity extends CommonEntity {
   @OneToMany(
     (type) => DelegatedServiceEntity,
     (delegatedService) => delegatedService.serviceProvider,
-    { cascade: true }
+    { eager: true, cascade: true, onDelete: 'CASCADE' }
   )
   delegatedServices: DelegatedServiceEntity[];
   @Column()
