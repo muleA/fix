@@ -1,29 +1,31 @@
+import { CommonEntity } from "src/modules/shared/CommonEntity";
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn} from "typeorm";
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn
+} from "typeorm";
+import { ServiceCollectionEntity } from "./serviceCollection.entity";
 
-@Entity({ name: "serviceResources" })
-export class ServiceResourceEntity {
-   @PrimaryGeneratedColumn('uuid')
+@Entity({ name: "serviceResource" })
+export class ServiceResourceEntity extends CommonEntity {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
-   
+
   @Column()
   serviceCollectionId: string;
-  
+
   @Column()
   attachmentUrl: string;
-  
+
   @Column()
   content: string;
-  
-  @Column()
-  createdAt: Date;
-  
-  @Column()
-  updatedAt: Date;
-  
-  
+
+  @ManyToOne(type => ServiceCollectionEntity, serviceCollection => serviceCollection.serviceResources, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+  @JoinColumn({ name: 'serviceCollectionId' })
+  serviceCollection: ServiceCollectionEntity;
+
 }

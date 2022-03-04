@@ -9,13 +9,13 @@ import { ServiceResource } from '../../domain/services/ServiceResource';
 export class UpdateServiceResourceDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsUUID()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
 
   @ApiProperty()

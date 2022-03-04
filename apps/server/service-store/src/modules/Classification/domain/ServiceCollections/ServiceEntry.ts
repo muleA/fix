@@ -6,7 +6,8 @@ export class ServiceEntry {
     id: string;
     serviceId: string;
     serviceCollectionId: string;
+    createdBy: string;
+    updatedBy: string;
     createdAt: Date;
     updatedAt: Date;
-
 }
