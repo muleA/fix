@@ -8,15 +8,30 @@ import LoginLayout from '../layout/login-layout';
 import OrganizationSelectorLayout from '../layout/organization-selector-layout';
 import MainLayout from '../layout/main-layout';
 import { useRouter } from 'next/router';
+import cookie from 'cookie';
+import type { AppContext } from 'next/app';
+import type { IncomingMessage } from 'http';
+import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr';
 import { SessionProvider } from "next-auth/react";
 import ProtectedRoute from '../shared/utility/protected-route';
 
-function CustomApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+const keycloakCfg = {
+  realm: process.env.NEXT_PUBLIC_KEYCLOAK_REALM,
+  url: process.env.NEXT_PUBLIC_KEYCLOAK_URL,
+  clientId: process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID
+}
+
+interface InitialProps {
+  cookies: unknown
+}
+
+function CustomApp({ Component, pageProps ,cookies }: AppProps & InitialProps) {
   const router = useRouter();
 
   return (
     <>
-      <SessionProvider session={session}>
+      <SSRKeycloakProvider keycloakConfig={keycloakCfg} persistor={SSRCookies(cookies)}  >
+        {/* <SessionProvider session={session}> */}
         <Head>
           <title>Welcome to registration!</title>
         </Head>
@@ -45,9 +60,24 @@ function CustomApp({ Component, pageProps: { session, ...pageProps } }: AppProps
             </ProtectedRoute>
           }
         </Provider>
-      </SessionProvider>
+        {/* </SessionProvider> */}
+      </SSRKeycloakProvider>
     </>
   );
+}
+
+function parseCookies(req?: IncomingMessage) {
+  if (!req || !req.headers) {
+    return {}
+  }
+  return cookie.parse(req.headers.cookie || '')
+}
+
+CustomApp.getInitialProps = async (context: AppContext) => {
+  // Extract cookies from AppContext
+  return {
+    cookies: parseCookies(context?.ctx?.req)
+  }
 }
 
 export default CustomApp;

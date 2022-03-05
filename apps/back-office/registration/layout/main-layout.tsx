@@ -7,9 +7,9 @@ import {IconBuildingBank} from '@tabler/icons';
 const MainLayout = ({ children }) => {
 
     return (
-        <>
+        <div className='tw-bg-gray-100'>
             <MainNavbar />
-            <main>
+            <main className='tw-pb-14'>
                 <div>
                     {children}
                 </div>
@@ -38,7 +38,7 @@ const MainLayout = ({ children }) => {
                 </div>
 
             </footer>
-        </>
+        </div>
 
 
     );

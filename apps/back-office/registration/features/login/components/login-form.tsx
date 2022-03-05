@@ -5,6 +5,10 @@ import * as yup from "yup";
 import { useLoginUserMutation } from "../store/query/login.query";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { getCsrfToken } from "next-auth/react";
+import axios from "axios";
+import { useKeycloak } from '@react-keycloak/ssr';
+import type { KeycloakInstance } from 'keycloak-js';
 
 const schema = yup.object({
     username: yup.string().required("This field is required"),
@@ -17,16 +21,27 @@ const LoginForm = () => {
     const [loginError,setLoginError] = useState<boolean>(false);
     const { register, handleSubmit, formState: { errors } } = useForm<User>({ resolver: yupResolver(schema) });
     const [loginUser, { isLoading: isLoggingIn }] = useLoginUserMutation();
+    const { keycloak, initialized } = useKeycloak<KeycloakInstance>();
 
     const onSubmit = async (data: User) =>{
         try {
+            /* const headers = {'Access-Control-Allow-Origin' : '*','Content-Type':'application/x-www-form-urlencoded'};
+            const csrfToken  = await getCsrfToken();
+            const intialSignIn = await axios.post(`${process.env.NEXT_PUBLIC_BASEURL}/api/auth/signin/keycloak`,
+            {csrfToken:csrfToken,callbackUrl:`${process.env.NEXT_PUBLIC_BASEURL}/registration/home`},
+            {headers:headers}
+            );
+            console.log(intialSignIn);
             const response = await loginUser(data).unwrap();
             if(response.error){
                 setLoginError(true);
             }
                 
-            console.log(response);
-            router.push("/registration/organization-selector",undefined,{shallow:true});
+           console.log(response);  
+           router.push("/registration/organization-selector",undefined,{shallow:true}); */
+            console.log(data);
+            console.log(keycloak.responseType);
+            
         }
         catch (err) {
             console.log(err);

@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { IconChevronRight,IconUser } from '@tabler/icons';
+import { IconChevronRight, IconUser } from '@tabler/icons';
 import { Pagination, Select } from '@mantine/core';
 import { useState } from "react";
 
-const ActivePersonnels = () => {
+const InActivePersonnels = () => {
 
     const data = [
         "Abcd",
@@ -20,11 +20,11 @@ const ActivePersonnels = () => {
         <div className="md:tw-w-[32%] tw-m-3">
             <div className="tw-bg-white tw-w-full tw-flex tw-p-5">
                 <div className="tw-w-10 tw-h-10 tw-mr-2">
-                    <IconUser className="tw-flex" size={32}/>
+                    <IconUser className="tw-flex" size={32} />
                 </div>
                 <div>
                     <h2 className="tw-text-xl">29 Personnels</h2>
-                    <Link href="/registration/organization-personnel?isActive=true"><a className="tw-text-xs">Active personnels</a></Link>
+                    <Link href="/registration/organization-personnel?isActive=true"><a className="tw-text-xs">Inactive personnels</a></Link>
                 </div>
             </div>
             <div className="tw-bg-white tw-mt-4 tw-p-3 tw-w-full">
@@ -32,7 +32,7 @@ const ActivePersonnels = () => {
                     <table className="table table-vcenter">
                         <thead>
                             <tr>
-                                <th>Name of active personnels</th>
+                                <th>Name of inactive personnels</th>
                                 <th className="w-1"></th>
                             </tr>
                         </thead>
@@ -79,4 +79,4 @@ const ActivePersonnels = () => {
     );
 }
 
-export default ActivePersonnels;
+export default InActivePersonnels;

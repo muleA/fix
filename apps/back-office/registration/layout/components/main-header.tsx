@@ -1,12 +1,16 @@
 import IconAppStore from "../../shared/components/icons/IconAppStore";
 import IconArrowDown from "../../shared/components/icons/IconArrowDown";
 import IconQuestionMark from "../../shared/components/icons/IconQuestionMark";
-
+import { signOut } from "next-auth/react";
+import { useKeycloak } from '@react-keycloak/ssr';
+import type { KeycloakInstance } from 'keycloak-js';
 import Link from "next/link";
 import { useState } from "react";
 
 const MainNavbar = () => {
 
+    const { keycloak, initialized } = useKeycloak<KeycloakInstance>();
+    
     const [languageDropDown, setLanguageDropDown] = useState<boolean>(false);
     const [profileDropDown, setProfileDropDown] = useState<boolean>(false);
     const [moreDropDown, setMoreDropDown] = useState<boolean>(false);
@@ -78,7 +82,7 @@ const MainNavbar = () => {
                 </li>
                 <li className="tw-h-full tw-flex tw-items-center tw-px-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-cursor-pointer tw-relative" onMouseOver={onLanguageMouseOver} onMouseLeave={onLanguageMouseLeave}>English
                     {languageDropDown &&
-                        <div className="tw-flex tw-flex-col tw-text-gray-500 tw-bg-white tw-absolute tw-top-[40px] tw-right-0 tw-shadow-md tw-min-w-[100px]">
+                        <div className="tw-flex tw-flex-col tw-text-gray-500 tw-bg-white tw-absolute tw-top-[40px] tw-right-0 tw-shadow-md tw-min-w-[100px] tw-z-50">
                             <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200" >
                                 አማረኛ
                             </div>
@@ -104,7 +108,7 @@ const MainNavbar = () => {
                     </div>
 
                     {profileDropDown &&
-                        <div className="tw-flex tw-flex-col tw-text-gray-500 tw-bg-white  tw-absolute tw-min-w-[200px] lg:tw-min-w-0 lg:tw-w-full tw-top-[40px] tw-right-0 lg:tw-left-0 tw-shadow-md ">
+                        <div className="tw-flex tw-flex-col tw-text-gray-500 tw-bg-white  tw-absolute tw-min-w-[200px] lg:tw-min-w-0 lg:tw-w-full tw-top-[40px] tw-right-0 lg:tw-left-0 tw-shadow-md tw-z-50">
                             <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200" >
                                 Profile
                             </div>
@@ -117,7 +121,7 @@ const MainNavbar = () => {
                             <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 tw-border-b tw-border-b-gray-200" >
                                 Core.faqs
                             </div>
-                            <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 tw-border-b tw-border-b-gray-200" >
+                            <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 tw-border-b tw-border-b-gray-200" onClick={()=>keycloak.logout()}>
                                 Logout
                             </div>
                             <div className="tw-pl-3 tw-py-2 tw-text-xs hover:tw-bg-gray-200" >
