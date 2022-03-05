@@ -1,16 +1,19 @@
+import { useState } from 'react';
 import Link from 'next/link';
-import { Card, Input, Table} from '@mantine/core';
-import { IconSearch, IconInbox, IconChevronRight} from '@tabler/icons';
+import { Card, Input, Table, Pagination, Select } from '@mantine/core';
+import { IconSearch, IconInbox, IconChevronRight } from '@tabler/icons';
 import Header from "../components/header";
 
 const EmailStatusPage = () => {
 
+    const [perPage, setPerPage] = useState<string>("10");
     const emails = [
         { email: "nabil@some.com", date: "Jul 21, 2022", status: "Some random status" },
         { email: "nabil1@some.com", date: "Feb 02, 2020", status: "very good " },
         { email: "nabil2@some.com", date: "Jun 30, 2019", status: "blah blah" },
         { email: "nabil3@some.com", date: "Jul 21, 2021", status: "mock data" },
     ];
+
     return (
         <div className="tw-w-full tw-min-h-screen">
             <Header />
@@ -58,13 +61,34 @@ const EmailStatusPage = () => {
                                         <td>{item.date}</td>
                                         <td>{item.status}</td>
                                         <td>
-                                            <Link href="/registration/organization-personnel/detail/12345"><a className="tw-block tw-bg-gray-50 hover:tw-border hover:tw-border-[#1d2861] tw-p-1 tw-rounded"><IconChevronRight color={'#1d2861'}/></a></Link>
+                                            <Link href="/registration/organization-personnel/detail/12345"><a className="tw-block tw-bg-gray-50 hover:tw-border hover:tw-border-[#1d2861] tw-p-1 tw-rounded"><IconChevronRight color={'#1d2861'} /></a></Link>
                                         </td>
                                     </tr>
                                 ))
                             }
                         </tbody>
                     </Table>
+                </Card.Section>
+
+                <Card.Section className='tw-px-4'>
+                    <div className="tw-my-2 tw-flex tw-justify-end">
+                        <Pagination total={10} radius="xs" size="sm"
+                            styles={{
+                                item: { color: '#1d2861', borderWidth: 0, fontSize: "12px" },
+                                active: { color: '#1d2861', fontWeight: 'bold' },
+                            }}
+                        />
+
+                        <Select size="xs" value={perPage} onChange={setPerPage}
+                            data={[
+                                { value: '5', label: '5 / page' },
+                                { value: '10', label: '10 / page' },
+                                { value: '20', label: '20 / page' },
+                                { value: '30', label: '30 / page' },
+                                { value: '40', label: '40 / page' }
+                            ]}
+                        />
+                    </div>
                 </Card.Section>
             </Card>
         </div>
