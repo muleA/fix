@@ -39,7 +39,7 @@ const EmailStatusPage = () => {
                                 <th className="w-1"></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className='tw-border-b'>
 
                             {emails.length == 0 &&
                                 <tr className='tw-h-[200px] tw-border-b hover:tw-bg-transparent'>
@@ -56,12 +56,12 @@ const EmailStatusPage = () => {
 
                             {emails.length > 0 &&
                                 emails.map((item) => (
-                                    <tr key={item.email}>
+                                    <tr key={item.email} className="visibility-hoverable-container">
                                         <td>{item.email}</td>
                                         <td>{item.date}</td>
                                         <td>{item.status}</td>
-                                        <td>
-                                            <Link href="/registration/organization-personnel/detail/12345"><a className="tw-block tw-bg-gray-50 hover:tw-border hover:tw-border-[#1d2861] tw-p-1 tw-rounded"><IconChevronRight color={'#1d2861'} /></a></Link>
+                                        <td className='hoverable-visibility-content'>
+                                            <Link href="/registration/organization-personnel/detail/12345"><a className="tw-block tw-bg-gray-50 hover:tw-outline hover:tw-outline-1 hover:tw-outline-[#1d2861] tw-p-1 tw-rounded"><IconChevronRight color={'#1d2861'} /></a></Link>
                                         </td>
                                     </tr>
                                 ))
