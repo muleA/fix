@@ -21,10 +21,12 @@ const OrganizationPage = () => {
                     <h2 className='tw-text-lg'>
                         Organizations
                     </h2>
-                    <button className='btn btn-primary tw-bg-[#1d2861]'>
-                        <IconPlus />
-                        New
-                    </button>
+                    <Link href="/registration/organization/new">
+                        <a className='btn btn-primary tw-bg-[#1d2861]'>
+                            <IconPlus />
+                            New
+                        </a>
+                    </Link>
                 </Card.Section>
 
                 <Card.Section className='tw-flex tw-p-4 tw-justify-end'>

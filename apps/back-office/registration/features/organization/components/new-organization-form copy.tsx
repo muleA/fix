@@ -4,15 +4,15 @@ import OrganizationAddressForm from './organization-address-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
-const BasicProfileForm = () => {
+const NewOrganizationForm = () => {
 
     const AccordionLabel = () => (
         <>
             <Group noWrap>
                 <div>
-                    <Text>Basic Profile</Text>
+                    <Text>New Organization</Text>
                     <Text size="sm" color="dimmed" weight={400}>
-                        Modified basic profile
+                        Register new organization
                     </Text>
                 </div>
             </Group>
@@ -20,7 +20,7 @@ const BasicProfileForm = () => {
     );
 
     return (
-        <Accordion iconPosition="right" className='tw-bg-white'
+        <Accordion iconPosition="right" className='tw-bg-white tw-mt-4'
             styles={{
                 itemTitle: { borderBottom: "0.5px solid rgb(229 231 235)" }
             }}
@@ -119,4 +119,4 @@ const BasicProfileForm = () => {
     );
 }
 
-export default BasicProfileForm;
+export default NewOrganizationForm;
