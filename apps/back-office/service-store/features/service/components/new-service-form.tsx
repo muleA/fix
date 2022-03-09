@@ -97,7 +97,6 @@ const NewServiceForm = () => {
           </div>
         </Accordion.Item>
       </Accordion>
-
       <ServiceQualificationForm />
       <ServiceInstructionForm />
       <ServiceDependencyForm />

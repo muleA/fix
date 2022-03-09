@@ -79,7 +79,6 @@ const ServiceList = () => {
                                 <th>FullyQualified Name</th>
                                 <th>Version</th>
                                 <th>TargetCustomers</th>
-                                <th>Actions</th>
                                 <th className="w-1"></th>
                             </tr>
                         </thead>

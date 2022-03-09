@@ -52,7 +52,7 @@ const MainNavbar = () => {
             <a
               className={`tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
             hover:tw-bg-white hover:tw-no-underline 
-            ${router.pathname === '/' ? 'active' : ''} 
+            ${router.pathname === '/' ?  'active'  : ''} 
             ${router.pathname === '/' ? 'tw-text-blue-900' : ''}  `}
             >
               Home{' '}
@@ -65,33 +65,22 @@ const MainNavbar = () => {
               className={`tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white 
             hover:tw-no-underline
              ${
-              router.pathname === '/service-store/service/detail/list'
+              (router.pathname === '/service-store/service/detail/list'|| router.pathname==='/service-store/service/new'
+              ||router.pathname.match(regex) || router.pathname == '/service-store/service/list' ||
+               router.pathname === '/service-store/service/list'   )
                 ? 'active'
                 : ''
             } 
-            || 
-            ${router.pathname.match(regex) ? 'active' : ''} 
-            || 
-            ${
-                router.pathname == '/service-store/service/list' ? 'active' : ''
-              }
-             || 
-             ${router.pathname=='service-store/service/new'?'active':''}
-              
-            ||
-              ${
-              router.pathname === '/service-store/service/list' 
-                ? 'tw-text-blue-900'
-                : ''
-            }
-            ||
+        
+        
+         
            ${
-              router.pathname === '/service-store/service/new' 
+              (router.pathname === '/service-store/service/new'|| router.pathname==='/service-store/service/list' || 
+              router.pathname.match(regex)   )
                 ? 'tw-text-blue-900'
                 : ''
             }
-            ||
-            ${router.pathname.match(regex) ? 'tw-text-blue-900' : ''}
+            
             
             `}
           
