@@ -1,19 +1,34 @@
 import { AppProps } from 'next/app';
-import Head from 'next/head';
-import '../styles/tailwind/main.css';
 import '../styles/tabler/main.scss';
+import '../styles/tailwind/main.css';
+import MainLayout from '../layouts/main-layout';
+import Head from "next/Head";
+import NextNProgress from "nextjs-progressbar";
+import SSRProvider from 'react-bootstrap/SSRProvider'
 import { MantineProvider } from '@mantine/core';
+import { store } from '../store/app.store';
+import { Provider } from 'react-redux';
 function CustomApp({ Component, pageProps }: AppProps) {
+
   return (
     <>
-      <Head>
-        <title className="tw-text-red-900 bg-blue-lt">Welcome to service-store!</title>
+       <Head>
+        <title>Welcome to-service-store</title>
+        <meta
+          name="description"
+          content="welcome "
+        />
       </Head>
+      <SSRProvider>
+      <Provider store={store}>
       <MantineProvider>
-      <main className="app">
-        <Component {...pageProps} />
-      </main>
+        <MainLayout>
+        <NextNProgress  height={6}color="#ffa500" />
+          <Component {...pageProps} />  
+        </MainLayout>
       </MantineProvider>
+      </Provider> 
+      </SSRProvider>
     </>
   );
 }

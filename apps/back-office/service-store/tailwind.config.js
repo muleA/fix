@@ -1,16 +1,10 @@
 module.exports = {
   prefix:"tw-",
-  content: ["./**/features/**/*.tsx","./**/layout/**/*.tsx"],
+  content: ["./**/features/**/*.tsx","./**/pages/**/*.tsx","./**/layouts/**/*.tsx"],
   theme: {
-    extend: {
-    
-    },
-    
-  },
-  variants: {
     extend: {},
+ 
   },
-  
-  
-};
-
+ 
+  plugins: [],
+}

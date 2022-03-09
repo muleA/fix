@@ -1,11 +1,11 @@
-
+import Dashboard from '../features/service/pages/dashboard'
 export function Index() {
 
   return (
     <>
-  <h1>hello service store</h1>
-   
+<Dashboard/>
     </>
   )
 }
 export default Index;
+

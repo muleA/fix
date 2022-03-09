@@ -1,8 +1,9 @@
 @mixin subheader($include-color: true, $include-line-height: true) {
   font-size: $h6-font-size;
   font-weight: $font-weight-bold;
-  text-transform: uppercase;
   letter-spacing: .04em;
+  color:rgba(0,0,0,0.85)!important;
+  font-size: 0.9rem!important; 
 
   @if $include-line-height {
     line-height: $h6-line-height;

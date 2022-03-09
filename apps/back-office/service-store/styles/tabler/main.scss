@@ -1,5 +1,5 @@
 $theme-colors: (
-  "primary": #0d6efd,
+  "primary":  #1d2861,
   "secondary":#6c757d,
   "success": #198754,
   "info": #0dcaf0,
@@ -8,14 +8,14 @@ $theme-colors: (
   "light": rgb(238, 245, 245),
   "dark":  #232316,
   "muted": #dadac0
-) !default;
-$google-font: 'serif';
+) ;
 
 
-
+$table-head-color: black ;
 
 @import './scss//tabler.scss';
 
 .active{
-  background-color: #333;
+  background-color:#fff;
+    
 }
