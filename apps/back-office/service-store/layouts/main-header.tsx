@@ -75,7 +75,8 @@ const MainNavbar = () => {
         
          
            ${
-              (router.pathname === '/service-store/service/new'|| router.pathname==='/service-store/service/list' || 
+              (router.pathname === '/service-store/service/new'||
+              router.pathname==='/service-store/service/list' || 
               router.pathname.match(regex)   )
                 ? 'tw-text-blue-900'
                 : ''
@@ -111,7 +112,7 @@ const MainNavbar = () => {
                 </Link>
               </div>
               <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200">
-                <Link href="/registration/home">
+                <Link href="/service-store/service-owner/list">
                   <a className="tw-text-gray-500 hover:tw-no-underline hover:tw-text-gray-500">
                     Service Owner
                   </a>
@@ -158,17 +159,26 @@ const MainNavbar = () => {
           )}
         </li>
         <li className="tw-h-full tw-hidden md:tw-flex md:tw-items-center">
-          <Link href="/registration/home">
+          <Link href="/service-store/service-owner/list">
             <a
-              className="tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
-                    hover:tw-bg-white hover:tw-no-underline"
+              className={`tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
+                    hover:tw-bg-white hover:tw-no-underline ${(router.pathname==='/service-store/service-owner/list'||
+                    router.pathname==='/service-store/service-owner/new')?'active':''}
+                    ${
+                      (router.pathname === '/service-store/service-owner/list'||
+                      router.pathname==='/service-store/service-owner/new' || 
+                      router.pathname.match(regex)   )
+                        ? 'tw-text-blue-900'
+                        : ''
+                    }
+                    `}
             >
               Service Owner{' '}
             </a>
           </Link>
         </li>
         <li className="tw-h-full tw-hidden md:tw-flex md:tw-items-center">
-          <Link href="/registration/home">
+          <Link href="/service-store/service/service-provider/list">
             <a
               className="tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
                     hover:tw-bg-white hover:tw-no-underline"

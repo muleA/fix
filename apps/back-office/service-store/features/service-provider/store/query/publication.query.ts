@@ -1,6 +1,6 @@
 import { apiSlice } from '../../../../store/app.api';
  import Service from '../../../../models/publication/services/service';
-  import serviceEndpoints from '../../service.endpoints';
+  import serviceEndpoints from '../../service-owner.endpoints';
 
 const serviceApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
