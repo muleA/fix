@@ -1,9 +1,14 @@
-import { Accordion, Group, Text, MultiSelect} from '@mantine/core';
+import { Accordion, Group, Text, MultiSelect } from '@mantine/core';
 import { Button } from 'react-bootstrap';
-import { IconShieldCheck } from '@tabler/icons';
+import {
+  IconEditCircle,
+  IconTrash,
+  IconShieldCheck,
+  IconCircleCheck,
+} from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-
+import AccordionControlButton from './accordion-control-button'
 const ServiceDependencyForm = () => {
   const AccordionLabel = () => (
     <>
@@ -11,7 +16,7 @@ const ServiceDependencyForm = () => {
         <div>
           <Text>Service Dependency</Text>
           <Text size="sm" color="dimmed" weight={400}>
-        Add Service Dependency
+            Add Service Dependency
           </Text>
         </div>
       </Group>
@@ -19,8 +24,8 @@ const ServiceDependencyForm = () => {
   );
 
   return (
-    <Accordion
-      iconPosition="right"
+    <Accordion disableIconRotation offsetIcon={false} iconPosition="right"
+    icon={<AccordionControlButton/>}
       className="tw-bg-white tw-mt-4"
       styles={{
         itemTitle: { borderBottom: '0.5px solid rgb(229 231 235)' },
@@ -31,20 +36,20 @@ const ServiceDependencyForm = () => {
           <div className="mb-3">
             <label className="form-label required">Service Dependency</label>
             <MultiSelect
-  placeholder="Pick language"
-  data={[
-    { value: 'English', label: 'English' },
-    { value: 'Amharic', label: 'Amharic' },
-    { value: 'Affan Oromo', label: 'Affan Oromo' },
-    { value: 'Tigrigna', label: 'Tigirgna' },
-    {value:'somaligna',label:'somaligna'}
-  ]}
-/>
+              placeholder="Pick language"
+              data={[
+                { value: 'English', label: 'English' },
+                { value: 'Amharic', label: 'Amharic' },
+                { value: 'Affan Oromo', label: 'Affan Oromo' },
+                { value: 'Tigrigna', label: 'Tigirgna' },
+                { value: 'somaligna', label: 'somaligna' },
+              ]}
+            />
           </div>
 
           <div>
             <Button className="bg-primary ">
-              <IconShieldCheck />
+              <IconCircleCheck />
               save
             </Button>
           </div>

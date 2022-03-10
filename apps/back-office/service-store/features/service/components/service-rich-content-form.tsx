@@ -3,22 +3,23 @@ import { Button } from 'react-bootstrap';
 import { IconShieldCheck, IconFileUpload } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import AccordionControlButton from './accordion-control-button'
 const ServiceRichContentForm = () => {
   const AccordionLabel = () => (
     <>
       <Group noWrap>
         <div>
-          <Text>Rich Contents for the Service </Text>
+          <Text>Rich Contents(Medias) for the Service </Text>
           <Text size="sm" color="dimmed" weight={400}>
-            Add Rich Content(audio/video/image/files)
+            Add Medias(audio/video/image/files)
           </Text>
         </div>
       </Group>
     </>
   );
   return (
-    <Accordion
-      iconPosition="right"
+    <Accordion disableIconRotation offsetIcon={false} iconPosition="right"
+    icon={<AccordionControlButton/>}
       className="tw-bg-white tw-mt-4"
       styles={{
         itemTitle: { borderBottom: '0.5px solid rgb(229 231 235)' },
@@ -26,9 +27,27 @@ const ServiceRichContentForm = () => {
     >
       <Accordion.Item label={<AccordionLabel />}>
         <fieldset className="form-fieldset">
+        <div className="mb-3">
+                <label className="form-label required">Media Type(audio/video/image)</label>
+                <input
+                  type="tel"
+                  className="form-control"
+                  placeholder="media type"
+                  autoComplete="off"
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label required">Caption Text to the Media</label>
+                <input
+                  type="tel"
+                  className="form-control"
+                  placeholder="caption"
+                  autoComplete="off"
+                />
+              </div>
           <div className="mb-3">
             <label className="form-label required">
-              Add files(image/video/audio/) related to this service
+add source file(url) to the media
             </label>
 
             <input

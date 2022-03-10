@@ -1,9 +1,9 @@
 import { Accordion, Group, Text, Divider } from '@mantine/core';
 import { Button } from 'react-bootstrap';
-import { IconShieldCheck } from '@tabler/icons';
+import { IconCircleCheck, IconEditCircle, IconTrash } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-
+import AccordionControlButton from './accordion-control-button'
 const ServiceInstructionForm = () => {
   const AccordionLabel = () => (
     <>
@@ -19,8 +19,8 @@ const ServiceInstructionForm = () => {
   );
 
   return (
-    <Accordion
-      iconPosition="right"
+    <Accordion disableIconRotation offsetIcon={false} iconPosition="right"
+    icon={<AccordionControlButton/>}
       className="tw-bg-white tw-mt-4"
       styles={{
         itemTitle: { borderBottom: '0.5px solid rgb(229 231 235)' },
@@ -66,8 +66,8 @@ const ServiceInstructionForm = () => {
           </div>
           <div>
             <Button className="bg-primary ">
-              <IconShieldCheck />
-              save
+              <IconCircleCheck />
+            save
             </Button>
           </div>
         </fieldset>

@@ -1,15 +1,11 @@
-import { useRouter } from 'next/router';
-import NewServicePage from '../../../../features/service/pages/new-service'
-const ServiceDetails = () => {
-  //library variables
-  const router = useRouter();
-  const { id } = router.query;
+import ServiceDetails from '../../../../features/service/pages/service-details'
+const ServiceDetailsPage = () => {
 return (<>
 
-<NewServicePage/>
+   <ServiceDetails/> 
   
 </>)
  
 }
 
-export default ServiceDetails;
+export default ServiceDetailsPage;

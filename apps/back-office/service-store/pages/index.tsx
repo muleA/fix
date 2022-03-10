@@ -1,4 +1,4 @@
-import Dashboard from '../features/service/pages/dashboard'
+import Dashboard from '../features/service/pages/home'
 export function Index() {
 
   return (

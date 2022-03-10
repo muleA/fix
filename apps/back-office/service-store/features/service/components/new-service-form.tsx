@@ -1,23 +1,20 @@
 import { Accordion, Group, Text} from '@mantine/core';
-import ServiceQualificationForm from './service-qualificationlist-form';
-import ServiceInstructionForm from './service-instruction-form';
-import ServiceDependencyForm from './service-dependency-form';
-import ServiceRichContentForm from './service-rich-content-form';
-import RelatedServiceForm from './related-service-form';
-import SupportedLanguageForm from './supported-languages-form';
 import { Button } from 'react-bootstrap';
-import { IconShieldCheck } from '@tabler/icons';
+import { IconShieldCheck, IconTrash } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-
+import { useRouter } from 'next/router';
+import AccordionControlButton  from './accordion-control-button'
 const NewServiceForm = () => {
+  const router=useRouter();
+    
   const AccordionLabel = () => (
     <>
       <Group noWrap>
         <div>
-          <Text>New Service</Text>
+          <Text>Service</Text>
           <Text size="sm" color="dimmed" weight={400}>
-            Register new Service
+      {router.pathname==='/service-store/service/new'?'Register new Service':'Modify service'}
           </Text>
         </div>
       </Group>
@@ -26,8 +23,8 @@ const NewServiceForm = () => {
 
   return (
     <>
-      <Accordion
-        iconPosition="right"
+      <Accordion disableIconRotation offsetIcon={false} iconPosition="right"
+      icon={<AccordionControlButton/>}
         initialItem={0}
         className="tw-bg-white tw-mt-4"
         styles={{
@@ -36,9 +33,6 @@ const NewServiceForm = () => {
       >
         <Accordion.Item label={<AccordionLabel />}>
           <div className="tw-my-4">
-            <div className="tw-flex tw-items-center tw-mb-2">
-              <span>Basic Service Informations</span>
-            </div>
             <fieldset className="form-fieldset">
               <div className="mb-3">
                 <label className="form-label required">Code</label>
@@ -87,22 +81,29 @@ const NewServiceForm = () => {
                   autoComplete="off"
                 />
               </div>
+
+              <div className="mb-3">
+                <label className="form-label required">Procedure</label>
+                <input
+                  type="tel"
+                  className="form-control"
+                  placeholder="procedure"
+                  autoComplete="off"
+                />
+              </div>
               <div>
                 <Button className="bg-primary ">
                   <IconShieldCheck />
-                  save
+                  {router.pathname==='/service-store/service/new'?'Add New':'update'}
                 </Button>
+                {router.pathname!==`/service-store/service/new`? (<Button className="bg-danger tw-ml-2">
+                  <IconTrash/>delete</Button>):''}
+
               </div>
             </fieldset>
           </div>
         </Accordion.Item>
       </Accordion>
-      <ServiceQualificationForm />
-      <ServiceInstructionForm />
-      <ServiceDependencyForm />
-      <ServiceRichContentForm />
-      <RelatedServiceForm />
-      <SupportedLanguageForm />
     </>
   );
 };
