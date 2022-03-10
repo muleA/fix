@@ -7,10 +7,11 @@ const ServiceList = () => {
     const [filterOpened, setFilterOpened] = useState(false);
     const [perPage, setPerPage] = useState<string>("10");
     const Services = [
+        { name: "Issuance oF Id", shortName: "ISID", code: "IDI2021", description: "blah blah", 
+        fullyQualifiedName:"Issunace of National Id", version: "v1",targetCustomer:"city residents",public:"yes",Archived:"No" },
         { name: "Issuance oF Id", shortName: "ISID", code: "IDI2021", description: "blah blah",
-        fullyQualifiedName:"Issunace of National Id", version: "v1",targetCustomer:"city residents" },
-        { name: "Issuance oF Id", shortName: "ISID", code: "IDI2021", description: "blah blah",
-        fullyQualifiedName:"Issunace of National Id", version: "v1",targetCustomer:"city residents" },
+        fullyQualifiedName:"Issunace of National Id", version: "v1",targetCustomer:"city residents",public:"yes"
+        ,Archived:"No" },
 
     ];
 
@@ -79,8 +80,10 @@ const ServiceList = () => {
                                 <th>FullyQualified Name</th>
                                 <th>Version</th>
                                 <th>TargetCustomers</th>
-                                <th className="w-1"></th>
-                            </tr>
+                                <th>Public</th>
+                                <th>Archived</th>
+                                 <th className="w-1"></th>
+                     </tr>
                         </thead>
                         <tbody className='tw-border-b'>
 
@@ -106,6 +109,8 @@ const ServiceList = () => {
                                         <td>{item.fullyQualifiedName}</td>
                                         <td>{item.version}</td>
                                         <td>{item.targetCustomer}</td>
+                                        <td>{item.public}</td>
+                                        <td>{item.Archived}</td>
                                         <td className='hoverable-visibility-content'>
                                           
                                             <Link href="/registration/organization-personnel/detail/12345">
