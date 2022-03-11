@@ -11,7 +11,7 @@ module.exports = {
   // Default namespace used in your i18next config
 
   defaultValue:function customDefaultValue(locale, namespace, Key) {
-    return("T["+locale+"."+namespace+"."+Key+"]")
+    return(`T[${locale}.${Key}]`)
        },
   // Default value to give to empty keys
   // You may also specify a function accepting the locale, namespace, and key as arguments

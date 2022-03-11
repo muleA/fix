@@ -1,13 +1,18 @@
 $theme-colors: (
-  'primary': #312e81,
-  'secondary': #98949e,
+  'primary': #2D3748,
+  'secondary': #646f80,
   'success': #1ce1ac,
   'info': #10e6f5,
   'warning': #ffbe0b,
   'danger': #ff4d4f,
   'light': #ffffff,
-  'dark': #312e81,
-  'brand': #2089ec,
+  'dark': #030303,
+  'brand':#C4DFF5,
   'alert': #67a9b4,
 );
+//$body-bg:#ecfeff;
+body{
+  font-family:ui-serif, Georgia, 'Cambria', "Times New Roman", Times, serif;
+  //background-color: $body-bg
+}
 @import 'scss/tabler.scss';

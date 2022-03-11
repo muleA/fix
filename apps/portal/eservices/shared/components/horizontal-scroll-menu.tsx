@@ -1,4 +1,4 @@
-import { IconArrowBigLeftLines, IconArrowBigRightLines } from '@tabler/icons';
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons';
 import { route } from 'next/dist/server/router';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -60,16 +60,16 @@ export function LeftArrow() {
 
   return (
     <div
-      className={`z-25 flex w-10 justify-center bg-indigo-900 text-white shadow  ${
-        isFirstItemVisible ? 'hidden' : ''
+      className={`tw-z-25 tw-flex tw-w-10 tw-justify-center bg-primary tw-text-white tw-shadow  ${
+        isFirstItemVisible ? 'tw-hidden' : ''
       }`}
     >
-      <IconArrowBigLeftLines
-        className={` flex self-center `}
+      <IconChevronLeft
+        className={` tw-flex tw-self-center `}
         onClick={() => scrollPrev()}
       >
         Left
-      </IconArrowBigLeftLines>
+      </IconChevronLeft>
     </div>
   );
 }
@@ -79,16 +79,16 @@ export function RightArrow() {
 
   return (
     <div
-      className={`z-25 flex w-10 justify-center bg-indigo-900 text-white shadow ${
-        isLastItemVisible ? 'hidden' : ''
+      className={`tw-z-25 tw-flex tw-w-10 tw-justify-center bg-primary tw-text-white tw-shadow ${
+        isLastItemVisible ? 'tw-hidden' : ''
       }`}
     >
-      <IconArrowBigRightLines
-        className={` flex h-full self-center  `}
+      <IconChevronRight
+        className={` tw-flex tw-h-full tw-self-center  `}
         onClick={() => scrollNext()}
       >
         Right
-      </IconArrowBigRightLines>
+      </IconChevronRight>
     </div>
   );
 }
@@ -107,12 +107,12 @@ function Menu({ onClick, selected, menus, itemId }) {
       >
         <div
           onClick={() => router.push(menus.href)}
-          className={`hover:active flex h-16 items-center justify-center hover:bg-indigo-900 hover:text-white ${
-            selected ? 'bg-indigo-900 text-white active ' : ''
+          className={`hover:active hover:tw-bg-gray-700 tw-flex tw-h-16 tw-items-center tw-justify-center hover:tw-text-white ${
+            selected ? 'bg-primary tw-text-white active ' : ''
           }`}
         >
-          <div className='flex justify-center'>{menus.name}</div>
-          <div className="flex triangle self-center"></div>
+          <div className='tw-flex tw-justify-center tw-font-serif '>{menus.name}</div>
+          <div className="tw-flex triangle tw-self-center"></div>
         </div>
       </div>
       

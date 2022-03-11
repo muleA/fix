@@ -5,7 +5,7 @@ const withNx = require('@nrwl/next/plugins/with-nx');
  * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
  **/
 const nextConfig = {
-  experimental: {
+  compiler:{
     styledComponents: true,
   },
   images: {

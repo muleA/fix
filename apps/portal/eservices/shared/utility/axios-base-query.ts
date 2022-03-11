@@ -9,6 +9,7 @@ export const axiosBaseQuery =
       url: string
       method: AxiosRequestConfig['method']
       data?: AxiosRequestConfig['data']
+      headers?:AxiosRequestConfig['headers']
     },
     unknown,
     unknown
