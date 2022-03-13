@@ -1,13 +1,12 @@
+import ServiceQualificationForm from '../../service/components/assign-tags';
 import ServiceInstructionForm from '../../../features/service/components/service-instruction-form';
 import ServiceDependencyForm from '../../../features/service/components/service-dependency-form';
 import ServiceRichContentForm from '../../../features/service/components/service-rich-content-form';
 import RelatedServiceForm from '../../../features/service/components/related-service-form';
 import SupportedLanguageForm from '../../../features/service/components/supported-languages-form';
-import ServiceSideTable from '../components/service-side-table';
-import ServiceOptionHeader from '../components/service-option-header';
-import NewServiceForm from '../components/new-service-form';
-import AssignCategorysToService from '../components/assign-category';
-import AssignTagsToService from '../components/assign-tags';
+import ServiceSideTable from "../../service/components/service-side-table";
+import ServiceOptionHeader from "../../service/components/service-option-header";
+import NewServiceForm from '../components/new-service-owner-form';
 const ServiceDetails = () => {
   return (
     <>
@@ -17,15 +16,13 @@ const ServiceDetails = () => {
           <div className="tw-w-9/12 tw-pl-4">
             <ServiceOptionHeader />
             <NewServiceForm />
-            <AssignTagsToService/>
+            <ServiceQualificationForm />
             <ServiceInstructionForm />
             <ServiceDependencyForm />
             <ServiceRichContentForm />
             <RelatedServiceForm />
             <SupportedLanguageForm />
-{/*             
- */}{/*             <AssignCategorysToService/>
- */}          </div>
+          </div>
         </div>
       </div>
     </>

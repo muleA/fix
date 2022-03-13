@@ -4,8 +4,8 @@ import { IconShieldCheck, IconPlus } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useState } from 'react';
-
-const ServiceQualificationForm = () => {
+import { MultiSelect } from '@mantine/core';
+const AssignTagsToService = () => {
   const [opened, setOpened] = useState(false);
   const [buttonValue, setButtonValue] = useState<'Collapse' | 'Expand'>(
     'Expand'
@@ -14,17 +14,16 @@ const ServiceQualificationForm = () => {
     <>
       <Group noWrap>
         <div>
-          <Text>Service Qualification Lists(Criterias)</Text>
+          <Text>Service Tag Assingment</Text>
           <Text size="sm" color="dimmed" weight={400}>
-            Add Qualifiction Criteria
-          </Text>
+           Assign Tags           </Text>
         </div>
         <div className="ml-auto">
           {buttonValue == 'Expand' ? (
             <Group position="center">
               <Button className="bg-primary" onClick={() => setOpened(true)}>
                 <IconPlus />
-                add Criteria
+                Assign Tags
               </Button>
             </Group>
           ) : (
@@ -64,25 +63,27 @@ const ServiceQualificationForm = () => {
               size="md"
               opened={opened}
               onClose={() => setOpened(false)}
-              title="Add Qualification Criteria"
+              title="Assign tags To this Service"
             >
               <div className="mb-3">
-                <label className="form-label required">Criteria Name </label>
-                <textarea
-                  className="form-control"
-                  name="example-textarea"
-                  placeholder="Qualificaiton Criteria List"
-                ></textarea>
+         <MultiSelect
+      data={['#pasport', '#Id', '#eduction', '#Vue', '#Riot', '#Next.js', '#Blitz.js']}
+      label="select Tags"
+      placeholder="Pick all that you like"
+      searchable
+      nothingFound="Nothing found"
+    />
               </div>
               <div className="tw-mr-auto">
                 <Button className="bg-primary">Done</Button>
               </div>
             </Modal>
           </fieldset>
+          
         </Accordion.Item>
       </Accordion>
     </>
   );
 };
 
-export default ServiceQualificationForm;
+export default AssignTagsToService;

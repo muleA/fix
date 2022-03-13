@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { Card, Input, Popover, Checkbox, Divider, Table, Pagination, Select } from '@mantine/core';
+import { Card, Input, Popover, Checkbox, Divider, Table, Pagination, Select, Button } from '@mantine/core';
 import { IconPlus, IconSearch, IconFilter, IconChevronDown, IconChevronRight, IconInbox } from '@tabler/icons';
+import { ButtonGroup } from 'react-bootstrap';
 
 const ServiceOwnerList = () => {
     const [filterOpened, setFilterOpened] = useState(false);
@@ -21,7 +22,7 @@ const ServiceOwnerList = () => {
             <Card shadow="sm" padding="lg">
                 <Card.Section className='tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2'>
                     <h2 className='tw-text-lg'>
-                        Services
+                        Service Owner
                     </h2>
                     <Link href="/service-store/service-owner/new" passHref>
                      <button className='btn btn-primary tw-bg-[#1d2861]'>
@@ -79,7 +80,7 @@ const ServiceOwnerList = () => {
                                 <th>FullName</th>
                                 <th>Sector</th>
                                 <th>ContactInfo</th>
-                                 <th className="w-1"></th>
+                                <th>Action</th>
                      </tr>
                         </thead>
                         <tbody className='tw-border-b'>
@@ -99,17 +100,23 @@ const ServiceOwnerList = () => {
 
                             {Services.length > 0 &&
                                 Services.map((item) => (
-                                    <tr key={item.name} className="visibility-hoverable-container">
+                                    <tr key={item.name}>
                                         <td>{item.name}</td>
                                         <td>{item.code}</td>
                                         <td>{item.description}</td>
                                         <td>{item.description}</td>
                                         <td>{item.description}</td>
-                                        <td className='hoverable-visibility-content'>
-                                          
-                                            <Link href="/registration/organization-personnel/detail/12345">
-                                                <a className="tw-block tw-bg-gray-50 hover:tw-outline hover:tw-outline-1 hover:tw-outline-[#1d2861] tw-p-1 tw-rounded"><IconChevronRight color={'#1d2861'} /></a></Link>
-                                        </td>
+                                          <td>
+
+<ButtonGroup  aria-label="action buttons service owner">
+  <Button className="bg-primary tw-mr-2">update</Button>
+</ButtonGroup>
+<ButtonGroup aria-label="action buttons service owner">
+  <Button className="bg-danger">Delete</Button>
+</ButtonGroup>
+
+                                          </td>
+         
                                     </tr>
                                 ))
                             }

@@ -1,14 +1,29 @@
-import { useState } from 'react';
-import Link from 'next/link';
-import { Tooltip } from '@mantine/core';
-import { IconArrowsMaximize, IconArrowsMinimize, IconReportSearch, IconMessageCircle, IconQuestionMark, IconX } from '@tabler/icons';
-
+import { Button, Tooltip } from '@mantine/core';
+import { IconArrowsMaximize,IconReportSearch, IconMessageCircle, IconQuestionMark, IconX } from '@tabler/icons';
+import { useRouter } from 'next/router'
 const ServiceOptionHeader = () => {
-
-
+ const router=useRouter();
+ const regex = /\/service-store\/service\/detail\/*/;
     return (
         <div className='tw-p-4 tw-flex tw-bg-white tw-justify-between'>
-            <span>Service</span>
+            <span>
+{`${
+
+    router.pathname==='/service-store/service-provider/new'?'Service Provider':''
+}`}
+
+{`${
+
+router.pathname==='/service-store/service-owner/new'?'Service Owner':''
+}`}
+
+{`${
+
+(router.pathname==='/service-store/service/list'||router.pathname==='/service-store/service/new')?'Service':''
+}
+${router.pathname.match(regex)?'services':''}
+`}
+            </span>
             <div className='tw-flex'>
                 <Tooltip
                     withArrow
@@ -22,7 +37,7 @@ const ServiceOptionHeader = () => {
                 <Tooltip
                     withArrow
                     wrapLines
-                    label="Activity Audit"
+                    label="Assign Category"
                     className='tw-mr-2'
                 >
                     <IconReportSearch className='tw-flex tw-cursor-pointer' size={16} />

@@ -64,7 +64,7 @@ const NewServiceForm = () => {
                 />
               </div>
               <div className="mb-3">
-                <label className="form-label required">Description</label>
+                <label className="form-label ">Description</label>
                 <input
                   type="tel"
                   className="form-control"
@@ -91,6 +91,16 @@ const NewServiceForm = () => {
                   autoComplete="off"
                 />
               </div>
+              <div className="mb-3">
+                <label className="form-label required">Supported Qualifications</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="supported Qualifications"
+                  autoComplete="off"
+                />
+              </div>
+              
               <div>
                 <Button className="bg-primary ">
                   <IconShieldCheck />

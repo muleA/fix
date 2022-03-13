@@ -4,15 +4,18 @@ import { IconPlus, IconShieldCheck, IconTrash } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useRouter } from 'next/router';
-const NewServiceOwnerForm = () => {
+const NewServiceProviderForm = () => {
   const router=useRouter();
+    
+
+
   return (
     <>
           <Card className="tw-mx-auto ">
           <div className="tw-my-4">
             <fieldset className="form-fieldset">
               <div className="mb-3">
-                <label className="form-label">Code</label>
+                <label className="form-label required">Code</label>
                 <input
                   type="text"
                   className="form-control"
@@ -58,10 +61,28 @@ const NewServiceOwnerForm = () => {
                   autoComplete="off"
                 />
               </div>
+              <div className="mb-3">
+                <label className="form-label required">Geo Location</label>
+                <input
+                  type="tel"
+                  className="form-control"
+                  placeholder="contact Info"
+                  autoComplete="off"
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label required">Service Dispatching</label>
+                <input
+                  type="tel"
+                  className="form-control"
+                  placeholder="contact Info"
+                  autoComplete="off"
+                />
+              </div>
 
               <div>
                 <Button className="bg-primary ">
-                  <IconShieldCheck/>save
+                  <IconShieldCheck /> save
                 </Button>
                
 
@@ -75,4 +96,4 @@ const NewServiceOwnerForm = () => {
   );
 };
 
-export default NewServiceOwnerForm;
+export default NewServiceProviderForm;

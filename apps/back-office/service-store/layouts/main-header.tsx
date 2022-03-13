@@ -52,7 +52,7 @@ const MainNavbar = () => {
             <a
               className={`tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
             hover:tw-bg-white hover:tw-no-underline 
-            ${router.pathname === '/' ?  'active'  : ''} 
+            ${router.pathname === '/' ? 'active' : ''} 
             ${router.pathname === '/' ? 'tw-text-blue-900' : ''}  `}
             >
               Home{' '}
@@ -65,26 +65,27 @@ const MainNavbar = () => {
               className={`tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white 
             hover:tw-no-underline
              ${
-              (router.pathname === '/service-store/service/detail/list'|| router.pathname==='/service-store/service/new'
-              ||router.pathname.match(regex) || router.pathname == '/service-store/service/list' ||
-               router.pathname === '/service-store/service/list'   )
-                ? 'active'
-                : ''
-            } 
+               router.pathname === '/service-store/service/detail/list' ||
+               router.pathname === '/service-store/service/new' ||
+               router.pathname.match(regex) ||
+               router.pathname == '/service-store/service/list' ||
+               router.pathname === '/service-store/service/list'
+                 ? 'active'
+                 : ''
+             } 
         
         
          
            ${
-              (router.pathname === '/service-store/service/new'||
-              router.pathname==='/service-store/service/list' || 
-              router.pathname.match(regex)   )
-                ? 'tw-text-blue-900'
-                : ''
-            }
+             router.pathname === '/service-store/service/new' ||
+             router.pathname === '/service-store/service/list' ||
+             router.pathname.match(regex)
+               ? 'tw-text-blue-900'
+               : ''
+           }
             
             
             `}
-          
             >
               Service{' '}
             </a>
@@ -162,12 +163,16 @@ const MainNavbar = () => {
           <Link href="/service-store/service-owner/list">
             <a
               className={`tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
-                    hover:tw-bg-white hover:tw-no-underline ${(router.pathname==='/service-store/service-owner/list'||
-                    router.pathname==='/service-store/service-owner/new')?'active':''}
+                    hover:tw-bg-white hover:tw-no-underline 
                     ${
-                      (router.pathname === '/service-store/service-owner/list'||
-                      router.pathname==='/service-store/service-owner/new' || 
-                      router.pathname.match(regex)   )
+                      router.pathname === '/service-store/service-owner/list' ||
+                      router.pathname === '/service-store/service-owner/new'
+                        ? 'active'
+                        : ''
+                    }
+                    ${
+                      router.pathname === '/service-store/service-owner/list' ||
+                      router.pathname === '/service-store/service-owner/new'
                         ? 'tw-text-blue-900'
                         : ''
                     }
@@ -178,40 +183,101 @@ const MainNavbar = () => {
           </Link>
         </li>
         <li className="tw-h-full tw-hidden md:tw-flex md:tw-items-center">
-          <Link href="/service-store/service/service-provider/list">
+          <Link href="/service-store/service-provider/list">
             <a
-              className="tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
-                    hover:tw-bg-white hover:tw-no-underline"
+              className={`tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
+              hover:tw-bg-white hover:tw-no-underline 
+              ${
+                router.pathname === '/service-store/service-provider/list' ||
+                router.pathname === '/service-store/service-provider/new'
+                  ? 'active'
+                  : ''
+              }
+              ${
+                router.pathname === '/service-store/service-provider/list' ||
+                router.pathname === '/service-store/service-provider/new'
+                  ? 'tw-text-blue-900'
+                  : ''
+              }
+              `}
             >
               Service Provider{' '}
             </a>
           </Link>
         </li>
         <li className="tw-h-full tw-hidden md:tw-flex md:tw-items-center">
-          <Link href="/registration/home">
+          <Link href="/service-store/service/adminstration">
             <a className="tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline">
-              Application Form{' '}
+              Adminstration{' '}
             </a>
           </Link>
         </li>
         <li
-          className="tw-h-full tw-hidden  md:tw-flex md:tw-items-center tw-px-2 hover:tw-text-blue-900 hover:tw-bg-white 
-                :tw-cursor-pointer tw-relative"
+          className={`tw-h-full tw-hidden  md:tw-flex md:tw-items-center tw-px-2
+           hover:tw-text-blue-900 hover:tw-bg-white 
+                :tw-cursor-pointer tw-relative 
+                ${
+                  router.pathname === '/service-store/settings/terms' ||
+                  router.pathname === '/service-store/settings/tags' ||
+                  router.pathname === '/service-store/settings/languages' ||
+                  router.pathname === '/service-store/settings/category'
+                    ? 'active'
+                    : ''
+                }
+                    ${
+                      router.pathname === '/service-store/settings/terms' ||
+                      router.pathname === '/service-store/settings/tags' ||
+                      router.pathname === '/service-store/settings/languages' ||
+                      router.pathname === '/service-store/settings/category'
+                        ? 'tw-text-blue-900'
+                        : ''
+                    }
+              `}
           onMouseOver={onSettingMouseOver}
           onMouseLeave={onSettingMouseLeave}
         >
           Setting
           {settingDropDown && (
             <div className="tw-flex tw-flex-col tw-text-gray-500 tw-bg-white tw-absolute tw-top-[40px] tw-right-0 tw-shadow-md tw-min-w-[150px] tw-z-50">
-              <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200">
-                Terms and Policies
+              <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 hover:tw-no-underline">
+                <Link href="/service-store/settings/terms">
+                  <a
+                    className={`tw-w-full tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
+            hover:tw-no-underline `}
+                  >
+                    Terms and Policy
+                  </a>
+                </Link>
               </div>
-              <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200">Tags</div>
-              <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 tw-border-b tw-border-b-gray-200">
-                Category
+              <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 hover:tw-no-underline">
+                <Link href="/service-store/settings/tags">
+                  <a
+                    className={`tw-w-full tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
+            hover:tw-no-underline `}
+                  >
+                    Tags
+                  </a>
+                </Link>
               </div>
-              <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 tw-border-b tw-border-b-gray-200">
-                Suppoted Language
+              <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 tw-border-b tw-border-b-gray-200 hover:tw-no-underline">
+                <Link href="/service-store/settings/category">
+                  <a
+                    className={`tw-w-full tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
+            hover:tw-no-underline `}
+                  >
+                    Category
+                  </a>
+                </Link>
+              </div>
+              <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 tw-border-b tw-border-b-gray-200 hover:tw-no-underline">
+                <Link href="/service-store/settings/languages">
+                  <a
+                    className={`tw-w-full tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
+            hover:tw-no-underline `}
+                  >
+                    Langauges
+                  </a>
+                </Link>
               </div>
             </div>
           )}

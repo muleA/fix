@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { Card, Input, Popover, Checkbox, Divider, Table, Pagination, Select } from '@mantine/core';
-import { IconPlus, IconSearch, IconFilter, IconChevronDown, IconChevronRight, IconInbox } from '@tabler/icons';
+import { Card, Input, Popover, Checkbox, Divider, Table, Pagination, Select, Button } from '@mantine/core';
+import { IconPlus, IconSearch, IconFilter, IconChevronDown, IconInbox } from '@tabler/icons';
+import { ButtonGroup } from 'react-bootstrap';
 
-const ServiceList = () => {
+const ServiceProviderList = () => {
     const [filterOpened, setFilterOpened] = useState(false);
     const [perPage, setPerPage] = useState<string>("10");
     const Services = [
@@ -23,7 +24,7 @@ const ServiceList = () => {
                     <h2 className='tw-text-lg'>
                         Services
                     </h2>
-                    <Link href="/service-store/service/new" passHref>
+                    <Link href="/service-store/service-provider/new" passHref>
                      <button className='btn btn-primary tw-bg-[#1d2861]'>
                         <IconPlus />
                         New
@@ -74,15 +75,14 @@ const ServiceList = () => {
                     <Table className='tw-mb-4'>
                         <thead>
                             <tr className='tw-bg-gray-200'>
-                                <th>Name</th>
                                 <th>Code</th>
-                                <th>Description</th>
-                                <th>FullyQualified Name</th>
-                                <th>Version</th>
-                                <th>TargetCustomers</th>
-                                <th>Public</th>
-                                <th>Archived</th>
-                                 <th className="w-1">Actions</th>
+                                <th>Shortname</th>
+                                <th>FullName</th>
+                                <th>Sector</th>
+                                <th>ContactInfo</th>
+                                <th>GeoLocation</th>
+                                <th>Service Dispatching</th>
+                                 <th>Actions</th>
                      </tr>
                         </thead>
                         <tbody className='tw-border-b'>
@@ -102,20 +102,22 @@ const ServiceList = () => {
 
                             {Services.length > 0 &&
                                 Services.map((item) => (
-                                    <tr key={item.name} className="visibility-hoverable-container">
+                                    <tr key={item.name}>
                                         <td>{item.name}</td>
                                         <td>{item.code}</td>
                                         <td>{item.description}</td>
-                                        <td>{item.fullyQualifiedName}</td>
-                                        <td>{item.version}</td>
-                                        <td>{item.targetCustomer}</td>
-                                        <td>{item.public}</td>
-                                        <td>{item.Archived}</td>
-
-                                        <td className='hoverable-visibility-content'>
-                                          
-                                            <Link href="/registration/organization-personnel/detail/12345">
-                                                <a className="tw-block tw-bg-gray-50 hover:tw-outline hover:tw-outline-1 hover:tw-outline-[#1d2861] tw-p-1 tw-rounded"><IconChevronRight color={'#1d2861'} /></a></Link>
+                                        <td>{item.description}</td>
+                                        <td>{item.description}</td>
+                                        <td>{item.description}</td>
+                                        <td>{item.description}</td>
+                                        <td>
+                                        <ButtonGroup  aria-label="action buttons service owner">
+  <Button className="bg-primary tw-mr-2">update</Button>
+</ButtonGroup>
+<ButtonGroup aria-label="action buttons service owner">
+  <Button className="bg-danger">Delete</Button>
+</ButtonGroup>
+                                            
                                         </td>
                                     </tr>
                                 ))
@@ -151,4 +153,4 @@ const ServiceList = () => {
 
 }
 
-export default ServiceList;
+export default ServiceProviderList;
