@@ -1,11 +1,13 @@
-import { useState } from 'react';
 import Link from 'next/link';
 import { Tooltip } from '@mantine/core';
 import { IconArrowsMaximize, IconArrowsMinimize, IconReportSearch, IconMessageCircle, IconQuestionMark, IconX } from '@tabler/icons';
+import { useAppDispatch, useAppSelector } from '../../../shared/hooks/redux.hook';
+import { toggleScreenSize, setSideView, selectIsFullScreen } from '../store/slice/organization.slice';
+
 
 const OrganizationOptionHeader = () => {
-
-
+    const dispatch = useAppDispatch();
+    const screenSize = useAppSelector(selectIsFullScreen);
     return (
         <div className='tw-p-4 tw-flex tw-bg-white tw-justify-between'>
             <span>Organization</span>
@@ -16,7 +18,13 @@ const OrganizationOptionHeader = () => {
                     label="Fullscreen"
                     className='tw-mr-2'
                 >
-                    <IconArrowsMaximize className='tw-flex tw-cursor-pointer' size={16} />
+                    {!screenSize &&
+                        <IconArrowsMaximize onClick={() => dispatch(toggleScreenSize())} className='tw-flex tw-cursor-pointer' size={16} />
+                    }
+
+                    {screenSize &&
+                        <IconArrowsMinimize onClick={() => dispatch(toggleScreenSize())} className='tw-flex tw-cursor-pointer' size={16} />
+                    }
                 </Tooltip>
 
                 <Tooltip
@@ -25,7 +33,7 @@ const OrganizationOptionHeader = () => {
                     label="Activity Audit"
                     className='tw-mr-2'
                 >
-                    <IconReportSearch className='tw-flex tw-cursor-pointer' size={16} />
+                    <IconReportSearch onClick={() => dispatch(setSideView("activity-audit"))} className='tw-flex tw-cursor-pointer' size={16} />
                 </Tooltip>
 
                 <Tooltip
@@ -34,7 +42,7 @@ const OrganizationOptionHeader = () => {
                     label="Note"
                     className='tw-mr-2'
                 >
-                    <IconMessageCircle className='tw-flex tw-cursor-pointer' size={16} />
+                    <IconMessageCircle onClick={() => dispatch(setSideView("note"))} className='tw-flex tw-cursor-pointer' size={16} />
                 </Tooltip>
 
                 <Tooltip
@@ -43,7 +51,7 @@ const OrganizationOptionHeader = () => {
                     label="Help"
                     className='tw-mr-2'
                 >
-                    <IconQuestionMark className='tw-flex tw-cursor-pointer' size={16} />
+                    <IconQuestionMark onClick={() => dispatch(setSideView("help"))} className='tw-flex tw-cursor-pointer' size={16} />
                 </Tooltip>
 
                 <Tooltip
@@ -52,11 +60,13 @@ const OrganizationOptionHeader = () => {
                     label="Close"
                     className='tw-mr-2'
                 >
-                    <IconX className='tw-flex tw-cursor-pointer' size={16} />
-                </Tooltip>                
-                
-                
-                
+                    <Link href="/registration/organization">
+                        <a>
+                            <IconX onClick={() => dispatch(setSideView(""))} className='tw-flex tw-cursor-pointer' size={16} />
+                        </a>
+                    </Link>
+                </Tooltip>
+
             </div>
         </div>
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Card, Input, Popover, Checkbox, Divider, Table, Pagination, Select } from '@mantine/core';
-import { IconPlus, IconSearch, IconFilter, IconChevronDown, IconChevronRight, IconInbox } from '@tabler/icons';
+import { IconPlus, IconSearch, IconFilter, IconInbox } from '@tabler/icons';
 
 const OrganizationsSideTable = () => {
     const [filterOpened, setFilterOpened] = useState(false);
@@ -87,7 +87,7 @@ const OrganizationsSideTable = () => {
 
                         {organizations.length > 0 &&
                             organizations.map((item) => (
-                                <tr key={item.name} className="visibility-hoverable-container">
+                                <tr key={item.name} className="hover:tw-cursor-pointer">
                                     <td>{item.name}</td>
                                 </tr>
                             ))
