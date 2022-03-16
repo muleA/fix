@@ -6,7 +6,6 @@ import SupportedLanguageForm from '../../../features/service/components/supporte
 import ServiceSideTable from '../components/service-side-table';
 import ServiceOptionHeader from '../components/service-option-header';
 import NewServiceForm from '../components/new-service-form';
-import AssignCategorysToService from '../components/assign-category';
 import AssignTagsToService from '../components/assign-tags';
 const ServiceDetails = () => {
   return (

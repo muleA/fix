@@ -13,12 +13,11 @@ import {
 } from '@mantine/core';
 import { IconPlus, IconSearch, IconFilter, IconInbox } from '@tabler/icons';
 
-const ServiceSideTable = () => {
+const CategorySideTable = () => {
   const [filterOpened, setFilterOpened] = useState(false);
   const [perPage, setPerPage] = useState<string>('5');
   const router = useRouter();
-  const { id } = router.query;
-  console.log(id);
+  const { policy } = router.query;
   const Service = [
     {
       name: 'Issuance of Nation Id',
@@ -51,10 +50,10 @@ const ServiceSideTable = () => {
   ];
 
   return (
-    <Card className="tw-w-4/12" shadow="sm" padding="lg">
+    <Card className="tw-w-4/12 tw-ml-4" shadow="sm" padding="lg">
       <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
-        <h2 className="tw-text-lg">Service</h2>
-        <Link href="/service-store/service/new">
+        <h2 className="tw-text-lg"> Category</h2>
+        <Link href="/service-store/adminstration/new-category">
           <a className="btn btn-primary tw-bg-[#1d2861]">
             <IconPlus />
             New
@@ -132,7 +131,7 @@ const ServiceSideTable = () => {
               Service.map((item) => (
                 <Link
                   key={item.name}
-                  href={`/service-store/service/detail/${item.name}`}
+                  href={`/service-store/adminstration/details/category/${item.name}`}
                 >
                   <a className="hover:tw-no-underline">
                     <tr
@@ -178,4 +177,4 @@ const ServiceSideTable = () => {
   );
 };
 
-export default ServiceSideTable;
+export default CategorySideTable;

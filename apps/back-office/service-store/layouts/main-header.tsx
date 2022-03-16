@@ -2,31 +2,41 @@ import { IconQuestionMark, IconArrowBarDown, IconApps } from '@tabler/icons';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { isAbsolute } from 'path';
 const MainNavbar = () => {
   const [languageDropDown, setLanguageDropDown] = useState<boolean>(false);
   const [profileDropDown, setProfileDropDown] = useState<boolean>(false);
-  const [settingDropDown, setSettingDropDown] = useState<boolean>(false);
   const [moreDropDown, setMoreDropDown] = useState<boolean>(false);
   const router = useRouter();
   const regex = /\/service-store\/service\/detail\/*/;
+  const isactive = ` router.pathname ===
+                        '/service-store/adminstration/policy' ||
+                      router.pathname === '/service-store/adminstration' ||
+                      router.pathname ===
+                        '/service-store/adminstration/new-policy' ||
+                      router.pathname ===
+                        '/service-store/adminstration/service-tags' ||
+                      router.pathname ===
+                        '/service-store/adminstration/new-tag' ||
+                      router.pathname ===
+                        '/service-store/adminstration/service-category' ||
+                      router.pathname ===
+                        '/service-store/adminstration/new-category' ||
+                      router.pathname ===
+                        '/service-store/adminstration/supported-languages' ||
+                      router.pathname ===
+                        '/service-store/adminstration/new-language'`;
   const onLanguageMouseOver = () => {
     setLanguageDropDown(true);
   };
   const onLanguageMouseLeave = () => {
     setLanguageDropDown(false);
   };
-
   const onProfileMouseOver = () => {
     setProfileDropDown(true);
   };
   const onProfileMouseLeave = () => {
     setProfileDropDown(false);
-  };
-  const onSettingMouseOver = () => {
-    setSettingDropDown(true);
-  };
-  const onSettingMouseLeave = () => {
-    setSettingDropDown(false);
   };
 
   const onMoreMouseOver = () => {
@@ -35,7 +45,6 @@ const MainNavbar = () => {
   const onMoreMouseLeave = () => {
     setMoreDropDown(false);
   };
-
   return (
     <nav className="tw-h-[40px] tw-flex tw-justify-between tw-py-0 tw-px-2 bg-primary">
       <div className="tw-flex tw-items-center tw-text-gray-100 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-cursor-pointer tw-px-2 tw-border-r tw-border-r-gray-100">
@@ -82,9 +91,7 @@ const MainNavbar = () => {
              router.pathname.match(regex)
                ? 'tw-text-blue-900'
                : ''
-           }
-            
-            
+           }            
             `}
             >
               Service{' '}
@@ -97,7 +104,7 @@ const MainNavbar = () => {
           onMouseOver={onMoreMouseOver}
           onMouseLeave={onMoreMouseLeave}
         >
-          <span className="tw-h-full tw-flex tw-px-2 tw-py-2">
+          <span className="tw-h-full tw-flex tw-px-2 tw-py-2 tw-z-50">
             More <IconArrowBarDown />{' '}
           </span>
           {moreDropDown && (
@@ -126,35 +133,12 @@ const MainNavbar = () => {
                   </a>
                 </Link>
               </div>
-
               <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200">
-                {/*setting on small device  */}
-
-                <div
-                  className="tw-h-full   tw-flex  tw-items-center tw-px-2 hover:tw-text-blue-900 hover:tw-bg-white 
-                :tw-cursor-pointer tw-relative"
-                  onMouseOver={onSettingMouseOver}
-                  onMouseLeave={onSettingMouseLeave}
-                >
-                  Setting
-                  {settingDropDown && (
-                    <div className="tw-flex tw-flex-col tw-text-gray-500 tw-bg-white tw-absolute tw-top-[40px] tw-right-0 tw-shadow-md tw-min-w-[150px] tw-z-50">
-                      <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200">
-                        Terms and Policies
-                      </div>
-                      <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200">
-                        Tags
-                      </div>
-                      <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 tw-border-b tw-border-b-gray-200">
-                        Category
-                      </div>
-                      <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 tw-border-b tw-border-b-gray-200">
-                        Suppoted Language
-                      </div>
-                    </div>
-                  )}
-                </div>
-                {/*  */}
+                <Link href="/service-store/adminstration">
+                  <a className="tw-text-gray-500 hover:tw-no-underline hover:tw-text-gray-500">
+                    Adminstration
+                  </a>
+                </Link>
               </div>
             </div>
           )}
@@ -206,81 +190,25 @@ const MainNavbar = () => {
           </Link>
         </li>
         <li className="tw-h-full tw-hidden md:tw-flex md:tw-items-center">
-          <Link href="/service-store/service/adminstration">
-            <a className="tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline">
-              Adminstration{' '}
-            </a>
-          </Link>
-        </li>
-        <li
-          className={`tw-h-full tw-hidden  md:tw-flex md:tw-items-center tw-px-2
-           hover:tw-text-blue-900 hover:tw-bg-white 
-                :tw-cursor-pointer tw-relative 
-                ${
-                  router.pathname === '/service-store/settings/terms' ||
-                  router.pathname === '/service-store/settings/tags' ||
-                  router.pathname === '/service-store/settings/languages' ||
-                  router.pathname === '/service-store/settings/category'
-                    ? 'active'
-                    : ''
-                }
-                    ${
-                      router.pathname === '/service-store/settings/terms' ||
-                      router.pathname === '/service-store/settings/tags' ||
-                      router.pathname === '/service-store/settings/languages' ||
-                      router.pathname === '/service-store/settings/category'
+          <Link href="/service-store/adminstration">
+            <a
+              className={`tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
+                    hover:tw-bg-white hover:tw-no-underline 
+                    ${isactive
+                     
+                        ? 'active'
+                        : ''
+                    }
+                    ${isactive
+                      
                         ? 'tw-text-blue-900'
                         : ''
                     }
-              `}
-          onMouseOver={onSettingMouseOver}
-          onMouseLeave={onSettingMouseLeave}
-        >
-          Setting
-          {settingDropDown && (
-            <div className="tw-flex tw-flex-col tw-text-gray-500 tw-bg-white tw-absolute tw-top-[40px] tw-right-0 tw-shadow-md tw-min-w-[150px] tw-z-50">
-              <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 hover:tw-no-underline">
-                <Link href="/service-store/settings/terms">
-                  <a
-                    className={`tw-w-full tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
-            hover:tw-no-underline `}
-                  >
-                    Terms and Policy
-                  </a>
-                </Link>
-              </div>
-              <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 hover:tw-no-underline">
-                <Link href="/service-store/settings/tags">
-                  <a
-                    className={`tw-w-full tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
-            hover:tw-no-underline `}
-                  >
-                    Tags
-                  </a>
-                </Link>
-              </div>
-              <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 tw-border-b tw-border-b-gray-200 hover:tw-no-underline">
-                <Link href="/service-store/settings/category">
-                  <a
-                    className={`tw-w-full tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
-            hover:tw-no-underline `}
-                  >
-                    Category
-                  </a>
-                </Link>
-              </div>
-              <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200 tw-border-b tw-border-b-gray-200 hover:tw-no-underline">
-                <Link href="/service-store/settings/languages">
-                  <a
-                    className={`tw-w-full tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
-            hover:tw-no-underline `}
-                  >
-                    Langauges
-                  </a>
-                </Link>
-              </div>
-            </div>
-          )}
+                    `}
+            >
+              Adminstration{' '}
+            </a>
+          </Link>
         </li>
       </ul>
       <ul className="tw-flex tw-items-center tw-text-gray-100">
