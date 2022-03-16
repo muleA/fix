@@ -1,9 +1,13 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Card, Input, Popover, Checkbox, Divider, Table, Pagination, Select } from '@mantine/core';
 import { IconPlus, IconSearch, IconFilter, IconInbox } from '@tabler/icons';
 
 const OrganizationsSideTable = () => {
+    const router = useRouter();
+    const { id } = router.query;
+    
     const [filterOpened, setFilterOpened] = useState(false);
     const [perPage, setPerPage] = useState<string>("10");
     const organizations = [
@@ -87,8 +91,14 @@ const OrganizationsSideTable = () => {
 
                         {organizations.length > 0 &&
                             organizations.map((item) => (
-                                <tr key={item.name} className="hover:tw-cursor-pointer">
-                                    <td>{item.name}</td>
+                                <tr key={item.name} className={`hover:tw-cursor-pointer ${id == item.name && "tw-bg-[#1d2861]"}`}>
+                                    <Link href={`/registration/organization/detail/${item.name}`}>
+                                        <a className='tw-block hover:tw-no-underline'>
+                                            <td className={`tw-block ${id == item.name && "tw-text-white hover:tw-bg-[#1d2861]"} `}>
+                                                {item.name}
+                                            </td>
+                                        </a>
+                                    </Link>
                                 </tr>
                             ))
                         }
@@ -116,7 +126,7 @@ const OrganizationsSideTable = () => {
                     />
                 </div>
             </Card.Section>
-        </Card>
+        </Card >
 
     );
 

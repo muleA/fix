@@ -4,13 +4,16 @@ import { IconArrowsMaximize, IconArrowsMinimize, IconReportSearch, IconMessageCi
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks/redux.hook';
 import { toggleScreenSize, setSideView, selectIsFullScreen } from '../store/slice/organization.slice';
 
+type OrganizationOptionHeaderProps = {
+    title:string;
+};
 
-const OrganizationOptionHeader = () => {
+const OrganizationOptionHeader = (props:OrganizationOptionHeaderProps) => {
     const dispatch = useAppDispatch();
     const screenSize = useAppSelector(selectIsFullScreen);
     return (
         <div className='tw-p-4 tw-flex tw-bg-white tw-justify-between'>
-            <span>Organization</span>
+            <span>{props.title}</span>
             <div className='tw-flex'>
                 <Tooltip
                     withArrow
