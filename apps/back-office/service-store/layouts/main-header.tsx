@@ -2,7 +2,6 @@ import { IconQuestionMark, IconArrowBarDown, IconApps } from '@tabler/icons';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { isAbsolute } from 'path';
 const MainNavbar = () => {
   const [languageDropDown, setLanguageDropDown] = useState<boolean>(false);
   const [profileDropDown, setProfileDropDown] = useState<boolean>(false);
@@ -194,13 +193,45 @@ const MainNavbar = () => {
             <a
               className={`tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
                     hover:tw-bg-white hover:tw-no-underline 
-                    ${isactive
-                     
+                    ${
+                      router.pathname ===
+                        '/service-store/adminstration/policy' ||
+                      router.pathname === '/service-store/adminstration' ||
+                      router.pathname ===
+                        '/service-store/adminstration/new-policy' ||
+                      router.pathname ===
+                        '/service-store/adminstration/service-tags' ||
+                      router.pathname ===
+                        '/service-store/adminstration/new-tag' ||
+                      router.pathname ===
+                        '/service-store/adminstration/service-category' ||
+                      router.pathname ===
+                        '/service-store/adminstration/new-category' ||
+                      router.pathname ===
+                        '/service-store/adminstration/supported-languages' ||
+                      router.pathname ===
+                        '/service-store/adminstration/new-language'
                         ? 'active'
                         : ''
                     }
-                    ${isactive
-                      
+                    ${
+                      router.pathname ===
+                        '/service-store/adminstration/policy' ||
+                      router.pathname === '/service-store/adminstration' ||
+                      router.pathname ===
+                        '/service-store/adminstration/new-policy' ||
+                      router.pathname ===
+                        '/service-store/adminstration/service-tags' ||
+                      router.pathname ===
+                        '/service-store/adminstration/new-tag' ||
+                      router.pathname ===
+                        '/service-store/adminstration/service-category' ||
+                      router.pathname ===
+                        '/service-store/adminstration/new-category' ||
+                      router.pathname ===
+                        '/service-store/adminstration/supported-languages' ||
+                      router.pathname ===
+                        '/service-store/adminstration/new-language'
                         ? 'tw-text-blue-900'
                         : ''
                     }
