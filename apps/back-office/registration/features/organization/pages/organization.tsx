@@ -103,7 +103,7 @@ const OrganizationPage = () => {
                                         <td>{item.description}</td>
                                         <td>{item.active}</td>
                                         <td className='hoverable-visibility-content'>
-                                            <Link href="/registration/organization-personnel/detail/12345"><a className="tw-block tw-bg-gray-50 hover:tw-outline hover:tw-outline-1 hover:tw-outline-[#1d2861] tw-p-1 tw-rounded"><IconChevronRight color={'#1d2861'} /></a></Link>
+                                            <Link href={`/registration/organization/detail/${item.name}`}><a className="tw-block tw-bg-gray-50 hover:tw-outline hover:tw-outline-1 hover:tw-outline-[#1d2861] tw-p-1 tw-rounded"><IconChevronRight color={'#1d2861'} /></a></Link>
                                         </td>
                                     </tr>
                                 ))
