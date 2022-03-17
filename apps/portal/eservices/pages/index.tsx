@@ -15,22 +15,30 @@ import {
   IconTrash,
   IconDots,
 } from '@tabler/icons';
-import Image from 'next/image';
 import Link from 'next/link';
-import { Badge, Button, Card, Carousel, ListGroup } from 'react-bootstrap';
+import {
+  Card,
+  Text,
+  Badge,
+  Button,
+  Group,
+  useMantineTheme,
+} from '@mantine/core';
 import Menus from '../shared/components/horizontal-scroll-menu';
 import { useEffect, useState } from 'react';
 import { signIn, useSession, signOut, getCsrfToken } from 'next-auth/react';
 import { getToken } from 'next-auth/jwt';
 import { Router, useRouter } from 'next/router';
-import { Divider, Menu, Text } from '@mantine/core';
+import { Divider, Menu, Image } from '@mantine/core';
+import {default as Nimage} from 'next/image';
+import Carousel from '../shared/components/carousel';
+import { CarouselItem } from '../shared/components/carousel';
+
 
 export function Index() {
   const [adds, setAdds] = useState(false);
   const [top, setTop] = useState(25);
 
-  const token = getCsrfToken();
-  console.log('token', token);
   const config = [
     {
       name: 'All',
@@ -99,81 +107,34 @@ export function Index() {
       protected: false,
     },
   ];
-  const { data: session } = useSession();
+  const { data } = useSession();
   const router = useRouter();
-  console.log('session', session);
+  console.log('session', data);
+  const theme = useMantineTheme();
+
+  const secondaryColor =
+    theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7];
+
   return (
     <>
       <div className="tw-mt-3 tw-mb-4">
-        {/* <button onClick={() => signIn('keycloak')}>Sign in</button>:<button onClick={() => signOut()}>signOut</button> */}
-
-        <Carousel className={`${adds} ? 'tw-w-9/12' :'tw-w-full'`}>
-          <Carousel.Item className="tw-w-full" style={{ height: '25vw' }}>
-            <Image
-              src="/../public/assets/img/hero.jpg"
-              layout="fill"
-              alt="img"
-              className="d-block tw-w-100"
-            />
-            <p hidden>carousel image</p>
-            <Carousel.Caption className="xs:tw-hidden sm:tw-hidden md:tw-block lg:tw-block">
-              <div className=" tw-h-15 text-dark tw-grid  tw-grid-cols-4 tw-divide-x tw-divide-dashed tw-divide-black tw-font-serif tw-text-xl tw-lining-nums">
-                <div className="tw-flex tw-items-center tw-justify-center ">
-                  <div>
-                    <p>17 Total Visitors</p>
-                  </div>
-                </div>
-                <div className="tw-flex tw-items-center tw-justify-center">
-                  <div>
-                    <p>20 Total Providers</p>
-                  </div>
-                </div>
-                <div className="tw-flex tw-items-center tw-justify-center">
-                  <div>
-                    <p>17 Total Service</p>
-                  </div>
-                </div>
-                <div className="tw-flex tw-items-center tw-justify-center">
-                  <div>
-                    <p>100 Total Customers</p>
-                  </div>
-                </div>
-              </div>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item className="tw-w-full" style={{ height: '25vw' }}>
-            <Image
-              src="/../public/assets/img/hero.jpg"
-              layout="fill"
-              alt="img"
-              className="d-block tw-w-100"
-            />
-            <p hidden>carousel image</p>
-            <Carousel.Caption className="xs:tw-hidden sm:tw-hidden md:tw-block lg:tw-block">
-              <div className=" tw-h-15 text-dark tw-grid  tw-grid-cols-4 tw-divide-x tw-divide-dashed tw-divide-black tw-font-serif tw-text-xl tw-lining-nums">
-                <div className="tw-flex tw-items-center tw-justify-center ">
-                  <div>
-                    <p>17 Total Visitors</p>
-                  </div>
-                </div>
-                <div className="tw-flex tw-items-center tw-justify-center">
-                  <div>
-                    <p>20 Total Providers</p>
-                  </div>
-                </div>
-                <div className="tw-flex tw-items-center tw-justify-center">
-                  <div>
-                    <p>17 Total Service</p>
-                  </div>
-                </div>
-                <div className="tw-flex tw-items-center tw-justify-center">
-                  <div>
-                    <p>100 Total Customers</p>
-                  </div>
-                </div>
-              </div>
-            </Carousel.Caption>
-          </Carousel.Item>
+       <Carousel height={25} duration={5000}>
+          <CarouselItem  caption='Good' fontcolor='tw-text-neutral-900'> 
+          <Nimage
+          src={`/../public/assets/img/hero.jpg`}
+            className="img tw-w-full"
+            alt="img"
+            layout='fill'
+          />
+          </CarouselItem>
+          <CarouselItem  caption='second'>
+          <Nimage
+            src="https://d33wubrfki0l68.cloudfront.net/1e3db23d52df0e395b1cb851d78a86fa3beb4c47/a72ec/images/programmes/products-and-services/gbtitleimage.png"
+            className="tw-w-full"
+            alt="img"
+            layout='fill'
+          />
+          </CarouselItem>
         </Carousel>
       </div>
       <div className={`tw-container-fluid tw-mt-3 tw-mb-1 tw-p-2 `}>
@@ -187,7 +148,15 @@ export function Index() {
           </strong>
         </div>
         <div>
-          <Menu trigger="hover" arrowSize={10} control={<div><IconDots height={32} width={32}/></div>}>
+          <Menu
+            trigger="hover"
+            arrowSize={10}
+            control={
+              <div>
+                <IconDots height={32} width={32} />
+              </div>
+            }
+          >
             <Menu.Label>Application</Menu.Label>
             <Menu.Item icon={<IconSettings size={14} />}>Settings</Menu.Item>
             <Menu.Item icon={<IconMessage2 size={14} />}>Messages</Menu.Item>
@@ -216,58 +185,57 @@ export function Index() {
       </div>
       <div className="tw-grid tw-gap-3   md:tw-grid-flow-row   md:tw-grid-cols-3   lg:tw-grid-flow-row   lg:tw-grid-cols-5 xs:tw-grid">
         {Array.from({ length: 5 }).map((_, idx) => (
-          <Card
-            className="tw-rounded-3 tw-z-0 tw-w-full   hover:tw-z-50   hover:tw-delay-1000   lg:hover:tw-scale-125"
-            key={idx}
-          >
-            <Card.Img
-              className=""
-              variant="top"
-              width={'full'}
-              height={'full'}
-              src="https://d33wubrfki0l68.cloudfront.net/1e3db23d52df0e395b1cb851d78a86fa3beb4c47/a72ec/images/programmes/products-and-services/gbtitleimage.png"
-            />
-            <Card.Body className="">
-              <Card.Title>Card Title</Card.Title>
+          <Card shadow="sm" padding="lg" key={idx} className='tw-rounded-3 tw-z-0 tw-w-full   hover:tw-z-50   hover:tw-delay-1000   lg:hover:tw-scale-125 tw-border-top-0 tw-border-b-4  tw-border-b-pink-700'>
+            <Card.Section>
+              <Image
+                src="https://d33wubrfki0l68.cloudfront.net/1e3db23d52df0e395b1cb851d78a86fa3beb4c47/a72ec/images/programmes/products-and-services/gbtitleimage.png"
+                height={160}
+                alt="Norway"
+              />
+            </Card.Section>
 
-              <Card.Text className="tw-font-serif">
-                <p>
-                  {' '}
-                  Lorem ipsum dolor sit amet, sectetur adipisicing elit.
-                  Voluptatibus quia, Maiores et perferendis Voluptatibus
-                  Voluptatibus perferen
-                </p>
-              </Card.Text>
-            </Card.Body>
-            <Card.Footer className="container-fluid tw-border-top-0 tw-border-b-4 tw-border-b-cyan-400 tw-bg-white">
-              <div className="tw-flex  tw-justify-between">
-                <div className="tw-flex  tw-items-center tw-space-x-3">
-                  <IconStar className="tw-mr-1" width={16} height={16} />
-                  <IconThumbUp className="tw-mr-1" width={16} height={16} />
-                  <IconThumbDown className="tw-mr-1" width={16} height={16} />
-                </div>
-                <div className="tw-flex  tw-justify-end ">
-                  <Link href="">
-                    <a className="text-primary">Apply</a>
-                  </Link>
-                </div>
+            <Group
+              position="apart"
+              className='tw-mb-5 tw-mt-1 tw-flex'
+            >
+              <Text weight={500}>Norway Fjord Adventures</Text>
+            </Group>
+
+            <Text size="sm" className='tw-text-slate-700'>
+              With Fjord Tours you can explore more of the magical fjord
+              landscapes with tours and activities on and around the fjords of
+              Norway
+            </Text>
+            <div className="tw-flex  tw-justify-between">
+              <div className="tw-flex  tw-items-center tw-space-x-3">
+                <IconStar className="tw-mr-1" width={16} height={16} />
+                <IconThumbUp className="tw-mr-1" width={16} height={16} />
+                <IconThumbDown className="tw-mr-1" width={16} height={16} />
               </div>
-            </Card.Footer>
-            {/* <div className="ribbon  ribbon-top ribbon-start bg-red">
-                <IconStar />
-              </div> */}
+              <div className="tw-flex  tw-justify-end ">
+                <Link href="">
+                  <a className="text-primary">Apply</a>
+                </Link>
+              </div>
+            </div>
           </Card>
         ))}
       </div>
       <div className="tw-conainer-fluid tw-mt-3 tw-flex tw-justify-between">
         <div>
-          {' '}
           <strong>
             <p className="tw-font-semibold"> Seasonal </p>
           </strong>
         </div>
         <div>
-          <Menu trigger="hover" control={<div><IconDots height={32} width={32}/></div>}>
+          <Menu
+            trigger="hover"
+            control={
+              <div>
+                <IconDots height={32} width={32} />
+              </div>
+            }
+          >
             <Menu.Label>Application</Menu.Label>
             <Menu.Item icon={<IconSettings size={14} />}>Settings</Menu.Item>
             <Menu.Item icon={<IconMessage2 size={14} />}>Messages</Menu.Item>
@@ -297,52 +265,40 @@ export function Index() {
       <div className="tw-grid tw-gap-3   md:tw-grid-flow-row   md:tw-grid-cols-3   lg:tw-grid-flow-row   lg:tw-grid-cols-5">
         {Array.from({ length: 5 }).map((_, idx) => (
           <Card
-            className="hover-overlay hover-zoom  hover-shadow-lg tw-w-full"
             key={idx}
+            shadow="sm"
+            padding={'lg'}
+            className="hover:tw-drop-shadow-2xl tw-w-full tw-border-top-0 tw-border-b-4 tw-border-b-cyan-400"
           >
-            {/* <div className="d-flex justify-content-end m-3">
-              <IconHeart
-                fill="red"
-                strokeWidth={0}
-                cursor={'pointer'}
-                floodColor={'red'}
-                width={50}
-                height={50}
-                className=" "
+            <Card.Section>
+              <Image
+                alt="img"
+                className="tw-w-100 "
+                src="https://d33wubrfki0l68.cloudfront.net/1e3db23d52df0e395b1cb851d78a86fa3beb4c47/a72ec/images/programmes/products-and-services/gbtitleimage.png"
               />
-            </div> */}
-            <Card.Img
-              className=""
-              variant="top"
-              width={'full'}
-              height={'full'}
-              src="https://img.freepik.com/free-vector/purchase-payment-processing-credit-card-transaction-financial-operation-electronic-money-transfer-buyer-using-e-payment-with-contactless-credit-card_335657-851.jpg"
-            />
-            <Card.Body className="">
-              <Card.Title>Card Title</Card.Title>
-              <Card.Text className="tw-font-sans">
-                Lorem ipsum dolor sit amet, sectetur adipisicing elit.
-                Voluptatibus quia, Maiores et perferendis Voluptatibus
-                Voluptatibus perferen
-              </Card.Text>
-            </Card.Body>
-            <Card.Footer className=" container-fluid tw-border-top-0 tw-border-b-4  tw-border-b-green-400 tw-bg-white">
-              <div className="tw-flex tw-justify-between">
-                <div className="tw-flex  tw-align-center tw-space-x-3">
-                  <IconStar className="tw-mr-1" width={16} height={16} />
-                  <IconThumbUp className="tw-mr-1" width={16} height={16} />
-                  <IconThumbDown className="tw-mr-1" width={16} height={16} />
-                </div>
-                <div className="tw-flex  tw-justify-end ">
-                  <Link href="">
-                    <a className="text-primary">Apply</a>
-                  </Link>
-                </div>
+            </Card.Section>
+
+            <Group position="apart" className="tw-mt-5 tw-mb-5">
+              <Text weight={500}>Norway Fjord Adventures</Text>
+            </Group>
+
+            <Text size="sm" className='tw-text-slate-700'>
+              Lorem ipsum dolor sit amet, sectetur adipisicing elit.
+              Voluptatibus quia, Maiores et perferendis Voluptatibus
+              Voluptatibus perferen
+            </Text>
+            <div className="tw-flex  tw-justify-between">
+              <div className="tw-flex  tw-items-center tw-space-x-3">
+                <IconStar className="tw-mr-1" width={16} height={16} />
+                <IconThumbUp className="tw-mr-1" width={16} height={16} />
+                <IconThumbDown className="tw-mr-1" width={16} height={16} />
               </div>
-            </Card.Footer>
-            {/* <div className="ribbon ribbon-top ribbon-start bg-green ">
-                  <IconStar />
-                </div> */}
+              <div className="tw-flex  tw-justify-end ">
+                <Link href="">
+                  <a className="text-primary">Apply</a>
+                </Link>
+              </div>
+            </div>
           </Card>
         ))}
       </div>
@@ -354,7 +310,15 @@ export function Index() {
           </strong>
         </div>
         <div>
-          <Menu trigger="hover" size={'md'} control={<div><IconDots height={32} width={32}/></div>}>
+          <Menu
+            trigger="hover"
+            size={'md'}
+            control={
+              <div>
+                <IconDots height={32} width={32} />
+              </div>
+            }
+          >
             <Menu.Label>Application</Menu.Label>
             <Menu.Item icon={<IconSettings size={14} />}>Settings</Menu.Item>
             <Menu.Item icon={<IconMessage2 size={14} />}>Messages</Menu.Item>
@@ -384,55 +348,41 @@ export function Index() {
       <div className="tw-grid tw-gap-3   md:tw-grid-flow-row   md:tw-grid-cols-3   lg:tw-grid-flow-row   lg:tw-grid-cols-5">
         {Array.from({ length: 5 }).map((_, idx) => (
           <Card
-            className=" hover-overlay hover-zoom  hover-shadow-lg tw-cursor-pointer  tw-mb-4"
-            key={idx}
             onClick={() => router.push('/my-application/application/1')}
+            key={idx}
+            shadow="sm"
+            padding="lg"
+            className="hover:tw-cursor-pointer hover:tw-drop-shadow-2xl tw-w-full tw-border-top-0 tw-border-b-4  tw-border-b-green-400"
           >
-            {/* <div className="d-flex justify-content-end m-3">
-              <IconHeart
-                fill="red"
-                strokeWidth={0}
-                cursor={'pointer'}
-                floodColor={'red'}
-                width={50}
-                height={50}
-                className=" "
+            <Card.Section>
+              <Image
+                alt="img"
+                className="d-block tw-w-100 "
+                src="https://d33wubrfki0l68.cloudfront.net/1e3db23d52df0e395b1cb851d78a86fa3beb4c47/a72ec/images/programmes/products-and-services/gbtitleimage.png"
               />
-            </div> */}
-            <Card.Img
-              className=""
-              variant="top"
-              width={'full'}
-              height={'full'}
-              src="https://img1.exportersindia.com/product_images/bc-full/2020/3/4989230/web-development-company-in-noida--1584701856.jpg"
-            />
-            <Card.Body className="">
-              <Card.Title>Card Title</Card.Title>
+            </Card.Section>
 
-              <Card.Text className="tw-font-sans">
-                Lorem ipsum dolor sit amet, sectetur adipisicing elit.
-                Voluptatibus quia, Maiores et perferendis Voluptatibus
-                Voluptatibus perferen
-              </Card.Text>
-            </Card.Body>
-            <Card.Footer className=" container-fluid tw-border-top-0 tw-border-b-4  tw-border-b-pink-700 tw-bg-white">
-              <div className="tw-flex tw-justify-between">
-                <div className="tw-flex tw-align-center tw-space-x-3">
-                  <IconStar className="tw-mr-1" width={16} height={16} />
-                  <IconThumbUp className="tw-mr-1" width={16} height={16} />
-                  <IconThumbDown className="tw-mr-1" width={16} height={16} />
-                </div>
+            <Group position="apart" className="tw-mt-5 tw-mb-5">
+              <Text weight={500}>Norway Fjord Adventures</Text>
+            </Group>
 
-                <div className="tw-flex  tw-justify-end ">
-                  <Link href="">
-                    <a className="text-primary">Apply</a>
-                  </Link>
-                </div>
+            <Text size="sm" className='tw-text-slate-700'>
+              Lorem ipsum dolor sit amet, sectetur adipisicing elit.
+              Voluptatibus quia, Maiores et perferendis Voluptatibus
+              Voluptatibus perferen
+            </Text>
+            <div className="tw-flex  tw-justify-between">
+              <div className="tw-flex  tw-items-center tw-space-x-3">
+                <IconStar className="tw-mr-1" width={16} height={16} />
+                <IconThumbUp className="tw-mr-1" width={16} height={16} />
+                <IconThumbDown className="tw-mr-1" width={16} height={16} />
               </div>
-            </Card.Footer>
-            {/* <div className="ribbon ribbon-top ribbon-start bg-green ">
-                  <IconStar />
-                </div> */}
+              <div className="tw-flex  tw-justify-end ">
+                <Link href="">
+                  <a className="text-primary">Apply</a>
+                </Link>
+              </div>
+            </div>
           </Card>
         ))}
       </div>

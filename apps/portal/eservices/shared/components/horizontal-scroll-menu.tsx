@@ -60,7 +60,7 @@ export function LeftArrow() {
 
   return (
     <div
-      className={`tw-z-25 tw-flex tw-w-10 tw-justify-center bg-primary tw-text-white tw-shadow  ${
+      className={`tw-z-25 tw-flex tw-w-10 tw-justify-center tw-bg-neutral-700 tw-text-white tw-shadow  ${
         isFirstItemVisible ? 'tw-hidden' : ''
       }`}
     >
@@ -79,7 +79,7 @@ export function RightArrow() {
 
   return (
     <div
-      className={`tw-z-25 tw-flex tw-w-10 tw-justify-center bg-primary tw-text-white tw-shadow ${
+      className={`tw-z-25 tw-flex tw-w-10 tw-justify-center tw-bg-neutral-700 tw-text-white tw-shadow ${
         isLastItemVisible ? 'tw-hidden' : ''
       }`}
     >
@@ -108,7 +108,7 @@ function Menu({ onClick, selected, menus, itemId }) {
         <div
           onClick={() => router.push(menus.href)}
           className={`hover:active hover:tw-bg-gray-700 tw-flex tw-h-16 tw-items-center tw-justify-center hover:tw-text-white ${
-            selected ? 'bg-primary tw-text-white active ' : ''
+            selected ? 'tw-bg-neutral-700 tw-text-white active ' : ''
           }`}
         >
           <div className='tw-flex tw-justify-center tw-font-serif '>{menus.name}</div>

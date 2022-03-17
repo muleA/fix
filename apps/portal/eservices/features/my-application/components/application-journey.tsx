@@ -1,5 +1,4 @@
 import React from 'react';
-import { Badge, Button, Container, ListGroup } from 'react-bootstrap';
 import { List } from '@mantine/core';
 import Link from 'next/link';
 import { IconChevronRight, IconCircles } from '@tabler/icons';
@@ -11,6 +10,7 @@ import {
   Accordion,
   useAccordionState,
   useMantineTheme,
+  Button
 } from '@mantine/core';
 import {
   IconCircleCheck,
@@ -30,40 +30,37 @@ function ApplicationJourney() {
         <div className="tw-flex tw-justify-center tw-items-center tw-bordered tw-m-2 ">
           Related Services
         </div>
-        <ListGroup as="ul" className="tw-space-y-3 tw-w-full tw-ml-3 tw-mt-3">
+        <div className="tw-space-y-3 tw-w-full tw-ml-3 tw-mt-3">
           <Link href={'/'}>
-            <a className="tw-border-l-4 tw-border-l-yellow-400 hover:tw-shadow">
-              <ListGroup.Item
-                as="li"
-                className="d-flex justify-content-between border-0  align-items-start tw-h-10 group"
+            <a className="tw-flex tw-border-l-4 tw-border-l-yellow-400 hover:tw-shadow">
+              <div
+                className=" d-flex justify-content-between border-0  align-items-start tw-h-10 group"
               >
                 <div className="ms-2 me-auto align-self-center ">
                   Cras justo odio
                 </div>
-              </ListGroup.Item>
+              </div>
             </a>
           </Link>
           <Link href={''}>
-            <a className="tw-border-l-4 tw-border-l-rose-400 hover:tw-shadow">
-              <ListGroup.Item
-                as="li"
+            <a className="tw-flex tw-border-l-4 tw-border-l-rose-400 hover:tw-shadow">
+              <div
                 className="d-flex justify-content-between border-0 align-items-start tw-h-10 group"
               >
                 <div className="ms-2 me-auto align-self-center">Cras justo odio</div>
-              </ListGroup.Item>
+              </div>
             </a>
           </Link>
           <Link href={'/'}>
-            <a className="tw-border-l-4 tw-border-l-green-400 hover:tw-shadow">
-              <ListGroup.Item
-                as="li"
+            <a className="tw-flex tw-border-l-4 tw-border-l-green-400 hover:tw-shadow">
+              <div
                 className="d-flex justify-content-between border-0 align-items-start tw-h-10 group"
               >
                 <div className="ms-2 me-auto align-self-center">Cras justo odio</div>
-              </ListGroup.Item>
+              </div>
             </a>
           </Link>
-        </ListGroup>
+        </div>
       </div>
       <div className="lg:tw-container md:tw-container sm:tw-container xs:tw-container-fluid   tw-mx-auto tw-pl-3 tw-pr-3 tw-shadow  md:tw-w-full">
         <div className='tw-mt-5'>
@@ -168,7 +165,7 @@ function ApplicationJourney() {
               </Link>
             </div>
             <div className="lg:tw-space-x-2">
-              <Button>Agree and continue</Button> <Button>Cancel</Button>
+              <Button className='bg-primary tw-border-0' variant={'outline'}>Agree and continue</Button> <Button className='bg-primary tw-border-0' variant={'outline'}>Cancel</Button>
             </div>
           </div>
         </div>

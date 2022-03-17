@@ -9,7 +9,7 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ["www.opendental.com"],
+    domains: ["d33wubrfki0l68.cloudfront.net"],
 },
   nx: {
     // Set this to true if you would like to to use SVGR

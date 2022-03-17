@@ -2,7 +2,7 @@ import { Stepper, Button, Group } from '@mantine/core';
 import { IconCircleCheck } from '@tabler/icons';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { Container } from 'react-bootstrap';
+
 
 function Detail() {
   const [active, setActive] = useState(1);
@@ -14,7 +14,7 @@ function Detail() {
     setActive((current) => (current > 0 ? current - 1 : current));
 console.log(id)
   return (
-    <Container className='tw-mt-5'>
+    <div className='tw-container tw-mt-5'>
       <Stepper
         active={active}
         onStepClick={setActive}
@@ -74,7 +74,7 @@ console.log(id)
         </Button>
         <Button variant='light' onClick={nextStep}>Next step</Button>
       </Group>
-    </Container>
+    </div>
   );
 }
 export default Detail;

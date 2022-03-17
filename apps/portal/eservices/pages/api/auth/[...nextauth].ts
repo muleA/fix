@@ -1,6 +1,5 @@
 import NextAuth from "next-auth"
 import KeycloakProvider from "next-auth/providers/keycloak";
-import { theme } from "tailwind.config";
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -16,20 +15,19 @@ export default NextAuth({
     strategy:'jwt'
   },
   callbacks: {
-  redirect({ url, baseUrl   }) {
-    if (url.startsWith(baseUrl)) return url
-    // Allows relative callback URLs
-    else if (url.startsWith("/")) return new URL(url, baseUrl).toString()
-    return baseUrl
+    async jwt({ token, account }) {
+      // Persist the OAuth access_token to the token right after signin
+      if (account) {
+        token.accessToken = account.access_token
+      }
+      return token
+    },
+    async session({ session, token, user }) {
+      // Send properties to the client, like an access_token from a provider.
+      session.accessToken = token.accessToken
+      return session
+    }
   },
-  },
-  // pages: {
-  //   signIn: '/login',
-  //   signOut: '/auth/signout',
-  //   error: '/auth/error', // Error code passed in query string as ?error=
-  //   verifyRequest: '/auth/verify-request', // (used for check email message)
-  //   newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
-  // },
   events:{
     async signIn(message){ console.log('sign in event message',message)},
     async signOut(message){ console.log('sign out event message',message)}

@@ -65,6 +65,7 @@ function CustomApp({
           </Head>
           <MantineProvider
             withNormalizeCSS
+            withGlobalStyles
             theme={{
               /** Put your mantine theme override here */
               colorScheme: 'light',
@@ -72,14 +73,8 @@ function CustomApp({
           >
             <NextNProgress color="#ffbe0b" />
             <Header navigation={config} />
-            <div className='tw-container-fluid tw-ml-7 tw-mr-7'>
-            {Component.auth ? (
-              <Auth>
-                <Component {...pageProps} />
-              </Auth>
-            ) : (
-              <Component {...pageProps} />
-            )}
+            <div className='tw-container-fluid tw-ml-7 tw-mr-7 tw-mb-4'>
+            <Component {...pageProps}/>
             </div>
           </MantineProvider>
         </Provider>
