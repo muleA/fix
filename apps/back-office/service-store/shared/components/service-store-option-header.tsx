@@ -1,9 +1,9 @@
 import { Tooltip } from '@mantine/core';
 import { IconArrowsMaximize } from '@tabler/icons';
-type ServiceOptionHeaderProps = {
+type ServiceStoreOptionHeaderProps = {
   title: string;
 };
-const ServiceOptionHeader = (props: ServiceOptionHeaderProps) => {
+const ServiceStoreOptionHeader = (props: ServiceStoreOptionHeaderProps) => {
 
   return (
     <div className="tw-p-4 tw-flex tw-bg-white tw-justify-between">
@@ -19,4 +19,4 @@ const ServiceOptionHeader = (props: ServiceOptionHeaderProps) => {
   );
 };
 
-export default ServiceOptionHeader;
+export default ServiceStoreOptionHeader;

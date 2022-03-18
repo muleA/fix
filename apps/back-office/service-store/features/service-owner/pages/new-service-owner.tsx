@@ -1,6 +1,6 @@
 import { Accordion, Group, Text } from '@mantine/core';
 import ServiceOwnerSideTable from '../components/serviceowner-side-table';
-import ServiceOptionHeader from '../../service/components/service-option-header';
+import ServiceOptionHeader from '../../../shared/components/service-store-option-header';
 import ServiceOwnerDetailsForm from '../components/service-owner-details-form';
 const NewServiceOwnerPage = () => {
   const AccordionLabel = () => (

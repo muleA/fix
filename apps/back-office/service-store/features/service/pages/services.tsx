@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import { Switch } from '@mantine/core';
 import {
   Card,
   Input,
@@ -7,7 +8,6 @@ import {
   Checkbox,
   Divider,
   Table,
-  Button,
   Pagination,
   Select,
 } from '@mantine/core';
@@ -127,13 +127,13 @@ const ServiceList = () => {
                 <th>Category</th>
 
                 <th>Service Owner</th>
-
+                <th>Service Provider</th>
                 <th>version</th>
                 <th>published date</th>
                 <th>Created Date</th>
                 <th>Created By</th>
-                <th>review</th>
-                <th>visibility</th>
+                <th>enable review</th>
+                <th>public</th>
                 <th>Archived</th>
 
                 <th></th>
@@ -167,19 +167,19 @@ const ServiceList = () => {
                     <td>{item.category}</td>
 
                     <td>{item.serviceOwner}</td>
-
+                    <td>{item.serviceOwner}</td>
                     <td>{item.version}</td>
                     <td>{item.date}</td>
                     <td>{item.createddate}</td>
                     <td>{item.createdBy}</td>
                     <td>
-                      <button className="btn btn-primary">enable</button>
+                      <Switch size="md" onLabel="ON" offLabel="OFF" />
                     </td>
                     <td>
-                      <button className="btn btn-primary">private</button>
+                      <Switch size="md" onLabel="ON" offLabel="OFF" />
                     </td>
                     <td>
-                      <button className="btn btn-primary">enable</button>
+                      <Switch size="md" onLabel="ON" offLabel="OFF" />
                     </td>
 
                     <td className="hoverable-visibility-content">

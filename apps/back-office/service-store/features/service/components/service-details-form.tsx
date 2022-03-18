@@ -166,10 +166,16 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                   />
                 </div>
                 <div className="tw-flex tw-justify-start tw-mt-4">
-                  <Switch onLabel="ON" offLabel="OFF" label="Is public" />
                   <Switch
                     onLabel="ON"
                     offLabel="OFF"
+                    size="md"
+                    label="Is public"
+                  />
+                  <Switch
+                    onLabel="ON"
+                    offLabel="OFF"
+                    size="md"
                     className="tw-mx-auto"
                     label="enable review"
                   />

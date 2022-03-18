@@ -1,6 +1,6 @@
 import { Accordion, Group, Text } from '@mantine/core';
 import ServiceSideTable from '../components/service-side-table';
-import ServiceOptionHeader from '../components/service-option-header';
+import ServiceOptionHeader from '../../../shared/components/service-store-option-header';
 import ServiceDetailForm from '../components/service-details-form';
 
 const NewServicePage = () => {
