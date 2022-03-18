@@ -11,8 +11,10 @@ export default function ServiceCategoryForm() {
         iconPosition="right"
         iconSize={40}
         initialItem={0}
+        styles={{
+          itemTitle: { borderBottom: '0.5px solid rgb(229 231 235)' },
+        }}
       >
-        <hr className="tw-p-0 tw-border-b-2 tw-border-black" />
         <Accordion.Item className="tw-w-100" label="New Category">
           <div className="tw-mb-3 tw-border-t-2">
             <label className="form-label">code</label>

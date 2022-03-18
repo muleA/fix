@@ -1,12 +1,10 @@
-import { useRouter } from 'next/router';
-import NewServicePage from '../../../features/service/pages/new-service'
+import NewServicePage from '../../../features/service/pages/new';
 const ServiceDetails = () => {
-return (<>
-
-<NewServicePage/>
-  
-</>)
- 
-}
+  return (
+    <>
+      <NewServicePage />
+    </>
+  );
+};
 
 export default ServiceDetails;

@@ -11,14 +11,16 @@ export default function TermsandPolicyForm() {
         iconPosition="right"
         iconSize={40}
         initialItem={0}
+        styles={{
+          itemTitle: { borderBottom: '0.5px solid rgb(229 231 235)' },
+        }}
       >
-        <hr className="tw-p-0 tw-border-b-2 tw-border-black" />
         <Accordion.Item className="tw-w-100" label="New Policy">
-          <div className="tw-border-t-2 tw-px-0 tw-mx-0 tw-border-black-100 mb-3">
+          <div className=" mb-3">
             <label className="form-label required">Terms of Use</label>
             <textarea
               className="
-        form-control     tw-border-2 tw-border-black-100
+        form-control     tw-border-1 tw-border-black-100
         tw-w-full
         tw-border tw-rounded"
               rows={4}
@@ -30,7 +32,7 @@ export default function TermsandPolicyForm() {
             <label className="form-label required">Policy</label>
             <textarea
               className="
-              tw-border-2 tw-border-black-100
+              tw-border-1 tw-border-black-100
         form-control
         tw-w-full
         tw-border tw-rounded"

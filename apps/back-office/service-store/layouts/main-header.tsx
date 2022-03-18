@@ -8,23 +8,8 @@ const MainNavbar = () => {
   const [moreDropDown, setMoreDropDown] = useState<boolean>(false);
   const router = useRouter();
   const regex = /\/service-store\/service\/detail\/*/;
-  const isactive = ` router.pathname ===
-                        '/service-store/adminstration/policy' ||
-                      router.pathname === '/service-store/adminstration' ||
-                      router.pathname ===
-                        '/service-store/adminstration/new-policy' ||
-                      router.pathname ===
-                        '/service-store/adminstration/service-tags' ||
-                      router.pathname ===
-                        '/service-store/adminstration/new-tag' ||
-                      router.pathname ===
-                        '/service-store/adminstration/service-category' ||
-                      router.pathname ===
-                        '/service-store/adminstration/new-category' ||
-                      router.pathname ===
-                        '/service-store/adminstration/supported-languages' ||
-                      router.pathname ===
-                        '/service-store/adminstration/new-language'`;
+  const regexserviceowner = /\/service-store\/service-owner\/detail\/*/;
+
   const onLanguageMouseOver = () => {
     setLanguageDropDown(true);
   };
@@ -149,13 +134,15 @@ const MainNavbar = () => {
                     hover:tw-bg-white hover:tw-no-underline 
                     ${
                       router.pathname === '/service-store/service-owner/list' ||
-                      router.pathname === '/service-store/service-owner/new'
+                      router.pathname === '/service-store/service-owner/new' ||
+                      router.pathname.match(regexserviceowner)
                         ? 'active'
                         : ''
                     }
                     ${
                       router.pathname === '/service-store/service-owner/list' ||
-                      router.pathname === '/service-store/service-owner/new'
+                      router.pathname === '/service-store/service-owner/new' ||
+                      router.pathname.match(regexserviceowner)
                         ? 'tw-text-blue-900'
                         : ''
                     }

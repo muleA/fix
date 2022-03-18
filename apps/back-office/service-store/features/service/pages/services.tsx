@@ -7,6 +7,7 @@ import {
   Checkbox,
   Divider,
   Table,
+  Button,
   Pagination,
   Select,
 } from '@mantine/core';
@@ -18,32 +19,32 @@ import {
   IconChevronRight,
   IconInbox,
 } from '@tabler/icons';
+import { useRouter } from 'next/router';
 
-const ServiceOwnerList = () => {
+const ServiceList = () => {
   const [filterOpened, setFilterOpened] = useState(false);
   const [perPage, setPerPage] = useState<string>('10');
+  const router = useRouter();
+  const { id } = router.query;
   const Services = [
     {
       name: 'Issuance oF Id',
       shortName: 'ISID',
       code: 'IDI2021',
       description: 'blah blah',
-      fullyQualifiedName: 'Issunace of National Id',
+      supportedQualifications: 'must have renewd Id',
+      procedure: 'first create account on a platforms',
+      tags: '#passport',
+      rating: '0',
+      category: 'Popular',
+      deliveryMethods: 'manual',
+      serviceOwner: 'Mint',
+      policy: 'dsjajfhdas',
       version: 'v1',
       targetCustomer: 'city residents',
-      public: 'yes',
-      Archived: 'No',
-    },
-    {
-      name: 'Issuance oF Id',
-      shortName: 'ISID',
-      code: 'IDI2021',
-      description: 'blah blah',
-      fullyQualifiedName: 'Issunace of National Id',
-      version: 'v1',
-      targetCustomer: 'city residents',
-      public: 'yes',
-      Archived: 'No',
+      date: '23/4/2014',
+      createddate: '12/3/2014',
+      createdBy: 'mulugeta',
     },
   ];
 
@@ -51,8 +52,8 @@ const ServiceOwnerList = () => {
     <div className="tw-w-full tw-min-h-screen tw-p-4">
       <Card shadow="sm" padding="lg">
         <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
-          <h2 className="tw-text-lg">Service Owner</h2>
-          <Link href="/service-store/service-owner/new" passHref>
+          <h2 className="tw-text-lg">Services</h2>
+          <Link href="/service-store/service/new" passHref>
             <button className="btn btn-primary tw-bg-[#1d2861]">
               <IconPlus />
               New
@@ -114,29 +115,33 @@ const ServiceOwnerList = () => {
         </Card.Section>
 
         <Card.Section className="tw-p-4 tw-overflow-x-auto">
-          <Table className="tw-mb-4">
+          <Table className="tw-mb-4 tw-table-auto">
             <thead>
               <tr className="tw-bg-gray-200">
-                <th>Code</th>
-                <th>Shortname</th>
-                <th>FullName</th>
-                <th>Sector</th>
-                <th>Country</th>
-                <th>City</th>
-                <th>House No</th>
-                <th>Street</th>
-                <th>Email</th>
-                <th>Phone</th>
                 <th>Name</th>
-                <th>organzationalName</th>
-                <th>createdAt</th>
-                <th>updatedAt</th>
+                <th>Code</th>
+                <th>Description</th>
+
+                <th>tags</th>
+                <th>rating</th>
+                <th>Category</th>
+
+                <th>Service Owner</th>
+
+                <th>version</th>
+                <th>published date</th>
+                <th>Created Date</th>
+                <th>Created By</th>
+                <th>review</th>
+                <th>visibility</th>
+                <th>Archived</th>
+
                 <th></th>
               </tr>
             </thead>
             <tbody className="tw-border-b">
               {Services.length == 0 && (
-                <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
+                <tr>
                   <td className="tw-text-center" colSpan={7}>
                     <span>
                       <IconInbox
@@ -156,21 +161,29 @@ const ServiceOwnerList = () => {
                     <td>{item.name}</td>
                     <td>{item.code}</td>
                     <td>{item.description}</td>
-                    <td>{item.description}</td>
-                    <td>{item.description}</td>
-                    <td>{item.description}</td>
-                    <td>{item.description}</td>
-                    <td>{item.description}</td>
-                    <td>{item.description}</td>
-                    <td>{item.description}</td>
-                    <td>{item.description}</td>
-                    <td>{item.description}</td>
-                    <td>{item.description}</td>
-                    <td>{item.description}</td>
+
+                    <td>{item.tags}</td>
+                    <td>{item.rating}</td>
+                    <td>{item.category}</td>
+
+                    <td>{item.serviceOwner}</td>
+
+                    <td>{item.version}</td>
+                    <td>{item.date}</td>
+                    <td>{item.createddate}</td>
+                    <td>{item.createdBy}</td>
+                    <td>
+                      <button className="btn btn-primary">enable</button>
+                    </td>
+                    <td>
+                      <button className="btn btn-primary">private</button>
+                    </td>
+                    <td>
+                      <button className="btn btn-primary">enable</button>
+                    </td>
+
                     <td className="hoverable-visibility-content">
-                      <Link
-                        href={`/service-store/service-owner/detail/${item.name}`}
-                      >
+                      <Link href={`/service-store/service/detail/${item.name}`}>
                         <a className="tw-block tw-bg-gray-50 hover:tw-outline hover:tw-outline-1 hover:tw-outline-[#1d2861] tw-p-1 tw-rounded">
                           <IconChevronRight color={'#1d2861'} />
                         </a>
@@ -213,4 +226,4 @@ const ServiceOwnerList = () => {
   );
 };
 
-export default ServiceOwnerList;
+export default ServiceList;

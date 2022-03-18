@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router'
 import {
   Card,
   Input,
@@ -18,10 +17,9 @@ import {
   IconInbox,
 } from '@tabler/icons';
 
-const ServiceSideTable = () => {
+const ServiceOwnerSideTable = () => {
   const [filterOpened, setFilterOpened] = useState(false);
   const [perPage, setPerPage] = useState<string>('5');
-const router=useRouter();
   const Service = [
     {
       name: 'Issuance of Nation Id',
@@ -135,7 +133,7 @@ const router=useRouter();
               Service.map((item) => (
                 <Link
                   key={item.name}
-                  href={`/service-store/service/detail/${Service[1].name}`}
+                  href={`/service-store/service-owner/detail/${item.name}`}
                 >
                   <a className='hover:tw-no-underline'>
                     <tr
@@ -181,4 +179,4 @@ const router=useRouter();
   );
 };
 
-export default ServiceSideTable;
+export default ServiceOwnerSideTable;

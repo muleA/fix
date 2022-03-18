@@ -1,15 +1,16 @@
 import { Accordion, Group, Text } from '@mantine/core';
-import ServiceOwnerSideTable from '../components/serviceowner-side-table';
-import ServiceOptionHeader from '../../service/components/service-option-header';
-import ServiceOwnerDetailsForm from '../components/service-owner-details-form';
-const NewServiceOwnerPage = () => {
+import ServiceSideTable from '../components/service-side-table';
+import ServiceOptionHeader from '../components/service-option-header';
+import ServiceDetailForm from '../components/service-details-form';
+
+const NewServicePage = () => {
   const AccordionLabel = () => (
     <>
       <Group noWrap>
         <div>
-          <Text>New Service Owner</Text>
+          <Text>New Service</Text>
           <Text size="sm" color="dimmed" weight={400}>
-            Register new Service Owner
+            Register new Service
           </Text>
         </div>
       </Group>
@@ -19,9 +20,9 @@ const NewServiceOwnerPage = () => {
   return (
     <div className="tw-w-full tw-min-h-screen tw-p-4">
       <div className="tw-flex tw-items-start">
-        <ServiceOwnerSideTable />
+        <ServiceSideTable />
         <div className={` tw-w-9/12 tw-pl-4`}>
-          <ServiceOptionHeader title="New Service" />
+          <ServiceOptionHeader title="Service" />
 
           <div className="tw-flex tw-items-start tw-mt-4">
             <Accordion
@@ -35,7 +36,7 @@ const NewServiceOwnerPage = () => {
               }}
             >
               <Accordion.Item label={<AccordionLabel />}>
-                <ServiceOwnerDetailsForm mode="new" />
+                <ServiceDetailForm mode="new" />
               </Accordion.Item>
             </Accordion>
           </div>
@@ -45,4 +46,4 @@ const NewServiceOwnerPage = () => {
   );
 };
 
-export default NewServiceOwnerPage;
+export default NewServicePage;

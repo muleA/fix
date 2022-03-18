@@ -1,4 +1,4 @@
-import ServiceDetails from '../../../../features/service/pages/service-details'
+import ServiceDetails from '../../../../features/service/pages/detail'
 const ServiceDetailsPage = () => {
 return (<>
 

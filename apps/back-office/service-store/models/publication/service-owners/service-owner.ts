@@ -1,15 +1,3 @@
-export default interface ServiceOwner {
-  id: string;
-  shortName: string;
-  fullName: string;
-  sector: string;
-  contactInfo: ContactInfo;
-  address: Address;
-  code: string;
-  organizationId: string;
-  organizationName: string;
-}
-
 export interface ContactInfo {
   email: string;
   phone: string;
@@ -21,4 +9,15 @@ export interface Address {
   city: string;
   houseNumber: string;
   street: string;
+}
+
+export interface ServiceOwner {
+  shortName: string;
+  fullName: string;
+  sector: string;
+  contactInfo: ContactInfo;
+  address: Address;
+  code: string;
+  organizationId: string;
+  organizationName: string;
 }

@@ -3,6 +3,7 @@ import {
   IconCirclePlus,
   IconInbox,
   IconTrash,
+  IconEyeCheck,
   IconEdit,
 } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,14 +12,15 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
 const schema = yup.object({
-  Language: yup.mixed(),
+  Fee: yup.mixed(),
 });
 
-const ServiceSupportedLanguages = () => {
-  const Language = [
+const ServiceFees = () => {
+  const Fee = [
     {
-      name: "english",
-      code: 'en',
+      feeAmount: 213,
+      description: 'trade license',
+      currency: '$',
     },
   ];
 
@@ -28,15 +30,14 @@ const ServiceSupportedLanguages = () => {
     formState: { errors },
     getValues,
   } = useForm({ resolver: yupResolver(schema) });
-  const [LanguageAssignmentModalOpened, setLanguageAssignmentModalOpened] =
+  const [ServiceFeeAssignmentModalOpened, setServiceFeeAssignmentModalOpened] =
     useState<boolean>(false);
-    useState<boolean>(false);
-/*   const [perPage, setPerPage] = useState<string>('10');
- */  const [perPageModal, setPerPageModal] = useState<string>('10');
+  /*   const [perPage, setPerPage] = useState<string>('10');
+   */ const [perPageModal, setPerPageModal] = useState<string>('10');
 
   const onSubmit = async (data) => {
     try {
-      console.log(data.Language);
+      console.log(data.Fee);
     } catch (err) {
       console.log(err);
     }
@@ -46,9 +47,9 @@ const ServiceSupportedLanguages = () => {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal
-          opened={LanguageAssignmentModalOpened}
-          onClose={() => setLanguageAssignmentModalOpened(false)}
-          title="Language Assignment"
+          opened={ServiceFeeAssignmentModalOpened}
+          onClose={() => setServiceFeeAssignmentModalOpened(false)}
+          title="ServiceFee Assignment"
           size={'50%'}
           styles={{
             header: {
@@ -57,25 +58,30 @@ const ServiceSupportedLanguages = () => {
             },
           }}
         >
-          {/*  */}
-
           <div className="mb-3">
-            <label className="form-label required">Language Name</label>
+            <label className="form-label required">Fee Amount</label>
             <input
               className="form-control"
-              placeholder="Language Amount"
+              placeholder="Fee Amount"
               autoComplete="off"
             />
           </div>
           <div className="mb-3">
-            <label className="form-label required">Language Code</label>
+            <label className="form-label required">Fee description</label>
             <input
               className="form-control"
               placeholder="description"
               autoComplete="off"
             />
           </div>
-         
+          <div className="mb-3">
+            <label className="form-label required">Currency</label>
+            <input
+              className="form-control"
+              placeholder="currency"
+              autoComplete="off"
+            />
+          </div>
           <div className="tw-flex tw-justify-end ">
             <Button className="bg-primary">Done</Button>
           </div>
@@ -84,10 +90,10 @@ const ServiceSupportedLanguages = () => {
         <div className="tw-my-4 tw-flex tw-justify-end">
           <button
             className="btn btn-primary tw-bg-[#1d2861]"
-            onClick={() => setLanguageAssignmentModalOpened(true)}
+            onClick={() => setServiceFeeAssignmentModalOpened(true)}
           >
             <IconCirclePlus />
-            Language
+            Fee
           </button>
         </div>
       </form>
@@ -95,13 +101,14 @@ const ServiceSupportedLanguages = () => {
       <Table className="tw-my-4">
         <thead>
           <tr className="tw-bg-gray-200">
-            <th>Language Name</th>
-            <th>Language Code</th>
+            <th>fee Amount</th>
+            <th>description</th>
+            <th>currency</th>
             <th>action</th>
           </tr>
         </thead>
         <tbody className="tw-border-b">
-          {Language.length == 0 && (
+          {Fee.length == 0 && (
             <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
               <td className="tw-text-center" colSpan={3}>
                 <span>
@@ -116,13 +123,16 @@ const ServiceSupportedLanguages = () => {
             </tr>
           )}
 
-          {Language.length > 0 &&
-            Language.map((item) => (
-              <tr key={item.name}>
-                <td> {item.name}</td>
-                <td> {item.code}</td>
+          {Fee.length > 0 &&
+            Fee.map((item) => (
+              <tr key={item.feeAmount}>
+                <td> {item.feeAmount}</td>
+                <td> {item.description}</td>
+                <td> {item.currency}</td>
                 <td>
-                
+                  <button className="btn btn-primary tw-mr-2 tw-bg-[#13243]">
+                    <IconEyeCheck />
+                  </button>
                   <button className="btn btn-primary tw-mr-2 tw-bg-[#13243]">
                     <IconEdit />
                   </button>
@@ -163,4 +173,4 @@ const ServiceSupportedLanguages = () => {
   );
 };
 
-export default ServiceSupportedLanguages;
+export default ServiceFees;

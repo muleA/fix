@@ -3,6 +3,7 @@ import {
   IconCirclePlus,
   IconInbox,
   IconTrash,
+  IconEyeCheck,
   IconEdit,
 } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,14 +12,25 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
 const schema = yup.object({
-  Language: yup.mixed(),
+  media: yup.mixed(),
 });
 
-const ServiceSupportedLanguages = () => {
-  const Language = [
+const ServiceMedias = () => {
+  const media = [
     {
-      name: "english",
-      code: 'en',
+      type: 'image',
+      caption: 'trade license',
+      url: `http://192.168.137.168:3001/api/`,
+    },
+    {
+      type: 'video',
+      caption: 'passport',
+      url: `http://192.168.137.168:3001/api/`,
+    },
+    {
+      type: 'audio',
+      caption: 'how to apply for national Id',
+      url: `http://192.168.137.168:3001/api/`,
     },
   ];
 
@@ -28,15 +40,19 @@ const ServiceSupportedLanguages = () => {
     formState: { errors },
     getValues,
   } = useForm({ resolver: yupResolver(schema) });
-  const [LanguageAssignmentModalOpened, setLanguageAssignmentModalOpened] =
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
+  const [mandateAssignmentModalOpened, setMandateAssignmentModalOpened] =
     useState<boolean>(false);
+  const [assignedMandateModalOpened, setAssignedMandateModalOpened] =
     useState<boolean>(false);
-/*   const [perPage, setPerPage] = useState<string>('10');
- */  const [perPageModal, setPerPageModal] = useState<string>('10');
+  const [viewedMandate, setViewedMandate] = useState<string>('');
+  const [perPage, setPerPage] = useState<string>('10');
+  const [perPageModal, setPerPageModal] = useState<string>('10');
 
   const onSubmit = async (data) => {
     try {
-      console.log(data.Language);
+      console.log(data.media);
+      setButtonDisabled(true);
     } catch (err) {
       console.log(err);
     }
@@ -46,9 +62,9 @@ const ServiceSupportedLanguages = () => {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal
-          opened={LanguageAssignmentModalOpened}
-          onClose={() => setLanguageAssignmentModalOpened(false)}
-          title="Language Assignment"
+          opened={mandateAssignmentModalOpened}
+          onClose={() => setMandateAssignmentModalOpened(false)}
+          title="Add Media"
           size={'50%'}
           styles={{
             header: {
@@ -60,34 +76,64 @@ const ServiceSupportedLanguages = () => {
           {/*  */}
 
           <div className="mb-3">
-            <label className="form-label required">Language Name</label>
+            <label className="form-label required">
+              Media Type(audio/video/image)
+            </label>
             <input
+              type="tel"
               className="form-control"
-              placeholder="Language Amount"
+              placeholder="media type"
               autoComplete="off"
             />
           </div>
           <div className="mb-3">
-            <label className="form-label required">Language Code</label>
+            <label className="form-label required">
+              Caption Text to the Media
+            </label>
             <input
+              type="tel"
               className="form-control"
-              placeholder="description"
+              placeholder="caption"
               autoComplete="off"
             />
           </div>
-         
+          <div className="mb-3">
+            <label className="form-label required">
+              source file(url) to the media
+            </label>
+            <div className="tw-my-4">
+              <input
+                type="file"
+                className="tw-block  
+tw-border  
+tw-cursor-pointer 
+"
+                aria-describedby="user_avatar_help"
+              />
+            </div>
+
+            <div
+              className="tw-mt-1 tw-text-sm tw-text-gray-500 dark:tw-text-gray-300"
+              id="user_avatar_help"
+            ></div>
+
+            {/*  */}
+          </div>
           <div className="tw-flex tw-justify-end ">
             <Button className="bg-primary">Done</Button>
           </div>
+
+          {/*  */}
         </Modal>
 
         <div className="tw-my-4 tw-flex tw-justify-end">
           <button
+            type="button"
             className="btn btn-primary tw-bg-[#1d2861]"
-            onClick={() => setLanguageAssignmentModalOpened(true)}
+            onClick={() => setMandateAssignmentModalOpened(true)}
           >
             <IconCirclePlus />
-            Language
+            Media
           </button>
         </div>
       </form>
@@ -95,13 +141,14 @@ const ServiceSupportedLanguages = () => {
       <Table className="tw-my-4">
         <thead>
           <tr className="tw-bg-gray-200">
-            <th>Language Name</th>
-            <th>Language Code</th>
+            <th>Type</th>
+            <th>Caption</th>
+            <th>Url</th>
             <th>action</th>
           </tr>
         </thead>
         <tbody className="tw-border-b">
-          {Language.length == 0 && (
+          {media.length == 0 && (
             <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
               <td className="tw-text-center" colSpan={3}>
                 <span>
@@ -116,13 +163,16 @@ const ServiceSupportedLanguages = () => {
             </tr>
           )}
 
-          {Language.length > 0 &&
-            Language.map((item) => (
-              <tr key={item.name}>
-                <td> {item.name}</td>
-                <td> {item.code}</td>
+          {media.length > 0 &&
+            media.map((item) => (
+              <tr key={item.type}>
+                <td>{item.type}</td>
+                <td>{item.caption}</td>
+                <td> {item.url}</td>
                 <td>
-                
+                  <button className="btn btn-primary tw-mr-2 tw-bg-[#13243]">
+                    <IconEyeCheck />
+                  </button>
                   <button className="btn btn-primary tw-mr-2 tw-bg-[#13243]">
                     <IconEdit />
                   </button>
@@ -163,4 +213,4 @@ const ServiceSupportedLanguages = () => {
   );
 };
 
-export default ServiceSupportedLanguages;
+export default ServiceMedias;
