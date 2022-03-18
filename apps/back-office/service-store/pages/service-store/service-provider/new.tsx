@@ -1,11 +1,10 @@
-import NewServiceProviderPage from '../../../features/service-provider/pages/new-service-provider'
-const ServiceDetails = () => {
-return (<>
+import NewServiceProviderPage from '../../../features/service-provider/pages/new-service-provider';
+const ServiceProviderDetails = () => {
+  return (
+    <>
+      <NewServiceProviderPage />
+    </>
+  );
+};
 
-<NewServiceProviderPage/>
-  
-</>)
- 
-}
-
-export default ServiceDetails;
+export default ServiceProviderDetails;

@@ -9,7 +9,7 @@ const MainNavbar = () => {
   const router = useRouter();
   const regex = /\/service-store\/service\/detail\/*/;
   const regexserviceowner = /\/service-store\/service-owner\/detail\/*/;
-
+  const regexserviceprovider = /\/service-store\/service-provider\/detail\/*/;
   const onLanguageMouseOver = () => {
     setLanguageDropDown(true);
   };
@@ -159,13 +159,15 @@ const MainNavbar = () => {
               hover:tw-bg-white hover:tw-no-underline 
               ${
                 router.pathname === '/service-store/service-provider/list' ||
-                router.pathname === '/service-store/service-provider/new'
+                router.pathname === '/service-store/service-provider/new' ||
+                router.pathname.match(regexserviceprovider)
                   ? 'active'
                   : ''
               }
               ${
                 router.pathname === '/service-store/service-provider/list' ||
-                router.pathname === '/service-store/service-provider/new'
+                router.pathname === '/service-store/service-provider/new' ||
+                router.pathname.match(regexserviceprovider)
                   ? 'tw-text-blue-900'
                   : ''
               }

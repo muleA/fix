@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router'
 import {
   Card,
   Input,
@@ -11,18 +10,12 @@ import {
   Pagination,
   Select,
 } from '@mantine/core';
-import {
-  IconPlus,
-  IconSearch,
-  IconFilter,
-  IconInbox,
-} from '@tabler/icons';
+import { IconPlus, IconSearch, IconFilter, IconInbox } from '@tabler/icons';
 
-const ServiceSideTable = () => {
+const ServiceProvidersSideTable = () => {
   const [filterOpened, setFilterOpened] = useState(false);
   const [perPage, setPerPage] = useState<string>('5');
-const router=useRouter();
-  const Service = [
+  const ServiceProviders = [
     {
       name: 'Issuance of Nation Id',
       shortName: 'AAU',
@@ -56,8 +49,8 @@ const router=useRouter();
   return (
     <Card className="tw-w-4/12" shadow="sm" padding="lg">
       <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
-        <h2 className="tw-text-lg">Service Provider</h2>
-        <Link href="/service-store/service-owner/new">
+        <h2 className="tw-text-lg">Service Providers</h2>
+        <Link href="/service-store/service-provider/new">
           <a className="btn btn-primary tw-bg-[#1d2861]">
             <IconPlus />
             New
@@ -116,7 +109,7 @@ const router=useRouter();
             </tr>
           </thead>
           <tbody className="tw-border-b">
-            {Service.length == 0 && (
+            {ServiceProviders.length == 0 && (
               <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
                 <td className="tw-text-center" colSpan={5}>
                   <span>
@@ -131,13 +124,13 @@ const router=useRouter();
               </tr>
             )}
 
-            {Service.length > 0 &&
-              Service.map((item) => (
+            {ServiceProviders.length > 0 &&
+              ServiceProviders.map((item) => (
                 <Link
                   key={item.name}
-                  href={`/service-store/service/detail/${Service[1].name}`}
+                  href={`/service-store/service-provider/detail/${item.name}`}
                 >
-                  <a className='hover:tw-no-underline'>
+                  <a className="hover:tw-no-underline">
                     <tr
                       key={item.name}
                       className={`tw-block hover:tw-bg-gray-50 tw-p-1`}
@@ -181,4 +174,4 @@ const router=useRouter();
   );
 };
 
-export default ServiceSideTable;
+export default ServiceProvidersSideTable;
