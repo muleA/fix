@@ -22,7 +22,7 @@ import {
 const ServiceOwnerList = () => {
   const [filterOpened, setFilterOpened] = useState(false);
   const [perPage, setPerPage] = useState<string>('10');
-  const Services = [
+  const ServiceOwners = [
     {
       name: 'Issuance oF Id',
       shortName: 'ISID',
@@ -135,7 +135,7 @@ const ServiceOwnerList = () => {
               </tr>
             </thead>
             <tbody className="tw-border-b">
-              {Services.length == 0 && (
+              {ServiceOwners.length == 0 && (
                 <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
                   <td className="tw-text-center" colSpan={7}>
                     <span>
@@ -150,8 +150,8 @@ const ServiceOwnerList = () => {
                 </tr>
               )}
 
-              {Services.length > 0 &&
-                Services.map((item) => (
+              {ServiceOwners.length > 0 &&
+                ServiceOwners.map((item) => (
                   <tr key={item.name}>
                     <td>{item.name}</td>
                     <td>{item.code}</td>
