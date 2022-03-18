@@ -32,9 +32,9 @@ function ApplicationJourney() {
         </div>
         <div className="tw-space-y-3 tw-w-full tw-ml-3 tw-mt-3">
           <Link href={'/'}>
-            <a className="tw-flex tw-border-l-4 tw-border-l-yellow-400 hover:tw-shadow">
+            <a className="tw-flex tw-border-l-4 tw-border-l-yellow-400 hover:tw-shadow tw-pl-2">
               <div
-                className=" d-flex justify-content-between border-0  align-items-start tw-h-10 group"
+                className=" tw-flex justify-content-between border-0  align-items-start tw-h-10 group"
               >
                 <div className="ms-2 me-auto align-self-center ">
                   Cras justo odio
@@ -43,16 +43,16 @@ function ApplicationJourney() {
             </a>
           </Link>
           <Link href={''}>
-            <a className="tw-flex tw-border-l-4 tw-border-l-rose-400 hover:tw-shadow">
+            <a className="tw-flex tw-border-l-4 tw-border-l-rose-400 hover:tw-shadow tw-pl-2">
               <div
-                className="d-flex justify-content-between border-0 align-items-start tw-h-10 group"
+                className="tw-flex justify-content-between border-0 align-items-start tw-h-10 group"
               >
                 <div className="ms-2 me-auto align-self-center">Cras justo odio</div>
               </div>
             </a>
           </Link>
           <Link href={'/'}>
-            <a className="tw-flex tw-border-l-4 tw-border-l-green-400 hover:tw-shadow">
+            <a className="tw-flex tw-border-l-4 tw-border-l-green-400 hover:tw-shadow tw-pl-2">
               <div
                 className="d-flex justify-content-between border-0 align-items-start tw-h-10 group"
               >

@@ -110,11 +110,7 @@ export function Index() {
   const { data } = useSession();
   const router = useRouter();
   console.log('session', data);
-  const theme = useMantineTheme();
-
-  const secondaryColor =
-    theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[7];
-
+  const theme = useMantineTheme();  
   return (
     <>
       <div className="tw-mt-3 tw-mb-4">
@@ -185,7 +181,7 @@ export function Index() {
       </div>
       <div className="tw-grid tw-gap-3   md:tw-grid-flow-row   md:tw-grid-cols-3   lg:tw-grid-flow-row   lg:tw-grid-cols-5 xs:tw-grid">
         {Array.from({ length: 5 }).map((_, idx) => (
-          <Card shadow="sm" padding="lg" key={idx} className='tw-rounded-3 tw-z-0 tw-w-full   hover:tw-z-50   hover:tw-delay-1000   lg:hover:tw-scale-125 tw-border-top-0 tw-border-b-4  tw-border-b-pink-700'>
+          <Card shadow="sm" padding="lg" key={idx} className='tw-rounded-3 tw-z-0 tw-w-full   hover:tw-z-50   hover:tw-delay-1000   lg:hover:tw-scale-125 tw-border-top-0 tw-border-b-4  tw-border-b-green-400'>
             <Card.Section>
               <Image
                 src="https://d33wubrfki0l68.cloudfront.net/1e3db23d52df0e395b1cb851d78a86fa3beb4c47/a72ec/images/programmes/products-and-services/gbtitleimage.png"
@@ -352,7 +348,7 @@ export function Index() {
             key={idx}
             shadow="sm"
             padding="lg"
-            className="hover:tw-cursor-pointer hover:tw-drop-shadow-2xl tw-w-full tw-border-top-0 tw-border-b-4  tw-border-b-green-400"
+            className="hover:tw-cursor-pointer hover:tw-drop-shadow-2xl tw-w-full tw-border-top-0 tw-border-b-4  tw-border-b-pink-700"
           >
             <Card.Section>
               <Image

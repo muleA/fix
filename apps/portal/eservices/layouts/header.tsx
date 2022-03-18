@@ -388,7 +388,7 @@ function Header(props: Props) {
         </div>
         <div className=" border-bottom tw-bg-[#C4DFF5] tw-flex sm:tw-hidden xs:tw-hidden md:tw-block lg:tw-block mt-1 px-2">
           <div className="tw-flex tw-justify-start tw-items-center">
-            <Tabs className="">
+            <Tabs color={'dark'}>
               {props.navigation.map((menu) => {
                 if (menu.protected) {
                   if (status !== 'authenticated') return;
