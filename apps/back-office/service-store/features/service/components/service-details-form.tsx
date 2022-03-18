@@ -1,4 +1,5 @@
-import { Divider, Select, MultiSelect } from '@mantine/core';
+import { Divider, Select, MultiSelect, Switch } from '@mantine/core';
+
 import { IconDeviceFloppy, IconTrash } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -80,9 +81,28 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                   )}
                 </div>
                 <div className="mb-2 ">
+                  <label className="form-label required">
+                    Fully Qualified Name
+                  </label>
+                  <textarea
+                    rows={2}
+                    placeholder="Enter fully Qualified Name"
+                    autoComplete="off"
+                    className={`form-control
+
+                   ${errors.Name ? 'is-invalid' : ''}`}
+                    {...register('Name')}
+                  />
+                  {errors.Name && (
+                    <div className="invalid-feedback">
+                      {errors.Name.message}
+                    </div>
+                  )}
+                </div>
+                <div className="mb-2 ">
                   <label className="form-label ">Description</label>
                   <textarea
-                    rows={4}
+                    rows={2}
                     placeholder="description"
                     autoComplete="off"
                     className={`form-control
@@ -100,7 +120,6 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                   <label className="form-label required">Code</label>
                   <textarea
                     rows={2}
-                    cols={2}
                     className="form-control"
                     placeholder="code"
                     autoComplete="off"
@@ -122,7 +141,7 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                     Supported Qualifications
                   </label>
                   <textarea
-                    rows={4}
+                    rows={2}
                     className="form-control"
                     placeholder="supported Qualifications"
                     autoComplete="off"
@@ -130,11 +149,10 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                 </div>
                 <div className="mb-2 ">
                   <label className="form-label ">version</label>
-                  <textarea
-                    rows={2}
-                    cols={2}
+                  <input
+                    type="text"
                     className="form-control"
-                    placeholder="version"
+                    placeholder="ex. 1.0.0"
                     autoComplete="off"
                   />
                 </div>
@@ -145,6 +163,15 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                     className="form-control"
                     placeholder="procedure"
                     autoComplete="off"
+                  />
+                </div>
+                <div className="tw-flex tw-justify-start tw-mt-4">
+                  <Switch onLabel="ON" offLabel="OFF" label="Is public" />
+                  <Switch
+                    onLabel="ON"
+                    offLabel="OFF"
+                    className="tw-mx-auto"
+                    label="enable review"
                   />
                 </div>
               </div>
@@ -192,6 +219,23 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                 </div>
                 <div className="mb-2 ">
                   <label className="form-label required">Service Owner</label>
+                  <Select
+                    placeholder="Pick one"
+                    data={[
+                      {
+                        value: 'Ministry of Innovation and Technology',
+                        label: 'MINT',
+                      },
+                      { value: 'Minstry of Health', label: 'MH' },
+                      { value: 'Ministry of transport', label: 'MIT' },
+                    ]}
+                  />
+                </div>
+
+                <div className="mb-2 ">
+                  <label className="form-label required">
+                    Service Provider
+                  </label>
                   <Select
                     placeholder="Pick one"
                     data={[
