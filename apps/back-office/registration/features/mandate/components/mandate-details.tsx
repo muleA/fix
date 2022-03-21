@@ -1,6 +1,8 @@
 import { Accordion, Group, Text } from '@mantine/core';
 import { useRouter } from 'next/router';
 import MandatesSideTable from "../components/mandates-side-table";
+import MandateDetailForm from './mandate-detail-form';
+import MandateRoles from './mandate-roles';
 import OptionHeader from "../../../shared/components/option-header";
 import ActivityAudit from "../../../shared/components/activity-audit";
 import Note from "../../../shared/components/note";
@@ -45,11 +47,11 @@ const MandateDetails = () => {
                             itemTitle: { borderBottom: "0.5px solid rgb(229 231 235)" }
                         }}
                     >
-                        <Accordion.Item label={<AccordionLabel title='Mandate Detail' subTitle='Modify organization' />}>
-
+                        <Accordion.Item label={<AccordionLabel title='Mandate Detail' subTitle='Modify Mandate' />}>
+                            <MandateDetailForm/>
                         </Accordion.Item>
-                        <Accordion.Item label={<AccordionLabel title='Mandate Roles' subTitle='Add organization logo' />}>
-
+                        <Accordion.Item label={<AccordionLabel title='Mandate Roles' subTitle='List of role' />}>
+                            <MandateRoles/>
                         </Accordion.Item>
                         <Accordion.Item label={<AccordionLabel title='Mandate Template' subTitle='List of Assigned organizational Mandates' />}>
 
