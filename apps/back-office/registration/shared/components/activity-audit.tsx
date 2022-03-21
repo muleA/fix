@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Card, Timeline, Tooltip, Pagination, Select } from '@mantine/core';
 import { IconX, IconUser, IconCircleCheck, IconClock } from '@tabler/icons';
-import { useAppDispatch } from '../../../shared/hooks/redux.hook';
-import { setSideView } from '../store/slice/organization.slice';
+import { useAppDispatch } from '../hooks/redux.hook';
+import { setSideView } from '../../store/app.slice';
 
 
 const ActivityAudit = () => {

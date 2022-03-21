@@ -1,16 +1,18 @@
 import Link from 'next/link';
 import { Tooltip } from '@mantine/core';
 import { IconArrowsMaximize, IconArrowsMinimize, IconReportSearch, IconMessageCircle, IconQuestionMark, IconX } from '@tabler/icons';
-import { useAppDispatch, useAppSelector } from '../../../shared/hooks/redux.hook';
-import { toggleScreenSize, setSideView, selectIsFullScreen } from '../store/slice/organization.slice';
+import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux.hook';
+import { toggleScreenSize, setSideView, selectIsFullScreen } from '../../store/app.slice';
 
-type OrganizationOptionHeaderProps = {
+type OptionHeaderProps = {
     title:string;
+    closeLink:string;
 };
 
-const OrganizationOptionHeader = (props:OrganizationOptionHeaderProps) => {
+const OptionHeader = (props:OptionHeaderProps) => {
     const dispatch = useAppDispatch();
     const screenSize = useAppSelector(selectIsFullScreen);
+
     return (
         <div className='tw-p-4 tw-flex tw-bg-white tw-justify-between'>
             <span>{props.title}</span>
@@ -63,7 +65,7 @@ const OrganizationOptionHeader = (props:OrganizationOptionHeaderProps) => {
                     label="Close"
                     className='tw-mr-2'
                 >
-                    <Link href="/registration/organization">
+                    <Link href={props.closeLink}>
                         <a>
                             <IconX onClick={() => dispatch(setSideView(""))} className='tw-flex tw-cursor-pointer' size={16} />
                         </a>
@@ -77,4 +79,4 @@ const OrganizationOptionHeader = (props:OrganizationOptionHeaderProps) => {
 
 }
 
-export default OrganizationOptionHeader;
+export default OptionHeader;

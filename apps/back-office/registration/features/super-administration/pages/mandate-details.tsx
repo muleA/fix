@@ -1,22 +1,22 @@
-import { Accordion, Group, Text } from '@mantine/core';
+/* import { Accordion, Group, Text } from '@mantine/core';
 import { useRouter } from 'next/router';
 import OrganizationsSideTable from "../components/organizations-side-table";
-import OptionHeader from "../../../shared/components/option-header";
+import OrganizationOptionHeader from "../components/organization-option-header";
 import OrganizationDetailForm from "../components/organization-detail-form";
 import OrganizationLogoForm from '../components/organization-logo-form';
 import OrganizationMandateAssignment from '../components/organization-mandate-assignment';
 import ManageOrganizationAdministrators from '../components/manage-organization-administrators';
 import ResetOrganizationPasswordForm from '../components/reset-organization-password-form';
-import ActivityAudit from "../../../shared/components/activity-audit";
-import Note from "../../../shared/components/note";
-import Help from "../../../shared/components/help";
+import ActivityAudit from "../components/activity-audit";
+import Note from "../components/note";
+import Help from "../components/help";
 import { useAppDispatch, useAppSelector } from '../../../shared/hooks/redux.hook';
-import { selectIsFullScreen, selectSideView } from '../../../store/app.slice';
+import { selectIsFullScreen, selectSideView } from '../store/slice/organization.slice'; */
 
-const OrganizationDetailsPage = () => {
+const MandateDetailsPage = () => {
 
 
-    const dispatch = useAppDispatch();
+    /* const dispatch = useAppDispatch();
     const screenSize = useAppSelector(selectIsFullScreen);
     const router = useRouter();
     const { id } = router.query;
@@ -42,7 +42,7 @@ const OrganizationDetailsPage = () => {
                     <OrganizationsSideTable />
                 }
                 <div className={`${screenSize ? "tw-w-full" : "tw-w-9/12"} tw-pl-4`}>
-                    <OptionHeader title={id.toString()} closeLink="/registration/organization" />
+                    <OrganizationOptionHeader title={id.toString()} />
 
                     <div className="tw-flex tw-items-start tw-mt-4">
                         <Accordion initialItem={0} iconPosition="right" className={`tw-bg-white ${sideView != '' ? "tw-w-7/12" : "tw-w-full"}`}
@@ -84,7 +84,8 @@ const OrganizationDetailsPage = () => {
 
         </div>
 
-    );
+    ); */
+    return <></>;
 }
 
-export default OrganizationDetailsPage;
+export default MandateDetailsPage;

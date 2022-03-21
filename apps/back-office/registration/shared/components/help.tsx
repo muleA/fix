@@ -1,7 +1,7 @@
 import { Card, Tooltip } from '@mantine/core';
 import { IconX, IconInbox } from '@tabler/icons';
-import { useAppDispatch } from '../../../shared/hooks/redux.hook';
-import { setSideView } from '../store/slice/organization.slice';
+import { useAppDispatch } from '../hooks/redux.hook';
+import { setSideView } from '../../store/app.slice';
 
 const Help = () => {
 

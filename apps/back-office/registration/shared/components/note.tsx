@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Card, Tooltip } from '@mantine/core';
 import { IconX, IconDeviceFloppy } from '@tabler/icons';
-import { useAppDispatch } from '../../../shared/hooks/redux.hook';
-import { setSideView } from '../store/slice/organization.slice';
-import RichTextEditor from '../../../shared/components/RichTextEditor';
-import FileUpload from '../../../shared/components/FileUpload';
+import { useAppDispatch } from '../hooks/redux.hook';
+import { setSideView } from '../../store/app.slice';
+import RichTextEditor from './RichTextEditor';
+import FileUpload from './FileUpload';
 import { useForm } from "react-hook-form";
 
 

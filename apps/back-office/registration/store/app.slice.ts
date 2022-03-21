@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from '../../../../store/app.store'
+import type { RootState } from './app.store'
 
 // Define a type for the slice state
-interface OrganizationState {
+interface AppState {
     sideView: '' | 'activity-audit' | 'note' | 'help';
     isFullScreen: boolean;
 }
 
 // Define the initial state using that type
-const initialState: OrganizationState = {
+const initialState: AppState = {
     sideView: '',
     isFullScreen: false
 }
 
-export const organizationSlice = createSlice({
-    name: 'organiztion',
+export const appSlice = createSlice({
+    name: 'app',
     initialState,
     reducers: {
         toggleScreenSize: (state) => {
@@ -26,10 +26,10 @@ export const organizationSlice = createSlice({
     },
 })
 
-export const { toggleScreenSize, setSideView } = organizationSlice.actions;
+export const { toggleScreenSize, setSideView } = appSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectSideView = (state: RootState) => state.organization.sideView;
-export const selectIsFullScreen = (state: RootState) => state.organization.isFullScreen;
+export const selectSideView = (state: RootState) => state.app.sideView;
+export const selectIsFullScreen = (state: RootState) => state.app.isFullScreen;
 
-export default organizationSlice.reducer;
+export default appSlice.reducer;
