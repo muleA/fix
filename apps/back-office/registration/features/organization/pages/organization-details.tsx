@@ -41,11 +41,11 @@ const OrganizationDetailsPage = () => {
                 {!screenSize &&
                     <OrganizationsSideTable />
                 }
-                <div className={`${screenSize ? "tw-w-full" : "tw-w-9/12"} tw-pl-4`}>
+                <div className={`tw-grow tw-pl-4`}>
                     <OptionHeader title={id.toString()} closeLink="/registration/organization" />
 
                     <div className="tw-flex tw-items-start tw-mt-4">
-                        <Accordion initialItem={0} iconPosition="right" className={`tw-bg-white ${sideView != '' ? "tw-w-7/12" : "tw-w-full"}`}
+                        <Accordion initialItem={0} iconPosition="right" className={`tw-bg-white tw-grow tw-basis-8/12`}
                             styles={{
                                 item: { borderBottom: '1rem solid rgb(243 244 246)' },
                                 itemTitle: { borderBottom: "0.5px solid rgb(229 231 235)" }

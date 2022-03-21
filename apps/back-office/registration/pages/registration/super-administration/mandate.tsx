@@ -1,9 +1,9 @@
-import MandatePage from "../../../features/super-administration/pages/mandate";
+import SuperAdministrationMandatePage from "../../../features/super-administration/pages/mandate";
 
 const Mandate = () => {
 
     return (
-        <MandatePage/>
+        <SuperAdministrationMandatePage/>
     );
 }
 

@@ -28,7 +28,7 @@ const Note = () => {
     }, [textEditorValue]);
 
     return (
-        <Card className='tw-ml-4 tw-w-6/12' shadow="sm" padding="lg">
+        <Card className='tw-ml-4' shadow="sm" padding="lg" >
             <Card.Section className='tw-flex tw-items-center tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2'>
                 <h2 className='tw-text-base'>
                     Note

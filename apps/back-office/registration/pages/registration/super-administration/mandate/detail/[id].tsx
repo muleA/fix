@@ -1,10 +1,10 @@
-import MandateDetailPage from "../../../../../features/super-administration/pages/mandate-details";
+import SuperAdministrationMandateDetailsPage from "../../../../../features/super-administration/pages/mandate-details";
 
-const MandateDetail = () => {
+const MandateDetails = () => {
 
     return (
-        <MandateDetailPage/>
+        <SuperAdministrationMandateDetailsPage/>
     );
 }
 
-export default MandateDetail;
+export default MandateDetails;
