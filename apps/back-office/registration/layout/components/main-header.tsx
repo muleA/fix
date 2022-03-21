@@ -4,15 +4,18 @@ import IconQuestionMark from "../../shared/components/icons/IconQuestionMark";
 import { useKeycloak } from '@react-keycloak/ssr';
 import type { KeycloakInstance } from 'keycloak-js';
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 const MainNavbar = () => {
+    const router = useRouter();
 
     const { keycloak, initialized } = useKeycloak<KeycloakInstance>();
     
     const [languageDropDown, setLanguageDropDown] = useState<boolean>(false);
     const [profileDropDown, setProfileDropDown] = useState<boolean>(false);
     const [moreDropDown, setMoreDropDown] = useState<boolean>(false);
+    console.log();
 
     const onLanguageMouseOver = () => {
         setLanguageDropDown(true);
@@ -49,10 +52,10 @@ const MainNavbar = () => {
             </div>
             <ul className="tw-flex tw-items-center tw-grow tw-text-gray-100 tw-ml-2">
                 <li className="tw-h-full tw-flex tw-items-center">
-                    <Link href="/registration/home"><a className="tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline" >Home </a></Link>
+                    <Link href="/registration/home"><a className={`tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline ${router.pathname.match(/\/registration\/home*/)?"tw-text-blue-900 tw-bg-white":""}`} >Home </a></Link>
                 </li>
                 <li className="tw-h-full tw-hidden sm:tw-flex sm:tw-items-center">
-                    <Link href="/registration/organization"><a className="tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline">Organization </a></Link>
+                    <Link href="/registration/organization"><a className={`tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline ${router.pathname.match(/\/registration\/organization*/)?"tw-text-blue-900 tw-bg-white":""}`}>Organization </a></Link>
                 </li>
                 <li className="tw-h-full tw-flex tw-items-center md:tw-hidden hover:tw-text-blue-900 hover:tw-bg-white hover:tw-cursor-pointer tw-relative" onMouseOver={onMoreMouseOver} onMouseLeave={onMoreMouseLeave}>
                     <span className="tw-h-full tw-flex tw-px-2 tw-py-2 tw-z-50">More <IconArrowDown /> </span>
@@ -65,16 +68,16 @@ const MainNavbar = () => {
                                 <Link href="/registration/super-administration"><a className="tw-text-gray-500 hover:tw-no-underline hover:tw-text-gray-500">Administration</a></Link>
                             </div>
                             <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200" >
-                                <Link href="/registration/home"><a className="tw-text-gray-500 hover:tw-no-underline hover:tw-text-gray-500">Reports</a></Link>
+                                <Link href="/registration/report"><a className="tw-text-gray-500 hover:tw-no-underline hover:tw-text-gray-500">Reports</a></Link>
                             </div>
                         </div>
                     }
                 </li>
                 <li className="tw-h-full tw-hidden md:tw-flex md:tw-items-center">
-                    <Link href="/registration/super-administration"><a className="tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline">Administration </a></Link>
+                    <Link href="/registration/super-administration"><a className={`tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline ${router.pathname.match(/\/registration\/super-administration*/)?"tw-text-blue-900 tw-bg-white":""}`}>Administration </a></Link>
                 </li>
                 <li className="tw-h-full tw-hidden md:tw-flex md:tw-items-center">
-                    <Link href="/registration/home"><a className="tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline">Reports </a></Link>
+                    <Link href="/registration/report"><a className={`tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-no-underline ${router.pathname.match(/\/registration\/report*/)?"tw-text-blue-900 tw-bg-white":""}`}>Reports </a></Link>
                 </li>
             </ul>
             <ul className="tw-flex tw-items-center tw-text-gray-100">
