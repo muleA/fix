@@ -6,6 +6,7 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
+    "affected:build": "nx affected:build",
     "affected:build:prod": "nx affected:build --base=origin/master~1 --head=HEAD --parallel --maxParallel=5  --configuration=production --prod "
   },
   "private": true,
