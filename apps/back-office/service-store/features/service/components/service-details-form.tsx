@@ -1,23 +1,47 @@
-import { Divider, Select, MultiSelect, Switch } from '@mantine/core';
-
-import { IconDeviceFloppy, IconTrash } from '@tabler/icons';
+import { Divider, Select, MultiSelect, Switch, Button } from '@mantine/core';
+import { IconDeviceFloppy, IconTrash, IconDatabase } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
+enum DeliveryMethods {
+  auto = 'AUTO',
+  manual = 'MANUAL',
+  unknown = 'UNKNOWN',
+}
 const schema = yup
   .object({
-    Name: yup.string().required('This field is required'),
-    Code: yup.string().required('This field is required'),
-    Description: yup.string().required('This field is required'),
-    TargetCustomers: yup.string().required('This field is required'),
-    SupportedQualifications: yup.string().required('This field is required'),
-    Version: yup.string().required('This field is required'),
-    Procedure: yup.string().required('This field is required'),
-    Tag: yup.string().required('This field is required'),
-    Category: yup.string().required('This field is required'),
-    Policy: yup.string().required('This field is required'),
-    DeliveryMethods: yup.string().required('This field is required'),
-    ServiceOwner: yup.string().required('This field is required'),
+    name: yup.string().required('This field is required'),
+    fullyQualifiedName: yup.string().required('This field is required'),
+    description: yup.string(),
+    code: yup.string().required('This field is required'),
+    targetCustomers: yup.string().required('This field is required'),
+    isPublic: yup.boolean(),
+    enableReview: yup.boolean(),
+    supportedQualifications: yup.string(),
+    version: yup.string().required('please enter version as 1.0.0'),
+    procedure: yup.string().required('This field is required'),
+    policy: yup.string().required('This field is required'),
+    tags: yup.string().required('please select one'),
+    category: yup.string().required('please select one'),
+    serviceProvider: yup.string().required('please select one'),
+    serviceOwner: yup.string().required('please select one'),
+
+    deliveryMethod: yup
+      .string()
+      .required('Must provide a delivery Methods')
+      .oneOf(Object.values(DeliveryMethods)),
+    applicationForm: yup.object().shape({
+      title: yup
+        .string()
+        .required('This field is required')
+        .typeError('title  must be a string'),
+      url: yup
+        .string()
+        .required('This field is required')
+        .typeError('url must be a string'),
+      taskName: yup.string().required('This field is required'),
+      status: yup.string().required('This field is required'),
+    }),
   })
   .required();
 
@@ -27,26 +51,33 @@ type ServiceDetailFormProps = {
 
 const ServiceDetailForm = (props: ServiceDetailFormProps) => {
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
+    reset,
     setValue,
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: 'onBlur',
+  });
 
   if (props.mode == 'update') {
-    setValue('Name', 'Passport');
-    setValue('Description', 'Random Service data');
-    setValue('Code', '#pass');
-    setValue('TargetCustomers', 'afdf');
-    setValue('SupportedQualifications', 'asdsdasdamdsj');
-    setValue('Version', '1.00');
-    setValue('Procedure', 'gsdsd');
-    setValue('Tag', '#passport');
-    setValue('Category', 'Popular');
-    setValue('Policy', 'ewroi');
-    setValue('DeliveryMethods', 'jfsdajksa');
-    setValue('ServiceOwner', 'MINT');
+    setValue('name', 'Passport');
+    setValue('description', 'Random Service data');
+    setValue('code', '#pass');
+    setValue('targetCustomers', 'afdf');
+    setValue('supportedQualifications', 'asdsdasdamdsj');
+    setValue('version', '1.00');
+    setValue('procedure', 'gsdsd');
+    setValue('tag', '#passport');
+    setValue('category', 'Popular');
+    setValue('policy', 'ewroi');
+    setValue('deliveryMethod', '');
+    setValue('derviceOwner', 'MINT');
+    setValue('serviceProvider', 'MINT');
   }
+
   const onSubmit = async (data) => {
     try {
       console.log(data);
@@ -60,23 +91,22 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="tw-my-4">
           <div className="tw-flex tw-items-center tw-mb-2">
-            {/*  */}
             <section className="tw-grid  tw-grid-cols-2 tw-gap-4 tw-container tw-p-0 tw-mx-auto ">
               <div className="">
                 <div className="mb-2 ">
                   <label className="form-label required">Name</label>
                   <textarea
                     rows={2}
-                    placeholder="enter Name"
+                    placeholder="name"
                     autoComplete="off"
                     className={`form-control
 
-                   ${errors.Name ? 'is-invalid' : ''}`}
-                    {...register('Name')}
+                   ${errors.name ? 'is-invalid' : ''}`}
+                    {...register('name')}
                   />
-                  {errors.Name && (
+                  {errors.name && (
                     <div className="invalid-feedback">
-                      {errors.Name.message}
+                      {errors.name.message}
                     </div>
                   )}
                 </div>
@@ -86,16 +116,16 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                   </label>
                   <textarea
                     rows={2}
-                    placeholder="Enter fully Qualified Name"
+                    placeholder="fullyQualifiedName"
                     autoComplete="off"
                     className={`form-control
 
-                   ${errors.Name ? 'is-invalid' : ''}`}
-                    {...register('Name')}
+                   ${errors.fullyQualifiedName ? 'is-invalid' : ''}`}
+                    {...register('fullyQualifiedName')}
                   />
-                  {errors.Name && (
+                  {errors.fullyQualifiedName && (
                     <div className="invalid-feedback">
-                      {errors.Name.message}
+                      {errors.fullyQualifiedName.message}
                     </div>
                   )}
                 </div>
@@ -107,12 +137,12 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                     autoComplete="off"
                     className={`form-control
 
-                   ${errors.Description ? 'is-invalid' : ''}`}
-                    {...register('Description')}
+                   ${errors.description ? 'is-invalid' : ''}`}
+                    {...register('description')}
                   />
-                  {errors.Description && (
+                  {errors.description && (
                     <div className="invalid-feedback">
-                      {errors.Description.message}
+                      {errors.description.message}
                     </div>
                   )}
                 </div>
@@ -120,10 +150,18 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                   <label className="form-label required">Code</label>
                   <textarea
                     rows={2}
-                    className="form-control"
                     placeholder="code"
                     autoComplete="off"
+                    className={`form-control
+
+                   ${errors.code ? 'is-invalid' : ''}`}
+                    {...register('code')}
                   />
+                  {errors.code && (
+                    <div className="invalid-feedback">
+                      {errors.code.message}
+                    </div>
+                  )}
                 </div>
                 <div className="mb-2 ">
                   <label className="form-label required">
@@ -131,10 +169,18 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                   </label>
                   <textarea
                     rows={2}
-                    className="form-control"
                     placeholder="Target Customers"
                     autoComplete="off"
+                    className={`form-control
+
+                   ${errors.targetCustomers ? 'is-invalid' : ''}`}
+                    {...register('targetCustomers')}
                   />
+                  {errors.targetCustomers && (
+                    <div className="invalid-feedback">
+                      {errors.targetCustomers.message}
+                    </div>
+                  )}
                 </div>
                 <div className="mb-2 ">
                   <label className="form-label ">
@@ -145,39 +191,58 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                     className="form-control"
                     placeholder="supported Qualifications"
                     autoComplete="off"
+                    {...register('supportedQualifications')}
                   />
                 </div>
                 <div className="mb-2 ">
                   <label className="form-label ">version</label>
                   <input
                     type="text"
-                    className="form-control"
                     placeholder="ex. 1.0.0"
                     autoComplete="off"
+                    className={`form-control
+
+                   ${errors.version ? 'is-invalid' : ''}`}
+                    {...register('version')}
                   />
+                  {errors.version && (
+                    <div className="invalid-feedback">
+                      {errors.version.message}
+                    </div>
+                  )}
                 </div>
                 <div className="mb-2 ">
-                  <label className="form-label required">Procedure</label>
+                  <label className="form-label required">procedure</label>
                   <textarea
                     rows={4}
-                    className="form-control"
                     placeholder="procedure"
                     autoComplete="off"
+                    className={`form-control
+
+                   ${errors.procedure ? 'is-invalid' : ''}`}
+                    {...register('procedure')}
                   />
+                  {errors.procedure && (
+                    <div className="invalid-feedback">
+                      {errors.procedure.message}
+                    </div>
+                  )}
                 </div>
                 <div className="tw-flex tw-justify-start tw-mt-4">
                   <Switch
-                    onLabel="ON"
-                    offLabel="OFF"
+                    onLabel="Yes"
+                    offLabel="NO"
                     size="md"
-                    label="Is public"
+                    label="public"
+                    {...register('isPublic')}
                   />
                   <Switch
-                    onLabel="ON"
-                    offLabel="OFF"
+                    onLabel="Yes"
+                    offLabel="No"
                     size="md"
                     className="tw-mx-auto"
                     label="enable review"
+                    {...register('enableReview')}
                   />
                 </div>
               </div>
@@ -185,13 +250,19 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                 <div className="mb-2 ">
                   <label className="form-label required">Tags</label>
                   <MultiSelect
-                    placeholder="Pick Select Tags"
+                    placeholder="Pick Select tags"
                     data={[
                       { value: '#passport', label: 'passport' },
                       { value: '#id', label: 'id' },
                       { value: '#license', label: 'license' },
                     ]}
                   />
+                  {errors.tags ? 'is-invalid' : ''}`
+                  {errors.tags && (
+                    <div className="invalid-feedback">
+                      {errors.tags.message}
+                    </div>
+                  )}
                 </div>
                 <div className="mb-2 ">
                   <label className="form-label required">Category</label>
@@ -207,21 +278,38 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                 <div className="mb-2 ">
                   <label className="form-label required">Policy</label>
                   <textarea
-                    className="form-control"
+                    rows={2}
                     placeholder="policy"
                     autoComplete="off"
-                  ></textarea>
+                    className={`form-control
+
+                   ${errors.policy ? 'is-invalid' : ''}`}
+                    {...register('policy')}
+                  />
+                  {errors.policy && (
+                    <div className="invalid-feedback">
+                      {errors.policy.message}
+                    </div>
+                  )}
                 </div>
                 <div className="mb-2 ">
                   <label className="form-label required">Delivery Method</label>
-                  <Select
-                    placeholder="Pick delivery method"
-                    data={[
-                      { value: 'auto', label: 'automatic' },
-                      { value: 'manual', label: 'manual' },
-                      { value: 'uknown', label: 'unknown' },
-                    ]}
-                  />
+                  <select
+                    className="form-control tw-w-100"
+                    {...register('deliveryMethod', { required: true })}
+                  >
+                    {' '}
+                    {Object.values(DeliveryMethods).map((deliveryMethod) => {
+                      return (
+                        <option key={deliveryMethod} value={deliveryMethod}>
+                          {deliveryMethod}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <span className="tw-text-red-900">
+                    {errors?.deliveryMethod?.message}
+                  </span>
                 </div>
                 <div className="mb-2 ">
                   <label className="form-label required">Service Owner</label>
@@ -238,7 +326,7 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                   />
                 </div>
 
-                <div className="mb-2 ">
+                <div className="mb-3 ">
                   <label className="form-label required">
                     Service Provider
                   </label>
@@ -255,7 +343,10 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                   />
                 </div>
 
-                <fieldset className="form-fieldset tw-border-1 tw-bg-white">
+                <fieldset
+                  className="form-fieldset tw-border-1 tw-bg-white tw-border
+                   tw-border-solid tw-border-gray-300 tw-p-3"
+                >
                   <legend className="tw-border-none tw-border-1 tw-text-base  tw-w-auto tw-mb-0">
                     Application Form
                   </legend>
@@ -265,6 +356,7 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                       type="text"
                       className="form-control"
                       autoComplete="off"
+                      {...register('applicationForm.title')}
                     />
                   </div>
                   <div className="tw-mb-3">
@@ -273,22 +365,25 @@ const ServiceDetailForm = (props: ServiceDetailFormProps) => {
                       type="text"
                       className="form-control"
                       autoComplete="off"
+                      {...register('applicationForm.formUrl')}
                     />
                   </div>
                   <div className="tw-mb-3">
                     <label className="form-label required">Status</label>
                     <input
-                      type="email"
+                      type="text"
                       className="form-control"
                       autoComplete="off"
+                      {...register('applicationForm.status')}
                     />
                   </div>
                   <div className="tw-mb-3">
                     <label className="form-label">TaskName</label>
                     <input
-                      type="tel"
+                      type="text"
                       className="form-control"
                       autoComplete="off"
+                      {...register('applicationForm.taskName')}
                     />
                   </div>
                 </fieldset>

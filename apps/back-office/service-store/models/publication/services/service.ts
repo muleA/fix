@@ -1,18 +1,18 @@
-export interface ApplicationForm {
+export default interface ApplicationForm {
   title: string;
   formUrl: string;
   status: string;
   taskName: string;
 }
 
-export interface Service {
+export  default interface Service {
   name: string;
-  description: string;
+  description?: string;
   code: string;
   supportedQualifications: string;
-  version: string;
+  version?: string;
   procedure: string;
-  applicationForm: ApplicationForm;
+  applicationForm: ApplicationForm[];
   targetCustomers: string;
   isPublic: boolean;
   isPublished: boolean;

@@ -30,7 +30,7 @@ const MainNavbar = () => {
     setMoreDropDown(false);
   };
   return (
-    <nav className="tw-h-[40px] tw-flex tw-justify-between tw-py-0 tw-px-2 bg-primary">
+    <nav className="tw-h-[40px] tw-flex md:tw- tw-justify-between tw-py-0 tw-px-2 bg-primary tw-items-stretch">
       <div className="tw-flex tw-items-center tw-text-gray-100 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-cursor-pointer tw-px-2 tw-border-r tw-border-r-gray-100">
         <div className=" tw-mr-1">
           <IconApps />
@@ -83,17 +83,17 @@ const MainNavbar = () => {
           </Link>
         </li>
         <li
-          className="tw-h-full tw-flex tw-items-center md:tw-hidden hover:tw-text-blue-900 hover:tw-bg-white
+          className="tw-h-full tw-flex tw-items-center md:tw-py-7 md:tw-hidden hover:tw-text-blue-900 hover:tw-bg-white
            hover:tw-cursor-pointer tw-relative"
           onMouseOver={onMoreMouseOver}
           onMouseLeave={onMoreMouseLeave}
         >
-          <span className="tw-h-full tw-flex tw-px-2 tw-py-2 tw-z-50">
+          <span className="tw-h-full tw-flex tw-px-2 tw-py-2 tw-relative">
             More <IconArrowBarDown />{' '}
           </span>
           {moreDropDown && (
             <div
-              className="tw-flex tw-flex-col tw-text-gray-500 tw-bg-white tw-absolute 
+              className="tw-flex tw-flex-col tw-text-gray-500 tw-z-10 tw-bg-white tw-absolute 
             tw-top-[40px] tw-right-0 tw-shadow-md tw-min-w-[180px]"
             >
               <div className="tw-pl-3 tw-py-2 sm:tw-hidden hover:tw-bg-gray-200">
@@ -111,7 +111,7 @@ const MainNavbar = () => {
                 </Link>
               </div>
               <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200">
-                <Link href="/registration/home">
+                <Link href="/service-store/service-provider/lsit">
                   <a className="tw-text-gray-500 hover:tw-no-underline hover:tw-text-gray-500">
                     Service Provider
                   </a>
