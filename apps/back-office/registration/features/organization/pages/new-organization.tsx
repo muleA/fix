@@ -5,13 +5,12 @@ import OrganizationDetailForm from "../components/organization-detail-form";
 import ActivityAudit from "../../../shared/components/activity-audit";
 import Note from "../../../shared/components/note";
 import Help from "../../../shared/components/help";
-import { useAppDispatch, useAppSelector } from '../../../shared/hooks/redux.hook';
+import { useAppSelector } from '../../../shared/hooks/redux.hook';
 import { selectIsFullScreen, selectSideView } from '../../../store/app.slice';
 
 
 const NewOrganizationPage = () => {
 
-    const dispatch = useAppDispatch();
     const screenSize = useAppSelector(selectIsFullScreen);
     const sideView = useAppSelector(selectSideView);
 

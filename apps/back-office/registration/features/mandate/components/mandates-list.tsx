@@ -4,11 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 
-type MandatesListProps = {
-    className:string;
-};
 
-const MandatesList = (props:MandatesListProps) => {
+const MandatesList = () => {
     const router = useRouter();
     const [perPage, setPerPage] = useState<string>("10");
     const mandates = [
@@ -19,7 +16,7 @@ const MandatesList = (props:MandatesListProps) => {
     ];
 
     return (
-        <Card className={props.className} shadow="sm" padding="lg">
+        <Card shadow="sm" padding="lg">
             <Card.Section className='tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2'>
                 <h2 className='tw-text-lg'>
                     Mandates

@@ -1,8 +1,8 @@
 import SuperAdministrationSideMenu from "../components/super-administration-side-menu";
-import MandateDetails from '../../mandate/components/mandate-details';
+import LookupsList from '../../lookups/components/lookups-list';
 
 
-const SuperAdministrationMandateDetailsPage = () => {
+const SuperAdministrationLookupsPage = () => {
 
 
     return (
@@ -10,9 +10,8 @@ const SuperAdministrationMandateDetailsPage = () => {
             <div className="tw-flex tw-items-start">
                 <SuperAdministrationSideMenu />
                 <div className='tw-ml-4 tw-grow'>
-                   <MandateDetails/> 
+                    <LookupsList />
                 </div>
-                
             </div>
 
 
@@ -22,4 +21,4 @@ const SuperAdministrationMandateDetailsPage = () => {
 
 }
 
-export default SuperAdministrationMandateDetailsPage;
+export default SuperAdministrationLookupsPage;

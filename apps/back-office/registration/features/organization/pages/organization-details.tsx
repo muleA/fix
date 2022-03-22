@@ -10,13 +10,11 @@ import ResetOrganizationPasswordForm from '../components/reset-organization-pass
 import ActivityAudit from "../../../shared/components/activity-audit";
 import Note from "../../../shared/components/note";
 import Help from "../../../shared/components/help";
-import { useAppDispatch, useAppSelector } from '../../../shared/hooks/redux.hook';
+import { useAppSelector } from '../../../shared/hooks/redux.hook';
 import { selectIsFullScreen, selectSideView } from '../../../store/app.slice';
 
 const OrganizationDetailsPage = () => {
 
-
-    const dispatch = useAppDispatch();
     const screenSize = useAppSelector(selectIsFullScreen);
     const router = useRouter();
     const { id } = router.query;

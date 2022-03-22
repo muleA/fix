@@ -2,26 +2,33 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Card, Input, Table, Pagination, Select } from '@mantine/core';
-import { IconSearch, IconInbox } from '@tabler/icons';
+import { IconPlus, IconSearch,IconInbox } from '@tabler/icons';
 
-const MandatesSideTable = () => {
+const LookupsSideTable = () => {
     const router = useRouter();
     const { id } = router.query;
 
     const [perPage, setPerPage] = useState<string>("10");
-    const mandates = [
-        { name: "Lead_Agency", description: "Lead Agency" },
-        { name: "Financial_Institution", description: "Financial Institution" },
-        { name: "Attorney_General", description: "Attorney General" },
-        { name: "Procurement_Enterprise", description: "Procurement Enterprise" },
+    const lookupsValues = [
+        { code: "ubuae", name: "test organization type", description: "test organization type" },
+        { code: "32323", name: "university", description: "University  type" },
+        { code: "0035", name: "NGO", description: "Non organization type" },
+        { code: "09", name: "Government Organization", description: "Ministry" },
+        { code: "055", name: "Higher Inistitution", description: "insurance" },
     ];
 
     return (
         <Card className='tw-w-4/12' shadow="sm" padding="lg">
-            <Card.Section className='tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2'>
+            <Card.Section className='tw-flex tw-items-center tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2'>
                 <h2 className='tw-text-lg'>
-                    Mandates
+                    Lookup values
                 </h2>
+                <Link href="/registration/lookups/new">
+                    <a className='btn btn-primary tw-bg-[#1d2861]'>
+                        <IconPlus />
+                        New
+                    </a>
+                </Link>
             </Card.Section>
 
             <Card.Section className='tw-flex tw-px-4 tw-pt-2 '>
@@ -41,7 +48,7 @@ const MandatesSideTable = () => {
                     </thead>
                     <tbody className='tw-border-b'>
 
-                        {mandates.length == 0 &&
+                        {lookupsValues.length == 0 &&
                             <tr className='tw-h-[200px] tw-border-b hover:tw-bg-transparent'>
                                 <td className='tw-text-center' colSpan={5}>
                                     <span>
@@ -54,10 +61,10 @@ const MandatesSideTable = () => {
                             </tr>
                         }
 
-                        {mandates.length > 0 &&
-                            mandates.map((item) => (
+                        {lookupsValues.length > 0 &&
+                            lookupsValues.map((item) => (
                                 <tr key={item.name} className={`hover:tw-cursor-pointer ${id == item.name && "tw-bg-[#1d2861]"}`}>
-                                    <Link href={`${router.pathname.match(/\/registration\/super-administration*/)?`/registration/super-administration/mandate/detail/${item.name}`:`/registration/mandate/detail/${item.name}`}`}>
+                                    <Link href={`/registration/lookups/detail/${item.name}`}>
                                         <a className='tw-block hover:tw-no-underline'>
                                             <td className={`tw-block ${id == item.name && "tw-text-white hover:tw-bg-[#1d2861]"} `}>
                                                 {item.name}
@@ -97,4 +104,4 @@ const MandatesSideTable = () => {
 
 }
 
-export default MandatesSideTable;
+export default LookupsSideTable;

@@ -1,8 +1,7 @@
 import { Accordion, Group, Text } from '@mantine/core';
 import { useRouter } from 'next/router';
-import MandatesSideTable from "../components/mandates-side-table";
-import MandateDetailForm from './mandate-detail-form';
-import MandateRoles from './mandate-roles';
+import LookupsSideTable from "./lookups-side-table";
+import LookupDetailForm from './lookup-detail-form';
 import OptionHeader from "../../../shared/components/option-header";
 import ActivityAudit from "../../../shared/components/activity-audit";
 import Note from "../../../shared/components/note";
@@ -10,8 +9,7 @@ import Help from "../../../shared/components/help";
 import { useAppSelector } from '../../../shared/hooks/redux.hook';
 import { selectIsFullScreen, selectSideView } from '../../../store/app.slice';
 
-const MandateDetails = () => {
-
+const LookupDetails = () => {
     const screenSize = useAppSelector(selectIsFullScreen);
     const router = useRouter();
     const { id } = router.query;
@@ -33,10 +31,10 @@ const MandateDetails = () => {
     return (
         <div className="tw-flex tw-items-start">
             {!screenSize &&
-                <MandatesSideTable />
+                <LookupsSideTable />
             }
             <div className={`tw-grow tw-pl-4`}>
-                <OptionHeader title={id.toString()} closeLink="/registration/mandate" />
+                <OptionHeader title={id.toString()} closeLink="/registration/lookups" />
 
                 <div className="tw-flex tw-items-start tw-mt-4">
                     <Accordion initialItem={0} iconPosition="right" className={`tw-bg-white tw-grow tw-basis-8/12`}
@@ -45,14 +43,8 @@ const MandateDetails = () => {
                             itemTitle: { borderBottom: "0.5px solid rgb(229 231 235)" }
                         }}
                     >
-                        <Accordion.Item label={<AccordionLabel title='Mandate Detail' subTitle='Modify Mandate' />}>
-                            <MandateDetailForm/>
-                        </Accordion.Item>
-                        <Accordion.Item label={<AccordionLabel title='Mandate Roles' subTitle='List of role' />}>
-                            <MandateRoles/>
-                        </Accordion.Item>
-                        <Accordion.Item label={<AccordionLabel title='Mandate Template' subTitle='List of Assigned organizational Mandates' />}>
-
+                        <Accordion.Item label={<AccordionLabel title='Lookup Detail' subTitle='Modify Lookup' />}>
+                            <LookupDetailForm mode="update"/>
                         </Accordion.Item>
                     </Accordion>
 
@@ -72,4 +64,4 @@ const MandateDetails = () => {
     );
 }
 
-export default MandateDetails;
+export default LookupDetails;
