@@ -1,8 +1,9 @@
-const serviceEndpoints={
-    getservices:`${process.env.NEXT_PUBLIC_BACKEND_BASEURL}`,
-    createservice:`${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/create-service/`,
-    updateservice:`${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/update-service/`,
-    deleteservice:`${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/delete-service`,
-    getservice:`${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/get-service`, 
-   }
-export default serviceEndpoints;
+const ServiceOwnersEndPoint = {
+  getService: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/service-owners/get-service-owner/{id}`,
+  getServices: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/service-owners/get-service-owners`,
+  createService: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/service-owners/create-service-owner`,
+  updateService: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/service-owners/update-service-owner`,
+  deleteService: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/service-owners/delete-service-owner/{id}`,
+};
+export default ServiceOwnersEndPoint;
+console.log(`${process.env.NEXT_PUBLIC_BACKEND_BASEURL}`);
