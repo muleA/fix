@@ -1,9 +1,8 @@
 const ServiceOwnersEndPoint = {
-  getService: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/service-owners/get-service-owner/{id}`,
-  getServices: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/service-owners/get-service-owners`,
-  createService: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/service-owners/create-service-owner`,
-  updateService: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/service-owners/update-service-owner`,
-  deleteService: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}/service-owners/delete-service-owner/{id}`,
+  getServiceOwner: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}api/service-owners/get-service-owner/{id}`,
+  getServiceOwners: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}api/service-owners/get-service-owners`,
+  createServiceOwner: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}api/service-owners/create-service-owner`,
+  updateServiceOwner: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}api/service-owners/update-service-owner`,
+  deleteServiceOwner: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}api/service-owners/delete-service-owner/{id}`,
 };
 export default ServiceOwnersEndPoint;
-console.log(`${process.env.NEXT_PUBLIC_BACKEND_BASEURL}`);
