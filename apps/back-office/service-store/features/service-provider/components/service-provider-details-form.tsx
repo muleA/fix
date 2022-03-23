@@ -3,19 +3,93 @@ import { IconDeviceFloppy, IconTrash } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
+import ServiceProvider from '../../../models/publication/service-providers/service-provider';
+
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
 const schema = yup
   .object({
     shortName: yup.string().required('This field is required'),
     code: yup.string().required('This field is required'),
-    fullName: yup.string().required('This field is required'),
-    sector: yup.string().required('This field is required'),
-    email: yup.string().email().required('This field is required'),
-    phone: yup.string().required('This field is required'),
-    name: yup.string().required('This field is required'),
-    country: yup.string().required('This field is required'),
-    city: yup.string().required('This field is required'),
-    houseNo: yup.string().required('This field is required'),
+    fullName: yup
+      .string()
+      .required('This field is required')
+      .matches(
+        /^[aA-zZ\s]+$/,
+        'only alphabet characters are allowed for this field'
+      ),
+    sector: yup
+      .string()
+      .required('This field is required')
+      .matches(
+        /^[aA-zZ\s]+$/,
+        'only alphabet characters are allowed for this field'
+      ),
     organizationName: yup.string().required('This field is required'),
+    organizationId: yup
+      .string()
+      .required(
+        'Id must be UUID or like this (46205772-b393-4cfb-ae9b-c76162d4923f'
+      ),
+    contactInfo: yup.object().shape({
+      email: yup.string().email('Invalid email format').required('Required'),
+      phone: yup
+        .string()
+        .required('please enter a valid phone number')
+        .matches(phoneRegExp, 'Phone number is not valid')
+        .nullable()
+        .min(10, 'phone number must be  10 characters')
+        .max(10, 'too long'),
+      name: yup
+        .string()
+        .required('This field is required')
+        .matches(
+          /^[aA-zZ\s]+$/,
+          'only alphabet characters are allowed for this field'
+        ),
+    }),
+
+    address: yup.object().shape({
+      country: yup
+        .string()
+        .required('Required country name cannot be empty')
+        .matches(
+          /^[aA-zZ\s]+$/,
+          'only alphabet characters are allowed for this field'
+        ),
+      houseNumber: yup
+        .number()
+        .required('This field is required')
+        .typeError('House number must be a number'),
+      city: yup
+        .string()
+        .required('This field is required')
+        .matches(
+          /^[aA-zZ\s]+$/,
+          'only alphabet characters are allowed for this field'
+        ),
+      street: yup.string().required('required'),
+    }),
+
+    location: yup.object().shape({
+      city: yup
+        .string()
+        .required('Required city name cannot be empty')
+        .matches(
+          /^[aA-zZ\s]+$/,
+          'only alphabet characters are allowed for this field'
+        ),
+      latitude: yup
+        .number()
+        .required('This field is required')
+        .typeError('latitude must be a number'),
+      longitude: yup
+        .number()
+        .required('This field is required')
+        .typeError('latitude must be a number'),
+      landmark: yup.string().required('required'),
+    }),
   })
   .required();
 
@@ -29,22 +103,8 @@ const ServiceOwnerDetailsForm = (props: ServiceOwnerDetailsFormProps) => {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm<ServiceProvider>({ resolver: yupResolver(schema) });
 
-  if (props.mode == 'update') {
-    setValue('shortName', 'Passport');
-    setValue('fullName', 'Random Service data');
-    setValue('Code', '#pass');
-    setValue('sector', 'afdf');
-    setValue('email', 'asdsdasdamdsj');
-    setValue('phone', '1.00');
-    setValue('name', 'gsdsd');
-    setValue('country', '#passport');
-    setValue('city', 'Popular');
-    setValue('houseNo', 'ewroi');
-    setValue('organizationName', 'jfsdajksa');
-    setValue('ServiceOwner', 'MINT');
-  }
   const onSubmit = async (data) => {
     try {
       console.log(data);
@@ -99,28 +159,52 @@ const ServiceOwnerDetailsForm = (props: ServiceOwnerDetailsFormProps) => {
                   <label className="form-label required">Code</label>
                   <input
                     type="text"
-                    className="form-control"
                     placeholder="code"
                     autoComplete="off"
+                    className={`form-control
+
+                   ${errors.code ? 'is-invalid' : ''}`}
+                    {...register('code')}
                   />
+                  {errors.code && (
+                    <div className="invalid-feedback">
+                      {errors.code.message}
+                    </div>
+                  )}
                 </div>
                 <div className="mb-2 ">
                   <label className="form-label required">Sector </label>
                   <textarea
                     rows={1}
-                    className="form-control"
                     placeholder="enter sector"
                     autoComplete="off"
+                    className={`form-control
+
+                   ${errors.sector ? 'is-invalid' : ''}`}
+                    {...register('sector')}
                   />
+                  {errors.sector && (
+                    <div className="invalid-feedback">
+                      {errors.sector.message}
+                    </div>
+                  )}
                 </div>
                 <div className="mb-2 ">
                   <label className="form-label ">Organzation Id</label>
                   <input
                     type="text"
-                    className="form-control"
                     placeholder="organzation Id"
                     autoComplete="off"
+                    className={`form-control
+
+                   ${errors.organizationId ? 'is-invalid' : ''}`}
+                    {...register('organizationId')}
                   />
+                  {errors.organizationId && (
+                    <div className="invalid-feedback">
+                      {errors.organizationId.message}
+                    </div>
+                  )}
                 </div>
                 <div className="mb-2 ">
                   <label className="form-label required">
@@ -128,10 +212,18 @@ const ServiceOwnerDetailsForm = (props: ServiceOwnerDetailsFormProps) => {
                   </label>
                   <textarea
                     rows={2}
-                    className="form-control"
                     placeholder="orgazation name"
                     autoComplete="off"
+                    className={`form-control
+
+                   ${errors.organizationName ? 'is-invalid' : ''}`}
+                    {...register('organizationName')}
                   />
+                  {errors.organizationName && (
+                    <div className="invalid-feedback">
+                      {errors.organizationName.message}
+                    </div>
+                  )}
                 </div>
 
                 <fieldset className="form-fieldset tw-border-1 tw-bg-white">
@@ -142,28 +234,52 @@ const ServiceOwnerDetailsForm = (props: ServiceOwnerDetailsFormProps) => {
                     <label className="form-label required">Email</label>
                     <input
                       type="text"
-                      className="form-control"
                       placeholder="Email"
                       autoComplete="off"
+                      className={`form-control
+
+                   ${errors.contactInfo?.email ? 'is-invalid' : ''}`}
+                      {...register('contactInfo.email')}
                     />
+                    {errors.contactInfo?.email && (
+                      <div className="invalid-feedback">
+                        {errors.contactInfo?.email.message}
+                      </div>
+                    )}
                   </div>
                   <div className="tw-mb-3">
                     <label className="form-label required">Phone No</label>
                     <input
                       type="text"
-                      className="form-control"
                       placeholder="Phone No"
                       autoComplete="off"
+                      className={`form-control
+
+                   ${errors.contactInfo?.phone ? 'is-invalid' : ''}`}
+                      {...register('contactInfo.phone')}
                     />
+                    {errors.contactInfo?.phone && (
+                      <div className="invalid-feedback">
+                        {errors.contactInfo?.phone.message}
+                      </div>
+                    )}
                   </div>
                   <div className="tw-mb-3">
                     <label className="form-label required">Name</label>
                     <input
                       type="text"
-                      className="form-control"
                       placeholder="Name"
                       autoComplete="off"
+                      className={`form-control
+
+                   ${errors.contactInfo?.name ? 'is-invalid' : ''}`}
+                      {...register('contactInfo.name')}
                     />
+                    {errors.contactInfo?.name && (
+                      <div className="invalid-feedback">
+                        {errors.contactInfo?.name.message}
+                      </div>
+                    )}{' '}
                   </div>
                 </fieldset>
               </div>
@@ -176,37 +292,69 @@ const ServiceOwnerDetailsForm = (props: ServiceOwnerDetailsFormProps) => {
                     <label className="form-label required">Country</label>
                     <input
                       type="text"
-                      className="form-control"
                       placeholder="country"
                       autoComplete="off"
+                      className={`form-control
+
+                   ${errors.address?.country ? 'is-invalid' : ''}`}
+                      {...register('address.country')}
                     />
+                    {errors.address?.country && (
+                      <div className="invalid-feedback">
+                        {errors.address?.country.message}
+                      </div>
+                    )}
                   </div>
                   <div className="tw-mb-3">
                     <label className="form-label required">City</label>
                     <input
                       type="text"
-                      className="form-control"
                       placeholder="city"
                       autoComplete="off"
+                      className={`form-control
+
+                   ${errors.address?.city ? 'is-invalid' : ''}`}
+                      {...register('address.city')}
                     />
+                    {errors.address?.city && (
+                      <div className="invalid-feedback">
+                        {errors.address?.city.message}
+                      </div>
+                    )}
                   </div>
                   <div className="tw-mb-3">
                     <label className="form-label required">House No</label>
                     <input
                       type="text"
-                      className="form-control"
                       placeholder="House No"
                       autoComplete="off"
+                      className={`form-control
+
+                   ${errors.address?.houseNumber ? 'is-invalid' : ''}`}
+                      {...register('address.houseNumber')}
                     />
+                    {errors.address?.houseNumber && (
+                      <div className="invalid-feedback">
+                        {errors.address.houseNumber.message}
+                      </div>
+                    )}{' '}
                   </div>
                   <div className="tw-mb-3">
                     <label className="form-label">Street</label>
                     <input
                       type="text"
-                      className="form-control"
                       placeholder="Street"
                       autoComplete="off"
+                      className={`form-control
+
+                   ${errors.address?.street ? 'is-invalid' : ''}`}
+                      {...register('address.street')}
                     />
+                    {errors.address?.street && (
+                      <div className="invalid-feedback">
+                        {errors.address?.street.message}
+                      </div>
+                    )}{' '}
                   </div>
                 </fieldset>
                 <fieldset className="form-fieldset tw-border-1 tw-bg-white">
@@ -217,37 +365,69 @@ const ServiceOwnerDetailsForm = (props: ServiceOwnerDetailsFormProps) => {
                     <label className="form-label required">City</label>
                     <input
                       type="text"
-                      className="form-control"
                       placeholder="city"
                       autoComplete="off"
+                      className={`form-control
+
+                   ${errors.location?.city ? 'is-invalid' : ''}`}
+                      {...register('location.city')}
                     />
+                    {errors.location?.city && (
+                      <div className="invalid-feedback">
+                        {errors.location?.city.message}
+                      </div>
+                    )}
                   </div>
                   <div className="tw-mb-3">
                     <label className="form-label required">Latitude</label>
                     <input
                       type="text"
-                      className="form-control"
                       placeholder="latitude"
                       autoComplete="off"
+                      className={`form-control
+
+                   ${errors.location?.latitude ? 'is-invalid' : ''}`}
+                      {...register('location.latitude')}
                     />
+                    {errors.location?.latitude && (
+                      <div className="invalid-feedback">
+                        {errors.location?.latitude.message}
+                      </div>
+                    )}
                   </div>
                   <div className="tw-mb-3">
                     <label className="form-label required">logntuide</label>
                     <input
                       type="text"
-                      className="form-control"
                       placeholder="longtuid"
                       autoComplete="off"
+                      className={`form-control
+
+                   ${errors.location?.longitude ? 'is-invalid' : ''}`}
+                      {...register('location.longitude')}
                     />
+                    {errors.location?.longitude && (
+                      <div className="invalid-feedback">
+                        {errors.location?.longitude.message}
+                      </div>
+                    )}
                   </div>
                   <div className="tw-mb-3">
                     <label className="form-label">landmark</label>
                     <input
                       type="text"
-                      className="form-control"
                       placeholder="landmark"
                       autoComplete="off"
+                      className={`form-control
+
+                   ${errors.location?.landmark ? 'is-invalid' : ''}`}
+                      {...register('location.landmark')}
                     />
+                    {errors.location?.landmark && (
+                      <div className="invalid-feedback">
+                        {errors.location?.landmark.message}
+                      </div>
+                    )}
                   </div>
                 </fieldset>
               </div>
