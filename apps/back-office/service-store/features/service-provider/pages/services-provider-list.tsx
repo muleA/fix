@@ -49,7 +49,7 @@ const ServiceProviderList = () => {
 
   return (
     <div className="tw-w-full tw-min-h-screen tw-p-4">
-      <Card shadow="sm" padding="lg">
+      <Card shadow="sm">
         <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
           <h2 className="tw-text-lg">ServiceProviders</h2>
           <Link href="/service-store/service-provider/new" passHref>
@@ -121,14 +121,9 @@ const ServiceProviderList = () => {
                 <th>Shortname</th>
                 <th>FullName</th>
                 <th>Sector</th>
-                <th>Country</th>
-                <th>City</th>
-                <th>House No</th>
-                <th>Street</th>
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Name</th>
-                <th>organzationalName</th>
                 <th>createdAt</th>
                 <th>updatedAt</th>
                 <th></th>
