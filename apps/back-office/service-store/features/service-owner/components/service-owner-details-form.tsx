@@ -87,6 +87,8 @@ const ServiceOwnerDetailsForm = (props: {
 }) => {
   const [addNewServiceOwner, { isLoading: creating, isSuccess: createStatus }] =
     useAddNewServiceOwnerMutation();
+  const [deleteServiceOwner, { isLoading: deleting, isSuccess: deleteStatus }] =
+    useDeleteServiceOwnerMutation();
   const [updateServiceOwner, { isLoading: updating, isSuccess: updateStatus }] =
     useUpdateServiceOwnerMutation();
   const [notification, setNotification] = useState<NotificationModel | null>(
@@ -104,13 +106,12 @@ const ServiceOwnerDetailsForm = (props: {
   });
   const {
     data: ServiceOwners,
-    isLoading,
     isSuccess,
     isError,
     error,
   } = useGetServiceOwnersQuery();
 
-  const onFinish: SubmitHandler<ServiceOwner> = (data): any => {
+  const onFinish: SubmitHandler<ServiceOwner> = (data): unknown => {
     return props.mode == 'new' ? onCreate(data) : onUpdate(props.id);
   };
   const onCreate = async (data) => {
@@ -127,17 +128,18 @@ const ServiceOwnerDetailsForm = (props: {
       setValue('address.city', '');
       setValue('address.houseNumber', '');
       setValue('address.street', '');
-      setNotification({
-        type: 'success',
-        message: 'Department added successfully',
-        show: true,
-      });
+      createStatus &&
+        setNotification({
+          type: 'success',
+          message: 'Service Owner added successfully',
+          show: true,
+        });
       reset();
     } catch (err) {
       console.log(error);
       setNotification({
         type: 'danger',
-        message: 'Failed to added department.',
+        message: 'Failed to added Service Owner.',
         show: true,
       });
     }
@@ -149,23 +151,53 @@ const ServiceOwnerDetailsForm = (props: {
         id: props.id,
         ...data,
       }).unwrap();
-      console.log(response);
+      updateStatus &&
+        setNotification({
+          type: 'success',
+          message: 'service Owner info updated successfully',
+          show: true,
+        });
     } catch (err) {
       console.log(err);
+      isError &&
+        setNotification({
+          type: 'danger',
+          message: 'failed to update service owner info',
+          show: true,
+        });
+    }
+  };
+
+  const onDelete = async (id: string) => {
+    try {
+      await deleteServiceOwner(id);
+      deleteStatus &&
+        setNotification({
+          type: 'success',
+          message: 'service Owner info deleted successfully',
+          show: true,
+        });
+    } catch (err) {
+      setNotification({
+        type: 'danger',
+        message: 'failed to delete  service owner',
+        show: true,
+      });
     }
   };
 
   useEffect(() => {
-    console.log(props.mode);
     if (props.mode !== 'new') {
-      const selectedServiceOwner: ServiceOwner = ServiceOwners?.items?.find(
-        (ServiceOwner: ServiceOwner) => ServiceOwner.organizationId === props.id
+      const selectedServiceOwner: ServiceOwner = ServiceOwners?.data?.find(
+        (ServiceOwner: ServiceOwner) => ServiceOwner.id === props.id
       );
-      console.log(props.id);
+
       setValue('shortName', selectedServiceOwner?.shortName);
       setValue('fullName', selectedServiceOwner?.fullName);
       setValue('code', selectedServiceOwner?.code);
       setValue('sector', selectedServiceOwner?.sector);
+      setValue('organizationId', selectedServiceOwner?.organizationId);
+      setValue('organizationName', selectedServiceOwner?.organizationName);
       setValue('contactInfo.email', selectedServiceOwner?.contactInfo.email);
       setValue('contactInfo.phone', selectedServiceOwner?.contactInfo.phone);
       setValue('contactInfo.name', selectedServiceOwner?.contactInfo.name);
@@ -177,7 +209,7 @@ const ServiceOwnerDetailsForm = (props: {
       );
       setValue('address.street', selectedServiceOwner?.address.street);
     }
-  }, [ServiceOwners?.items, props.mode, props.id, setValue]);
+  }, [ServiceOwners?.data, isSuccess, props.id, props.mode, setValue]);
 
   return (
     <div>
@@ -260,7 +292,10 @@ const ServiceOwnerDetailsForm = (props: {
                   )}
                 </div>
                 <fieldset className="form-fieldset tw-border-1 tw-bg-white">
-                  <legend className="tw-border-none tw-font-bold tw-border-1 tw-text-base  tw-w-auto tw-mb-6">
+                  <legend
+                    className="tw-border-none tw-font-bold tw-border-1
+                   tw-text-base  md:tw-text-lg tw-text-sm tw-w-auto tw-mb-6"
+                  >
                     contactInfo Information
                   </legend>
                   <div className="tw-mb-3">
@@ -355,7 +390,7 @@ const ServiceOwnerDetailsForm = (props: {
                 </div>
 
                 <fieldset className="form-fieldset tw-mt-4 tw-border-1 tw-bg-white">
-                  <legend className="tw-border-none tw-font-bold tw-border-1 tw-text-base  tw-w-auto tw-mb-6">
+                  <legend className="tw-border-none md:tw-text-lg tw-text-sm tw-font-bold tw-border-1 tw-text-base  tw-w-auto tw-mb-6">
                     Address information
                   </legend>
                   <div className="tw-mb-3">
@@ -443,7 +478,6 @@ const ServiceOwnerDetailsForm = (props: {
                 loading={creating}
                 component="button"
                 disabled={!isValid}
-                
               >
                 <IconDeviceFloppy className="mr-2" /> Save
               </Button>
@@ -452,20 +486,24 @@ const ServiceOwnerDetailsForm = (props: {
           <div>
             {props.mode == 'update' && (
               <div className="tw-flex tw-my-4">
-                <button
+                <Button
                   type="submit"
-                  className=" btn btn-primary tw-bg-[#1d2861]"
+                  className="btn btn-primary tw-bg-[#1d2861]"
+                  loading={updating}
+                  component="button"
                 >
-                  <IconDeviceFloppy />
+                  <IconDeviceFloppy className="mr-2" />
                   Update
-                </button>
-                <button
-                  type="button"
+                </Button>
+                <Button
+                  type="submit"
                   className="tw-ml-2 btn btn-danger tw-bg-[#ff4d4f]"
+                  loading={deleting}
+                  component="button"
                 >
                   <IconTrash />
                   Delete
-                </button>
+                </Button>
               </div>
             )}
           </div>

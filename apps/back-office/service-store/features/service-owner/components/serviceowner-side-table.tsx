@@ -11,47 +11,25 @@ import {
   Select,
 } from '@mantine/core';
 import { IconPlus, IconSearch, IconFilter, IconInbox } from '@tabler/icons';
-
+import { useGetServiceOwnersQuery } from '../store/query/service-owner.query';
+import ReactLoading from 'react-loading';
 const ServiceOwnerSideTable = () => {
   const [filterOpened, setFilterOpened] = useState(false);
   const [perPage, setPerPage] = useState<string>('5');
-  const Service = [
-    {
-      name: 'Issuance of Nation Id',
-      shortName: 'AAU',
-      code: 'nabil@some.com',
-      description: 'blah blah',
-      active: 'Yes',
-    },
-    {
-      name: 'Passport application ',
-      shortName: 'HU',
-      code: 'nabil3@some.com',
-      description: 'blah blah',
-      active: 'No',
-    },
-    {
-      name: 'Trade Permission request',
-      shortName: 'HU2',
-      code: 'nabial@some.com',
-      description: 'blah blah',
-      active: 'Yes',
-    },
-    {
-      name: 'education related',
-      shortName: 'HU3',
-      code: 'nabidl@some.com',
-      description: 'blah blah',
-      active: 'No',
-    },
-  ];
-
+  const {
+    data: serviceOwners,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetServiceOwnersQuery();
   return (
-    <Card className="tw-w-4/12" shadow="sm" padding="lg">
+    <Card className="tw-w-4/12" shadow="sm">
       <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
         <h2 className="tw-text-lg">Service Owner</h2>
+        
         <Link href="/service-store/service-owner/new" passHref>
-          <a className="btn btn-primary tw-bg-[#1d2861]">
+          <a className=" tw-sm  btn btn-primary tw-bg-[#1d2861]">
             <IconPlus />
             New
           </a>
@@ -102,51 +80,74 @@ const ServiceOwnerSideTable = () => {
       </Card.Section>
 
       <Card.Section className="tw-p-4 tw-overflow-x-auto">
-        <Table className="tw-mb-4">
-          <thead>
-            <tr className="tw-bg-gray-200">
-              <th>Name</th>
-            </tr>
-          </thead>
-          <tbody className="tw-border-b">
-            {Service.length == 0 && (
-              <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
-                <td className="tw-text-center" colSpan={5}>
-                  <span>
-                    <IconInbox
-                      className="tw-inline-block"
-                      color="rgb(156 163 175)"
-                      size={32}
-                    />
-                    <p>No data</p>
-                  </span>
-                </td>
+        {isError && (
+          <div className="tw-text-center   tw-text-2xl">
+            <h5 className="tw-text-red-800 tw-mt-100px md:tw-text-lg tw-text-sm">
+              Failed to load resource: ERR_CONNECTION_REFUSED{' '}
+            </h5>
+          </div>
+        )}
+        {isLoading && (
+          <>
+            <ReactLoading
+              className="tw-z-50 tw-absolute tw-top-1/2 tw-left-1/2 
+                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
+              type={'spokes'}
+              color={'#1d2861'}
+              height={'4%'}
+              width={'4%'}
+            />
+          </>
+        )}
+        {isSuccess && (
+          <Table className="tw-mb-4">
+            <thead>
+              <tr className="tw-bg-gray-200">
+                <th>Short Name</th>
               </tr>
-            )}
-
-            {Service.length > 0 &&
-              Service.map((item) => (
-                <tr
-                  key={item.name}
-                  className={`tw-block hover:tw-bg-gray-50 tw-p-1`}
-                >
-                  <td>
-                    <Link
-                      href={`/service-store/service-owner/detail/${item.name}`}
-                    >
-                      <a className="hover:tw-no-underline">{item.name}</a>
-                    </Link>
+            </thead>
+            <tbody className="tw-border-b">
+              {serviceOwners.data.length == 0 && (
+                <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
+                  <td className="tw-text-center" colSpan={5}>
+                    <span>
+                      <IconInbox
+                        className="tw-inline-block"
+                        color="rgb(156 163 175)"
+                        size={32}
+                      />
+                      <p>No data</p>
+                    </span>
                   </td>
                 </tr>
-              ))}
-          </tbody>
-        </Table>
+              )}
+
+              {serviceOwners.data.length > 0 &&
+                serviceOwners.data.map((item) => (
+                  <tr
+                    key={item.id}
+                    className={`tw-block hover:tw-bg-gray-50 tw-p-1`}
+                  >
+                    <td>
+                      <Link
+                        href={`/service-store/service-owner/detail/${item.id}`}
+                      >
+                        <a className="hover:tw-no-underline">
+                          {item.shortName}
+                        </a>
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+        )}
       </Card.Section>
 
-      <Card.Section className="tw-p-4">
+      <Card.Section className="tw-p-3">
         <div className="tw-my-2 tw-flex tw-justify-end">
           <Pagination
-            total={10}
+            total={5}
             radius="xs"
             size="sm"
             styles={{

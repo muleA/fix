@@ -2,7 +2,10 @@ import { Accordion, Group, Text } from '@mantine/core';
 import ServiceOwnerSideTable from '../components/serviceowner-side-table';
 import ServiceOptionHeader from '../../../shared/components/service-store-option-header';
 import ServiceOwnerDetailsForm from '../components/service-owner-details-form';
+import { useRouter } from 'next/router';
 const ServiceOwnerDetailsPage = () => {
+  const router = useRouter();
+  const { id } = router.query;
   const AccordionLabel = (props: { title: string; subTitle: string }) => (
     <>
       <Group noWrap>
@@ -43,7 +46,7 @@ const ServiceOwnerDetailsPage = () => {
                   />
                 }
               >
-                <ServiceOwnerDetailsForm mode="update" />
+                <ServiceOwnerDetailsForm mode="update" id={id} />
               </Accordion.Item>
             </Accordion>
           </div>

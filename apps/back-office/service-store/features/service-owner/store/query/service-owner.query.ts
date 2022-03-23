@@ -48,11 +48,10 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
               'getServiceOwners',
               undefined,
               (draft) => {
-                const index = draft.items.findIndex(
-                  (element: ServiceOwner) =>
-                    element.organizationId === data.organizationId
+                const index = draft.data.findIndex(
+                  (element: ServiceOwner) => element.id === data.id
                 );
-                draft.items[index] = data;
+                draft.data[index] = data;
               }
             )
           );
@@ -77,8 +76,8 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
               'getServiceOwners',
               undefined,
               (draft) => {
-                draft.items = draft.items.filter(
-                  (element: ServiceOwner) => element.organizationId !== id
+                draft = draft.data.filter(
+                  (element: ServiceOwner) => element.id!== id
                 );
               }
             )

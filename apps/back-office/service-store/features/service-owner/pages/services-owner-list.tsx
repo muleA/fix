@@ -35,7 +35,7 @@ const ServiceOwnerList = () => {
   return (
     <>
       <div className="tw-w-full tw-min-h-screen tw-p-4">
-        <Card shadow="sm" padding="lg">
+        <Card shadow="sm">
           <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
             <h2 className="tw-text-lg">Service Owner</h2>
             <Link href="/service-store/service-owner/new" passHref>

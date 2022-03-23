@@ -75,7 +75,6 @@ export default function MakePagination({
               disabled={!canNext}
               onClick={onNextHandler}
             >
-              {' '}
               <IconArrowBarRight size={20} />
             </Button>
           </ButtonGroup>

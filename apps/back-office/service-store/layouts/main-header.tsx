@@ -111,7 +111,7 @@ const MainNavbar = () => {
                 </Link>
               </div>
               <div className="tw-pl-3 tw-py-2 hover:tw-bg-gray-200">
-                <Link href="/service-store/service-provider/lsit">
+                <Link href="/service-store/service-provider/list">
                   <a className="tw-text-gray-500 hover:tw-no-underline hover:tw-text-gray-500">
                     Service Provider
                   </a>
