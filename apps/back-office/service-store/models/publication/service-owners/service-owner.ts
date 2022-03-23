@@ -1,10 +1,10 @@
 export interface ContactInfo {
   email: string;
   phone: string;
-  managerName: string;
+  name: string;
 }
 
-export  interface Address {
+export interface Address {
   country: string;
   city: string;
   houseNumber: string;
@@ -12,12 +12,15 @@ export  interface Address {
 }
 
 export default interface ServiceOwner {
+  id?: string;
   shortName: string;
   fullName: string;
   sector: string;
-  contact: ContactInfo;
+  contactInfo: ContactInfo;
   address: Address;
   code: string;
   organizationId: string;
   organizationName: string;
+  createdAt: string;
+  updatedAt: string;
 }

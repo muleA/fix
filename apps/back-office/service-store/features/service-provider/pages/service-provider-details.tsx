@@ -1,7 +1,7 @@
 import { Accordion, Group, Text } from '@mantine/core';
 import ServiceProvidersSideTable from '../components/serviceprovider-side-table';
 import ServiceOptionHeader from '../../../shared/components/service-store-option-header';
-import ServiceProvidersDetailsForm from '../components/new-service-provider-form';
+import ServiceProvidersDetailsForm from '../components/service-provider-details-form';
 import ServiceDelegation from '../components/service-delegation-form';
 const ServiceProvidersDetailsPage = () => {
   const AccordionLabel = (props: { title: string; subTitle: string }) => (

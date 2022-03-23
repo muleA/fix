@@ -1,27 +1,27 @@
 import { apiSlice } from '../../../../store/app.api';
-import ServiceOwner from '../../../../models/publication/service-owners/service-owner';
-import ServiceOwnersEndPoint from '../../service-owner.endpoints';
+import ServiceProvider from '../../../../models/publication/service-providers/service-provider';
+import ServiceProvidersEndPoint from '../../service-providers.endpoints';
 
-const ServiceOwnerApi = apiSlice.injectEndpoints({
+const ServiceProviderApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
-    getServiceOwners: build.query<any, void>({
+    getServiceProviders: build.query<any, void>({
       query: () => ({
-        url: ServiceOwnersEndPoint.getServiceOwners,
+        url: ServiceProvidersEndPoint.getServiceProviders,
         method: 'GET',
       }),
     }),
-    addNewServiceOwner: build.mutation<ServiceOwner, any>({
-      query: (newServiceOwner) => ({
-        url: ServiceOwnersEndPoint.createServiceOwner,
+    addNewServiceProvider: build.mutation<ServiceProvider, any>({
+      query: (newServiceProvider) => ({
+        url: ServiceProvidersEndPoint.createServiceProvider,
         method: 'POST',
-        data: newServiceOwner,
+        data: newServiceProvider,
       }),
       async onQueryStarted(unknown, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           dispatch(
-            ServiceOwnerApi.util.updateQueryData(
-              'getServiceOwners',
+            ServiceProviderApi.util.updateQueryData(
+              'getServiceProviders',
               undefined,
               (draft) => {
                 draft.concat(data);
@@ -34,22 +34,22 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
       },
     }),
 
-    updateServiceOwner: build.mutation<ServiceOwner, any>({
-      query: (updatedServiceOwner) => ({
-        url: ServiceOwnersEndPoint.updateServiceOwner,
+    updateServiceProvider: build.mutation<ServiceProvider, any>({
+      query: (updatedServiceProvider) => ({
+        url: ServiceProvidersEndPoint.updateServiceProvider,
         method: 'POST',
-        data: updatedServiceOwner,
+        data: updatedServiceProvider,
       }),
       async onQueryStarted(unknown, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           dispatch(
-            ServiceOwnerApi.util.updateQueryData(
-              'getServiceOwners',
+            ServiceProviderApi.util.updateQueryData(
+              'getServiceProviders',
               undefined,
               (draft) => {
                 const index = draft.items.findIndex(
-                  (element: ServiceOwner) =>
+                  (element: ServiceProvider) =>
                     element.organizationId === data.organizationId
                 );
                 draft.items[index] = data;
@@ -62,23 +62,23 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
       },
     }),
 
-    /* delete service owner begin here*/
+    /* delete service Provider begin here*/
 
-    deleteServiceOwner: build.mutation<any, any>({
+    deleteServiceProvider: build.mutation<any, any>({
       query: (id) => ({
-        url: `${ServiceOwnersEndPoint.deleteServiceOwner}/${id}`,
+        url: `${ServiceProvidersEndPoint.deleteServiceProvider}/${id}`,
         method: 'DELETE',
       }),
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
           dispatch(
-            ServiceOwnerApi.util.updateQueryData(
-              'getServiceOwners',
+            ServiceProviderApi.util.updateQueryData(
+              'getServiceProviders',
               undefined,
               (draft) => {
                 draft.items = draft.items.filter(
-                  (element: ServiceOwner) => element.organizationId !== id
+                  (element: ServiceProvider) => element.organizationId !== id
                 );
               }
             )
@@ -94,8 +94,8 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
 });
 
 export const {
-  useGetServiceOwnersQuery,
-  useAddNewServiceOwnerMutation,
-  useUpdateServiceOwnerMutation,
-  useDeleteServiceOwnerMutation,
-} = ServiceOwnerApi;
+  useGetServiceProvidersQuery,
+  useAddNewServiceProviderMutation,
+  useUpdateServiceProviderMutation,
+  useDeleteServiceProviderMutation,
+} = ServiceProviderApi;

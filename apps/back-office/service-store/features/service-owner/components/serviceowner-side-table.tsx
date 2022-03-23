@@ -10,12 +10,7 @@ import {
   Pagination,
   Select,
 } from '@mantine/core';
-import {
-  IconPlus,
-  IconSearch,
-  IconFilter,
-  IconInbox,
-} from '@tabler/icons';
+import { IconPlus, IconSearch, IconFilter, IconInbox } from '@tabler/icons';
 
 const ServiceOwnerSideTable = () => {
   const [filterOpened, setFilterOpened] = useState(false);
@@ -55,7 +50,7 @@ const ServiceOwnerSideTable = () => {
     <Card className="tw-w-4/12" shadow="sm" padding="lg">
       <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
         <h2 className="tw-text-lg">Service Owner</h2>
-        <Link href="/service-store/service-owner/new">
+        <Link href="/service-store/service-owner/new" passHref>
           <a className="btn btn-primary tw-bg-[#1d2861]">
             <IconPlus />
             New
@@ -67,7 +62,7 @@ const ServiceOwnerSideTable = () => {
         <Input
           className="tw-w-full tw-mr-2"
           size="xs"
-          placeholder="input search text"
+          placeholder="search service provider"
           rightSection={<IconSearch className="tw-inline-block" size={16} />}
           rightSectionWidth={40}
           styles={{ rightSection: { pointerEvents: 'none' } }}
@@ -131,19 +126,18 @@ const ServiceOwnerSideTable = () => {
 
             {Service.length > 0 &&
               Service.map((item) => (
-                <Link
+                <tr
                   key={item.name}
-                  href={`/service-store/service-owner/detail/${item.name}`}
+                  className={`tw-block hover:tw-bg-gray-50 tw-p-1`}
                 >
-                  <a className='hover:tw-no-underline'>
-                    <tr
-                      key={item.name}
-                      className={`tw-block hover:tw-bg-gray-50 tw-p-1`}
+                  <td>
+                    <Link
+                      href={`/service-store/service-owner/detail/${item.name}`}
                     >
-                      <td>{item.name}</td>
-                    </tr>
-                  </a>
-                </Link>
+                      <a className="hover:tw-no-underline">{item.name}</a>
+                    </Link>
+                  </td>
+                </tr>
               ))}
           </tbody>
         </Table>

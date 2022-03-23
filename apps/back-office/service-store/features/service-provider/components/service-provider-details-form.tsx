@@ -6,10 +6,10 @@ import { useForm } from 'react-hook-form';
 const schema = yup
   .object({
     shortName: yup.string().required('This field is required'),
-    Code: yup.string().required('This field is required'),
+    code: yup.string().required('This field is required'),
     fullName: yup.string().required('This field is required'),
     sector: yup.string().required('This field is required'),
-    email: yup.string().required('This field is required'),
+    email: yup.string().email().required('This field is required'),
     phone: yup.string().required('This field is required'),
     name: yup.string().required('This field is required'),
     country: yup.string().required('This field is required'),

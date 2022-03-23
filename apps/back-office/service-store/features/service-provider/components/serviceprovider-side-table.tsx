@@ -126,19 +126,18 @@ const ServiceProvidersSideTable = () => {
 
             {ServiceProviders.length > 0 &&
               ServiceProviders.map((item) => (
-                <Link
+                <tr
                   key={item.name}
-                  href={`/service-store/service-provider/detail/${item.name}`}
+                  className={`tw-block hover:tw-bg-gray-50 tw-p-1`}
                 >
-                  <a className="hover:tw-no-underline">
-                    <tr
-                      key={item.name}
-                      className={`tw-block hover:tw-bg-gray-50 tw-p-1`}
+                  <td>
+                    <Link
+                      href={`/service-store/service-owner/detail/${item.name}`}
                     >
-                      <td>{item.name}</td>
-                    </tr>
-                  </a>
-                </Link>
+                      <a className="hover:tw-no-underline">{item.name}</a>
+                    </Link>
+                  </td>
+                </tr>
               ))}
           </tbody>
         </Table>

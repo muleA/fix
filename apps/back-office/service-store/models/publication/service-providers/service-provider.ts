@@ -18,7 +18,7 @@ export interface Address {
   street: string;
 }
 
-export interface ServiceProvider {
+export default interface ServiceProvider {
   shortName: string;
   fullName: string;
   sector: string;
