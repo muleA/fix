@@ -2,6 +2,7 @@ import { apiSlice } from '../../../../store/app.api';
 import ServiceOwner from '../../../../models/publication/service-owners/service-owner';
 import ServiceOwnersEndPoint from '../../service-owner.endpoints';
 
+let updatedObject: ServiceOwner;
 const ServiceOwnerApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getServiceOwners: build.query<any, void>({
@@ -24,7 +25,7 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
               'getServiceOwners',
               undefined,
               (draft) => {
-                draft.concat(data);
+                draft.data.push(data);
               }
             )
           );
@@ -35,23 +36,27 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
     }),
 
     updateServiceOwner: build.mutation<ServiceOwner, any>({
-      query: (updatedServiceOwner) => ({
-        url: ServiceOwnersEndPoint.updateServiceOwner,
-        method: 'POST',
-        data: updatedServiceOwner,
-      }),
+      query: (updatedServiceOwner) => {
+        updatedObject = updatedServiceOwner;
+        return {
+          url: ServiceOwnersEndPoint.updateServiceOwner,
+          method: 'PUT',
+          data: updatedServiceOwner,
+        };
+      },
       async onQueryStarted(unknown, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
+
           dispatch(
             ServiceOwnerApi.util.updateQueryData(
               'getServiceOwners',
               undefined,
               (draft) => {
                 const index = draft.data.findIndex(
-                  (element: ServiceOwner) => element.id === data.id
+                  (element: ServiceOwner) => element.id === updatedObject.id
                 );
-                draft.data[index] = data;
+                draft.data[index] = updatedObject;
               }
             )
           );
@@ -65,7 +70,7 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
 
     deleteServiceOwner: build.mutation<any, any>({
       query: (id) => ({
-        url: `${ServiceOwnersEndPoint.deleteServiceOwner}/${id}`,
+        url: `${ServiceOwnersEndPoint.deleteServiceOwner}${id}`,
         method: 'DELETE',
       }),
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
@@ -76,8 +81,8 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
               'getServiceOwners',
               undefined,
               (draft) => {
-                draft = draft.data.filter(
-                  (element: ServiceOwner) => element.id!== id
+                draft.data = draft.data.filter(
+                  (element: ServiceOwner) => element.id !== id
                 );
               }
             )

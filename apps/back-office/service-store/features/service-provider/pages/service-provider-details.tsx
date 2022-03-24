@@ -3,7 +3,10 @@ import ServiceProvidersSideTable from '../components/serviceprovider-side-table'
 import ServiceOptionHeader from '../../../shared/components/service-store-option-header';
 import ServiceProvidersDetailsForm from '../components/service-provider-details-form';
 import ServiceDelegation from '../components/service-delegation-form';
+import { useRouter } from 'next/router';
 const ServiceProvidersDetailsPage = () => {
+  const router = useRouter();
+  const { id } = router.query;
   const AccordionLabel = (props: { title: string; subTitle: string }) => (
     <>
       <Group noWrap>
@@ -44,7 +47,7 @@ const ServiceProvidersDetailsPage = () => {
                   />
                 }
               >
-                <ServiceProvidersDetailsForm mode="update" />
+                <ServiceProvidersDetailsForm mode="update" id={`${id}`}  />
               </Accordion.Item>
               <Accordion.Item
                 label={

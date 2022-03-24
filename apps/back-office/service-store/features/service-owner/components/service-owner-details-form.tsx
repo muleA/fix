@@ -1,5 +1,5 @@
-import { Divider, Button } from '@mantine/core';
-import { IconDeviceFloppy, IconTrash } from '@tabler/icons';
+import { Divider, Button, Modal } from '@mantine/core';
+import { IconAlertTriangle, IconDeviceFloppy, IconTrash } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -13,6 +13,9 @@ import {
   useUpdateServiceOwnerMutation,
   useDeleteServiceOwnerMutation,
 } from '../../service-owner/store/query/service-owner.query';
+import { useRouter } from 'next/router';
+import ReactLoading from 'react-loading';
+
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const schema = yup
@@ -85,6 +88,8 @@ const ServiceOwnerDetailsForm = (props: {
   id?: unknown;
   mode: 'new' | 'update';
 }) => {
+  const router = useRouter();
+  const { id } = router.query;
   const [addNewServiceOwner, { isLoading: creating, isSuccess: createStatus }] =
     useAddNewServiceOwnerMutation();
   const [deleteServiceOwner, { isLoading: deleting, isSuccess: deleteStatus }] =
@@ -94,6 +99,7 @@ const ServiceOwnerDetailsForm = (props: {
   const [notification, setNotification] = useState<NotificationModel | null>(
     null
   );
+
   const {
     register,
     handleSubmit,
@@ -106,118 +112,135 @@ const ServiceOwnerDetailsForm = (props: {
   });
   const {
     data: ServiceOwners,
+    isLoading,
     isSuccess,
     isError,
     error,
   } = useGetServiceOwnersQuery();
 
-  const onFinish: SubmitHandler<ServiceOwner> = (data): unknown => {
-    return props.mode == 'new' ? onCreate(data) : onUpdate(props.id);
-  };
-  const onCreate = async (data) => {
-    try {
-      const response = await addNewServiceOwner(data).unwrap();
-      setValue('shortName', '');
-      setValue('fullName', '');
-      setValue('code', '');
-      setValue('sector', '');
-      setValue('contactInfo.email', '');
-      setValue('contactInfo.phone', '');
-      setValue('contactInfo.name', '');
-      setValue('address.country', '');
-      setValue('address.city', '');
-      setValue('address.houseNumber', '');
-      setValue('address.street', '');
-      createStatus &&
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+
+  /* event handlers */
+  const onFinish: SubmitHandler<ServiceOwner> = async (data) => {
+    if (props.mode === 'new') {
+      try {
+        await addNewServiceOwner(data).unwrap();
+        setValue('shortName', '');
+        setValue('fullName', '');
+        setValue('code', '');
+        setValue('sector', '');
+        setValue('contactInfo.email', '');
+        setValue('contactInfo.phone', '');
+        setValue('contactInfo.name', '');
+        setValue('address.country', '');
+        setValue('address.city', '');
+        setValue('address.houseNumber', '');
+        setValue('address.street', '');
+        createStatus !== null &&
+          setNotification({
+            type: 'success',
+            message: 'Service Owner added successfully',
+            show: true,
+          });
+        reset();
+      } catch (err) {
+        console.log(error);
         setNotification({
-          type: 'success',
-          message: 'Service Owner added successfully',
+          type: 'danger',
+          message: 'Failed to added Service Owner.',
           show: true,
         });
-      reset();
-    } catch (err) {
-      console.log(error);
-      setNotification({
-        type: 'danger',
-        message: 'Failed to added Service Owner.',
-        show: true,
-      });
+      }
+    } else if (props.mode === 'update') {
+      try {
+        await updateServiceOwner({
+          id: props.id,
+          ...data,
+        }).unwrap();
+        updateStatus !== null &&
+          setNotification({
+            type: 'success',
+            message: 'service Owner info updated successfully',
+            show: true,
+          });
+      } catch (err) {
+        console.log(err);
+        isError &&
+          setNotification({
+            type: 'danger',
+            message: 'failed to update service owner info',
+            show: true,
+          });
+      }
     }
   };
+  const handleShow = () => {
+    setShow(true);
+  };
 
-  const onUpdate = async (data) => {
+  const onConfirmDelete = async () => {
     try {
-      const response = await updateServiceOwner({
-        id: props.id,
-        ...data,
-      }).unwrap();
-      updateStatus &&
+      await deleteServiceOwner(id).unwrap();
+      deleteStatus &&
         setNotification({
           type: 'success',
-          message: 'service Owner info updated successfully',
+          message: 'Service Owner has  deleted successfully',
           show: true,
         });
     } catch (err) {
       console.log(err);
-      isError &&
-        setNotification({
-          type: 'danger',
-          message: 'failed to update service owner info',
-          show: true,
-        });
-    }
-  };
-
-  const onDelete = async (id: string) => {
-    try {
-      await deleteServiceOwner(id);
-      deleteStatus &&
-        setNotification({
-          type: 'success',
-          message: 'service Owner info deleted successfully',
-          show: true,
-        });
-    } catch (err) {
       setNotification({
         type: 'danger',
-        message: 'failed to delete  service owner',
+        message: 'Failed to delete Service Owner.',
         show: true,
       });
     }
+    setShow(false);
   };
 
+  /*  */
+
   useEffect(() => {
-    if (props.mode !== 'new') {
+    if (props.mode === 'update') {
       const selectedServiceOwner: ServiceOwner = ServiceOwners?.data?.find(
         (ServiceOwner: ServiceOwner) => ServiceOwner.id === props.id
       );
-
       setValue('shortName', selectedServiceOwner?.shortName);
       setValue('fullName', selectedServiceOwner?.fullName);
       setValue('code', selectedServiceOwner?.code);
       setValue('sector', selectedServiceOwner?.sector);
       setValue('organizationId', selectedServiceOwner?.organizationId);
       setValue('organizationName', selectedServiceOwner?.organizationName);
-      setValue('contactInfo.email', selectedServiceOwner?.contactInfo.email);
-      setValue('contactInfo.phone', selectedServiceOwner?.contactInfo.phone);
-      setValue('contactInfo.name', selectedServiceOwner?.contactInfo.name);
-      setValue('address.country', selectedServiceOwner?.address.country);
-      setValue('address.city', selectedServiceOwner?.address.city);
+      setValue('contactInfo.email', selectedServiceOwner?.contactInfo?.email);
+      setValue('contactInfo.phone', selectedServiceOwner?.contactInfo?.phone);
+      setValue('contactInfo.name', selectedServiceOwner?.contactInfo?.name);
+      setValue('address.country', selectedServiceOwner?.address?.country);
+      setValue('address.city', selectedServiceOwner?.address?.city);
       setValue(
         'address.houseNumber',
-        selectedServiceOwner?.address.houseNumber
+        selectedServiceOwner?.address?.houseNumber
       );
-      setValue('address.street', selectedServiceOwner?.address.street);
+      setValue('address.street', selectedServiceOwner?.address?.street);
     }
   }, [ServiceOwners?.data, isSuccess, props.id, props.mode, setValue]);
 
   return (
     <div>
-      <form
-        onSubmit={
-          props.mode == 'new' ? handleSubmit(onFinish) : handleSubmit(onUpdate)
-        }
-      >
+      {isLoading && (
+        <>
+          <ReactLoading
+            className="tw-z-50 tw-absolute tw-top-1/2 tw-left-1/2 
+                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
+            type={'spokes'}
+            color={'#1d2861'}
+            height={'10%'}
+            width={'10%'}
+          />
+        </>
+      )}
+
+      <form onSubmit={handleSubmit(onFinish)}>
         <div className="tw-my-4">
           <div className="tw-flex tw-items-center tw-mb-2">
             <section className="tw-grid  tw-grid-cols-2 tw-gap-4 tw-container tw-p-0 tw-mx-auto ">
@@ -301,7 +324,7 @@ const ServiceOwnerDetailsForm = (props: {
                   <div className="tw-mb-3">
                     <label className="form-label required">Email</label>
                     <input
-                      type="text"
+                      type="email"
                       placeholder="Email"
                       autoComplete="off"
                       className={`form-control
@@ -485,30 +508,62 @@ const ServiceOwnerDetailsForm = (props: {
           </div>
           <div>
             {props.mode == 'update' && (
-              <div className="tw-flex tw-my-4">
-                <Button
-                  type="submit"
-                  className="btn btn-primary tw-bg-[#1d2861]"
-                  loading={updating}
-                  component="button"
-                >
-                  <IconDeviceFloppy className="mr-2" />
-                  Update
-                </Button>
-                <Button
-                  type="submit"
-                  className="tw-ml-2 btn btn-danger tw-bg-[#ff4d4f]"
-                  loading={deleting}
-                  component="button"
-                >
-                  <IconTrash />
-                  Delete
-                </Button>
+              <div className="tw-flex tw-my-4 tw-space-x-6">
+                <div className="tw-grow">
+                  <Button
+                    type="submit"
+                    className="btn btn-primary tw-bg-[#1d2861]"
+                    loading={updating}
+                    size="sm"
+                  >
+                    <IconDeviceFloppy className="mr-2" />
+                    Update
+                  </Button>
+                </div>
+                <div>
+                  <Button
+                    type="button"
+                    className="tw-ml-2 btn btn-danger tw-bg-[#ff4d4f]"
+                    component="button"
+                    onClick={() => handleShow()}
+                  >
+                    <IconTrash />
+                    Delete
+                  </Button>
+                </div>
               </div>
             )}
           </div>
         </div>
       </form>
+      <Modal opened={show} onClose={handleClose}>
+        <IconAlertTriangle className="tw-text-red-900 tw-mx-auto tw-text-4xl tw-red-900 tw-text-4xl" />
+        <div className="tw-py-6 tw-text-center tw-text-4xl tw-text-gray-700">
+          Are you sure ?
+        </div>
+        <div className="tw-mb-8 tw-text-center tw-font-light tw-text-gray-700">
+          Do you really want to delete these record? This process cannot be
+          undone.
+        </div>
+
+        <div className="tw-flex tw-justify-center">
+          <Button variant="default" onClick={handleClose}>
+            No
+          </Button>
+
+          <Button
+            type="button"
+            className="tw-ml-2 btn btn-danger tw-bg-[#ff4d4f]"
+            component="button"
+            loading={deleting}
+            onClick={() => {
+              onConfirmDelete();
+            }}
+          >
+            Yes
+          </Button>
+        </div>
+      </Modal>
       {notification != null && (
         <Notification
           onClose={() => setNotification(null)}

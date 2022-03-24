@@ -4,8 +4,8 @@ import ServiceOptionHeader from '../../../shared/components/service-store-option
 import ServiceOwnerDetailsForm from '../components/service-owner-details-form';
 import { useRouter } from 'next/router';
 const ServiceOwnerDetailsPage = () => {
-  const router = useRouter();
-  const { id } = router.query;
+   const router = useRouter();
+   const { id } = router.query;
   const AccordionLabel = (props: { title: string; subTitle: string }) => (
     <>
       <Group noWrap>

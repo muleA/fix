@@ -19,6 +19,7 @@ export interface Address {
 }
 
 export default interface ServiceProvider {
+  id?: string;
   shortName: string;
   fullName: string;
   sector: string;

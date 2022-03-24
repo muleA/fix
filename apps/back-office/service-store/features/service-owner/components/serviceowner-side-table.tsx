@@ -21,18 +21,19 @@ const ServiceOwnerSideTable = () => {
     isLoading,
     isSuccess,
     isError,
-    error,
   } = useGetServiceOwnersQuery();
   return (
     <Card className="tw-w-4/12" shadow="sm">
       <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
-        <h2 className="tw-text-lg">Service Owner</h2>
-        
+        <h2 className="md:tw-text-lg tw-text-sm">Service Owner</h2>
+
         <Link href="/service-store/service-owner/new" passHref>
-          <a className=" tw-sm  btn btn-primary tw-bg-[#1d2861]">
-            <IconPlus />
-            New
-          </a>
+          <div className="tw-sm tw-w-auto">
+            <a className=" tw-sm  btn btn-primary tw-bg-[#1d2861]">
+              <IconPlus />
+              New
+            </a>
+          </div>
         </Link>
       </Card.Section>
 
@@ -82,8 +83,8 @@ const ServiceOwnerSideTable = () => {
       <Card.Section className="tw-p-4 tw-overflow-x-auto">
         {isError && (
           <div className="tw-text-center   tw-text-2xl">
-            <h5 className="tw-text-red-800 tw-mt-100px md:tw-text-lg tw-text-sm">
-              Failed to load resource: ERR_CONNECTION_REFUSED{' '}
+            <h5 className="tw-text-red-800 tw-mt-100px lg:tw-text-lg tw-text-sm">
+              Failed to load resource: err_connection_refused
             </h5>
           </div>
         )}
@@ -94,8 +95,8 @@ const ServiceOwnerSideTable = () => {
                   -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
               type={'spokes'}
               color={'#1d2861'}
-              height={'4%'}
-              width={'4%'}
+              height={'10%'}
+              width={'10%'}
             />
           </>
         )}
@@ -126,13 +127,13 @@ const ServiceOwnerSideTable = () => {
                 serviceOwners.data.map((item) => (
                   <tr
                     key={item.id}
-                    className={`tw-block hover:tw-bg-gray-50 tw-p-1`}
+                    className={`tw-block tw-no-underline hover:tw-bg-gray-50 tw-p-1`}
                   >
                     <td>
                       <Link
                         href={`/service-store/service-owner/detail/${item.id}`}
                       >
-                        <a className="hover:tw-no-underline">
+                        <a className="hover:tw-no-underline tw-no-underline">
                           {item.shortName}
                         </a>
                       </Link>
@@ -144,30 +145,33 @@ const ServiceOwnerSideTable = () => {
         )}
       </Card.Section>
 
-      <Card.Section className="tw-p-3">
-        <div className="tw-my-2 tw-flex tw-justify-end">
-          <Pagination
-            total={5}
-            radius="xs"
-            size="sm"
-            styles={{
-              item: { color: '#1d2861', borderWidth: 0, fontSize: '12px' },
-              active: { color: '#1d2861', fontWeight: 'bold' },
-            }}
-          />
-
-          <Select
-            size="xs"
-            value={perPage}
-            onChange={setPerPage}
-            data={[
-              { value: '5', label: '5 / page' },
-              { value: '10', label: '10 / page' },
-              { value: '20', label: '20 / page' },
-              { value: '30', label: '30 / page' },
-              { value: '40', label: '40 / page' },
-            ]}
-          />
+      <Card.Section className="tw-p-2">
+        <div className="tw-my-2 tw-flex tw-justify-end tw-mr-0 ">
+          <div className="tw-w-50">
+            <Pagination
+              total={5}
+              radius="xs"
+              size="sm"
+              styles={{
+                item: { color: '#1d2861', borderWidth: 0, fontSize: '12px' },
+                active: { color: '#1d2861', fontWeight: 'bold' },
+              }}
+            />
+          </div>
+          <div className="tw-w-12 lg:tw-w-20 ">
+            <Select
+              size="xs"
+              value={perPage}
+              onChange={setPerPage}
+              data={[
+                { value: '5', label: '5 / page' },
+                { value: '10', label: '10 / page' },
+                { value: '20', label: '20 / page' },
+                { value: '30', label: '30 / page' },
+                { value: '40', label: '40 / page' },
+              ]}
+            />
+          </div>
         </div>
       </Card.Section>
     </Card>

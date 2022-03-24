@@ -1,7 +1,6 @@
 import { apiSlice } from '../../../../store/app.api';
 import ServiceProvider from '../../../../models/publication/service-providers/service-provider';
 import ServiceProvidersEndPoint from '../../service-providers.endpoints';
-
 const ServiceProviderApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getServiceProviders: build.query<any, void>({
@@ -48,11 +47,10 @@ const ServiceProviderApi = apiSlice.injectEndpoints({
               'getServiceProviders',
               undefined,
               (draft) => {
-                const index = draft.items.findIndex(
-                  (element: ServiceProvider) =>
-                    element.organizationId === data.organizationId
+                const index = draft.data.findIndex(
+                  (element: ServiceProvider) => element.id === data.id
                 );
-                draft.items[index] = data;
+                draft.data[index] = data;
               }
             )
           );
@@ -62,7 +60,7 @@ const ServiceProviderApi = apiSlice.injectEndpoints({
       },
     }),
 
-    /* delete service Provider begin here*/
+    /* delete service owner begin here*/
 
     deleteServiceProvider: build.mutation<any, any>({
       query: (id) => ({
@@ -77,8 +75,8 @@ const ServiceProviderApi = apiSlice.injectEndpoints({
               'getServiceProviders',
               undefined,
               (draft) => {
-                draft.items = draft.items.filter(
-                  (element: ServiceProvider) => element.organizationId !== id
+                draft = draft.data.filter(
+                  (element: ServiceProvider) => element.id !== id
                 );
               }
             )
@@ -92,7 +90,6 @@ const ServiceProviderApi = apiSlice.injectEndpoints({
   }),
   overrideExisting: false,
 });
-
 export const {
   useGetServiceProvidersQuery,
   useAddNewServiceProviderMutation,

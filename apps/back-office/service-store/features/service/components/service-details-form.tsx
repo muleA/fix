@@ -2,7 +2,7 @@ import { Divider, Select, MultiSelect, Switch, Button } from '@mantine/core';
 import { IconDeviceFloppy, IconTrash, IconDatabase } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useFieldArray, useForm } from 'react-hook-form';
+import {useForm } from 'react-hook-form';
 enum DeliveryMethods {
   auto = 'AUTO',
   manual = 'MANUAL',

@@ -102,45 +102,46 @@ const ServiceOwnerList = () => {
           </Card.Section>
 
           <Card.Section className="tw-p-4 tw-overflow-x-auto">
-            {isError && (
-              <div className="tw-text-center   tw-text-2xl">
-                {' '}
-                {console.log(error)}
-                <h1 className="tw-text-red-800 tw-mt-100px">
-                  {' '}
-                  Failed to load resource: ERR_CONNECTION_REFUSED{' '}
-                </h1>
-              </div>
-            )}
-            {isLoading && (
-              <>
-                <ReactLoading
-                  className="tw-z-50 tw-absolute tw-top-1/2 tw-left-1/2 
+            <Table className="tw-mb-4">
+              <thead>
+                <tr className="tw-bg-gray-200">
+                  <th>Code</th>
+                  <th>Shortname</th>
+                  <th>FullName</th>
+                  <th>Sector</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>name</th>
+                  <th>createdAt</th>
+                  <th>updatedAt</th>
+                  <th></th>
+                </tr>
+              </thead>
+              {isLoading && (
+                <>
+                  <ReactLoading
+                    className="tw-z-50 tw-absolute tw-top-1/2 tw-left-1/2 
                   -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
-                  type={'spokes'}
-                  color={'#1d2861'}
-                  height={'4%'}
-                  width={'4%'}
-                />
-              </>
-            )}
-            {isSuccess && (
-              <Table className="tw-mb-4">
-                <thead>
-                  <tr className="tw-bg-gray-200">
-                    <th>Code</th>
-                    <th>Shortname</th>
-                    <th>FullName</th>
-                    <th>Sector</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>name</th>
-                    <th>createdAt</th>
-                    <th>updatedAt</th>
-                    <th></th>
-                  </tr>
-                </thead>
+                    type={'spokes'}
+                    color={'#1d2861'}
+                    height={'4%'}
+                    width={'4%'}
+                  />
+                </>
+              )}
+
+              {isSuccess && (
                 <tbody className="tw-border-b">
+                  {isError && (
+                    <div className="tw-text-center   tw-text-2xl">
+                      {' '}
+                      {console.log(error)}
+                      <h1 className="tw-text-red-800 tw-mt-100px">
+                        {' '}
+                        Failed to load resource: ERR_CONNECTION_REFUSED{' '}
+                      </h1>
+                    </div>
+                  )}
                   {serviceOwners.data.length == 0 && (
                     <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
                       <td className="tw-text-center" colSpan={7}>
@@ -171,7 +172,7 @@ const ServiceOwnerList = () => {
 
                         <td className="hoverable-visibility-content">
                           <Link
-                            href={`/service-store/service-owner/detail/${item.organizationId}`}
+                            href={`/service-store/service-owner/detail/${item.id}`}
                           >
                             <a
                               className="tw-block tw-bg-gray-50 hover:tw-outline hover:tw-outline-1
@@ -184,8 +185,8 @@ const ServiceOwnerList = () => {
                       </tr>
                     ))}
                 </tbody>
-              </Table>
-            )}
+              )}
+            </Table>
           </Card.Section>
 
           <Card.Section className="tw-p-4">

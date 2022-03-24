@@ -30,8 +30,15 @@ const MainNavbar = () => {
     setMoreDropDown(false);
   };
   return (
-    <nav className="tw-h-[40px] tw-flex md:tw- tw-justify-between tw-py-0 tw-px-2 bg-primary tw-items-stretch">
-      <div className="tw-flex tw-items-center tw-text-gray-100 hover:tw-text-blue-900 hover:tw-bg-white hover:tw-cursor-pointer tw-px-2 tw-border-r tw-border-r-gray-100">
+    <nav
+      className="tw-h-auto tw-flex md:tw-tw-justify-between 
+    tw-py-0 tw-px-2 bg-primary tw-items-stretch"
+    >
+      <div
+        className="tw-flex tw-items-center tw-text-gray-100 
+      hover:tw-text-blue-900 hover:tw-bg-white hover:tw-cursor-pointer
+      tw-px-2 tw-border-r tw-border-r-gray-100"
+      >
         <div className=" tw-mr-1">
           <IconApps />
         </div>

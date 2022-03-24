@@ -1,10 +1,18 @@
-import { Divider } from '@mantine/core';
+import { Divider,Button} from '@mantine/core';
 import { IconDeviceFloppy, IconTrash } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import ServiceProvider from '../../../models/publication/service-providers/service-provider';
-
+import NotificationModel from '../../../shared/models/notification-model';
+import Notification from '../../../shared/components/notification';
+import {
+  useGetServiceProvidersQuery,
+  useAddNewServiceProviderMutation,
+  useUpdateServiceProviderMutation,
+  useDeleteServiceProviderMutation,
+} from '../../service-provider/store/query/service-provider.query';
+import { useEffect, useState } from 'react';
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -92,30 +100,152 @@ const schema = yup
     }),
   })
   .required();
+const ServiceProviderDetailsForm = (props: { id: string, mode: 'new' | 'update' }) => {
 
-type ServiceOwnerDetailsFormProps = {
-  mode: 'new' | 'update';
-};
-
-const ServiceOwnerDetailsForm = (props: ServiceOwnerDetailsFormProps) => {
+  const [
+    addNewServiceProvider,
+    { isLoading: creating, isSuccess: createStatus },
+  ] = useAddNewServiceProviderMutation();
+  const [
+    deleteServiceProvider,
+    { isLoading: deleting, isSuccess: deleteStatus },
+  ] = useDeleteServiceProviderMutation();
+  const [
+    updateServiceProvider,
+    { isLoading: updating, isSuccess: updateStatus },
+  ] = useUpdateServiceProviderMutation();
+  const [notification, setNotification] = useState<NotificationModel | null>(
+    null
+  );
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors,isValid },
+    reset,
     setValue,
   } = useForm<ServiceProvider>({ resolver: yupResolver(schema) });
 
-  const onSubmit = async (data) => {
+
+  /* fetching here */
+  const {
+    data: ServiceProviders,
+    isSuccess,
+    isError,
+    error,
+  } = useGetServiceProvidersQuery()
+
+  const onFinish: SubmitHandler<ServiceProvider> = (data): unknown => {
+    return props.mode == 'new' ? onCreate(data) : onUpdate(props.id);
+  };
+  const onCreate = async (data) => {
     try {
-      console.log(data);
+      const response = await addNewServiceProvider(data).unwrap();
+      setValue('shortName', '');
+      setValue('fullName', '');
+      setValue('code', '');
+      setValue('sector', '');
+      setValue('contactInfo.email', '');
+      setValue('contactInfo.phone', '');
+      setValue('contactInfo.name', '');
+      setValue('address.country', '');
+      setValue('address.city', '');
+      setValue('address.houseNumber', '');
+      setValue('address.street', '');
+      setValue('location.city', '');
+      setValue('location.latitude',0 );
+      setValue('location.longitude',0 );
+      setValue('location.landmark', '');
+      createStatus &&
+        setNotification({
+          type: 'success',
+          message: 'Service Provider added successfully',
+          show: true,
+        });
+      reset();
     } catch (err) {
-      console.log(err);
+      console.log(error);
+      setNotification({
+        type: 'danger',
+        message: 'Failed to added Service Provider.',
+        show: true,
+      });
     }
   };
 
+  const onUpdate = async (data) => {
+    try {
+      const response = await updateServiceProvider({
+        id: props.id,
+        ...data,
+      }).unwrap();
+      updateStatus &&
+        setNotification({
+          type: 'success',
+          message: 'service Provider info updated successfully',
+          show: true,
+        });
+    } catch (err) {
+      console.log(err);
+      isError &&
+        setNotification({
+          type: 'danger',
+          message: 'failed to update service Provider info',
+          show: true,
+        });
+    }
+  };
+
+  const onDelete = async (id: string) => {
+    try {
+      await deleteServiceProvider(id);
+      deleteStatus &&
+        setNotification({
+          type: 'success',
+          message: 'service Provider info deleted successfully',
+          show: true,
+        });
+    } catch (err) {
+      setNotification({
+        type: 'danger',
+        message: 'failed to delete  service Provider',
+        show: true,
+      });
+    }
+  };
+
+useEffect(() => {
+  if (props.mode !== 'new') {
+    const selectedServiceProvider: ServiceProvider = ServiceProviders?.data?.find(
+      (ServiceProvider: ServiceProvider) => ServiceProvider.id === props.id
+    );
+
+    setValue('shortName', selectedServiceProvider?.shortName);
+    setValue('fullName', selectedServiceProvider?.fullName);
+    setValue('code', selectedServiceProvider?.code);
+    setValue('sector', selectedServiceProvider?.sector);
+    setValue('organizationId', selectedServiceProvider?.organizationId);
+    setValue('organizationName', selectedServiceProvider?.organizationName);
+    setValue('contactInfo.email', selectedServiceProvider?.contactInfo.email);
+    setValue('contactInfo.phone', selectedServiceProvider?.contactInfo.phone);
+    setValue('contactInfo.name', selectedServiceProvider?.contactInfo.name);
+    setValue('address.country', selectedServiceProvider?.address.country);
+    setValue('address.city', selectedServiceProvider?.address.city);
+    setValue('address.houseNumber', selectedServiceProvider?.address.houseNumber);
+    setValue('address.street', selectedServiceProvider?.address.street);
+  }
+}, [ServiceProviders?.data, isSuccess, props.id, props.mode, setValue]);
+ 
+
+  /*  */
+
+
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={
+          props.mode == 'new' ? handleSubmit(onFinish) : handleSubmit(onUpdate)
+        }
+      >
         <div className="tw-my-4">
           <div className="tw-flex tw-items-center tw-mb-2">
             {/*  */}
@@ -440,39 +570,53 @@ const ServiceOwnerDetailsForm = (props: ServiceOwnerDetailsFormProps) => {
           <div>
             {' '}
             {props.mode == 'new' && (
-              <button
+              <Button
                 type="submit"
-                className="tw-mt-4 btn btn-primary tw-bg-[#1d2861]"
+                className="btn btn-primary tw-bg-[#1d2861]"
+                loading={creating}
+                component="button"
+                disabled={!isValid}
               >
-                <IconDeviceFloppy />
-                Save
-              </button>
+                <IconDeviceFloppy className="mr-2" /> Save
+              </Button>
             )}
           </div>
           <div>
             {props.mode == 'update' && (
               <div className="tw-flex tw-my-4">
-                <button
+                <Button
                   type="submit"
-                  className=" btn btn-primary tw-bg-[#1d2861]"
+                  className="btn btn-primary tw-bg-[#1d2861]"
+                  loading={updating}
+                  component="button"
                 >
-                  <IconDeviceFloppy />
+                  <IconDeviceFloppy className="mr-2" />
                   Update
-                </button>
-                <button
-                  type="button"
+                </Button>
+                <Button
+                  type="submit"
                   className="tw-ml-2 btn btn-danger tw-bg-[#ff4d4f]"
+                  loading={deleting}
+                  component="button"
                 >
                   <IconTrash />
                   Delete
-                </button>
+                </Button>
               </div>
             )}
           </div>
         </div>
       </form>
+      {notification != null && (
+        <Notification
+          onClose={() => setNotification(null)}
+          type={notification.type}
+          message={notification.message}
+          show={notification.show}
+        />
+      )}
     </div>
   );
 };
 
-export default ServiceOwnerDetailsForm;
+export default ServiceProviderDetailsForm;
