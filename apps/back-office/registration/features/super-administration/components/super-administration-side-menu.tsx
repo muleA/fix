@@ -12,7 +12,7 @@ const SuperAdministrationSideMenu = () => {
                 </h2>
             </Card.Section>
 
-            <Card.Section className='tw-p-4 tw-overflow-x-auto'>
+            <Card.Section className='tw-p-4'>
                 <ul className='tw-border-r'>
                     <Link href={"/registration/super-administration/template"}>
                         <a className='hover:tw-no-underline hover:tw-text-black'>

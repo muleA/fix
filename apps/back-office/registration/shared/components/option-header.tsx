@@ -3,9 +3,10 @@ import { Tooltip } from '@mantine/core';
 import { IconArrowsMaximize, IconArrowsMinimize, IconReportSearch, IconMessageCircle, IconQuestionMark, IconX } from '@tabler/icons';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks/redux.hook';
 import { toggleScreenSize, setSideView, selectIsFullScreen } from '../../store/app.slice';
+import { ReactElement } from 'react';
 
 type OptionHeaderProps = {
-    title:string;
+    title:string | JSX.Element;
     closeLink:string;
 };
 
