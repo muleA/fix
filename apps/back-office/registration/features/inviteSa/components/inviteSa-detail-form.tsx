@@ -1,6 +1,6 @@
 import { Divider } from '@mantine/core';
 import { useRouter } from 'next/router';
-import { IconAsteriskSimple, IconDeviceFloppy, IconTrash } from '@tabler/icons';
+import { IconAsteriskSimple, IconDeviceFloppy} from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useForm } from "react-hook-form";

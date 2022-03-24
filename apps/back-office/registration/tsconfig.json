@@ -22,7 +22,7 @@
     "**/*.js",
     "**/*.jsx",
     "next-env.d.ts"
-  ],
+, "features/archive/pages"  ],
   "exclude": [
     "node_modules"
   ]
