@@ -10,7 +10,7 @@ const NewServiceCategory = () => {
         <CategorySideTable />
         <div className="tw-w-9/12 tw-pl-4">
           <AdminstrationOptionHeader />
-          <ServiceCategoryForm mode={'new'} />
+          <ServiceCategoryForm mode='new' />
         </div>
       </div>
     </div>

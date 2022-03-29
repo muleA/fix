@@ -1,63 +1,34 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import {
-  Card,
-  Input,
-  Popover,
-  Checkbox,
-  Divider,
-  Table,
-  Pagination,
-  Select,
-} from '@mantine/core';
-import { IconPlus, IconSearch, IconFilter, IconInbox } from '@tabler/icons';
-
+import { Card, Input, Table, Pagination, Select } from '@mantine/core';
+import { IconPlus, IconSearch, IconInbox } from '@tabler/icons';
+import { useGetServiceCategorysQuery } from '../store/query/service-category.query';
+import ReactLoading from 'react-loading';
 const CategorySideTable = () => {
-  const [filterOpened, setFilterOpened] = useState(false);
   const [perPage, setPerPage] = useState<string>('5');
   const router = useRouter();
-  const { policy } = router.query;
-  const Service = [
-    {
-      name: 'Issuance of Nation Id',
-      shortName: 'AAU',
-      code: 'nabil@some.com',
-      description: 'blah blah',
-      active: 'Yes',
-    },
-    {
-      name: 'Passport application ',
-      shortName: 'HU',
-      code: 'nabil3@some.com',
-      description: 'blah blah',
-      active: 'No',
-    },
-    {
-      name: 'Trade Permission request',
-      shortName: 'HU2',
-      code: 'nabial@some.com',
-      description: 'blah blah',
-      active: 'Yes',
-    },
-    {
-      name: 'education related',
-      shortName: 'HU3',
-      code: 'nabidl@some.com',
-      description: 'blah blah',
-      active: 'No',
-    },
-  ];
+  const { id } = router.query;
+
+  const {
+    data: serviceCategorys,
+    isLoading,
+    isSuccess,
+    isError,
+    
+  } = useGetServiceCategorysQuery();
 
   return (
     <Card className="tw-w-4/12 tw-ml-4" shadow="sm">
       <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
-        <h2 className="tw-text-lg"> Category</h2>
-        <Link href="/service-store/service-category/new">
-          <a className="btn btn-primary tw-bg-[#1d2861]">
-            <IconPlus />
-            New
-          </a>
+        <h2 className="tw-text-lg">Categories</h2>
+        <Link href="/service-store/service-category/new" passHref>
+          <div className="tw-sm  tw-w-auto">
+            <a className=" tw-sm  btn btn-primary tw-bg-[#1d2861]">
+              <IconPlus />
+              New
+            </a>
+          </div>
         </Link>
       </Card.Section>
 
@@ -65,86 +36,80 @@ const CategorySideTable = () => {
         <Input
           className="tw-w-full tw-mr-2"
           size="xs"
-          placeholder="input search text"
+          placeholder="search service category"
           rightSection={<IconSearch className="tw-inline-block" size={16} />}
           rightSectionWidth={40}
           styles={{ rightSection: { pointerEvents: 'none' } }}
         />
-        <Popover
-          opened={filterOpened}
-          onClose={() => setFilterOpened(false)}
-          target={
-            <div
-              onClick={() => setFilterOpened(!filterOpened)}
-              className="tw-h-full tw-flex tw-items-center tw-border hover:tw-border-[#1d2861] hover:tw-cursor-pointer"
-            >
-              <IconFilter className="tw-flex tw-mx-1" size={20} />
-            </div>
-          }
-          width={180}
-          position="right"
-          withArrow
-          styles={{
-            inner: { padding: '0px' },
-            target: { height: '100%' },
-          }}
-        >
-          <div>
-            <div className="tw-pl-4 tw-py-2 tw-font-bold tw-border-b">
-              Filter
-            </div>
-            <div className="tw-px-4">
-              <Checkbox size="xs" className="tw-my-4" label="Locked" />
-              <Checkbox size="xs" className="tw-my-4" label="Unlocked" />
-              <Divider my="xs" label="And" labelPosition="center" />
-              <Checkbox size="xs" className="tw-my-4" label="Active" />
-              <Checkbox size="xs" className="tw-my-4" label="Deactive" />
-            </div>
-          </div>
-        </Popover>
       </Card.Section>
 
       <Card.Section className="tw-p-4 tw-overflow-x-auto">
-        <Table className="tw-mb-4">
-          <thead>
-            <tr className="tw-bg-gray-200">
-              <th>Name</th>
-            </tr>
-          </thead>
-          <tbody className="tw-border-b">
-            {Service.length == 0 && (
-              <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
-                <td className="tw-text-center" colSpan={5}>
-                  <span>
-                    <IconInbox
-                      className="tw-inline-block"
-                      color="rgb(156 163 175)"
-                      size={32}
-                    />
-                    <p>No data</p>
-                  </span>
-                </td>
+        {isError && (
+          <div className="tw-text-center   tw-text-2xl">
+            <h5 className="tw-text-red-800 tw-mt-100px lg:tw-text-lg tw-text-sm">
+              Failed to load resource: err_connection_refused
+            </h5>
+          </div>
+        )}
+        {isLoading && (
+          <>
+            <ReactLoading
+              className="tw-z-50 tw-absolute tw-top-1/2 tw-left-1/2 
+                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
+              type={'spokes'}
+              color={'#1d2861'}
+              height={'10%'}
+              width={'10%'}
+            />
+          </>
+        )}
+        {isSuccess && (
+          <Table className="tw-mb-4">
+            <thead>
+              <tr className="tw-bg-gray-200">
+                <th>Name</th>
               </tr>
-            )}
+            </thead>
+            <tbody className="tw-border-b">
+              {serviceCategorys.data.length == 0 && (
+                <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
+                  <td className="tw-text-center" colSpan={5}>
+                    <span>
+                      <IconInbox
+                        className="tw-inline-block"
+                        color="rgb(156 163 175)"
+                        size={32}
+                      />
+                      <p>No data</p>
+                    </span>
+                  </td>
+                </tr>
+              )}
 
-            {Service.length > 0 &&
-              Service.map((item) => (
-                <Link
-                  key={item.name}
-                  href={`/service-store/service-category/details/${item.name}`}
-                >
-                  <a className="hover:tw-no-underline">
-                    <tr
-                      key={item.name}
-                      className={`tw-block hover:tw-bg-gray-50 tw-p-1`}
+              {serviceCategorys.data.length > 0 &&
+                serviceCategorys.data.map((item) => (
+                  <tr
+                    key={item.id}
+                    className={`tw-block tw-no-underline hover:tw-bg-gray-50 tw-p-1`}
+                  >
+                    <td
+                      className={`tw-block ${
+                        id == item.id && 'tw-text-white tw-bg-[#1d2861]'
+                      } `}
                     >
-                      <td>{item.name}</td>
-                    </tr>
-                  </a>
-                </Link>
-              ))}
-          </tbody>
-        </Table>
+                      <Link
+                        href={`/service-store/service-category/detail/${item.id}`}
+                      >
+                        <a className="hover:tw-no-underline tw-no-underline">
+                          {item.name}
+                        </a>
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+        )}
       </Card.Section>
 
       <Card.Section className="tw-p-4">

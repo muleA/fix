@@ -1,7 +1,7 @@
 const CategoryEndpoints = {
-  getCategorys: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}api/categorys/get-categorys`,
-  createCategory: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}api/categorys/create-category/`,
-  updateCategory: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}api/categorys/update-category/`,
-  deleteCategory: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}api/categorys/delete-category`,
+  getCategorys: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}api/categories/get-categories`,
+  createCategory: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}api/categories/create-category`,
+  updateCategory: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}api/categories/update-category/`,
+  deleteCategory: `${process.env.NEXT_PUBLIC_BACKEND_BASEURL}api/categories/delete-category/`,
 };
 export default CategoryEndpoints;

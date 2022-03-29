@@ -7,7 +7,7 @@ export default interface Category {
   name: string;
   description: string;
   code: string;
-  parentId: string;
+  parentId?: string;
 
 }
 /*

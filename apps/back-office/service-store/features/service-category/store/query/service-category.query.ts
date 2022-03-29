@@ -7,7 +7,7 @@ const ServiceCategoryApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getServiceCategorys: build.query<any, void>({
       query: () => ({
-        url: ServiceCategorysEndPoint.createCategory,
+        url: ServiceCategorysEndPoint.getCategorys,
         method: 'GET',
       }),
     }),
@@ -51,7 +51,7 @@ const ServiceCategoryApi = apiSlice.injectEndpoints({
       query: (updatedServiceCategory) => {
         updatedObject = updatedServiceCategory;
         return {
-          url: ServiceCategorysEndPoint.updateCategory,
+          url: `${ServiceCategorysEndPoint.updateCategory}${updatedServiceCategory.id}`,
           method: 'PUT',
           data: updatedServiceCategory,
         };

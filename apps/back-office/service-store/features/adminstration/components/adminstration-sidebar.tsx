@@ -1,12 +1,12 @@
 import { Card } from '@mantine/core';
-import { IconTags, IconLanguage, IconLayoutGrid } from '@tabler/icons';
+import { IconTags, IconLayoutGrid } from '@tabler/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 const AdminstrationSideBar = () => {
   const router = useRouter();
-  const regextag = /\/service-store\/adminstration\/detail\/*tag\/*/;
-  const regexlanguage = /\/service-store\/adminstration\/detail\/language\/*/;
-  const regexcategory = /\/service-store\/adminstration\/detail\/category\/*/;
+  const regextag = /\/service-store\/service-tag\/detail\/*/;
+  const regexcategory =
+    /\/service-store\/service-category\/detail\/*/;
   return (
     <Card className="tw-w-3/12 tw-ml-0 tw-z-50" shadow="sm">
       <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
@@ -48,7 +48,7 @@ const AdminstrationSideBar = () => {
               </a>
             </Link>
           </li>
-         </ul>
+        </ul>
       </div>
     </Card>
   );

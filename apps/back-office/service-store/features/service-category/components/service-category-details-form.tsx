@@ -17,8 +17,6 @@ import {
 import { useRouter } from 'next/router';
 import ReactLoading from 'react-loading';
 
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const schema = yup
   .object({
     code: yup.string().required('This field is required'),
@@ -29,10 +27,9 @@ const schema = yup
         /^[aA-zZ\s]+$/,
         'only alphabet characters are allowed for this field'
       ),
- 
+
     description: yup.string().required('This field is required'),
-  
-   
+    parentId: yup.string(),
   })
   .required();
 
@@ -42,12 +39,24 @@ const ServiceCategoryDetailsForm = (props: {
 }) => {
   const router = useRouter();
   const { id } = router.query;
-  const [addNewServiceCategory, { isLoading: creating, isSuccess: createStatus }] =
-    useAddNewServiceCategoryMutation();
-  const [deleteServiceCategory, { isLoading: deleting, isSuccess: deleteStatus }] =
-    useDeleteServiceCategoryMutation();
-  const [updateServiceCategory, { isLoading: updating, isSuccess: updateStatus }] =
-    useUpdateServiceCategoryMutation();
+  const {
+    data: serviceCategorys,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useGetServiceCategorysQuery();
+  const [
+    addNewServiceCategory,
+    { isLoading: creating, isSuccess: createStatus },
+  ] = useAddNewServiceCategoryMutation();
+  const [
+    deleteServiceCategory,
+    { isLoading: deleting, isSuccess: deleteStatus },
+  ] = useDeleteServiceCategoryMutation();
+  const [
+    updateServiceCategory,
+    { isLoading: updating, isSuccess: updateStatus },
+  ] = useUpdateServiceCategoryMutation();
   const [notification, setNotification] = useState<NotificationModel | null>(
     null
   );
@@ -58,19 +67,13 @@ const ServiceCategoryDetailsForm = (props: {
   const {
     register,
     handleSubmit,
-    formState: { errors},
+    formState: { errors },
     setValue,
     reset,
   } = useForm<ServiceCategory>({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
-  const {
-    data: ServiceCategorys,
-    isLoading,
-    isSuccess,
-    isError,
-  } = useGetServiceCategorysQuery();
 
   /* event handlers */
   // Handle the displaying of the modal
@@ -93,7 +96,7 @@ const ServiceCategoryDetailsForm = (props: {
           message: 'Service Category has  deleted successfully',
           show: true,
         });
-      router.push('/service-store/service-Category/new');
+      router.push('/service-store/service-category/new');
     } catch (err) {
       console.log(err);
       setNotification({
@@ -112,8 +115,7 @@ const ServiceCategoryDetailsForm = (props: {
         setValue('name', '');
         setValue('code', '');
         setValue('description', '');
-       
-
+        setValue('parentId', '');
         createStatus !== null &&
           setNotification({
             type: 'success',
@@ -133,6 +135,7 @@ const ServiceCategoryDetailsForm = (props: {
         await updateServiceCategory({
           id: props.id,
           ...data,
+          updatedBy: id,
         }).unwrap();
         updateStatus !== null &&
           setNotification({
@@ -155,16 +158,21 @@ const ServiceCategoryDetailsForm = (props: {
 
   useEffect(() => {
     if (props.mode === 'update') {
-      const selectedServiceCategory: ServiceCategory = ServiceCategorys?.data?.find(
-        (ServiceCategory: ServiceCategory) => ServiceCategory.id === props.id
-      );
+      const selectedServiceCategory: ServiceCategory =
+        serviceCategorys?.data?.find(
+          (ServiceCategory: ServiceCategory) => ServiceCategory.id === props.id
+        );
 
       if (selectedServiceCategory !== null)
-      setValue('name', selectedServiceCategory?.name);
+        setValue('name', selectedServiceCategory?.name);
       setValue('code', selectedServiceCategory?.code);
-      setValue('description', selectedServiceCategory?.description);   
+      setValue('description', selectedServiceCategory?.description);
+      setValue(
+        'parentId',
+        selectedServiceCategory?.id ? selectedServiceCategory?.parentId : ''
+      );
     }
-  }, [ServiceCategorys?.data, isSuccess, props.id, props.mode, setValue]);
+  }, [serviceCategorys?.data, isSuccess, props.id, props.mode, setValue]);
 
   return (
     <div>
@@ -182,74 +190,82 @@ const ServiceCategoryDetailsForm = (props: {
           </>
         )}
 
-        <div className="tw-my-4">
-          <div className="tw-flex tw-items-center tw-mb-2">
-            <section className="tw-grid  tw-grid-cols-2 tw-gap-4 tw-container tw-p-0 tw-mx-auto ">
-              <div className="">
-           
-
-                <div className="mb-2 ">
-                  <label className="form-label required">code</label>
-                  <input
-                    type="text"
-                    placeholder="code"
-                    autoComplete="off"
-                    className={`form-control
-
-                   ${errors.code ? 'is-invalid' : ''}`}
-                    {...register('code')}
-                  />
-                  {errors.code && (
-                    <div className="invalid-feedback">
-                      {errors.code.message}
-                    </div>
-                  )}
-                </div>
-                <div className="mb-2 ">
-                  <label className="form-label required">Name </label>
-                  <textarea
-                    rows={1}
-                    placeholder="enter Name"
-                    autoComplete="off"
-                    className={`form-control
+        <div className="mb-2 ">
+          <label className="form-label required">Name </label>
+          <textarea
+            rows={1}
+            placeholder="enter Name"
+            autoComplete="off"
+            className={`form-control
 
                    ${errors.name ? 'is-invalid' : ''}`}
-                    {...register('name')}
-                  />
-                  {errors.name && (
-                    <div className="invalid-feedback">
-                      {errors.name.message}
-                    </div>
-                  )}
-                </div>
-                
-              </div>
-              <div className="">
-                <div className="mb-2 ">
-                  <label className="form-label ">Description</label>
-                  <input
-                    type="text"
-                    placeholder="Description Id"
-                    autoComplete="off"
-                    className={`form-control
-
-                   ${errors.description ? 'is-invalid' : ''}`}
-                    {...register('description')}
-                  />
-                  {errors.description && (
-                    <div className="invalid-feedback">
-                      {errors.description.message}
-                    </div>
-                  )}
-                </div>
-               
-              </div>
-            </section>
-          </div>
+            {...register('name')}
+          />
+          {errors.name && (
+            <div className="invalid-feedback">{errors.name.message}</div>
+          )}
         </div>
 
+        <div className="mb-2 ">
+          <label className="form-label required">code</label>
+          <input
+            type="text"
+            placeholder="code"
+            autoComplete="off"
+            className={`form-control
+
+                   ${errors.code ? 'is-invalid' : ''}`}
+            {...register('code')}
+          />
+          {errors.code && (
+            <div className="invalid-feedback">{errors.code.message}</div>
+          )}
+        </div>
+
+        <div className="mb-2 ">
+          <label className="form-label ">Description</label>
+          <textarea
+            rows={2}
+            placeholder="Description "
+            autoComplete="off"
+            className={`form-control
+
+                   ${errors.description ? 'is-invalid' : ''}`}
+            {...register('description')}
+          />
+          {errors.description && (
+            <div className="invalid-feedback">{errors.description.message}</div>
+          )}
+        </div>
+        <div className="mb-2 ">
+          <label className="form-label ">Parent Category</label>
+          <select
+            placeholder="Parent Category "
+            autoComplete="off"
+            className={`form-control
+
+                   ${errors.parentId ? 'is-invalid' : ''}`}
+            {...register('parentId')}
+          >
+            {serviceCategorys?.data.length !== 0 && (
+              <option value=""> choose Category</option>
+            )}
+            {serviceCategorys?.data.length === 0 ? (
+              <option value="">none</option>
+            ) : (
+              serviceCategorys?.data.map((category: ServiceCategory) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))
+            )}
+          </select>
+          {errors.parentId && (
+            <div className="invalid-feedback">{errors.parentId.message}</div>
+          )}
+        </div>
         <Divider className="tw-mt-4 tw-mb-2" />
-        <div className="tw-flex tw-justify-center">
+        <div className="tw-flex tw-justify-start">
           <div>
             {' '}
             {props.mode == 'new' && (

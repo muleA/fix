@@ -1,13 +1,7 @@
 import AdminstrationSideBar from '../../adminstration/components/adminstration-sidebar';
 import { useState } from 'react';
 import Link from 'next/link';
-import {
-  Card,
-  Input,
-  Table,
-  Pagination,
-  Select,
-} from '@mantine/core';
+import { Card, Input, Table, Pagination, Select } from '@mantine/core';
 import {
   IconPlus,
   IconSearch,
@@ -15,35 +9,25 @@ import {
   IconInbox,
 } from '@tabler/icons';
 import { useRouter } from 'next/router';
-
+import NotificationModel from '../../../shared/models/notification-model';
+import Notification from '../../../shared/components/notification';
+import ServiceCategory from '../../../models/classification/category';
+import ReactLoading from 'react-loading';
+import { useGetServiceCategorysQuery } from '../store/query/service-category.query';
 export default function CategoryList() {
   const [perPage, setPerPage] = useState<string>('10');
   const router = useRouter();
-  const { Category } = router.query;
-  const Services = [
-    {
-      name: 'Issuance oF Id',
-      shortName: 'ISID',
-      code: 'IDI2021',
-      description: 'blah blah',
-      fullyQualifiedName: 'Issunace of National Id',
-      version: 'v1',
-      targetCustomer: 'city residents',
-      public: 'yes',
-      Archived: 'No',
-    },
-    {
-      name: 'Issuance oF Id',
-      shortName: 'ISID',
-      code: 'IDI2021',
-      description: 'blah blah',
-      fullyQualifiedName: 'Issunace of National Id',
-      version: 'v1',
-      targetCustomer: 'city residents',
-      public: 'yes',
-      Archived: 'No',
-    },
-  ];
+  const { id } = router.query;
+  const [notification, setNotification] = useState<NotificationModel | null>(
+    null
+  );
+  const {
+    data: serviceCategory,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetServiceCategorysQuery();
   return (
     <div className="tw-w-full tw-min-h-screen tw-p-4">
       <div className="tw-flex tw-items-start">
@@ -54,10 +38,7 @@ export default function CategoryList() {
               <Card shadow="sm">
                 <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
                   <h2 className="tw-text-lg">Category</h2>
-                  <Link
-                    href="/service-store/adminstration/new-category"
-                    passHref
-                  >
+                  <Link href="/service-store/service-category/new" passHref>
                     <button className="btn btn-primary tw-bg-[#1d2861]">
                       <IconPlus />
                       New
@@ -79,54 +60,76 @@ export default function CategoryList() {
                 </Card.Section>
 
                 <Card.Section className="tw-p-4 tw-overflow-x-auto">
+                  {isError && (
+                    <div className="tw-text-center   tw-text-2xl">
+                      {' '}
+                      {console.log(error)}
+                      <h5 className="tw-text-red-800 tw-mt-100px">
+                        {' '}
+                        Failed to load resource: ERR_CONNECTION_REFUSED{' '}
+                      </h5>
+                    </div>
+                  )}
                   <Table className="tw-mb-4">
                     <thead>
                       <tr className="tw-bg-gray-200">
-                        <th>code</th>
                         <th>Name</th>
+                        <th>Code</th>
                         <th>Description</th>
-                        <th className="w-1">Actions</th>
+                        <th className="w-1"></th>
                       </tr>
                     </thead>
-                    <tbody className="tw-border-b">
-                      {Services.length == 0 && (
-                        <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
-                          <td className="tw-text-center" colSpan={7}>
-                            <span>
-                              <IconInbox
-                                className="tw-inline-block"
-                                color="rgb(156 163 175)"
-                                size={32}
-                              />
-                              <p>No data</p>
-                            </span>
-                          </td>
-                        </tr>
-                      )}
 
-                      {Services.length > 0 &&
-                        Services.map((item) => (
-                          <tr key={item.name}>
-                            <td>{item.name}</td>
-                            <td>{item.code}</td>
-                            <td>{item.description}</td>
-
-                            <td className="hoverable-visibility-content">
-                              <Link
-                                href={`/service-store/adminstration/details/category/${item.name}
-            `}
-                              >
-                                <a
-                                  className="tw-block tw-bg-gray-50 hover:tw-outline 
-                                    hover:tw-outline-1 hover:tw-outline-[#1d2861] tw-p-1 tw-rounded"
-                                >
-                                  <IconChevronRight color={'#1d2861'} />
-                                </a>
-                              </Link>
+                    {isSuccess && (
+                      <tbody className="tw-border-b">
+                        {serviceCategory.data.length == 0 && (
+                          <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
+                            <td className="tw-text-center" colSpan={8}>
+                              <span>
+                                <IconInbox
+                                  className="tw-inline-block"
+                                  color="rgb(156 163 175)"
+                                  size={32}
+                                />
+                                <p>No data</p>
+                              </span>
                             </td>
                           </tr>
-                        ))}
-                    </tbody>
+                        )}
+                        {isLoading && (
+                          <>
+                            <ReactLoading
+                              className="tw-z-50 tw-absolute tw-top-1/2 tw-left-1/2 
+                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
+                              type={'spokes'}
+                              color={'#1d2861'}
+                              height={'4%'}
+                              width={'4%'}
+                            />
+                          </>
+                        )}
+                        {serviceCategory.data.length > 0 &&
+                          serviceCategory.data.map((item: ServiceCategory) => (
+                            <tr key={item.id}>
+                              <td>{item.name}</td>
+                              <td>{item.code}</td>
+                              <td>{item.description}</td>
+                              <td className="hoverable-visibility-content">
+                                <Link
+                                  href={`/service-store/service-category/detail/${item.id}`}
+                                >
+                                  <a
+                                    className="tw-block tw-bg-gray-50 hover:tw-outline hover:tw-outline-1
+                           hover:tw-outline-[#1d2861] tw-p-1 tw-rounded"
+                                  >
+                                    <IconChevronRight color={'#1d2861'} />
+                                  </a>
+                                </Link>
+                              </td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    )}
                   </Table>
                 </Card.Section>
 
@@ -160,6 +163,14 @@ export default function CategoryList() {
                     />
                   </div>
                 </Card.Section>
+                {notification != null && (
+                  <Notification
+                    onClose={() => setNotification(null)}
+                    type={notification.type}
+                    message={notification.message}
+                    show={notification.show}
+                  />
+                )}
               </Card>
             </div>
           </div>

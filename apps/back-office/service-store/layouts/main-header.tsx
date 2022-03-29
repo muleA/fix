@@ -195,7 +195,7 @@ const MainNavbar = () => {
                       router.pathname === '/service-store/service-tags/new' ||
                       router.pathname ===
                         '/service-store/service-category/list' ||
-                      router.pathname === '/service-store/new-category/new'
+                      router.pathname === '/service-store/service-category/new'
                         ? 'active'
                         : ''
                     }
