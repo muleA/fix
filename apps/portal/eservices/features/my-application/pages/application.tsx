@@ -5,7 +5,9 @@ import ApplicationJourney from '../components/application-journey'
 function Application() {
 
     return (
-        <ApplicationJourney/>
+       <div className=''>
+            <ApplicationJourney/>
+       </div>
     )
 }
 

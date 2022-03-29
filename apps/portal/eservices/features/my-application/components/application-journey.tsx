@@ -1,7 +1,7 @@
 import React from 'react';
 import { List } from '@mantine/core';
 import Link from 'next/link';
-import { IconChevronRight, IconCircles } from '@tabler/icons';
+import { Icon3dCubeSphere, IconChevronRight, IconCircles } from '@tabler/icons';
 import {
   Group,
   ThemeIcon,
@@ -25,38 +25,38 @@ function ApplicationJourney() {
   const breakpoints = [{ maxWidth: 'sm' as const, cols: 1 }];
 
   return (
-    <div className="lg:tw-flex md:tw-flex lg:tw-space-x-10 md:tw-space-x-7 tw-mt-3 tw-mb-3">
+    <div className="lg:tw-flex md:tw-flex lg:tw-space-x-10 md:tw-space-x-7 tw-mt-3 tw-mb-3 tw-text-sm">
       <div className="lg:tw-h-screen md:tw-h-screen sm:tw-w-full xs:tw-w-full xs:tw-container-fluid  tw-borderd lg:tw-w-1/4 md:tw-w-1/4 sm:tw-container tw-mb-3 tw-p-3">
-        <div className="tw-flex tw-justify-center tw-items-center tw-bordered tw-m-2 ">
-          Related Services
+        <div className="tw-flex tw-justify-start tw-mt-2 tw-items-center tw-bordered tw-space-y-3">
+        <Icon3dCubeSphere className='tw-mr-3' color={theme.colors.teal[8]}/>Related Services
         </div>
         <div className="tw-space-y-3 tw-w-full tw-ml-3 tw-mt-3">
           <Link href={'/'}>
-            <a className="tw-flex tw-border-l-4 tw-border-l-yellow-400 hover:tw-shadow tw-pl-2">
+            <a className="tw-flex hover:tw-shadow tw-pl-2">
               <div
-                className=" tw-flex justify-content-between border-0  align-items-start tw-h-10 group"
+                className=" tw-flex justify-content-between border-0  align-items-start tw-h-7 group"
               >
-                <div className="ms-2 me-auto align-self-center ">
+                <div className=" me-auto align-self-center ">
                   Cras justo odio
                 </div>
               </div>
             </a>
           </Link>
           <Link href={''}>
-            <a className="tw-flex tw-border-l-4 tw-border-l-rose-400 hover:tw-shadow tw-pl-2">
+            <a className="tw-flex hover:tw-shadow tw-pl-2">
               <div
-                className="tw-flex justify-content-between border-0 align-items-start tw-h-10 group"
+                className="tw-flex justify-content-between border-0 align-items-start tw-h-7 group"
               >
-                <div className="ms-2 me-auto align-self-center">Cras justo odio</div>
+                <div className=" me-auto align-self-center">Cras justo odio</div>
               </div>
             </a>
           </Link>
           <Link href={'/'}>
-            <a className="tw-flex tw-border-l-4 tw-border-l-green-400 hover:tw-shadow tw-pl-2">
+            <a className="tw-flex hover:tw-shadow tw-pl-2">
               <div
-                className="d-flex justify-content-between border-0 align-items-start tw-h-10 group"
+                className="d-flex justify-content-between border-0 align-items-start tw-h-7 group"
               >
-                <div className="ms-2 me-auto align-self-center">Cras justo odio</div>
+                <div className=" me-auto align-self-center">Cras justo odio</div>
               </div>
             </a>
           </Link>
@@ -154,7 +154,7 @@ function ApplicationJourney() {
           </Accordion>
         </div>
         <div className=" lg:tw-flex tw-w-full lg:tw-self-end lg:tw-mt-3">
-          <div className="lg:tw-flex lg:tw-self-end lg:tw-justify-between lg:tw-w-full">
+          <div className="lg:tw-flex lg:tw-self-end lg:tw-justify-between lg:tw-w-full tw-mb-2">
             <div className="lg:tw-space-x-2 tw-self-center">
               <Link href={'/'}>
                 <a>Wiki source</a>
@@ -165,7 +165,7 @@ function ApplicationJourney() {
               </Link>
             </div>
             <div className="lg:tw-space-x-2">
-              <Button className='bg-primary tw-border-0' variant={'outline'}>Agree and continue</Button> <Button className='bg-primary tw-border-0' variant={'outline'}>Cancel</Button>
+              <Button className='tw-border-0 tw-bg-[#2D3748]' variant={'gradient'} size={'sm'}>Agree and continue</Button> <Button size={'sm'} className='tw-border tw-border-[#2D3748] ' color={'dark'} variant={'outline'}>Cancel</Button>
             </div>
           </div>
         </div>

@@ -60,7 +60,7 @@ export function LeftArrow() {
 
   return (
     <div
-      className={`tw-z-25 tw-flex tw-w-10 tw-justify-center tw-bg-neutral-700 tw-text-white tw-shadow  ${
+      className={`tw-rounded-full tw-self-center tw-absolute  tw-left-4 tw-z-25 tw-flex tw-w-8 tw-h-8 tw-justify-center tw-bg-neutral-700 tw-text-white tw-shadow  ${
         isFirstItemVisible ? 'tw-hidden' : ''
       }`}
     >
@@ -79,12 +79,12 @@ export function RightArrow() {
 
   return (
     <div
-      className={`tw-z-25 tw-flex tw-w-10 tw-justify-center tw-bg-neutral-700 tw-text-white tw-shadow ${
+      className={`tw-rounded-full tw-self-center tw-absolute tw-right-4 tw-z-25 tw-flex tw-w-8 tw-h-8 tw-justify-center tw-items-center tw-bg-neutral-700 tw-text-white tw-shadow ${
         isLastItemVisible ? 'tw-hidden' : ''
       }`}
     >
       <IconChevronRight
-        className={` tw-flex tw-h-full tw-self-center  `}
+        className={` tw-flex  tw-self-center  `}
         onClick={() => scrollNext()}
       >
         Right
@@ -104,11 +104,12 @@ function Menu({ onClick, selected, menus, itemId }) {
           width: '160px',
         }}
         tabIndex={0}
+        className='tw-rounded-lg'
       >
         <div
           onClick={() => router.push(menus.href)}
           className={`hover:active hover:tw-bg-gray-700 tw-flex tw-h-16 tw-items-center tw-justify-center hover:tw-text-white ${
-            selected ? 'tw-bg-neutral-700 tw-text-white active ' : ''
+            selected ? 'tw-bg-gray-700 tw-text-white active ' : ''
           }`}
         >
           <div className='tw-flex tw-justify-center tw-font-serif '>{menus.name}</div>

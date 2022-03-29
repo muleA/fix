@@ -1,7 +1,7 @@
 
-import { Spinner, Button as BButton  } from 'react-bootstrap';
+// import { Spinner, Button as BButton  } from 'react-bootstrap';
 import styled from 'styled-components';
-
+import {Button as MButton,Loader} from '@mantine/core'
 
 export type ButtonProps = {
   isLoading?:boolean;
@@ -12,8 +12,7 @@ export type ButtonProps = {
   className?:string;
 };
 
- const StyledButton = styled(BButton)`
-
+ const StyledButton = styled(MButton)`
  `;
 
 
@@ -27,18 +26,10 @@ export const Button = (props) => {
     onClick={props.onClick}
     disabled={props.disabled}
     >
-{props.isLoading && <><Spinner
-      as="span"
-      animation="border"
-      size="sm"
-      role="status"
-      aria-hidden="true"
-      className='mr-2'
-    />
-    <span className="visually-hidden">Loading...</span>
+{props.isLoading && <><Loader size={'sm'} /> 
     </>
 }
-{props.children}
+ {props.children}
     </StyledButton>
   )
 }

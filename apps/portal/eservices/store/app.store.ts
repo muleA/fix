@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import { appApi } from './app.api'
-import localeReducer from './slices/locale/locale-slice'
+import localeReducer from '../shared/store/slices/locale/locale-slice'
 
 
 export const store = configureStore({

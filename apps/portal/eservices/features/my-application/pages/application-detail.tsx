@@ -4,7 +4,9 @@ import Detail from '../components/detail'
 
 function ApplicationDetail() {
     return (
-        <Detail/>
+        <div className='tw-h-screen'>
+            <Detail/>
+        </div>
     )
 }
 

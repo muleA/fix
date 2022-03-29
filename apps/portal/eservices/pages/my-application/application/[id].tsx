@@ -1,12 +1,15 @@
 import Application from '../../../features/my-application/pages/application'
 import React from 'react'
+import Container from '../../../shared/components/container/container'
 
 
 
 
 function ApplicationPage() {
         return (
-        <Application/>
+        <Container>
+            <Application/>
+        </Container>
     )
 }
 

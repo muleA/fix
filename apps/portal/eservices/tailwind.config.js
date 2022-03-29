@@ -949,7 +949,6 @@ module.exports = {
   variants: {
     extend: {
       visibility: ["group-hover"],
-      display:['try-hover']
     },
   },
   variantOrder: [

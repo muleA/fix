@@ -3,9 +3,9 @@ import Head from 'next/head';
 import Header from '../layouts/header';
 import '../styles/tailwind.css';
 import '../styles/scss/global.scss';
-import '../shared/components/horizontal-scroll-menu.scss';
+import '../shared/components/scroll-menu/horizontal-scroll-menu.scss';
 import { Provider } from 'react-redux';
-import { store } from '../shared/store/app.store';
+import { store } from '../store/app.store';
 import '../public/i18n/i18n';
 import NextNProgress from 'nextjs-progressbar';
 import { Container, SSRProvider } from 'react-bootstrap';
@@ -15,6 +15,7 @@ import { ReactElement, ReactNode } from 'react';
 import Keycloak from 'next-auth/providers/keycloak';
 import Auth from '../shared/utility/auth';
 import { MantineProvider } from '@mantine/core';
+import Footer from '../layouts/footer';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -73,9 +74,8 @@ function CustomApp({
           >
             <NextNProgress color="#ffbe0b" />
             <Header navigation={config} />
-            <div className='tw-container-fluid tw-ml-7 tw-mr-7 tw-mb-4'>
             <Component {...pageProps}/>
-            </div>
+            <Footer/>
           </MantineProvider>
         </Provider>
       </SessionProvider>

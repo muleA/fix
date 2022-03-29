@@ -1,12 +1,12 @@
 import React from 'react'
-import { Container, Spinner } from 'react-bootstrap';
 import ApplicationHome from '../../features/my-application/pages/application-home';
+import Container from '../../shared/components/container/container';
 
 export default function Index(props) {
     return (
-        <div className='mt-3 container-fluid'>
+        <Container>
             <ApplicationHome/>
-        </div>
+        </Container>
     )
 }
 
