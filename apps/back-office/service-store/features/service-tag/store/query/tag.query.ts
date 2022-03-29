@@ -1,31 +1,31 @@
 import { apiSlice } from '../../../../store/app.api';
-import ServiceOwner from '../../../../models/publication/service-owners/service-owner';
-import ServiceOwnersEndPoint from '../../service-owner.endpoints';
-let updatedObject: ServiceOwner;
-let newObject: ServiceOwner;
-const ServiceOwnerApi = apiSlice.injectEndpoints({
+import ServiceTag from '../../../../models/classification/tag';
+import { ServiceTagEndPoints } from '../../service-tag.endpoints';
+let updatedObject: ServiceTag;
+let newObject: ServiceTag;
+const ServiceTagApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
-    getServiceOwners: build.query<any, void>({
+    getServiceTags: build.query<any, void>({
       query: () => ({
-        url: ServiceOwnersEndPoint.getServiceOwners,
+        url: ServiceTagEndPoints.getTags,
         method: 'GET',
       }),
     }),
-    addNewServiceOwner: build.mutation<any, any>({
-      query: (newServiceOwner) => {
-        newObject = newServiceOwner;
+    addNewServiceTag: build.mutation<any, any>({
+      query: (newServiceTag) => {
+        newObject = newServiceTag;
         return {
-          url: ServiceOwnersEndPoint.createServiceOwner,
+          url: ServiceTagEndPoints.createTag,
           method: 'POST',
-          data: newServiceOwner,
+          data: newServiceTag,
         };
       },
       async onQueryStarted(unknown, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           dispatch(
-            ServiceOwnerApi.util.updateQueryData(
-              'getServiceOwners',
+            ServiceTagApi.util.updateQueryData(
+              'getServiceTags',
               undefined,
               (draft) => {
                 draft.data = [
@@ -47,13 +47,13 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
       },
     }),
 
-    updateServiceOwner: build.mutation<any, any>({
-      query: (updatedServiceOwner) => {
-        updatedObject = updatedServiceOwner;
+    updateServiceTag: build.mutation<any, any>({
+      query: (updatedServiceTag) => {
+        updatedObject = updatedServiceTag;
         return {
-          url: ServiceOwnersEndPoint.updateServiceOwner,
+          url: `${ServiceTagEndPoints.updateTag}${updatedServiceTag.id}`,
           method: 'PUT',
-          data: updatedServiceOwner,
+          data: updatedServiceTag,
         };
       },
       async onQueryStarted(unknown, { dispatch, queryFulfilled }) {
@@ -61,12 +61,12 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
           const { data } = await queryFulfilled;
 
           dispatch(
-            ServiceOwnerApi.util.updateQueryData(
-              'getServiceOwners',
+            ServiceTagApi.util.updateQueryData(
+              'getServiceTags',
               undefined,
               (draft) => {
                 const index = draft.data.findIndex(
-                  (element: ServiceOwner) => element.id === updatedObject.id
+                  (element: ServiceTag) => element.id === updatedObject.id
                 );
                 draft.data[index] = {
                   ...updatedObject,
@@ -82,23 +82,23 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
       },
     }),
 
-    /* delete service owner begin here*/
+    /* delete service Tag begin here*/
 
-    deleteServiceOwner: build.mutation<any, any>({
+    deleteServiceTag: build.mutation<any, any>({
       query: (id) => ({
-        url: `${ServiceOwnersEndPoint.deleteServiceOwner}${id}`,
+        url: `${ServiceTagEndPoints.deleteTag}${id}`,
         method: 'DELETE',
       }),
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
           dispatch(
-            ServiceOwnerApi.util.updateQueryData(
-              'getServiceOwners',
+            ServiceTagApi.util.updateQueryData(
+              'getServiceTags',
               undefined,
               (draft) => {
                 draft.data = draft.data.filter(
-                  (element: ServiceOwner) => element.id !== id
+                  (element: ServiceTag) => element.id !== id
                 );
               }
             )
@@ -114,8 +114,8 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
 });
 
 export const {
-  useGetServiceOwnersQuery,
-  useAddNewServiceOwnerMutation,
-  useUpdateServiceOwnerMutation,
-  useDeleteServiceOwnerMutation,
-} = ServiceOwnerApi;
+  useGetServiceTagsQuery,
+  useAddNewServiceTagMutation,
+  useUpdateServiceTagMutation,
+  useDeleteServiceTagMutation,
+} = ServiceTagApi;

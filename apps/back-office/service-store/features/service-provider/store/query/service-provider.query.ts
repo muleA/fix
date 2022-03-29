@@ -1,6 +1,8 @@
 import { apiSlice } from '../../../../store/app.api';
 import ServiceProvider from '../../../../models/publication/service-providers/service-provider';
 import ServiceProvidersEndPoint from '../../service-providers.endpoints';
+let updatedObject: ServiceProvider;
+let newObject: ServiceProvider;
 const ServiceProviderApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getServiceProviders: build.query<any, void>({
@@ -9,12 +11,15 @@ const ServiceProviderApi = apiSlice.injectEndpoints({
         method: 'GET',
       }),
     }),
-    addNewServiceProvider: build.mutation<ServiceProvider, any>({
-      query: (newServiceProvider) => ({
-        url: ServiceProvidersEndPoint.createServiceProvider,
-        method: 'POST',
-        data: newServiceProvider,
-      }),
+    addNewServiceProvider: build.mutation<any, any>({
+      query: (newServiceProvider) => {
+        newObject = newServiceProvider;
+        return {
+          url: ServiceProvidersEndPoint.createServiceProvider,
+          method: 'POST',
+          data: newServiceProvider,
+        };
+      },
       async onQueryStarted(unknown, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
@@ -23,7 +28,16 @@ const ServiceProviderApi = apiSlice.injectEndpoints({
               'getServiceProviders',
               undefined,
               (draft) => {
-                draft.concat(data);
+                draft.data = [
+                  ...draft.data,
+                  {
+                    id: data.data.id,
+                    ...newObject,
+                    createdAt: data.data.createdAt,
+                    updatedAt: data.data.updatedAt,
+                  },
+                ];
+                console.log(data);
               }
             )
           );
@@ -33,24 +47,32 @@ const ServiceProviderApi = apiSlice.injectEndpoints({
       },
     }),
 
-    updateServiceProvider: build.mutation<ServiceProvider, any>({
-      query: (updatedServiceProvider) => ({
-        url: ServiceProvidersEndPoint.updateServiceProvider,
-        method: 'POST',
-        data: updatedServiceProvider,
-      }),
+    updateServiceProvider: build.mutation<any, any>({
+      query: (updatedServiceProvider) => {
+        updatedObject = updatedServiceProvider;
+        return {
+          url: ServiceProvidersEndPoint.updateServiceProvider,
+          method: 'PUT',
+          data: updatedServiceProvider,
+        };
+      },
       async onQueryStarted(unknown, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
+
           dispatch(
             ServiceProviderApi.util.updateQueryData(
               'getServiceProviders',
               undefined,
               (draft) => {
                 const index = draft.data.findIndex(
-                  (element: ServiceProvider) => element.id === data.id
+                  (element: ServiceProvider) => element.id === updatedObject.id
                 );
-                draft.data[index] = data;
+                draft.data[index] = {
+                  ...updatedObject,
+                  createdAt: draft.data[index].createdAt,
+                  updatedAt: `${new Date()}`,
+                };
               }
             )
           );
@@ -60,11 +82,11 @@ const ServiceProviderApi = apiSlice.injectEndpoints({
       },
     }),
 
-    /* delete service owner begin here*/
+    /* delete service Provider begin here*/
 
     deleteServiceProvider: build.mutation<any, any>({
       query: (id) => ({
-        url: `${ServiceProvidersEndPoint.deleteServiceProvider}/${id}`,
+        url: `${ServiceProvidersEndPoint.deleteServiceProvider}${id}`,
         method: 'DELETE',
       }),
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
@@ -75,7 +97,7 @@ const ServiceProviderApi = apiSlice.injectEndpoints({
               'getServiceProviders',
               undefined,
               (draft) => {
-                draft = draft.data.filter(
+                draft.data = draft.data.filter(
                   (element: ServiceProvider) => element.id !== id
                 );
               }
@@ -90,6 +112,7 @@ const ServiceProviderApi = apiSlice.injectEndpoints({
   }),
   overrideExisting: false,
 });
+
 export const {
   useGetServiceProvidersQuery,
   useAddNewServiceProviderMutation,

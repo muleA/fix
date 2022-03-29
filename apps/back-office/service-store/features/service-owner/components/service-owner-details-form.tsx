@@ -1,5 +1,5 @@
-import { Divider, Button, Modal } from '@mantine/core';
-import { IconAlertTriangle, IconDeviceFloppy, IconTrash } from '@tabler/icons';
+import { Divider, Button } from '@mantine/core';
+import { IconDeviceFloppy, IconTrash } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -7,6 +7,7 @@ import ServiceOwner from '../../../models/publication/service-owners/service-own
 import { useEffect, useState } from 'react';
 import NotificationModel from '../../../shared/models/notification-model';
 import Notification from '../../../shared/components/notification';
+import DeleteConfirmation from '../../../shared/components/delete-confirmation';
 import {
   useGetServiceOwnersQuery,
   useAddNewServiceOwnerMutation,
@@ -100,10 +101,13 @@ const ServiceOwnerDetailsForm = (props: {
     null
   );
 
+  const [displayConfirmationModal, setDisplayConfirmationModal] =
+    useState(false);
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors},
     setValue,
     reset,
   } = useForm<ServiceOwner>({
@@ -115,13 +119,41 @@ const ServiceOwnerDetailsForm = (props: {
     isLoading,
     isSuccess,
     isError,
-    error,
   } = useGetServiceOwnersQuery();
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-
   /* event handlers */
+  // Handle the displaying of the modal
+  const showDeleteModal = () => {
+    setDisplayConfirmationModal(true);
+  };
+
+  // Hide the modal
+  const hideConfirmationModal = () => {
+    setDisplayConfirmationModal(false);
+  };
+
+  // Handle the actual deletion of the item
+  const submitDelete = async () => {
+    try {
+      await deleteServiceOwner(id).unwrap();
+      deleteStatus !== null &&
+        setNotification({
+          type: 'success',
+          message: 'Service Owner has  deleted successfully',
+          show: true,
+        });
+      router.push('/service-store/service-owner/new');
+    } catch (err) {
+      console.log(err);
+      setNotification({
+        type: 'danger',
+        message: 'Failed to delete Service Owner.',
+        show: true,
+      });
+    }
+    setDisplayConfirmationModal(false);
+  };
+
   const onFinish: SubmitHandler<ServiceOwner> = async (data) => {
     if (props.mode === 'new') {
       try {
@@ -130,13 +162,20 @@ const ServiceOwnerDetailsForm = (props: {
         setValue('fullName', '');
         setValue('code', '');
         setValue('sector', '');
-        setValue('contactInfo.email', '');
-        setValue('contactInfo.phone', '');
-        setValue('contactInfo.name', '');
-        setValue('address.country', '');
-        setValue('address.city', '');
-        setValue('address.houseNumber', '');
-        setValue('address.street', '');
+        setValue('organizationId', '');
+        setValue('organizationName', '');
+        setValue('contactInfo', {
+          email: '',
+          phone: '',
+          name: '',
+        });
+        setValue('address', {
+          country: '',
+          city: '',
+          houseNumber: '',
+          street: '',
+        });
+
         createStatus !== null &&
           setNotification({
             type: 'success',
@@ -145,7 +184,6 @@ const ServiceOwnerDetailsForm = (props: {
           });
         reset();
       } catch (err) {
-        console.log(error);
         setNotification({
           type: 'danger',
           message: 'Failed to added Service Owner.',
@@ -165,7 +203,6 @@ const ServiceOwnerDetailsForm = (props: {
             show: true,
           });
       } catch (err) {
-        console.log(err);
         isError &&
           setNotification({
             type: 'danger',
@@ -175,29 +212,6 @@ const ServiceOwnerDetailsForm = (props: {
       }
     }
   };
-  const handleShow = () => {
-    setShow(true);
-  };
-
-  const onConfirmDelete = async () => {
-    try {
-      await deleteServiceOwner(id).unwrap();
-      deleteStatus &&
-        setNotification({
-          type: 'success',
-          message: 'Service Owner has  deleted successfully',
-          show: true,
-        });
-    } catch (err) {
-      console.log(err);
-      setNotification({
-        type: 'danger',
-        message: 'Failed to delete Service Owner.',
-        show: true,
-      });
-    }
-    setShow(false);
-  };
 
   /*  */
 
@@ -206,41 +220,44 @@ const ServiceOwnerDetailsForm = (props: {
       const selectedServiceOwner: ServiceOwner = ServiceOwners?.data?.find(
         (ServiceOwner: ServiceOwner) => ServiceOwner.id === props.id
       );
-      setValue('shortName', selectedServiceOwner?.shortName);
+
+      if (selectedServiceOwner !== null)
+        setValue('shortName', selectedServiceOwner?.shortName);
       setValue('fullName', selectedServiceOwner?.fullName);
       setValue('code', selectedServiceOwner?.code);
       setValue('sector', selectedServiceOwner?.sector);
       setValue('organizationId', selectedServiceOwner?.organizationId);
       setValue('organizationName', selectedServiceOwner?.organizationName);
-      setValue('contactInfo.email', selectedServiceOwner?.contactInfo?.email);
-      setValue('contactInfo.phone', selectedServiceOwner?.contactInfo?.phone);
-      setValue('contactInfo.name', selectedServiceOwner?.contactInfo?.name);
-      setValue('address.country', selectedServiceOwner?.address?.country);
-      setValue('address.city', selectedServiceOwner?.address?.city);
-      setValue(
-        'address.houseNumber',
-        selectedServiceOwner?.address?.houseNumber
-      );
-      setValue('address.street', selectedServiceOwner?.address?.street);
+      setValue('contactInfo', {
+        email: selectedServiceOwner?.contactInfo?.email,
+        phone: selectedServiceOwner?.contactInfo?.phone,
+        name: selectedServiceOwner?.contactInfo?.name,
+      });
+      setValue('address', {
+        country: selectedServiceOwner?.address.country,
+        city: selectedServiceOwner?.address.city,
+        houseNumber: selectedServiceOwner?.address.houseNumber,
+        street: selectedServiceOwner?.address.street,
+      });
     }
   }, [ServiceOwners?.data, isSuccess, props.id, props.mode, setValue]);
 
   return (
     <div>
-      {isLoading && (
-        <>
-          <ReactLoading
-            className="tw-z-50 tw-absolute tw-top-1/2 tw-left-1/2 
-                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
-            type={'spokes'}
-            color={'#1d2861'}
-            height={'10%'}
-            width={'10%'}
-          />
-        </>
-      )}
-
       <form onSubmit={handleSubmit(onFinish)}>
+        {isLoading && (
+          <>
+            <ReactLoading
+              className="tw-z-50 tw-mx-auto tw-absolute tw-top-1/2 tw-left-1/2 
+                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
+              type={'spokes'}
+              color={'#1d2861'}
+              height={'6%'}
+              width={'6%'}
+            />
+          </>
+        )}
+
         <div className="tw-my-4">
           <div className="tw-flex tw-items-center tw-mb-2">
             <section className="tw-grid  tw-grid-cols-2 tw-gap-4 tw-container tw-p-0 tw-mx-auto ">
@@ -500,7 +517,6 @@ const ServiceOwnerDetailsForm = (props: {
                 className="btn btn-primary tw-bg-[#1d2861]"
                 loading={creating}
                 component="button"
-                disabled={!isValid}
               >
                 <IconDeviceFloppy className="mr-2" /> Save
               </Button>
@@ -525,7 +541,7 @@ const ServiceOwnerDetailsForm = (props: {
                     type="button"
                     className="tw-ml-2 btn btn-danger tw-bg-[#ff4d4f]"
                     component="button"
-                    onClick={() => handleShow()}
+                    onClick={showDeleteModal}
                   >
                     <IconTrash />
                     Delete
@@ -536,34 +552,14 @@ const ServiceOwnerDetailsForm = (props: {
           </div>
         </div>
       </form>
-      <Modal opened={show} onClose={handleClose}>
-        <IconAlertTriangle className="tw-text-red-900 tw-mx-auto tw-text-4xl tw-red-900 tw-text-4xl" />
-        <div className="tw-py-6 tw-text-center tw-text-4xl tw-text-gray-700">
-          Are you sure ?
-        </div>
-        <div className="tw-mb-8 tw-text-center tw-font-light tw-text-gray-700">
-          Do you really want to delete these record? This process cannot be
-          undone.
-        </div>
 
-        <div className="tw-flex tw-justify-center">
-          <Button variant="default" onClick={handleClose}>
-            No
-          </Button>
-
-          <Button
-            type="button"
-            className="tw-ml-2 btn btn-danger tw-bg-[#ff4d4f]"
-            component="button"
-            loading={deleting}
-            onClick={() => {
-              onConfirmDelete();
-            }}
-          >
-            Yes
-          </Button>
-        </div>
-      </Modal>
+      <DeleteConfirmation
+        showModal={displayConfirmationModal}
+        confirmModal={submitDelete}
+        hideModal={hideConfirmationModal}
+        id={id}
+        deleteStatus={deleting}
+      />
       {notification != null && (
         <Notification
           onClose={() => setNotification(null)}

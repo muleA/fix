@@ -1,4 +1,4 @@
-import { Divider,Button} from '@mantine/core';
+import { Divider, Button } from '@mantine/core';
 import { IconDeviceFloppy, IconTrash } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import ServiceProvider from '../../../models/publication/service-providers/service-provider';
 import NotificationModel from '../../../shared/models/notification-model';
 import Notification from '../../../shared/components/notification';
+import ReactLoading from 'react-loading';
 import {
   useGetServiceProvidersQuery,
   useAddNewServiceProviderMutation,
@@ -13,6 +14,9 @@ import {
   useDeleteServiceProviderMutation,
 } from '../../service-provider/store/query/service-provider.query';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import DeleteConfirmation from '../../../shared/components/delete-confirmation';
+
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -89,19 +93,23 @@ const schema = yup
           'only alphabet characters are allowed for this field'
         ),
       latitude: yup
-        .number()
+        .string()
         .required('This field is required')
-        .typeError('latitude must be a number'),
+        .typeError('House number must be a number'),
       longitude: yup
-        .number()
+        .string()
         .required('This field is required')
         .typeError('latitude must be a number'),
       landmark: yup.string().required('required'),
     }),
   })
   .required();
-const ServiceProviderDetailsForm = (props: { id: string, mode: 'new' | 'update' }) => {
-
+const ServiceProviderDetailsForm = (props: {
+  id?: string;
+  mode: 'new' | 'update';
+}) => {
+  const router = useRouter();
+  const { id } = router.query;
   const [
     addNewServiceProvider,
     { isLoading: creating, isSuccess: createStatus },
@@ -117,45 +125,84 @@ const ServiceProviderDetailsForm = (props: { id: string, mode: 'new' | 'update' 
   const [notification, setNotification] = useState<NotificationModel | null>(
     null
   );
+
+  const [displayConfirmationModal, setDisplayConfirmationModal] =
+    useState(false);
   const {
     register,
     handleSubmit,
-    formState: { errors,isValid },
+    formState: { errors},
     reset,
     setValue,
   } = useForm<ServiceProvider>({ resolver: yupResolver(schema) });
-
 
   /* fetching here */
   const {
     data: ServiceProviders,
     isSuccess,
+    isLoading,
     isError,
     error,
-  } = useGetServiceProvidersQuery()
+  } = useGetServiceProvidersQuery();
+
+  const showDeleteModal = () => {
+    setDisplayConfirmationModal(true);
+  };
+  // Hide the modal
+  const hideConfirmationModal = () => {
+    setDisplayConfirmationModal(false);
+  };
+
+  // Handle the actual deletion of the item
+  const submitDelete = async () => {
+    try {
+      await deleteServiceProvider(id).unwrap();
+      deleteStatus !== null &&
+        setNotification({
+          type: 'success',
+          message: 'Service Owner has  deleted successfully',
+          show: true,
+        });
+      router.push('/service-store/service-provider/new');
+    } catch (err) {
+      console.log(err);
+      setNotification({
+        type: 'danger',
+        message: 'Failed to delete Service Owner.',
+        show: true,
+      });
+    }
+    setDisplayConfirmationModal(false);
+  };
 
   const onFinish: SubmitHandler<ServiceProvider> = (data): unknown => {
     return props.mode == 'new' ? onCreate(data) : onUpdate(props.id);
   };
   const onCreate = async (data) => {
     try {
-      const response = await addNewServiceProvider(data).unwrap();
+      await addNewServiceProvider(data).unwrap();
       setValue('shortName', '');
       setValue('fullName', '');
       setValue('code', '');
       setValue('sector', '');
-      setValue('contactInfo.email', '');
-      setValue('contactInfo.phone', '');
-      setValue('contactInfo.name', '');
-      setValue('address.country', '');
-      setValue('address.city', '');
-      setValue('address.houseNumber', '');
-      setValue('address.street', '');
-      setValue('location.city', '');
-      setValue('location.latitude',0 );
-      setValue('location.longitude',0 );
-      setValue('location.landmark', '');
-      createStatus &&
+      setValue('contactInfo', {
+        email: '',
+        phone: '',
+        name: '',
+      });
+      setValue('address', {
+        country: '',
+        city: '',
+        houseNumber: '',
+        street: '',
+      });
+      setValue('location', {
+        city: '',
+        latitude: '',
+        longitude: '',
+        landmark: '',
+      });
+      createStatus !== null &&
         setNotification({
           type: 'success',
           message: 'Service Provider added successfully',
@@ -174,11 +221,11 @@ const ServiceProviderDetailsForm = (props: { id: string, mode: 'new' | 'update' 
 
   const onUpdate = async (data) => {
     try {
-      const response = await updateServiceProvider({
+      await updateServiceProvider({
         id: props.id,
         ...data,
       }).unwrap();
-      updateStatus &&
+      updateStatus !== null &&
         setNotification({
           type: 'success',
           message: 'service Provider info updated successfully',
@@ -195,49 +242,40 @@ const ServiceProviderDetailsForm = (props: { id: string, mode: 'new' | 'update' 
     }
   };
 
-  const onDelete = async (id: string) => {
-    try {
-      await deleteServiceProvider(id);
-      deleteStatus &&
-        setNotification({
-          type: 'success',
-          message: 'service Provider info deleted successfully',
-          show: true,
-        });
-    } catch (err) {
-      setNotification({
-        type: 'danger',
-        message: 'failed to delete  service Provider',
-        show: true,
+  useEffect(() => {
+    if (props.mode !== 'new') {
+      const selectedServiceProvider: ServiceProvider =
+        ServiceProviders?.data?.find(
+          (ServiceProvider: ServiceProvider) => ServiceProvider.id === props.id
+        );
+
+      setValue('shortName', selectedServiceProvider?.shortName);
+      setValue('fullName', selectedServiceProvider?.fullName);
+      setValue('code', selectedServiceProvider?.code);
+      setValue('sector', selectedServiceProvider?.sector);
+      setValue('organizationId', selectedServiceProvider?.organizationId);
+      setValue('organizationName', selectedServiceProvider?.organizationName);
+      setValue('contactInfo', {
+        email: selectedServiceProvider?.contactInfo?.email,
+        phone: selectedServiceProvider?.contactInfo?.phone,
+        name: selectedServiceProvider?.contactInfo?.name,
+      });
+      setValue('address', {
+        country: selectedServiceProvider?.address.country,
+        city: selectedServiceProvider?.address.city,
+        houseNumber: selectedServiceProvider?.address.houseNumber,
+        street: selectedServiceProvider?.address.street,
+      });
+      setValue('location', {
+        city: selectedServiceProvider?.location.city,
+        latitude: selectedServiceProvider?.location.latitude,
+        longitude: selectedServiceProvider?.location.longitude,
+        landmark: selectedServiceProvider?.location.landmark,
       });
     }
-  };
-
-useEffect(() => {
-  if (props.mode !== 'new') {
-    const selectedServiceProvider: ServiceProvider = ServiceProviders?.data?.find(
-      (ServiceProvider: ServiceProvider) => ServiceProvider.id === props.id
-    );
-
-    setValue('shortName', selectedServiceProvider?.shortName);
-    setValue('fullName', selectedServiceProvider?.fullName);
-    setValue('code', selectedServiceProvider?.code);
-    setValue('sector', selectedServiceProvider?.sector);
-    setValue('organizationId', selectedServiceProvider?.organizationId);
-    setValue('organizationName', selectedServiceProvider?.organizationName);
-    setValue('contactInfo.email', selectedServiceProvider?.contactInfo.email);
-    setValue('contactInfo.phone', selectedServiceProvider?.contactInfo.phone);
-    setValue('contactInfo.name', selectedServiceProvider?.contactInfo.name);
-    setValue('address.country', selectedServiceProvider?.address.country);
-    setValue('address.city', selectedServiceProvider?.address.city);
-    setValue('address.houseNumber', selectedServiceProvider?.address.houseNumber);
-    setValue('address.street', selectedServiceProvider?.address.street);
-  }
-}, [ServiceProviders?.data, isSuccess, props.id, props.mode, setValue]);
- 
+  }, [ServiceProviders?.data, isSuccess, props.id, props.mode, setValue]);
 
   /*  */
-
 
   return (
     <div>
@@ -246,9 +284,20 @@ useEffect(() => {
           props.mode == 'new' ? handleSubmit(onFinish) : handleSubmit(onUpdate)
         }
       >
+        {isLoading && (
+          <>
+            <ReactLoading
+              className="tw-z-50 tw-mx-auto tw-absolute tw-top-1/2 tw-left-1/2 
+                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
+              type={'spokes'}
+              color={'#1d2861'}
+              height={'6%'}
+              width={'6%'}
+            />
+          </>
+        )}
         <div className="tw-my-4">
           <div className="tw-flex tw-items-center tw-mb-2">
-            {/*  */}
             <section className="tw-grid  tw-grid-cols-2 tw-gap-4 tw-container tw-p-0 tw-mx-auto ">
               <div className="">
                 <div className="mb-2 ">
@@ -572,10 +621,9 @@ useEffect(() => {
             {props.mode == 'new' && (
               <Button
                 type="submit"
-                className="btn btn-primary tw-bg-[#1d2861]"
+                className="btn btn-primary tw-bg-[#1d2861] mt-3"
                 loading={creating}
                 component="button"
-                disabled={!isValid}
               >
                 <IconDeviceFloppy className="mr-2" /> Save
               </Button>
@@ -594,9 +642,9 @@ useEffect(() => {
                   Update
                 </Button>
                 <Button
-                  type="submit"
+                  type="button"
                   className="tw-ml-2 btn btn-danger tw-bg-[#ff4d4f]"
-                  loading={deleting}
+                  onClick={showDeleteModal}
                   component="button"
                 >
                   <IconTrash />
@@ -607,6 +655,14 @@ useEffect(() => {
           </div>
         </div>
       </form>
+
+      <DeleteConfirmation
+        showModal={displayConfirmationModal}
+        confirmModal={submitDelete}
+        hideModal={hideConfirmationModal}
+        id={id}
+        deleteStatus={deleting}
+      />
       {notification != null && (
         <Notification
           onClose={() => setNotification(null)}

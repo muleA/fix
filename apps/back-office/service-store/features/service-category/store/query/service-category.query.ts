@@ -1,31 +1,31 @@
 import { apiSlice } from '../../../../store/app.api';
-import ServiceOwner from '../../../../models/publication/service-owners/service-owner';
-import ServiceOwnersEndPoint from '../../service-owner.endpoints';
-let updatedObject: ServiceOwner;
-let newObject: ServiceOwner;
-const ServiceOwnerApi = apiSlice.injectEndpoints({
+import ServiceCategory from '../../../../models/classification/category';
+import ServiceCategorysEndPoint from '../../category.endpoints';
+let updatedObject: ServiceCategory;
+let newObject: ServiceCategory;
+const ServiceCategoryApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
-    getServiceOwners: build.query<any, void>({
+    getServiceCategorys: build.query<any, void>({
       query: () => ({
-        url: ServiceOwnersEndPoint.getServiceOwners,
+        url: ServiceCategorysEndPoint.createCategory,
         method: 'GET',
       }),
     }),
-    addNewServiceOwner: build.mutation<any, any>({
-      query: (newServiceOwner) => {
-        newObject = newServiceOwner;
+    addNewServiceCategory: build.mutation<any, any>({
+      query: (newServiceCategory) => {
+        newObject = newServiceCategory;
         return {
-          url: ServiceOwnersEndPoint.createServiceOwner,
+          url: ServiceCategorysEndPoint.createCategory,
           method: 'POST',
-          data: newServiceOwner,
+          data: newServiceCategory,
         };
       },
       async onQueryStarted(unknown, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           dispatch(
-            ServiceOwnerApi.util.updateQueryData(
-              'getServiceOwners',
+            ServiceCategoryApi.util.updateQueryData(
+              'getServiceCategorys',
               undefined,
               (draft) => {
                 draft.data = [
@@ -47,13 +47,13 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
       },
     }),
 
-    updateServiceOwner: build.mutation<any, any>({
-      query: (updatedServiceOwner) => {
-        updatedObject = updatedServiceOwner;
+    updateServiceCategory: build.mutation<any, any>({
+      query: (updatedServiceCategory) => {
+        updatedObject = updatedServiceCategory;
         return {
-          url: ServiceOwnersEndPoint.updateServiceOwner,
+          url: ServiceCategorysEndPoint.updateCategory,
           method: 'PUT',
-          data: updatedServiceOwner,
+          data: updatedServiceCategory,
         };
       },
       async onQueryStarted(unknown, { dispatch, queryFulfilled }) {
@@ -61,12 +61,12 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
           const { data } = await queryFulfilled;
 
           dispatch(
-            ServiceOwnerApi.util.updateQueryData(
-              'getServiceOwners',
+            ServiceCategoryApi.util.updateQueryData(
+              'getServiceCategorys',
               undefined,
               (draft) => {
                 const index = draft.data.findIndex(
-                  (element: ServiceOwner) => element.id === updatedObject.id
+                  (element: ServiceCategory) => element.id === updatedObject.id
                 );
                 draft.data[index] = {
                   ...updatedObject,
@@ -82,23 +82,23 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
       },
     }),
 
-    /* delete service owner begin here*/
+    /* delete service Category begin here*/
 
-    deleteServiceOwner: build.mutation<any, any>({
+    deleteServiceCategory: build.mutation<any, any>({
       query: (id) => ({
-        url: `${ServiceOwnersEndPoint.deleteServiceOwner}${id}`,
+        url: `${ServiceCategorysEndPoint.deleteCategory}${id}`,
         method: 'DELETE',
       }),
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
           dispatch(
-            ServiceOwnerApi.util.updateQueryData(
-              'getServiceOwners',
+            ServiceCategoryApi.util.updateQueryData(
+              'getServiceCategorys',
               undefined,
               (draft) => {
                 draft.data = draft.data.filter(
-                  (element: ServiceOwner) => element.id !== id
+                  (element: ServiceCategory) => element.id !== id
                 );
               }
             )
@@ -114,8 +114,8 @@ const ServiceOwnerApi = apiSlice.injectEndpoints({
 });
 
 export const {
-  useGetServiceOwnersQuery,
-  useAddNewServiceOwnerMutation,
-  useUpdateServiceOwnerMutation,
-  useDeleteServiceOwnerMutation,
-} = ServiceOwnerApi;
+  useGetServiceCategorysQuery,
+  useAddNewServiceCategoryMutation,
+  useUpdateServiceCategoryMutation,
+  useDeleteServiceCategoryMutation,
+} = ServiceCategoryApi;

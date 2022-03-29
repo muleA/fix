@@ -2,12 +2,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import ReactLoading from 'react-loading';
 import ServiceOwner from '../../../models/publication/service-owners/service-owner';
+import NotificationModel from '../../../shared/models/notification-model';
+import Notification from '../../../shared/components/notification';
 import {
   Card,
   Input,
-  Popover,
-  Checkbox,
-  Divider,
+
   Table,
   Pagination,
   Select,
@@ -15,15 +15,15 @@ import {
 import {
   IconPlus,
   IconSearch,
-  IconFilter,
-  IconChevronDown,
   IconChevronRight,
   IconInbox,
 } from '@tabler/icons';
 import { useGetServiceOwnersQuery } from '../store/query/service-owner.query';
 const ServiceOwnerList = () => {
-  const [filterOpened, setFilterOpened] = useState(false);
   const [perPage, setPerPage] = useState<string>('10');
+  const [notification, setNotification] = useState<NotificationModel | null>(
+    null
+  );
   const {
     data: serviceOwners,
     isLoading,
@@ -57,94 +57,39 @@ const ServiceOwnerList = () => {
               rightSectionWidth={40}
               styles={{ rightSection: { pointerEvents: 'none' } }}
             />
-            <Popover
-              opened={filterOpened}
-              onClose={() => setFilterOpened(false)}
-              target={
-                <div
-                  onClick={() => setFilterOpened(!filterOpened)}
-                  className="tw-h-full tw-flex tw-items-center tw-border hover:tw-border-[#1d2861] hover:tw-cursor-pointer"
-                >
-                  <IconFilter className="tw-flex tw-mx-1" size={20} />
-                  <span className="tw-mx-1">Filter</span>
-                  <IconChevronDown className="tw-mx-1 tw-flex" size={20} />
-                </div>
-              }
-              width={180}
-              position="left"
-              withArrow
-              styles={{
-                inner: { padding: '0px' },
-                target: { height: '100%' },
-              }}
-            >
-              <div>
-                <div className="tw-pl-4 tw-py-2 tw-font-bold tw-border-b">
-                  Filter By Category
-                </div>
-                <div className="tw-px-4">
-                  <Checkbox size="xs" className="tw-my-4" label="Educational" />
-                  <Checkbox
-                    size="xs"
-                    className="tw-my-4"
-                    label="Health related "
-                  />
-                  <Divider
-                    my="xs"
-                    label="Filter By tags"
-                    labelPosition="center"
-                  />
-                  <Checkbox size="xs" className="tw-my-4" label="#passport" />
-                  <Checkbox size="xs" className="tw-my-4" label="#nationalId" />
-                </div>
-              </div>
-            </Popover>
           </Card.Section>
 
           <Card.Section className="tw-p-4 tw-overflow-x-auto">
+            {isError && (
+              <div className="tw-text-center   tw-text-2xl">
+                {' '}
+                {console.log(error)}
+                <h5 className="tw-text-red-800 tw-mt-100px">
+                  {' '}
+                  Failed to load resource: ERR_CONNECTION_REFUSED{' '}
+                </h5>
+              </div>
+            )}
             <Table className="tw-mb-4">
               <thead>
                 <tr className="tw-bg-gray-200">
-                  <th>Code</th>
-                  <th>Shortname</th>
                   <th>FullName</th>
+                  <th>Short Name</th>
+                  <th>Code</th>
                   <th>Sector</th>
                   <th>Email</th>
                   <th>Phone</th>
-                  <th>name</th>
-                  <th>createdAt</th>
-                  <th>updatedAt</th>
+                  <th>Manager Name</th>
+                 
                   <th></th>
                 </tr>
               </thead>
-              {isLoading && (
-                <>
-                  <ReactLoading
-                    className="tw-z-50 tw-absolute tw-top-1/2 tw-left-1/2 
-                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
-                    type={'spokes'}
-                    color={'#1d2861'}
-                    height={'4%'}
-                    width={'4%'}
-                  />
-                </>
-              )}
 
               {isSuccess && (
                 <tbody className="tw-border-b">
-                  {isError && (
-                    <div className="tw-text-center   tw-text-2xl">
-                      {' '}
-                      {console.log(error)}
-                      <h1 className="tw-text-red-800 tw-mt-100px">
-                        {' '}
-                        Failed to load resource: ERR_CONNECTION_REFUSED{' '}
-                      </h1>
-                    </div>
-                  )}
                   {serviceOwners.data.length == 0 && (
                     <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
-                      <td className="tw-text-center" colSpan={7}>
+                      <td className="tw-text-center" colSpan={8}>
                         <span>
                           <IconInbox
                             className="tw-inline-block"
@@ -156,7 +101,18 @@ const ServiceOwnerList = () => {
                       </td>
                     </tr>
                   )}
-
+                  {isLoading && (
+                    <>
+                      <ReactLoading
+                        className="tw-z-50 tw-absolute tw-top-1/2 tw-left-1/2 
+                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
+                        type={'spokes'}
+                        color={'#1d2861'}
+                        height={'4%'}
+                        width={'4%'}
+                      />
+                    </>
+                  )}
                   {serviceOwners.data.length > 0 &&
                     serviceOwners.data.map((item: ServiceOwner) => (
                       <tr key={item.id}>
@@ -167,9 +123,7 @@ const ServiceOwnerList = () => {
                         <td>{item.contactInfo?.email}</td>
                         <td>{item.contactInfo?.phone}</td>
                         <td>{item.contactInfo?.name}</td>
-                        <td>{item.createdAt}</td>
-                        <td>{item.updatedAt}</td>
-
+                      
                         <td className="hoverable-visibility-content">
                           <Link
                             href={`/service-store/service-owner/detail/${item.id}`}
@@ -217,6 +171,14 @@ const ServiceOwnerList = () => {
           </Card.Section>
         </Card>
       </div>
+      {notification != null && (
+        <Notification
+          onClose={() => setNotification(null)}
+          type={notification.type}
+          message={notification.message}
+          show={notification.show}
+        />
+      )}
     </>
   );
 };

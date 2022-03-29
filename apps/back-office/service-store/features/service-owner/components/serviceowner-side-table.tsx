@@ -3,18 +3,18 @@ import Link from 'next/link';
 import {
   Card,
   Input,
-  Popover,
-  Checkbox,
-  Divider,
   Table,
   Pagination,
   Select,
 } from '@mantine/core';
-import { IconPlus, IconSearch, IconFilter, IconInbox } from '@tabler/icons';
+import { useRouter } from 'next/router';
+
+import { IconPlus, IconSearch, IconInbox } from '@tabler/icons';
 import { useGetServiceOwnersQuery } from '../store/query/service-owner.query';
 import ReactLoading from 'react-loading';
 const ServiceOwnerSideTable = () => {
-  const [filterOpened, setFilterOpened] = useState(false);
+  const router = useRouter();
+  const { id } = router.query;
   const [perPage, setPerPage] = useState<string>('5');
   const {
     data: serviceOwners,
@@ -22,6 +22,7 @@ const ServiceOwnerSideTable = () => {
     isSuccess,
     isError,
   } = useGetServiceOwnersQuery();
+
   return (
     <Card className="tw-w-4/12" shadow="sm">
       <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
@@ -46,38 +47,6 @@ const ServiceOwnerSideTable = () => {
           rightSectionWidth={40}
           styles={{ rightSection: { pointerEvents: 'none' } }}
         />
-        <Popover
-          opened={filterOpened}
-          onClose={() => setFilterOpened(false)}
-          target={
-            <div
-              onClick={() => setFilterOpened(!filterOpened)}
-              className="tw-h-full tw-flex tw-items-center tw-border hover:tw-border-[#1d2861] hover:tw-cursor-pointer"
-            >
-              <IconFilter className="tw-flex tw-mx-1" size={20} />
-            </div>
-          }
-          width={180}
-          position="right"
-          withArrow
-          styles={{
-            inner: { padding: '0px' },
-            target: { height: '100%' },
-          }}
-        >
-          <div>
-            <div className="tw-pl-4 tw-py-2 tw-font-bold tw-border-b">
-              Filter
-            </div>
-            <div className="tw-px-4">
-              <Checkbox size="xs" className="tw-my-4" label="Locked" />
-              <Checkbox size="xs" className="tw-my-4" label="Unlocked" />
-              <Divider my="xs" label="And" labelPosition="center" />
-              <Checkbox size="xs" className="tw-my-4" label="Active" />
-              <Checkbox size="xs" className="tw-my-4" label="Deactive" />
-            </div>
-          </div>
-        </Popover>
       </Card.Section>
 
       <Card.Section className="tw-p-4 tw-overflow-x-auto">
@@ -129,7 +98,11 @@ const ServiceOwnerSideTable = () => {
                     key={item.id}
                     className={`tw-block tw-no-underline hover:tw-bg-gray-50 tw-p-1`}
                   >
-                    <td>
+                    <td
+                      className={`tw-block ${
+                        id == item.id && 'tw-text-white tw-bg-[#1d2861]'
+                      } `}
+                    >
                       <Link
                         href={`/service-store/service-owner/detail/${item.id}`}
                       >

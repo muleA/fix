@@ -6,8 +6,8 @@ export interface ContactInfo {
 
 export interface Location {
   city: string;
-  latitude: number;
-  longitude: number;
+  latitude: string;
+  longitude: string;
   landmark: string;
 }
 
@@ -29,4 +29,6 @@ export default interface ServiceProvider {
   code: string;
   organizationId: string;
   organizationName: string;
+  createdAt: string;
+  updatedAt: string;
 }

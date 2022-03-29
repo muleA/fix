@@ -1,4 +1,4 @@
-import { IconQuestionMark, IconArrowBarDown, IconApps } from '@tabler/icons';
+import { IconArrowBarDown, IconApps } from '@tabler/icons';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
@@ -104,7 +104,7 @@ const MainNavbar = () => {
             tw-top-[40px] tw-right-0 tw-shadow-md tw-min-w-[180px]"
             >
               <div className="tw-pl-3 tw-py-2 sm:tw-hidden hover:tw-bg-gray-200">
-                <Link href="/registration/home">
+                <Link href="/service-store/service/list">
                   <a className="tw-text-gray-500 hover:tw-no-underline hover:tw-text-gray-500">
                     Service
                   </a>
@@ -190,44 +190,22 @@ const MainNavbar = () => {
               className={`tw-h-full tw-px-2 tw-py-2 hover:tw-text-blue-900 
                     hover:tw-bg-white hover:tw-no-underline 
                     ${
-                      router.pathname ===
-                        '/service-store/adminstration/policy' ||
                       router.pathname === '/service-store/adminstration' ||
+                      router.pathname === '/service-store/service-tags/list' ||
+                      router.pathname === '/service-store/service-tags/new' ||
                       router.pathname ===
-                        '/service-store/adminstration/new-policy' ||
-                      router.pathname ===
-                        '/service-store/adminstration/service-tags' ||
-                      router.pathname ===
-                        '/service-store/adminstration/new-tag' ||
-                      router.pathname ===
-                        '/service-store/adminstration/service-category' ||
-                      router.pathname ===
-                        '/service-store/adminstration/new-category' ||
-                      router.pathname ===
-                        '/service-store/adminstration/supported-languages' ||
-                      router.pathname ===
-                        '/service-store/adminstration/new-language'
+                        '/service-store/service-category/list' ||
+                      router.pathname === '/service-store/new-category/new'
                         ? 'active'
                         : ''
                     }
                     ${
-                      router.pathname ===
-                        '/service-store/adminstration/policy' ||
                       router.pathname === '/service-store/adminstration' ||
+                      router.pathname === '/service-store/service-tags/list' ||
+                      router.pathname === '/service-store/service-tags/new' ||
                       router.pathname ===
-                        '/service-store/adminstration/new-policy' ||
-                      router.pathname ===
-                        '/service-store/adminstration/service-tags' ||
-                      router.pathname ===
-                        '/service-store/adminstration/new-tag' ||
-                      router.pathname ===
-                        '/service-store/adminstration/service-category' ||
-                      router.pathname ===
-                        '/service-store/adminstration/new-category' ||
-                      router.pathname ===
-                        '/service-store/adminstration/supported-languages' ||
-                      router.pathname ===
-                        '/service-store/adminstration/new-language'
+                        '/service-store/service-category/list' ||
+                      router.pathname === '/service-store/service-category/new'
                         ? 'tw-text-blue-900'
                         : ''
                     }
@@ -239,13 +217,6 @@ const MainNavbar = () => {
         </li>
       </ul>
       <ul className="tw-flex tw-items-center tw-text-gray-100">
-        <li className="tw-h-full tw-flex tw-items-center tw-px-2 hover:tw-cursor-pointer">
-          <Link href="/registration/home">
-            <a>
-              <IconQuestionMark />
-            </a>
-          </Link>
-        </li>
         <li
           className="tw-h-full tw-flex tw-items-center tw-px-2 hover:tw-text-blue-900 hover:tw-bg-white 
                 :tw-cursor-pointer tw-relative"

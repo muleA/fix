@@ -12,6 +12,7 @@ export default function Notification(props: Props) {
   useEffect(() => {
     setTimeout(() => setIsVisible(false), 7000);
   }, []);
+
   const handleClose = () => {
     props.onClose();
   };
