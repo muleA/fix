@@ -1,22 +1,21 @@
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
   CreateDateColumn,DeleteDateColumn,
-  UpdateDateColumn, OneToOne,OneToMany,ManyToOne,
+  UpdateDateColumn
 } from "typeorm";
-export  abstract class CommonEntity{
-  @Column()
-  createdBy:string;
-  @Column()
+
+export abstract class CommonEntity{
+  @Column({nullable: true })
+  createdBy?:string;
+  @Column({nullable: true })
   updatedBy?:string;
-  @CreateDateColumn({type:'timestamptz', default: () => 'NOW()'})
+  @CreateDateColumn({type:'timestamptz', default:'now()'})
   createdAt: Date;  
-  @UpdateDateColumn()
+  @UpdateDateColumn({type:'timestamptz', default:'now()'})
   updatedAt: Date;
-  @DeleteDateColumn()
-  deletedAt?:Date;
-  @Column()
+  @DeleteDateColumn({nullable: true })
+  deletedAt:Date;
+  @Column({nullable: true })
   deletedBy:string;
 
 }

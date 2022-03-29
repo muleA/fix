@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ServiceRelationship } from '../../domain/ServiceRelationships/serviceRelationship';
+import { ServiceRelationship } from '../../domain/Services/serviceRelationship';
+
  
 /**
 *A class which contains proporties of ServiceRelationship that used to put data to be returned to client

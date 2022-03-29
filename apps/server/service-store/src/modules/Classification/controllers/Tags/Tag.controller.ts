@@ -1,15 +1,13 @@
-import { Body, Controller, Delete, Get, Inject, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put, Query, Param } from '@nestjs/common';
 import { ApiExtraModels, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TagPresenter } from './tag.presenter';
 import { ApiResponseType } from '../../../../infrastructure/swagger/response.decorator';
 import { CreateTagDto, UpdateTagDto } from '../tags/tag.dto';
 import { TagUseCases } from '../../usecases/tag.usecases';
-
 @Controller('tags')
 @ApiTags('tags')
 @ApiResponse({ status: 500, description: 'Internal error' })
 @ApiExtraModels(TagPresenter)
-
 export class TagsController {
 /**
 *A constructor that injects TagUseCases
@@ -21,9 +19,9 @@ constructor(private useCase: TagUseCases) {}
  * @returns A TagPresenter which contain  Tag information
  * See the [definition of the TagPresenter file]{@link TagPresenter} to see a list of required properties
  */
-@Get('get-tag')
+@Get('get-tag/:id')
 @ApiResponseType(TagPresenter, false)
-async getTag(@Query() id: string) {
+async getTag(@Param('id') id: string) {
 const tag = await this.useCase.getTag(id);
 return new TagPresenter(tag);
 }
@@ -38,7 +36,6 @@ async getTags() {
 const tags = await this.useCase.fetTags();
 return tags.map((tag) => new TagPresenter(tag));
 }
-
 /**
  * A method that update a Tag 
  * @param updateTagDto  An information of  Tag 
@@ -62,7 +59,6 @@ async deleteTag(@Query() id: string) {
 await this.useCase.deleteTag(id);
 return 'success';
 }
-
 /**
  * A method that creates a Tag 
  * @param createTagDto  An information of  Tag  that need to be saved
@@ -75,6 +71,4 @@ async createTag(@Body() createTagDto: CreateTagDto) {
 const tagCreated = await this.useCase.createTag( createTagDto);
 return new TagPresenter(tagCreated );
 }
-  
-
 }

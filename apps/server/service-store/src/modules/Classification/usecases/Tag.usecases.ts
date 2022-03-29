@@ -1,14 +1,13 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LoggerService } from 'src/infrastructure/logger/logger.service';
-import { ILogger } from '../../../shared/logger/logger.interface';
-import { Tag } from '../domain/tags/tag';
+import { Tags } from "../domain/tags/tags";
 import { ITagRepository } from '../domain/tags/tag.repository.interface';
 import { TagRepository } from '../persistence/tags/tag.repository';
 import { CreateTagDto, UpdateTagDto } from '../controllers/tags/tag.dto';
 @Injectable()
 export class TagUseCases {
-private tagdomain=new Tag();
+private tagdomain=new Tags();
   private readonly logger = new LoggerService('TagService');
   /**
   * A constructor which injects a repository class that used to manage record in the database
@@ -22,8 +21,8 @@ private tagdomain=new Tag();
  * @returns Promise<Tag which contain  created Tag information
  * See the [definition of the CreateTagDto file]{@link CreateTagDto} to see a list of required properties
  */
-  async createTag( tagDto:CreateTagDto): Promise<Tag> {
-    var tag = new Tag();
+  async createTag( tagDto:CreateTagDto): Promise<Tags> {
+    var tag = new Tags();
     tag =CreateTagDto.fromDTO(tagDto);  
     const result = await this.tagRepository.insertTag(tag);
     this.logger.log('CreateTagUseCases execute', 'New tag have been inserted');
@@ -45,7 +44,7 @@ private tagdomain=new Tag();
  * @returns A Promise which contain a Specific   Tag information
  * See the [definition of the Tag file]{@link Tag} to see a list of required properties
  */
-  async getTag(id: string): Promise<Tag> {
+  async getTag(id: string): Promise<Tags> {
     return await this.tagRepository.findById(id);
   }
 
@@ -53,7 +52,7 @@ private tagdomain=new Tag();
  * A method that invokes a method findAll() of  repository method to fetchs all Tag from the database 
  * @returns Promise with list of  Tag which contain  Tag information
  */
-  async fetTags(): Promise<Tag[]> {
+  async fetTags(): Promise<Tags[]> {
     return await this.tagRepository.findAll();
   }
 
@@ -69,7 +68,7 @@ async updateTag(tagDto:UpdateTagDto): Promise<void> {
     tag =UpdateTagDto.fromDTO(tagDto);
     await this.tagRepository.updateTag( tag.id, tag);
    }else{
-   threw new Error("Not Found");
+   throw new Error("Not Found");
    }   
     
     this.logger.log('UpdateTagUseCases execute', `Tag ${ tag.id} have been updated`);

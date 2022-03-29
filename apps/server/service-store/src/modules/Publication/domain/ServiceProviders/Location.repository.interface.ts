@@ -1,9 +1,9 @@
-import { Location } from './location';
+import { ProviderLocation } from './ProviderLocation';
 export interface ILocationRepository {
-  insertLocation(location: Location): Promise<Location>;
-  findAll(): Promise<Location[]>;
-  findById(id: string): Promise<Location>; 
-  updateLocation(id: string,location: Location): Promise<void>;
+  insertLocation(location: ProviderLocation): Promise<ProviderLocation>;
+  findAll(): Promise<ProviderLocation[]>;
+  findById(id: string): Promise<ProviderLocation>; 
+  updateLocation(id: string, location: ProviderLocation): Promise<void>;
   deleteById(id: string): Promise<void>;
 
 }

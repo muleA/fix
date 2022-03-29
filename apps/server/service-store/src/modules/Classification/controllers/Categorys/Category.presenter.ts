@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Category } from '../../domain/Categorys/category';
+import { Category } from '../../domain/categorys/category';
  
 /**
 *A class which contains proporties of Category that used to put data to be returned to client

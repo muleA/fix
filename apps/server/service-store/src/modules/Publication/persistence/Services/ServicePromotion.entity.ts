@@ -3,7 +3,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn, @OneToOne(),@OneToMany(),@ManyToOne(),
+  UpdateDateColumn,
 } from "typeorm";
 
 @Entity({ name: "servicePromotion" })

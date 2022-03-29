@@ -1,30 +1,21 @@
+import { CommonEntity } from "src/modules/shared/CommonEntity";
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn, @OneToOne(),@OneToMany(),@ManyToOne(),
+  PrimaryGeneratedColumn, ManyToOne, JoinColumn,
 } from "typeorm";
-
-@Entity({ name: "serviceDependency" })
-export class ServiceDependencyEntity {
-   @PrimaryGeneratedColumn('uuid')
+import { ServiceEntity } from "./service.entity";
+@Entity({ name: "serviceDependencies" })
+export class ServiceDependencyEntity extends CommonEntity {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
-   
   @Column()
   serviceId: string;
-  
+  @ManyToOne(type => ServiceEntity, service => service.serviceDependencies, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'serviceId' })
+  service: ServiceEntity;
   @Column()
   dependsOn: string;
-  
   @Column()
   type: string;
-  
-  @Column()
-  createdAt: Date;
-  
-  @Column()
-  updatedAt: Date;
-  
-  
 }

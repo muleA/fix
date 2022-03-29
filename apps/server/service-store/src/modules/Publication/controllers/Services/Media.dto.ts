@@ -1,68 +1,73 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { Media } from '../../domain/Medias/media';
-   
+import { IsBoolean, IsNotEmpty, IsUUID, IsString, IsFQDN } from 'class-validator';
+import { Media } from '../../domain/services/Media';
+
+
 /**
 *A class which contains proporties of Media that used to receive paramamer values to be updated in the database
 */
 export class UpdateMediaDto {
-  
-@ApiProperty()
-id: string;
-    
-@ApiProperty()
-url: string;
-    
-@ApiProperty()
-caption: string;
-    
-@ApiProperty()
-type: string;
-    
-@ApiProperty()
-serviceId: string;
-    
-@ApiProperty()
-createdAt: Date;
-    
-@ApiProperty()
-updatedAt: Date;
+
+  @ApiProperty()
+  // @IsNotEmpty()  
+  // @IsUUID() // commented for test only
+  id: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  url: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  caption: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  type: string;
+
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID()
+  serviceId: string;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
+
   /**
 *A method that mapes  UpdateMediaDto object data to  Media domain object
 *@returns Media domain object which contains Media  information
 */
-static fromDTO(mediaDto:UpdateMediaDto): Media
-{
-const media: Media = new Media();  
- 
-media.id=mediaDto.id; 
+  static fromDTO(mediaDto: UpdateMediaDto): Media {
+    const media: Media = new Media();
+
+    media.id = mediaDto.id;
 
 
- 
-media.url=mediaDto.url; 
+
+    media.url = mediaDto.url;
 
 
- 
-media.caption=mediaDto.caption; 
+
+    media.caption = mediaDto.caption;
 
 
- 
-media.type=mediaDto.type; 
+
+    media.type = mediaDto.type;
 
 
- 
-media.serviceId=mediaDto.serviceId; 
+
+    // media.serviceId = mediaDto.serviceId;
 
 
- 
-media.createdAt=mediaDto.createdAt; 
+
+    media.updatedBy = mediaDto.updatedBy;
 
 
- 
-media.updatedAt=mediaDto.updatedAt; 
-
-
-return media;
+    return media;
   }
 }
 /**
@@ -70,48 +75,62 @@ return media;
 *
 */
 export class CreateMediaDto {
-     
-@ApiProperty()
-id: string;
-    
-@ApiProperty()
-url: string;
-    
-@ApiProperty()
-caption: string;
-    
-@ApiProperty()
-type: string;
-    
-@ApiProperty()
-serviceId: string;
-    
-@ApiProperty()
-createdAt: Date;
-    
-@ApiProperty()
-updatedAt: Date;
+
+  @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID()
+  id: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  url: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  caption: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  type: string;
+
+  @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID()
+  serviceId: string;
+
+  // @ApiProperty() 
+  // @IsNotEmpty()
+  // @IsUUID()// will un comment when we build the user management
+  createdBy: string;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
+
   /**
 *A method that mapes  CreateMediaDto object data to  Media domain object
 *@returns Media domain object which contains Media  information
-*/    
-static fromDTO(mediaDto:CreateMediaDto): Media
-{
-const media: Media = new Media();  
- 
-media.id=mediaDto.id; 
- 
-media.url=mediaDto.url; 
- 
-media.caption=mediaDto.caption; 
- 
-media.type=mediaDto.type; 
- 
-media.serviceId=mediaDto.serviceId; 
- 
-media.createdAt=mediaDto.createdAt; 
- 
-media.updatedAt=mediaDto.updatedAt; 
-     return media;
-    }
+*/
+  static fromDTO(mediaDto: CreateMediaDto): Media {
+    const media: Media = new Media();
+
+    // media.id = mediaDto.id;  // no need of id child entity because the system generates an id automatically
+
+    media.url = mediaDto.url;
+
+    media.caption = mediaDto.caption;
+
+    media.type = mediaDto.type;
+
+    media.serviceId = mediaDto.serviceId;
+
+    media.createdBy = mediaDto.createdBy;
+
+    media.updatedBy = mediaDto.updatedBy;
+    return media;
+  }
+
 }

@@ -1,57 +1,44 @@
+import { CommonEntity } from "src/modules/shared/CommonEntity";
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn, @OneToOne(),@OneToMany(),@ManyToOne(),
+  UpdateDateColumn, OneToOne, OneToMany, ManyToOne
 } from "typeorm";
-
-@Entity({ name: "serviceCollection" })
-export class ServiceCollectionEntity {
-   @PrimaryGeneratedColumn('uuid')
+import { ServiceEntryEntity } from "./ServiceEntry.entity";
+import { ServiceResourceEntity } from "./ServiceResource.entity";
+@Entity({ name: "serviceCollections" })
+export class ServiceCollectionEntity extends CommonEntity {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
-   
-  @Column()
+  @Column({ name: 'name' })
   name: string;
-  
-  @Column()
-  description: string;
-  
-  @Column()
+  @Column({ name: 'description', nullable: true })
+  description?: string;
+  @Column({ name: 'code' })
   code: string;
-  
-  @Column()
-  serviceEntries: ServiceEntry[];
-  
-  @Column()
+
+  @OneToMany(type => ServiceEntryEntity, serviceEntry => serviceEntry.serviceCollection, { eager: true, cascade: true })
+  serviceEntries: ServiceEntryEntity[];
+  @Column({ name: 'supportedQualifications', nullable: true })
   supportedQualifications: string;
-  
-  @Column()
+  @Column('double precision', { nullable: true })
   version: number;
-  
-  @Column()
+  @Column({ name: 'procedure' })
   procedure: string;
-  
-  @Column()
+  @Column({ name: 'isPublic' })
   isPublic: boolean;
-  
-  @Column()
+  @Column({ name: 'tags', nullable: true })
   tags: string;
-  
-  @Column()
-  resources: ServiceResource[];
-  
-  @Column()
+
+  @OneToMany(type => ServiceResourceEntity, resource => resource.serviceCollection, { eager: true, cascade: true })
+  serviceResources: ServiceResourceEntity[];
+  @Column({ name: 'targetCustomers' })
   targetCustomers: string;
-  
-  @Column()
+  @Column({ name: 'isArchived', default: false })
   isArchived: boolean;
-  
-  @Column()
-  createdAt: Date;
-  
-  @Column()
-  updatedAt: Date;
-  
-  
+
+
+
 }

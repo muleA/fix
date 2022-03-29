@@ -15,7 +15,6 @@ private ratingdomain=new Rating();
   */
   constructor(@InjectRepository(RatingRepository)
   private ratingRepository: IRatingRepository) { }
-
 /**
  * A method that calls the repository insert method to save  Rating to databse
  * @param createRatingDto  An information of  Rating  that need to be saved
@@ -38,7 +37,6 @@ private ratingdomain=new Rating();
     await this.ratingRepository.deleteById(id);
     this.logger.log('DeleteRatingUseCases execute', `Rating ${id} have been deleted`);
   }
-
 /**
  * A method that invoke a repository method findById() to fetchs a Rating from the database by id
  * @param id An id of a Rating. A Rating with this id should exist in the database
@@ -48,7 +46,6 @@ private ratingdomain=new Rating();
   async getRating(id: string): Promise<Rating> {
     return await this.ratingRepository.findById(id);
   }
-
 /**
  * A method that invokes a method findAll() of  repository method to fetchs all Rating from the database 
  * @returns Promise with list of  Rating which contain  Rating information
@@ -56,28 +53,19 @@ private ratingdomain=new Rating();
   async fetRatings(): Promise<Rating[]> {
     return await this.ratingRepository.findAll();
   }
-
 /**
  * A method that invokes a repository method updateRating(rating) to update a Rating 
  * @param updateRatingDto  An information of  Rating 
  * @returns no returned data
  */ 
 async updateRating(ratingDto:UpdateRatingDto): Promise<void> {
-    var  var rating= await this.ratingRepository.findById(ratingDto.id);
+    var   rating= await this.ratingRepository.findById(ratingDto.id);
    if(rating!=null){
-    
     rating =UpdateRatingDto.fromDTO(ratingDto);
     await this.ratingRepository.updateRating( rating.id, rating);
    }else{
-   threw new Error("Not Found");
+   throw new Error("Not Found");
    }   
-    
     this.logger.log('UpdateRatingUseCases execute', `Rating ${ rating.id} have been updated`);
   }
-  
- 
-   
-
-
-
 }

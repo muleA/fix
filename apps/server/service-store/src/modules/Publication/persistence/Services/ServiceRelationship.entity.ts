@@ -1,30 +1,25 @@
+import { CommonEntity } from "src/modules/shared/CommonEntity";
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn, @OneToOne(),@OneToMany(),@ManyToOne(),
+  UpdateDateColumn, OneToOne, OneToMany, ManyToOne,
 } from "typeorm";
 
-@Entity({ name: "serviceRelationship" })
-export class ServiceRelationshipEntity {
-   @PrimaryGeneratedColumn('uuid')
+@Entity({ name: "serviceRelationships" })
+export class ServiceRelationshipEntity extends CommonEntity {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
-   
+
   @Column()
   serviceId: string;
-  
+
   @Column()
   relatedToServiceId: string;
-  
+
   @Column()
   status: string;
-  
-  @Column()
-  createdAt: Date;
-  
-  @Column()
-  updatedAt: Date;
-  
-  
+
+
 }

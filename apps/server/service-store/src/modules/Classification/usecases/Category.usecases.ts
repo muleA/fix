@@ -15,7 +15,6 @@ private categorydomain=new Category();
   */
   constructor(@InjectRepository(CategoryRepository)
   private categoryRepository: ICategoryRepository) { }
-
 /**
  * A method that calls the repository insert method to save  Category to databse
  * @param createCategoryDto  An information of  Category  that need to be saved
@@ -38,7 +37,6 @@ private categorydomain=new Category();
     await this.categoryRepository.deleteById(id);
     this.logger.log('DeleteCategoryUseCases execute', `Category ${id} have been deleted`);
   }
-
 /**
  * A method that invoke a repository method findById() to fetchs a Category from the database by id
  * @param id An id of a Category. A Category with this id should exist in the database
@@ -48,7 +46,6 @@ private categorydomain=new Category();
   async getCategory(id: string): Promise<Category> {
     return await this.categoryRepository.findById(id);
   }
-
 /**
  * A method that invokes a method findAll() of  repository method to fetchs all Category from the database 
  * @returns Promise with list of  Category which contain  Category information
@@ -56,7 +53,6 @@ private categorydomain=new Category();
   async fetCategorys(): Promise<Category[]> {
     return await this.categoryRepository.findAll();
   }
-
 /**
  * A method that invokes a repository method updateCategory(category) to update a Category 
  * @param updateCategoryDto  An information of  Category 
@@ -65,19 +61,11 @@ private categorydomain=new Category();
 async updateCategory(categoryDto:UpdateCategoryDto): Promise<void> {
     var   category= await this.categoryRepository.findById(categoryDto.id);
    if(category!=null){
-    
     category =UpdateCategoryDto.fromDTO(categoryDto);
     await this.categoryRepository.updateCategory( category.id, category);
    }else{
    throw new Error("Not Found");
    }   
-    
     this.logger.log('UpdateCategoryUseCases execute', `Category ${ category.id} have been updated`);
   }
-  
- 
-   
-
-
-
 }

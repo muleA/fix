@@ -1,13 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsUUID, IsString, IsFQDN } from 'class-validator';
-import { ServiceResource } from '../../domain/services/ServiceResource';
-
-
+import { IsBoolean, IsNotEmpty, IsNumber, IsString, IsUUID } from 'class-validator';
+import { ServiceResource } from '../../domain/serviceCollections/ServiceResource';
 /**
 *A class which contains proporties of ServiceResource that used to receive paramamer values to be updated in the database
 */
 export class UpdateServiceResourceDto {
-
   @ApiProperty()
   // @IsNotEmpty()
   // @IsUUID()
@@ -16,7 +13,7 @@ export class UpdateServiceResourceDto {
   @ApiProperty()
   // @IsNotEmpty()
   // @IsUUID()
-  serviceId: string;
+  serviceCollectionId: string;
 
   @ApiProperty()
   @IsString()
@@ -31,19 +28,17 @@ export class UpdateServiceResourceDto {
   // @IsUUID() // will un comment when we build the user management
   updatedBy: string;
 
-
   /**
 *A method that mapes  UpdateServiceResourceDto object data to  ServiceResource domain object
 *@returns ServiceResource domain object which contains ServiceResource  information
 */
   static fromDTO(serviceResourceDto: UpdateServiceResourceDto): ServiceResource {
     const serviceResource: ServiceResource = new ServiceResource();
-
     serviceResource.id = serviceResourceDto.id;
 
 
 
-    serviceResource.serviceId = serviceResourceDto.serviceId;
+    serviceResource.serviceCollectionId = serviceResourceDto.serviceCollectionId;
 
 
 
@@ -72,7 +67,7 @@ export class CreateServiceResourceDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsUUID()
-  serviceId: string;
+  serviceCollectionId: string;
 
   @ApiProperty()
   @IsString()
@@ -91,18 +86,15 @@ export class CreateServiceResourceDto {
   // @IsNotEmpty()
   // @IsUUID() // will un comment when we build the user management
   updatedBy: string;
-
-
   /**
 *A method that mapes  CreateServiceResourceDto object data to  ServiceResource domain object
 *@returns ServiceResource domain object which contains ServiceResource  information
 */
   static fromDTO(serviceResourceDto: CreateServiceResourceDto): ServiceResource {
     const serviceResource: ServiceResource = new ServiceResource();
-
     serviceResource.id = serviceResourceDto.id;
 
-    serviceResource.serviceId = serviceResourceDto.serviceId;
+    serviceResource.serviceCollectionId = serviceResourceDto.serviceCollectionId;
 
     serviceResource.attachmentUrl = serviceResourceDto.attachmentUrl;
 
@@ -111,6 +103,7 @@ export class CreateServiceResourceDto {
     serviceResource.createdBy = serviceResourceDto.createdBy;
 
     serviceResource.updatedBy = serviceResourceDto.updatedBy;
+
     return serviceResource;
   }
 }

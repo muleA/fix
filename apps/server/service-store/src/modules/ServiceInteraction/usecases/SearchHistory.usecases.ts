@@ -63,13 +63,13 @@ private searchHistorydomain=new SearchHistory();
  * @returns no returned data
  */ 
 async updateSearchHistory(searchHistoryDto:UpdateSearchHistoryDto): Promise<void> {
-    var  var searchHistory= await this.searchHistoryRepository.findById(searchHistoryDto.id);
+    var   searchHistory= await this.searchHistoryRepository.findById(searchHistoryDto.id);
    if(searchHistory!=null){
     
     searchHistory =UpdateSearchHistoryDto.fromDTO(searchHistoryDto);
     await this.searchHistoryRepository.updateSearchHistory( searchHistory.id, searchHistory);
    }else{
-   threw new Error("Not Found");
+   throw new Error("Not Found");
    }   
     
     this.logger.log('UpdateSearchHistoryUseCases execute', `SearchHistory ${ searchHistory.id} have been updated`);

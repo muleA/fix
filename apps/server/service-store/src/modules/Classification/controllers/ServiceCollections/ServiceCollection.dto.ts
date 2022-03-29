@@ -1,118 +1,140 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsUUID, IsArray, IsDecimal, IsString, IsOptional } from 'class-validator';
+//import { CreateServiceResourceDto, UpdateServiceResourceDto } from 'src/modules/Publication/controllers/Services/ServiceResource.dto';
 import { ServiceCollection } from '../../domain/ServiceCollections/serviceCollection';
-  import { CreateServiceEntryDto, UpdateServiceEntryDto } from './ServiceEntry.dto';
-   import { CreateServiceResourceDto, UpdateServiceResourceDto } from './ServiceResource.dto';
-    
+import { CreateServiceEntryDto, UpdateServiceEntryDto } from './ServiceEntry.dto';
+import { UpdateServiceResourceDto, CreateServiceResourceDto } from './ServiceResource.dto';
+
 /**
 *A class which contains proporties of ServiceCollection that used to receive paramamer values to be updated in the database
 */
 export class UpdateServiceCollectionDto {
-  
-@ApiProperty()
-id: string;
-    
-@ApiProperty()
-name: string;
-    
-@ApiProperty()
-description: string;
-    
-@ApiProperty()
-code: string;
+
   @ApiProperty()
-serviceEntries: UpdateServiceEntryDto[];
-     
-@ApiProperty()
-supportedQualifications: string;
-    
-@ApiProperty()
-version: number;
-    
-@ApiProperty()
-procedure: string;
-    
-@ApiProperty()
-isPublic: boolean;
-    
-@ApiProperty()
-tags: string;
+  // @IsUUID()
+  // @IsNotEmpty()
+  id: string;
+
   @ApiProperty()
-resources: UpdateServiceResourceDto[];
-     
-@ApiProperty()
-targetCustomers: string;
-    
-@ApiProperty()
-isArchived: boolean;
-    
-@ApiProperty()
-createdAt: Date;
-    
-@ApiProperty()
-updatedAt: Date;
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  description: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  code: string;
+
+  @ApiProperty()
+  // @IsArray()
+  @IsOptional()
+  serviceEntries: UpdateServiceEntryDto[];
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  supportedQualifications: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  @IsDecimal()
+  version: number;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  procedure: string;
+
+  @ApiProperty()
+  // @IsNotEmpty()
+  @IsBoolean()
+  isPublic: boolean;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  tags: string;
+
+  @ApiProperty()
+  // @IsArray()
+  @IsOptional()
+  serviceResources: UpdateServiceResourceDto[];
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  targetCustomers: string;
+
+  @ApiProperty()
+  // @IsNotEmpty()
+  @IsBoolean()
+  isArchived: boolean;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
   /**
 *A method that mapes  UpdateServiceCollectionDto object data to  ServiceCollection domain object
 *@returns ServiceCollection domain object which contains ServiceCollection  information
 */
-static fromDTO(serviceCollectionDto:UpdateServiceCollectionDto): ServiceCollection
-{
-const serviceCollection: ServiceCollection = new ServiceCollection();  
- 
-serviceCollection.id=serviceCollectionDto.id; 
+  static fromDTO(serviceCollectionDto: UpdateServiceCollectionDto): ServiceCollection {
+    const serviceCollection: ServiceCollection = new ServiceCollection();
+
+    serviceCollection.id = serviceCollectionDto.id;
 
 
- 
-serviceCollection.name=serviceCollectionDto.name; 
+
+    serviceCollection.name = serviceCollectionDto.name;
 
 
- 
-serviceCollection.description=serviceCollectionDto.description; 
+
+    serviceCollection.description = serviceCollectionDto.description;
 
 
- 
-serviceCollection.code=serviceCollectionDto.code; 
+
+    serviceCollection.code = serviceCollectionDto.code;
+
+    if (serviceCollection.serviceEntries)
+      serviceCollection.serviceEntries = serviceCollectionDto.serviceEntries.map(item => UpdateServiceEntryDto.fromDTO(item));
+
+    serviceCollection.supportedQualifications = serviceCollectionDto.supportedQualifications;
 
 
-serviceCollection.serviceEntries=serviceCollectionDto.serviceEntries.map(item=>UpdateServiceEntryDto.fromDTO(item));  
-    
-serviceCollection.supportedQualifications=serviceCollectionDto.supportedQualifications; 
+
+    serviceCollection.version = serviceCollectionDto.version;
 
 
- 
-serviceCollection.version=serviceCollectionDto.version; 
+
+    serviceCollection.procedure = serviceCollectionDto.procedure;
 
 
- 
-serviceCollection.procedure=serviceCollectionDto.procedure; 
+
+    serviceCollection.isPublic = serviceCollectionDto.isPublic;
 
 
- 
-serviceCollection.isPublic=serviceCollectionDto.isPublic; 
+
+    serviceCollection.tags = serviceCollectionDto.tags;
+
+    if (serviceCollection.serviceResources)
+      serviceCollection.serviceResources = serviceCollectionDto.serviceResources.map(item => { return UpdateServiceResourceDto.fromDTO(item) });
+
+    serviceCollection.targetCustomers = serviceCollectionDto.targetCustomers;
 
 
- 
-serviceCollection.tags=serviceCollectionDto.tags; 
+
+    serviceCollection.isArchived = serviceCollectionDto.isArchived;
 
 
-serviceCollection.resources=serviceCollectionDto.resources.map(item=>UpdateServiceResourceDto.fromDTO(item));  
-    
-serviceCollection.targetCustomers=serviceCollectionDto.targetCustomers; 
 
 
- 
-serviceCollection.isArchived=serviceCollectionDto.isArchived; 
 
-
- 
-serviceCollection.createdAt=serviceCollectionDto.createdAt; 
-
-
- 
-serviceCollection.updatedAt=serviceCollectionDto.updatedAt; 
-
-
-return serviceCollection;
+    return serviceCollection;
   }
 }
 /**
@@ -120,84 +142,102 @@ return serviceCollection;
 *
 */
 export class CreateServiceCollectionDto {
-     
-@ApiProperty()
-id: string;
-    
-@ApiProperty()
-name: string;
-    
-@ApiProperty()
-description: string;
-    
-@ApiProperty()
-code: string;
+
+  // @ApiProperty()
+  // @IsUUID()
+  // @IsNotEmpty()
+  id: string;
+
   @ApiProperty()
-serviceEntries: CreateServiceEntryDto[];
-     
-@ApiProperty()
-supportedQualifications: string;
-    
-@ApiProperty()
-version: number;
-    
-@ApiProperty()
-procedure: string;
-    
-@ApiProperty()
-isPublic: boolean;
-    
-@ApiProperty()
-tags: string;
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
   @ApiProperty()
-resources: CreateServiceResourceDto[];
-     
-@ApiProperty()
-targetCustomers: string;
-    
-@ApiProperty()
-isArchived: boolean;
-    
-@ApiProperty()
-createdAt: Date;
-    
-@ApiProperty()
-updatedAt: Date;
+  @IsString()
+  @IsOptional()
+  description: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  code: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  supportedQualifications: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  @IsDecimal()
+  version: number;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  procedure: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  // @IsBoolean()
+  isPublic: boolean;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  tags: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  targetCustomers: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  // @IsBoolean()
+  isArchived: boolean;
+  // @ApiProperty() //commented until the user management works
+
+  // @ApiProperty() 
+  // @IsNotEmpty()
+  // @IsUUID()// will un comment when we build the user management
+  createdBy: string;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
   /**
 *A method that mapes  CreateServiceCollectionDto object data to  ServiceCollection domain object
 *@returns ServiceCollection domain object which contains ServiceCollection  information
-*/    
-static fromDTO(serviceCollectionDto:CreateServiceCollectionDto): ServiceCollection
-{
-const serviceCollection: ServiceCollection = new ServiceCollection();  
- 
-serviceCollection.id=serviceCollectionDto.id; 
- 
-serviceCollection.name=serviceCollectionDto.name; 
- 
-serviceCollection.description=serviceCollectionDto.description; 
- 
-serviceCollection.code=serviceCollectionDto.code; 
-serviceCollection.serviceEntries=serviceCollectionDto.serviceEntries.map(item=>CreateServiceEntryDto.fromDTO(item));  
-    
-serviceCollection.supportedQualifications=serviceCollectionDto.supportedQualifications; 
- 
-serviceCollection.version=serviceCollectionDto.version; 
- 
-serviceCollection.procedure=serviceCollectionDto.procedure; 
- 
-serviceCollection.isPublic=serviceCollectionDto.isPublic; 
- 
-serviceCollection.tags=serviceCollectionDto.tags; 
-serviceCollection.resources=serviceCollectionDto.resources.map(item=>CreateServiceResourceDto.fromDTO(item));  
-    
-serviceCollection.targetCustomers=serviceCollectionDto.targetCustomers; 
- 
-serviceCollection.isArchived=serviceCollectionDto.isArchived; 
- 
-serviceCollection.createdAt=serviceCollectionDto.createdAt; 
- 
-serviceCollection.updatedAt=serviceCollectionDto.updatedAt; 
-     return serviceCollection;
-    }
+*/
+  static fromDTO(serviceCollectionDto: CreateServiceCollectionDto): ServiceCollection {
+    const serviceCollection: ServiceCollection = new ServiceCollection();
+
+    serviceCollection.id = serviceCollectionDto.id;
+
+    serviceCollection.name = serviceCollectionDto.name;
+
+    serviceCollection.description = serviceCollectionDto.description;
+
+    serviceCollection.code = serviceCollectionDto.code;
+    // serviceCollection.serviceEntries = serviceCollectionDto.serviceEntries.map(item => CreateServiceEntryDto.fromDTO(item));
+
+    serviceCollection.supportedQualifications = serviceCollectionDto.supportedQualifications;
+
+    serviceCollection.version = serviceCollectionDto.version;
+
+    serviceCollection.procedure = serviceCollectionDto.procedure;
+
+    serviceCollection.isPublic = serviceCollectionDto.isPublic;
+
+    serviceCollection.tags = serviceCollectionDto.tags;
+    // serviceCollection.serviceResources = serviceCollectionDto.serviceResources.map(item => CreateServiceResourceDto.fromDTO(item));
+
+    serviceCollection.targetCustomers = serviceCollectionDto.targetCustomers;
+
+    serviceCollection.isArchived = serviceCollectionDto.isArchived;
+    return serviceCollection;
+  }
 }

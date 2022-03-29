@@ -1,4 +1,3 @@
-import { InjectRepository } from '@nestjs/typeorm';
 
 import { IFavoriteRepository } from '../../domain/favorites/favorite.repository.interface';
 export class  Favorite {

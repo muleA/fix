@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ServicePromotion } from '../../domain/ServicePromotions/servicePromotion';
+import { ServicePromotion } from '../../domain/Services/servicePromotion';
+
  
 /**
 *A class which contains proporties of ServicePromotion that used to put data to be returned to client
