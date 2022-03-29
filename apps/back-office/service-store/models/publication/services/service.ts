@@ -5,12 +5,14 @@ export default interface ApplicationForm {
   taskName: string;
 }
 
-export  default interface Service {
+export default interface Service {
+  id?: string;
+  fullyQualifiedName: string;
   name: string;
-  description?: string;
+  description: string;
   code: string;
   supportedQualifications: string;
-  version?: string;
+  version: string;
   procedure: string;
   applicationForm: ApplicationForm[];
   targetCustomers: string;
@@ -19,7 +21,8 @@ export  default interface Service {
   isArchived: boolean;
   tags: string;
   deliveryMethod: string;
-  serviceOwnerId: string;
+  serviceOwnerId?: string;
+  serviceProviderId?: string;
   averageRating: number;
   enableReview: boolean;
   policy: string;

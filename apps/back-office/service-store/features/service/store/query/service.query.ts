@@ -1,11 +1,14 @@
 import { apiSlice } from '../../../../store/app.api';
- import Service from '../../../../models/publication/services/service';
-  import serviceEndpoints from '../../service.endpoints';
+import Service from '../../../../models/publication/services/service';
+import serviceEndpoints from '../../service.endpoints';
 
 const serviceApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
-    getServices: build.query<any, any>({
-      query: (setPage=1) => ({ url: `${serviceEndpoints.getservices}?page=${setPage}&_limit=${10}`, method: 'GET' }),
+    getServices: build.query<any, string>({
+      query: (search) => ({
+        url: `${serviceEndpoints.getservices}?search=${search}`,
+        method: 'GET',
+      }),
     }),
     createService: build.mutation<any, any>({
       query: (newService) => ({
@@ -32,4 +35,4 @@ const serviceApi = apiSlice.injectEndpoints({
     }),
   }),
 });
-export const { useGetServicesQuery,useCreateServiceMutation } = serviceApi;
+export const { useGetServicesQuery, useCreateServiceMutation } = serviceApi;

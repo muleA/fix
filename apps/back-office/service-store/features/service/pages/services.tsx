@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { Switch } from '@mantine/core';
 import {
   Card,
-  Input,
   Popover,
   Checkbox,
   Divider,
   Table,
   Pagination,
   Select,
+  TextInput,
 } from '@mantine/core';
+import ReactLoading from 'react-loading';
+
 import {
   IconPlus,
   IconSearch,
@@ -20,37 +21,30 @@ import {
   IconInbox,
 } from '@tabler/icons';
 import { useRouter } from 'next/router';
-
+import NotificationModel from '../../../shared/models/notification-model';
+import Notification from '../../../shared/components/notification';
+import Service from '../../../models/publication/services/service';
+import { useGetServicesQuery } from '../store/query/service.query';
 const ServiceList = () => {
   const [filterOpened, setFilterOpened] = useState(false);
   const [perPage, setPerPage] = useState<string>('10');
   const router = useRouter();
   const { id } = router.query;
-  const Services = [
-    {
-      name: 'Issuance oF Id',
-      shortName: 'ISID',
-      code: 'IDI2021',
-      description: 'blah blah',
-      supportedQualifications: 'must have renewd Id',
-      procedure: 'first create account on a platforms',
-      tags: '#passport',
-      rating: '0',
-      category: 'Popular',
-      deliveryMethods: 'manual',
-      serviceOwner: 'Mint',
-      policy: 'dsjajfhdas',
-      version: 'v1',
-      targetCustomer: 'city residents',
-      date: '23/4/2014',
-      createddate: '12/3/2014',
-      createdBy: 'mulugeta',
-    },
-  ];
+  const [searchInput, setSearchInput] = useState<string>('');
+  const [notification, setNotification] = useState<NotificationModel | null>(
+    null
+  );
+  const {
+    data: serviceOwners,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetServicesQuery(searchInput);
 
   return (
     <div className="tw-w-full tw-min-h-screen tw-p-4">
-      <Card shadow="sm" padding="lg">
+      <Card shadow="sm">
         <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
           <h2 className="tw-text-lg">Services</h2>
           <Link href="/service-store/service/new" passHref>
@@ -62,8 +56,10 @@ const ServiceList = () => {
         </Card.Section>
 
         <Card.Section className="tw-flex tw-p-4 tw-justify-end">
-          <Input
+          <TextInput
             className="tw-w-1/3 tw-mr-2"
+            value={searchInput}
+            onChange={(event) => setSearchInput(event.currentTarget.value)}
             size="xs"
             placeholder="search service"
             rightSection={<IconSearch className="tw-inline-block" size={16} />}
@@ -115,84 +111,91 @@ const ServiceList = () => {
         </Card.Section>
 
         <Card.Section className="tw-p-4 tw-overflow-x-auto">
+          {isError && (
+            <div className="tw-text-center   tw-text-2xl">
+              {' '}
+              {console.log(error)}
+              <h5 className="tw-text-red-800 tw-mt-100px">
+                {' '}
+                Failed to load resource: ERR_CONNECTION_REFUSED{' '}
+              </h5>
+            </div>
+          )}
           <Table className="tw-mb-4 tw-table-auto">
             <thead>
               <tr className="tw-bg-gray-200">
-                <th>Name</th>
+                <th>Full Name</th>
+                <th>ShortName</th>
                 <th>Code</th>
-                <th>Description</th>
-
-                <th>tags</th>
-                <th>rating</th>
-                <th>Category</th>
-
                 <th>Service Owner</th>
                 <th>Service Provider</th>
-                <th>version</th>
-                <th>published date</th>
-                <th>Created Date</th>
-                <th>Created By</th>
-                <th>enable review</th>
-                <th>public</th>
-                <th>Archived</th>
-
+                <th>Average Rating</th>
+                <th>Version</th>
                 <th></th>
               </tr>
             </thead>
-            <tbody className="tw-border-b">
-              {Services.length == 0 && (
-                <tr>
-                  <td className="tw-text-center" colSpan={7}>
-                    <span>
-                      <IconInbox
-                        className="tw-inline-block"
-                        color="rgb(156 163 175)"
-                        size={32}
-                      />
-                      <p>No data</p>
-                    </span>
-                  </td>
-                </tr>
-              )}
-
-              {Services.length > 0 &&
-                Services.map((item) => (
-                  <tr key={item.name}>
-                    <td>{item.name}</td>
-                    <td>{item.code}</td>
-                    <td>{item.description}</td>
-
-                    <td>{item.tags}</td>
-                    <td>{item.rating}</td>
-                    <td>{item.category}</td>
-
-                    <td>{item.serviceOwner}</td>
-                    <td>{item.serviceOwner}</td>
-                    <td>{item.version}</td>
-                    <td>{item.date}</td>
-                    <td>{item.createddate}</td>
-                    <td>{item.createdBy}</td>
-                    <td>
-                      <Switch size="md" onLabel="ON" offLabel="OFF" />
-                    </td>
-                    <td>
-                      <Switch size="md" onLabel="ON" offLabel="OFF" />
-                    </td>
-                    <td>
-                      <Switch size="md" onLabel="ON" offLabel="OFF" />
-                    </td>
-
-                    <td className="hoverable-visibility-content">
-                      <Link href={`/service-store/service/detail/${item.name}`}>
-                        <a className="tw-block tw-bg-gray-50 hover:tw-outline hover:tw-outline-1 hover:tw-outline-[#1d2861] tw-p-1 tw-rounded">
-                          <IconChevronRight color={'#1d2861'} />
-                        </a>
-                      </Link>
+            {isSuccess && (
+              <tbody className="tw-border-b">
+                {serviceOwners.data.length == 0 && (
+                  <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
+                    <td className="tw-text-center" colSpan={8}>
+                      <span>
+                        <IconInbox
+                          className="tw-inline-block"
+                          color="rgb(156 163 175)"
+                          size={32}
+                        />
+                        <p>No data</p>
+                      </span>
                     </td>
                   </tr>
-                ))}
-            </tbody>
+                )}
+                {isLoading && (
+                  <>
+                    <ReactLoading
+                      className="tw-z-50 tw-absolute tw-top-1/2 tw-left-1/2 
+                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
+                      type={'spokes'}
+                      color={'#1d2861'}
+                      height={'4%'}
+                      width={'4%'}
+                    />
+                  </>
+                )}
+                {serviceOwners.data.length > 0 &&
+                  serviceOwners.data.map((item: Service) => (
+                    <tr key={item.id}>
+                      <td>{item.fullyQualifiedName}</td>
+                      <td>{item.name}</td>
+                      <td>{item.code}</td>
+                      <td>{item.serviceOwnerId}</td>
+                      <td>{item.serviceProviderId}</td>
+                      <td>{item.averageRating}</td>
+                      <td>{item.version}</td>
+
+                      <td className="hoverable-visibility-content">
+                        <Link href={`/service-store/service/detail/${item.id}`}>
+                          <a
+                            className="tw-block tw-bg-gray-50 hover:tw-outline hover:tw-outline-1
+                           hover:tw-outline-[#1d2861] tw-p-1 tw-rounded"
+                          >
+                            <IconChevronRight color={'#1d2861'} />
+                          </a>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            )}
           </Table>
+          {notification != null && (
+            <Notification
+              onClose={() => setNotification(null)}
+              type={notification.type}
+              message={notification.message}
+              show={notification.show}
+            />
+          )}
         </Card.Section>
 
         <Card.Section className="tw-p-4">

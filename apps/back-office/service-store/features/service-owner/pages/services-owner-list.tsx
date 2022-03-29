@@ -24,6 +24,7 @@ const ServiceOwnerList = () => {
   const [notification, setNotification] = useState<NotificationModel | null>(
     null
   );
+  
   const {
     data: serviceOwners,
     isLoading,
