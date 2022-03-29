@@ -15,6 +15,7 @@ import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr';
 import { SessionProvider } from "next-auth/react";
 import ProtectedRoute from '../shared/utility/protected-route';
 
+
 const keycloakCfg = {
   realm: process.env.NEXT_PUBLIC_KEYCLOAK_REALM,
   url: process.env.NEXT_PUBLIC_KEYCLOAK_URL,
@@ -25,7 +26,7 @@ interface InitialProps {
   cookies: unknown
 }
 
-function CustomApp({ Component, pageProps ,cookies }: AppProps & InitialProps) {
+function CustomApp({ Component, pageProps, cookies }: AppProps & InitialProps) {
   const router = useRouter();
 
   return (
@@ -34,6 +35,8 @@ function CustomApp({ Component, pageProps ,cookies }: AppProps & InitialProps) {
         {/* <SessionProvider session={session}> */}
         <Head>
           <title>Welcome to registration!</title>
+          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" />
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossOrigin="anonymous" />
         </Head>
 
         <Provider store={store}>
