@@ -1,9 +1,9 @@
 import Dashboard from '../features/service/pages/home';
-export function Index() {
+export function EserviceDashBoard() {
   return (
     <>
       <Dashboard />
     </>
   );
 }
-export default Index;
+export default EserviceDashBoard;

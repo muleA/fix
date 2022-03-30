@@ -1,0 +1,21 @@
+$theme-colors: (
+  "primary":  #1d2861,
+  "secondary":#6c757d,
+  "success": #198754,
+  "info": #0dcaf0,
+  "warning": #ffc107,
+  "danger": #dc3545,
+  "light": rgb(238, 245, 245),
+  "dark":  #232316,
+  "muted": #dadac0
+) ;
+
+
+$table-head-color: black ;
+
+@import './scss//tabler.scss';
+
+.active{
+  background-color:#fff;
+    
+}

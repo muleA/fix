@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+}
+
+table tr:hover {
+  background-color: rgb(229 231 235);
+}
+
+.visibility-hoverable-container .hoverable-visibility-content {
+  visibility: hidden;
+}
+
+.visibility-hoverable-container:hover .hoverable-visibility-content {
+  visibility: visible;
+}
+
+::selection {
+  color: #ffffff;
+  background-color: #1d2861;
+}
+th {
+  font-weight: bold !important;
+  color: black !important;
+}
