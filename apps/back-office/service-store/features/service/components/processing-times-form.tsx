@@ -12,36 +12,29 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 
 const schema = yup.object({
-  Fee: yup.mixed(),
+  processingTimes: yup.mixed(),
 });
 
 const ServiceProcessingTimes = () => {
-  const Fee = [
+  const processingTimes = [
     {
       Time: 21334,
       description: 'time it take for trade license',
     },
   ];
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    getValues,
-  } = useForm({ resolver: yupResolver(schema) });
-  const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
-  const [ProcessingTimeAssignmentModalOpened, setProcessingTimeAssignmentModalOpened] =
-    useState<boolean>(false);
-  const [assignedProcessingTimeModalOpened, setAssignedProcessingTimeModalOpened] =
-    useState<boolean>(false);
-  const [viewedProcessingTime, setViewedProcessingTime] = useState<string>('');
-  const [perPage, setPerPage] = useState<string>('10');
+  const { handleSubmit } = useForm({ resolver: yupResolver(schema) });
+
+  const [
+    ProcessingTimeAssignmentModalOpened,
+    setProcessingTimeAssignmentModalOpened,
+  ] = useState<boolean>(false);
+  useState<boolean>(false);
   const [perPageModal, setPerPageModal] = useState<string>('10');
 
   const onSubmit = async (data) => {
     try {
-      console.log(data.Fee);
-      setButtonDisabled(true);
+      console.log(data.processingTimes);
     } catch (err) {
       console.log(err);
     }
@@ -80,7 +73,7 @@ const ServiceProcessingTimes = () => {
               autoComplete="off"
             />
           </div>
-         
+
           <div className="tw-flex tw-justify-end ">
             <Button className="bg-primary">save</Button>
           </div>
@@ -106,7 +99,7 @@ const ServiceProcessingTimes = () => {
           </tr>
         </thead>
         <tbody className="tw-border-b">
-          {Fee.length == 0 && (
+          {processingTimes.length == 0 && (
             <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
               <td className="tw-text-center" colSpan={3}>
                 <span>
@@ -121,8 +114,8 @@ const ServiceProcessingTimes = () => {
             </tr>
           )}
 
-          {Fee.length > 0 &&
-            Fee.map((item) => (
+          {processingTimes.length > 0 &&
+            processingTimes.map((item) => (
               <tr key={item.Time}>
                 <td> {item.Time}</td>
                 <td> {item.description}</td>
