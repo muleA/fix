@@ -8,7 +8,10 @@ import ServiceDependecny from '../components/service-dependency-form';
 import Media from '../components/service-media';
 import ServiceSupportedLanguages from '../components/supported-languages-form';
 import ServiceResourceForm from '../components/service-resource-form';
+import { useRouter } from 'next/router';
 const ServiceDetailsPage = () => {
+  const router = useRouter();
+  const { id } = router.query;
   const AccordionLabel = (props: { title: string; subTitle: string }) => (
     <>
       <Group noWrap>
@@ -49,7 +52,7 @@ const ServiceDetailsPage = () => {
                   />
                 }
               >
-                <ServiceDetailForm mode="update" />
+                <ServiceDetailForm mode="update" id={id} />
               </Accordion.Item>
               <Accordion.Item
                 label={
@@ -109,7 +112,7 @@ const ServiceDetailsPage = () => {
                   />
                 }
               >
-                <ServiceResourceForm/>
+                <ServiceResourceForm />
               </Accordion.Item>
             </Accordion>
           </div>

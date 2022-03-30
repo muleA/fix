@@ -1,4 +1,4 @@
-export default interface ApplicationForm {
+interface ApplicationForm {
   title: string;
   formUrl: string;
   status: string;
@@ -14,7 +14,7 @@ export default interface Service {
   supportedQualifications: string;
   version: string;
   procedure: string;
-  applicationForm: ApplicationForm[];
+  applicationForm: ApplicationForm;
   targetCustomers: string;
   isPublic: boolean;
   isPublished: boolean;

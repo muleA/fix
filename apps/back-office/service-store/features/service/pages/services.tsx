@@ -35,7 +35,7 @@ const ServiceList = () => {
     null
   );
   const {
-    data: serviceOwners,
+    data: services,
     isLoading,
     isSuccess,
     isError,
@@ -136,7 +136,7 @@ const ServiceList = () => {
             </thead>
             {isSuccess && (
               <tbody className="tw-border-b">
-                {serviceOwners.data.length == 0 && (
+                {services.data.length == 0 && (
                   <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
                     <td className="tw-text-center" colSpan={8}>
                       <span>
@@ -162,8 +162,8 @@ const ServiceList = () => {
                     />
                   </>
                 )}
-                {serviceOwners.data.length > 0 &&
-                  serviceOwners.data.map((item: Service) => (
+                {services.data.length > 0 &&
+                  services.data.map((item: Service) => (
                     <tr key={item.id}>
                       <td>{item.fullyQualifiedName}</td>
                       <td>{item.name}</td>

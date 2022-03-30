@@ -1,24 +1,30 @@
 import { Pagination, Table, Modal, Button, Select } from '@mantine/core';
-import {
-  IconCirclePlus,
-  IconInbox,
-  IconTrash,
-  IconEyeCheck,
-  IconEdit,
-} from '@tabler/icons';
+import { IconCirclePlus, IconInbox, IconTrash, IconEdit } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import ServicedProvider from '../../../models/publication/service-providers/service-provider';
+import { useGetServiceProvidersQuery } from '../store/query/service-provider.query';
+import { useRouter } from 'next/router';
 
 const schema = yup.object({
-  Fee: yup.mixed(),
+  serviceDelegation: yup.mixed(),
 });
 
-const ServiceDelegation = () => {
-  const Fee = [
+const ServiceDelegation = (props: { id?: string }) => {
+  const router = useRouter();
+  const { id } = router.query;
+  const {
+    data: servicedProviders,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetServiceProvidersQuery();
+  const serviceDelegation = [
     {
-      feeAmount: 213,
+      serviceDelegationAmount: 213,
       description: 'trade license',
       currency: '$',
     },
@@ -39,7 +45,7 @@ const ServiceDelegation = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data.Fee);
+      console.log(data.serviceDelegation);
     } catch (err) {
       console.log(err);
     }
@@ -137,7 +143,7 @@ const ServiceDelegation = () => {
           </tr>
         </thead>
         <tbody className="tw-border-b">
-          {Fee.length == 0 && (
+          {serviceDelegation.length == 0 && (
             <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
               <td className="tw-text-center" colSpan={3}>
                 <span>
@@ -152,19 +158,16 @@ const ServiceDelegation = () => {
             </tr>
           )}
 
-          {Fee.length > 0 &&
-            Fee.map((item) => (
-              <tr key={item.feeAmount}>
-                <td> {item.feeAmount}</td>
+          {serviceDelegation.length > 0 &&
+            serviceDelegation.map((item) => (
+              <tr key={item.serviceDelegationAmount}>
+                <td> {item.serviceDelegationAmount}</td>
                 <td> {item.description}</td>
                 <td> {item.currency}</td>
                 <td> {item.currency}</td>
                 <td> {item.currency}</td>
 
                 <td>
-                  <button className="btn btn-primary tw-mr-2 tw-bg-[#13243]">
-                    <IconEyeCheck />
-                  </button>
                   <button className="btn btn-primary tw-mr-2 tw-bg-[#13243]">
                     <IconEdit />
                   </button>

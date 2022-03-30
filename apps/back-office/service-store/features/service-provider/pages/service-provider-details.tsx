@@ -47,7 +47,7 @@ const ServiceProvidersDetailsPage = () => {
                   />
                 }
               >
-                <ServiceProvidersDetailsForm mode="update" id={`${id}`}  />
+                <ServiceProvidersDetailsForm mode="update" id={`${id}`} />
               </Accordion.Item>
               <Accordion.Item
                 label={
