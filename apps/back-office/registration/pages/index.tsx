@@ -1,16 +1,14 @@
-
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export function Index() {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.scss file.
-   */
-  return (
-    
-      <h2>Welcome homie</h2>
-    
-  );
+
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/registration/home");
+  }, []);
+
+  return null;
 }
 
 export default Index;
