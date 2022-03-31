@@ -9,10 +9,12 @@ import { CommonEntity } from "src/modules/shared/CommonEntity";
 export class ProcessingTimeEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @ManyToOne(type => ServiceEntity, service => service.processingTimes)
+  @Column()
+  serviceId: string;
+  @ManyToOne(type => ServiceEntity, service => service.processingTimes, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'serviceId' })
   service: ServiceEntity;
-  @Column()
+  @Column('double precision')
   time: number;
   @Column()
   currency: string;

@@ -1,6 +1,3 @@
-import { InjectRepository } from '@nestjs/typeorm';
-
-import { IServicePromotionRepository } from '../../domain/servicePromotions/servicePromotion.repository.interface';
 export class  ServicePromotion {
  constructor() { } 
  id: string;  

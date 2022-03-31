@@ -1,15 +1,11 @@
 import { CommonEntity } from 'src/modules/shared/CommonEntity';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToMany,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { DelegatedServiceEntity } from './DelegatedService.entity';
 import { ContactInfo } from '../../domain/serviceOwners/ContactInfo';
 import { Address } from '../../domain/ServiceOwners/address';
+import { ProviderLocation } from '../../domain/ServiceProviders/ProviderLocation';
 
-@Entity({ name: 'serviceProvider' })
+@Entity({ name: 'serviceProviders' })
 export class ServiceProviderEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -27,7 +23,7 @@ export class ServiceProviderEntity extends CommonEntity {
   contactInfo: ContactInfo;
 
   @Column('jsonb')
-  location: Location;
+  location: ProviderLocation;
 
   @Column('jsonb')
   address: Address;
@@ -35,7 +31,7 @@ export class ServiceProviderEntity extends CommonEntity {
   @OneToMany(
     (type) => DelegatedServiceEntity,
     (delegatedService) => delegatedService.serviceProvider,
-    { cascade: true }
+    { eager: true, cascade: true, onDelete: 'CASCADE' }
   )
   delegatedServices: DelegatedServiceEntity[];
   @Column()

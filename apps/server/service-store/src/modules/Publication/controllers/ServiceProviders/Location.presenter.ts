@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Location } from '../../domain/ServiceProviders/location';
+import { ProviderLocation } from '../../domain/ServiceProviders/ProviderLocation';
+
 /**
  *A class which contains proporties of Location that used to put data to be returned to client
  *
@@ -19,7 +20,7 @@ export class LocationPresenter {
   /**
    *A constructor which copy  Location domain object Property value to  LocationPresenter properties
    */
-  constructor(location: Location) {
+  constructor(location: ProviderLocation) {
     this.city = location.city;
 
     this.latitude = location.latitude;

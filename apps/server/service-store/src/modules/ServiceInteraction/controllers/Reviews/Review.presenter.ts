@@ -23,6 +23,7 @@ likes: number;
 createdAt: Date;
 @ApiProperty()
 updatedAt: Date;
+
 /**
 *A constructor which copy  Review domain object Property value to  ReviewPresenter properties
 */
@@ -36,5 +37,6 @@ this.status = review.status;
 this.likes = review.likes;  
 this.createdAt = review.createdAt;  
 this.updatedAt = review.updatedAt;  
+
   }
 }

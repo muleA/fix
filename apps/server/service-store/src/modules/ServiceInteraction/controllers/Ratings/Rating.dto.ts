@@ -35,9 +35,7 @@ export class UpdateRatingDto {
 *
 */
 export class CreateRatingDto {
-  @ApiProperty()
-  id: string;
-  @ApiProperty()
+   @ApiProperty()
   @IsNotEmpty()
   serviceId: string;
   @ApiProperty()
@@ -52,8 +50,7 @@ export class CreateRatingDto {
   *@returns Rating domain object which contains Rating  information
   */
   static fromDTO(ratingDto: CreateRatingDto): Rating {
-    const rating: Rating = new Rating();
-    rating.id = ratingDto.id;
+    const rating: Rating = new Rating();    
     rating.serviceId = ratingDto.serviceId;
     rating.userId = ratingDto.userId;
     rating.score = ratingDto.score;

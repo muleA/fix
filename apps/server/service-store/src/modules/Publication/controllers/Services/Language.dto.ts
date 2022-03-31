@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { Language } from '../../domain/Languages/language';
+import { IsBoolean, IsNotEmpty, IsUUID, IsString } from 'class-validator';
+import { Language } from '../../domain/services/Language';
+
 
 /**
 *A class which contains proporties of Language that used to receive paramamer values to be updated in the database
@@ -8,13 +9,13 @@ import { Language } from '../../domain/Languages/language';
 export class UpdateLanguageDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
 
   @ApiProperty()
@@ -26,6 +27,17 @@ export class UpdateLanguageDto {
   @IsNotEmpty()
   @IsString()
   code: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  createdBy: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  updatedBy: string;
+
 
 
   /**
@@ -50,6 +62,14 @@ export class UpdateLanguageDto {
     language.code = languageDto.code;
 
 
+
+    language.createdBy = languageDto.createdBy;
+
+
+
+    language.updatedBy = languageDto.updatedBy;
+
+
     return language;
   }
 }
@@ -60,13 +80,13 @@ export class UpdateLanguageDto {
 export class CreateLanguageDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
 
   @ApiProperty()
@@ -79,6 +99,15 @@ export class CreateLanguageDto {
   @IsString()
   code: string;
 
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  createdBy: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsString()
+  updatedBy: string;
 
   /**
 *A method that mapes  CreateLanguageDto object data to  Language domain object
@@ -94,6 +123,8 @@ export class CreateLanguageDto {
     language.name = languageDto.name;
 
     language.code = languageDto.code;
+    language.createdBy = languageDto.createdBy;
+    language.updatedBy = languageDto.createdBy
     return language;
   }
 }

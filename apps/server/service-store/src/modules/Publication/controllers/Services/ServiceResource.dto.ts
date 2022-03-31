@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString, IsFQDN } from 'class-validator';
-import { ServiceResource } from '../../domain/ServiceResources/serviceResource';
+import { IsBoolean, IsNotEmpty, IsUUID, IsString, IsFQDN } from 'class-validator';
+import { ServiceResource } from '../../domain/services/ServiceResource';
+
 
 /**
 *A class which contains proporties of ServiceResource that used to receive paramamer values to be updated in the database
@@ -8,23 +9,27 @@ import { ServiceResource } from '../../domain/ServiceResources/serviceResource';
 export class UpdateServiceResourceDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
 
   @ApiProperty()
-  @IsFQDN()
+  @IsString()
   attachmentUrl: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
   content: string;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
 
 
   /**
@@ -48,6 +53,8 @@ export class UpdateServiceResourceDto {
 
     serviceResource.content = serviceResourceDto.content;
 
+    serviceResource.updatedBy = serviceResourceDto.updatedBy;
+
 
     return serviceResource;
   }
@@ -58,24 +65,32 @@ export class UpdateServiceResourceDto {
 */
 export class CreateServiceResourceDto {
 
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
-
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   serviceId: string;
 
   @ApiProperty()
-  @IsFQDN()
+  @IsString()
   attachmentUrl: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
   content: string;
+
+  // @ApiProperty() 
+  // @IsNotEmpty()
+  // @IsUUID()// will un comment when we build the user management
+  createdBy: string;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
 
 
   /**
@@ -92,6 +107,10 @@ export class CreateServiceResourceDto {
     serviceResource.attachmentUrl = serviceResourceDto.attachmentUrl;
 
     serviceResource.content = serviceResourceDto.content;
+
+    serviceResource.createdBy = serviceResourceDto.createdBy;
+
+    serviceResource.updatedBy = serviceResourceDto.updatedBy;
     return serviceResource;
   }
 }

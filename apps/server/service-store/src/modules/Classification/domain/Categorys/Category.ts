@@ -1,14 +1,16 @@
-import { InjectRepository } from '@nestjs/typeorm';
+import { ServiceEntity } from "src/modules/Publication/persistence/services/service.entity";
 
-import { ICategoryRepository } from '../../domain/categorys/category.repository.interface';
-export class  Category {
- constructor() { } 
- id: string;  
-name: string;  
-description: string;  
-code: string;  
-parentId: string;  
-createdAt: Date;  
-updatedAt: Date;  
+export class Category {
+    constructor() { }
+    id: string;
+    name: string;
+    description: string;
+    code: string;
+    parentId: string;
+    services: ServiceEntity[];
+    createdBy: string;
+    updatedBy: string;
+    createdAt: Date;
+    updatedAt: Date;
 
 }

@@ -1,19 +1,13 @@
+import { CreateLocationDto, UpdateLocationDto } from './Location.dto';
+import { UpdateAddressDto } from './../ServiceOwners/Address.dto';
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsNotEmpty,
-  IsString,
-  IsUUID,
-} from 'class-validator';
-import { Address } from '../../domain/ServiceOwners/address';
+import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import { ServiceProvider } from '../../domain/ServiceProviders/serviceProvider';
+import { CreateAddressDto } from '../serviceOwners/Address.dto';
 import {
   CreateContactInfoDto,
   UpdateContactInfoDto,
 } from '../ServiceOwners/ContactInfo.dto';
-import {
-  CreateDelegatedServiceDto,
-  UpdateDelegatedServiceDto,
-} from './DelegatedService.dto';
 
 /**
  *A class which contains proporties of ServiceProvider that used to receive paramamer values to be updated in the database
@@ -36,16 +30,14 @@ export class UpdateServiceProviderDto {
   @IsNotEmpty()
   @IsString()
   sector: string;
+  @ApiProperty()
   contactInfo: UpdateContactInfoDto;
 
   @ApiProperty()
-  location: Location;
+  location: UpdateLocationDto;
 
   @ApiProperty()
-  address: Address;
-  @ApiProperty()
-  delegatedServices: UpdateDelegatedServiceDto[];
-
+  address: UpdateAddressDto;
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -77,18 +69,11 @@ export class UpdateServiceProviderDto {
 
     serviceProvider.sector = serviceProviderDto.sector;
 
-    serviceProvider.contactInfo = UpdateContactInfoDto.fromDTO(
-      serviceProviderDto.contactInfo
-    );
+    serviceProvider.contactInfo = serviceProviderDto.contactInfo;
 
     serviceProvider.location = serviceProviderDto.location;
 
     serviceProvider.address = serviceProviderDto.address;
-
-    serviceProvider.delegatedServices =
-      serviceProviderDto.delegatedServices.map((item) =>
-        UpdateDelegatedServiceDto.fromDTO(item)
-      );
 
     serviceProvider.code = serviceProviderDto.code;
 
@@ -118,15 +103,14 @@ export class CreateServiceProviderDto {
   @IsNotEmpty()
   @IsString()
   sector: string;
+  @ApiProperty()
   contactInfo: CreateContactInfoDto;
 
   @ApiProperty()
-  location: Location;
+  location: CreateLocationDto;
 
   @ApiProperty()
-  address: Address;
-  @ApiProperty()
-  delegatedServices: CreateDelegatedServiceDto[];
+  address: CreateAddressDto;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -157,17 +141,11 @@ export class CreateServiceProviderDto {
 
     serviceProvider.sector = serviceProviderDto.sector;
 
-    serviceProvider.contactInfo = CreateContactInfoDto.fromDTO(
-      serviceProviderDto.contactInfo
-    );
+    serviceProvider.contactInfo = serviceProviderDto.contactInfo;
 
     serviceProvider.location = serviceProviderDto.location;
 
     serviceProvider.address = serviceProviderDto.address;
-    serviceProvider.delegatedServices =
-      serviceProviderDto.delegatedServices.map((item) =>
-        CreateDelegatedServiceDto.fromDTO(item)
-      );
 
     serviceProvider.code = serviceProviderDto.code;
 

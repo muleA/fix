@@ -1,58 +1,59 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ServiceFee } from '../../domain/ServiceFees/serviceFee';
- 
+import { ServiceFee } from '../../domain/services/ServiceFee';
+
+
 /**
 *A class which contains proporties of ServiceFee that used to put data to be returned to client
 *
 */
 export class ServiceFeePresenter {
-     
-@ApiProperty()
-id: string;
-  
-@ApiProperty()
-serviceId: string;
-  
-@ApiProperty()
-fee: number;
-  
-@ApiProperty()
-currency: string;
-  
-@ApiProperty()
-description: string;
-  
-@ApiProperty()
-createdAt: Date;
-  
-@ApiProperty()
-updatedAt: Date;
-/**
-*A constructor which copy  ServiceFee domain object Property value to  ServiceFeePresenter properties
-*/
-constructor(serviceFee: ServiceFee) {
-  
-this.id = serviceFee.id;  
 
-  
-this.serviceId = serviceFee.serviceId;  
+  @ApiProperty()
+  id: string;
 
-  
-this.fee = serviceFee.fee;  
+  @ApiProperty()
+  serviceId: string;
 
-  
-this.currency = serviceFee.currency;  
+  @ApiProperty()
+  fee: number;
 
-  
-this.description = serviceFee.description;  
+  @ApiProperty()
+  currency: string;
 
-  
-this.createdAt = serviceFee.createdAt;  
+  @ApiProperty()
+  description: string;
 
-  
-this.updatedAt = serviceFee.updatedAt;  
+  @ApiProperty()
+  createdBy: string;
 
-  
-    
+  @ApiProperty()
+  updatedBy: string;
+  /**
+  *A constructor which copy  ServiceFee domain object Property value to  ServiceFeePresenter properties
+  */
+  constructor(serviceFee: ServiceFee) {
+
+    this.id = serviceFee.id;
+
+
+    this.serviceId = serviceFee.serviceId;
+
+
+    this.fee = serviceFee.fee;
+
+
+    this.currency = serviceFee.currency;
+
+
+    this.description = serviceFee.description;
+
+
+    this.createdBy = serviceFee.createdBy;
+
+
+    this.updatedBy = serviceFee.updatedBy;
+
+
+
   }
 }

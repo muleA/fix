@@ -1,12 +1,15 @@
-import CommonEntity from "src/modules/shared/CommonEntity";
+
+import { ServiceEntity } from "src/modules/Publication/persistence/services/service.entity";
+import { CommonEntity } from "src/modules/shared/CommonEntity";
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn, OneToOne, OneToMany, ManyToOne,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
 } from "typeorm";
-@Entity({ name: "category" })
+@Entity({ name: "categories" })
 export class CategoryEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -16,18 +19,28 @@ export class CategoryEntity extends CommonEntity {
   description: string;
   @Column()
   code: string;
-  /**
-   *  for bi-directional 
-   * 
-   @ManyToOne(()=>CategoryEntity, parentCategory=>parentCategory.childCategories )
-  parentCategory: CategoryEntity;
-   @OneToMany(()=>CategoryEntity, parentCategory=>parentCategory.parentCategory )
-  childCategories: CategoryEntity[];
-   */
-  @ManyToOne(() => CategoryEntity, parent => parent.parent)
+  // @Column({ nullable: true })
+  // serviceId: string;
+
+  @Column({ nullable: true })
+  parentId: string;
+
+  @ManyToOne(() => CategoryEntity, parent => parent.parent, { onDelete: 'SET NULL' })
   parent: CategoryEntity;
 
-
+  @ManyToMany(() => ServiceEntity, (service) => service.categories, { onDelete: 'SET NULL' })
+  @JoinTable({
+    name: 'service_catagories',
+    joinColumn: {
+      name: 'categoryId',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'serviceId',
+      referencedColumnName: 'id',
+    },
+  })
+  services: ServiceEntity[];
 }
 
 

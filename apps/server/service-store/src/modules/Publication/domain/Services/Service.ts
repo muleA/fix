@@ -1,4 +1,3 @@
-import { InjectRepository } from '@nestjs/typeorm';
 
 import { Media } from '../services/Media';
 
@@ -12,8 +11,9 @@ import { Language } from '../services/Language';
 import { ApplicationForm } from '../services/ApplicationForm';
 
 import { ServiceResource } from '../services/ServiceResource';
+import { Logger } from "@nestjs/common";
+import { CategoryEntity } from 'src/modules/Classification/persistence/categorys/category.entity';
 
-import { IServiceRepository } from '../../domain/services/service.repository.interface';
 export class Service {
   constructor() { }
   id: string;
@@ -32,7 +32,6 @@ export class Service {
   applicationForm: ApplicationForm;
   serviceResources: ServiceResource[];
   targetCustomers: string;
-  status: string;
   isPublic: boolean;
   isPublished: boolean;
   isArchived: boolean;
@@ -43,16 +42,19 @@ export class Service {
   enableReview: boolean;
   policy: string;
   publishedOn: Date;
+  categories: CategoryEntity[];
   createdAt: Date;
   updatedAt: Date;
+  createdBy: string;
+  updatedBy: string;
 
   /**
    * A method that add Media to the database> 
    * @param media  An information of  Media 
    * @returns do not return any data
   */
-  async addMedia(createMedia: Media) {
-    this.medias.push(createMedia);
+  async addMedia(addMedia: Media) {
+    this.medias.push(addMedia);
   }
 
   /**
@@ -257,9 +259,9 @@ export class Service {
    * @param List<createServiceResource> A list of ServiceResource to be saved into database 
    * @returns Success Which notify the  ServiceResource information saved successfully
   */
-  async updateResources(resources: ServiceResource[]) {
+  async updateResources(serviceResources: ServiceResource[]) {
     this.serviceResources = [];
-    this.serviceResources = resources;
+    this.serviceResources = serviceResources;
   }
 
 }

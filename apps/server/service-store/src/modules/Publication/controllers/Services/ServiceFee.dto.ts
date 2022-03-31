@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString, IsDecimal } from 'class-validator';
-import { ServiceFee } from '../../domain/ServiceFees/serviceFee';
+import { IsNotEmpty, IsUUID, IsString, IsDecimal } from 'class-validator';
+import { ServiceFee } from '../../domain/services/ServiceFee';
+
 
 /**
 *A class which contains proporties of ServiceFee that used to receive paramamer values to be updated in the database
@@ -8,13 +9,13 @@ import { ServiceFee } from '../../domain/ServiceFees/serviceFee';
 export class UpdateServiceFeeDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
 
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
 
   @ApiProperty()
@@ -28,8 +29,13 @@ export class UpdateServiceFeeDto {
   currency: string;
 
   @ApiProperty()
+  @IsNotEmpty()
   @IsString()
   description: string;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
 
   /**
 *A method that mapes  UpdateServiceFeeDto object data to  ServiceFee domain object
@@ -57,6 +63,11 @@ export class UpdateServiceFeeDto {
     serviceFee.description = serviceFeeDto.description;
 
 
+
+    serviceFee.updatedBy = serviceFeeDto.updatedBy;
+
+
+
     return serviceFee;
   }
 }
@@ -66,14 +77,14 @@ export class UpdateServiceFeeDto {
 */
 export class CreateServiceFeeDto {
 
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
 
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
 
   @ApiProperty()
@@ -87,8 +98,18 @@ export class CreateServiceFeeDto {
   currency: string;
 
   @ApiProperty()
+  @IsNotEmpty()
   @IsString()
   description: string;
+
+  // @ApiProperty() 
+  // @IsNotEmpty()
+  // @IsUUID()// will un comment when we build the user management
+  createdBy: string;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
 
   /**
 *A method that mapes  CreateServiceFeeDto object data to  ServiceFee domain object
@@ -97,8 +118,6 @@ export class CreateServiceFeeDto {
   static fromDTO(serviceFeeDto: CreateServiceFeeDto): ServiceFee {
     const serviceFee: ServiceFee = new ServiceFee();
 
-    serviceFee.id = serviceFeeDto.id;
-
     serviceFee.serviceId = serviceFeeDto.serviceId;
 
     serviceFee.fee = serviceFeeDto.fee;
@@ -106,6 +125,10 @@ export class CreateServiceFeeDto {
     serviceFee.currency = serviceFeeDto.currency;
 
     serviceFee.description = serviceFeeDto.description;
+
+    serviceFee.createdBy = serviceFeeDto.createdBy;
+
+    serviceFee.updatedBy = serviceFeeDto.updatedBy;
     return serviceFee;
   }
 }

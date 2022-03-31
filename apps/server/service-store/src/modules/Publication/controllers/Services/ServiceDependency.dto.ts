@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { ServiceDependency } from '../../domain/ServiceDependencys/serviceDependency';
-
+import { IsBoolean, IsNotEmpty, IsUUID, IsString } from 'class-validator';
+import { ServiceDependency } from '../../domain/services/ServiceDependency';
 /**
 *A class which contains proporties of ServiceDependency that used to receive paramamer values to be updated in the database
 */
@@ -9,12 +8,12 @@ export class UpdateServiceDependencyDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   id: string;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   serviceId: string;
 
   @ApiProperty()
@@ -23,9 +22,12 @@ export class UpdateServiceDependencyDto {
   dependsOn: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsString()
   type: string;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
 
   /**
 *A method that mapes  UpdateServiceDependencyDto object data to  ServiceDependency domain object
@@ -49,6 +51,10 @@ export class UpdateServiceDependencyDto {
     serviceDependency.type = serviceDependencyDto.type;
 
 
+
+    serviceDependency.updatedBy = serviceDependencyDto.updatedBy;
+
+
     return serviceDependency;
   }
 }
@@ -59,13 +65,13 @@ export class UpdateServiceDependencyDto {
 export class CreateServiceDependencyDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
 
   @ApiProperty()
@@ -74,9 +80,18 @@ export class CreateServiceDependencyDto {
   dependsOn: string;
 
   @ApiProperty()
-  @IsNotEmpty()
   @IsString()
   type: string;
+
+  // @ApiProperty() 
+  // @IsNotEmpty()
+  // @IsUUID()// will un comment when we build the user management
+  createdBy: string;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
+
 
   /**
 *A method that mapes  CreateServiceDependencyDto object data to  ServiceDependency domain object
@@ -92,6 +107,10 @@ export class CreateServiceDependencyDto {
     serviceDependency.dependsOn = serviceDependencyDto.dependsOn;
 
     serviceDependency.type = serviceDependencyDto.type;
+
+    serviceDependency.createdBy = serviceDependencyDto.createdBy;
+
+    serviceDependency.updatedBy = serviceDependencyDto.updatedBy;
     return serviceDependency;
   }
 }

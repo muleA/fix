@@ -9,7 +9,9 @@ import { ServiceEntity } from "./service.entity";
 export class ServiceDependencyEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @ManyToOne(type => ServiceEntity, service => service.serviceDependencies)
+  @Column()
+  serviceId: string;
+  @ManyToOne(type => ServiceEntity, service => service.serviceDependencies, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'serviceId' })
   service: ServiceEntity;
   @Column()

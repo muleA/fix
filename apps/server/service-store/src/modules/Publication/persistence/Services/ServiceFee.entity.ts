@@ -4,15 +4,17 @@ import {
   Column,
   PrimaryGeneratedColumn, ManyToOne, JoinColumn
 } from "typeorm";
-import {CommonEntity} from "src/modules/shared/CommonEntity";
+import { CommonEntity } from "src/modules/shared/CommonEntity";
 @Entity({ name: "serviceFees" })
 export class ServiceFeeEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @ManyToOne(type => ServiceEntity, service => service.serviceFees)
+  @Column()
+  serviceId: string;
+  @ManyToOne(type => ServiceEntity, service => service.serviceFees, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'serviceId' })
   service: ServiceEntity;
-  @Column('double')
+  @Column('double precision') //double precision
   fee: number;
   @Column()
   currency: string;

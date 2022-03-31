@@ -10,12 +10,14 @@ export class MediaEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column()
+  serviceId: string;
+  @Column()
   url: string;
   @Column()
   caption: string;
   @Column()
   type: string;
-  @ManyToOne(type => ServiceEntity, service => service.medias)
+  @ManyToOne(type => ServiceEntity, service => service.medias, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'serviceId' })
   service: ServiceEntity;
 }

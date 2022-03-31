@@ -1,12 +1,13 @@
-import { Logger, Module } from "@nestjs/common";
+import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { LoggerModule } from "src/infrastructure/logger/logger.module";
-import { LoggerService } from "src/infrastructure/logger/logger.service";
 import { ServiceOwnersController } from "./controllers/ServiceOwners/ServiceOwner.controller";
 //import { ControllersModule } from "./controllers/controllers.module";
 ///import { ServicePromotionsController } from "./controllers/ServicePromotions/ServicePromotion.controller";
 import { ServiceProvidersController } from "./controllers/ServiceProviders/ServiceProvider.controller";
 import { ServicesController } from "./controllers/Services/Service.controller";
+import { ServiceOwnerRepository } from "./persistence/serviceOwners/serviceOwner.repository";
+import { ServiceProviderRepository } from "./persistence/serviceProviders/serviceProvider.repository";
+import { ServiceRepository } from "./persistence/services/service.repository";
 import { ServiceUseCases } from "./usecases/service.usecases";
 import { ServiceOwnerUseCases } from "./usecases/serviceOwner.usecases";
 import { ServiceProviderUseCases } from "./usecases/serviceProvider.usecases";
@@ -14,8 +15,9 @@ import { ServiceProviderUseCases } from "./usecases/serviceProvider.usecases";
 //import { ServicePromotionRepository } from "./persistence/ServicePromotions/ServicePromotion.repository";
 //import { ServicePromotionUseCases } from "./usecases/ServicePromotion.usecases";
 @Module({
-  imports: [TypeOrmModule.forFeature([])],
+
+  imports: [TypeOrmModule.forFeature([ServiceRepository, ServiceOwnerRepository, ServiceProviderRepository])],
   providers: [ServiceUseCases, ServiceOwnerUseCases, ServiceProviderUseCases],
-  controllers: [ ServiceOwnersController, ServiceProvidersController, ServicesController],
+  controllers: [ServicesController, ServiceOwnersController, ServiceProvidersController],
 })
-export class ServicesModule {}
+export class ServicesModule { }

@@ -8,13 +8,10 @@ import {
 } from 'typeorm';
 import { ServiceProviderEntity } from './serviceProvider.entity';
 
-@Entity({ name: 'delegatedService' })
+@Entity({ name: 'delegatedServices' })
 export class DelegatedServiceEntity extends CommonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column()
-  providerId: string;
 
   @Column()
   serviceId: string;
@@ -23,7 +20,7 @@ export class DelegatedServiceEntity extends CommonEntity {
     (type) => ServiceProviderEntity,
     (serviceProvider) => serviceProvider.delegatedServices
   )
-  @JoinColumn({ name: 'serviceOwnerId' })
+  @JoinColumn({ name: 'providerId' })
   serviceProvider: ServiceProviderEntity;
   @Column()
   title: string;

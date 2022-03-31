@@ -1,7 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import { DelegatedService } from '../../domain/serviceProviders/DelegatedService';
-
+export class DeleteDelegateServiceDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsUUID()
+  id: string;
+  @IsNotEmpty()
+  @IsUUID()
+  @ApiProperty()
+  serviceProviderId: string;
+}
 /**
  *A class which contains proporties of DelegatedService that used to receive paramamer values to be updated in the database
  */

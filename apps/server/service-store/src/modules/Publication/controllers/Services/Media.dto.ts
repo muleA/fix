@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNotEmpty, IsNumber, IsString, IsFQDN } from 'class-validator';
-import { Media } from '../../domain/Medias/media';
+import { IsBoolean, IsNotEmpty, IsUUID, IsString, IsFQDN } from 'class-validator';
+import { Media } from '../../domain/services/Media';
+
 
 /**
 *A class which contains proporties of Media that used to receive paramamer values to be updated in the database
@@ -8,15 +9,17 @@ import { Media } from '../../domain/Medias/media';
 export class UpdateMediaDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()  
+  // @IsUUID() // commented for test only
   id: string;
 
   @ApiProperty()
-  @IsFQDN()
+  @IsNotEmpty()
+  @IsString()
   url: string;
 
   @ApiProperty()
+  @IsNotEmpty()
   @IsString()
   caption: string;
 
@@ -25,10 +28,14 @@ export class UpdateMediaDto {
   @IsString()
   type: string;
 
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
 
   /**
 *A method that mapes  UpdateMediaDto object data to  Media domain object
@@ -53,7 +60,11 @@ export class UpdateMediaDto {
 
 
 
-    media.serviceId = mediaDto.serviceId;
+    // media.serviceId = mediaDto.serviceId;
+
+
+
+    media.updatedBy = mediaDto.updatedBy;
 
 
     return media;
@@ -66,15 +77,17 @@ export class UpdateMediaDto {
 export class CreateMediaDto {
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsUUID()
   id: string;
 
   @ApiProperty()
-  @IsFQDN()
+  @IsNotEmpty()
+  @IsString()
   url: string;
 
   @ApiProperty()
+  @IsNotEmpty()
   @IsString()
   caption: string;
 
@@ -84,9 +97,18 @@ export class CreateMediaDto {
   type: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsUUID()
   serviceId: string;
+
+  // @ApiProperty() 
+  // @IsNotEmpty()
+  // @IsUUID()// will un comment when we build the user management
+  createdBy: string;
+  // @ApiProperty()
+  // @IsNotEmpty()
+  // @IsUUID() // will un comment when we build the user management
+  updatedBy: string;
 
   /**
 *A method that mapes  CreateMediaDto object data to  Media domain object
@@ -95,7 +117,7 @@ export class CreateMediaDto {
   static fromDTO(mediaDto: CreateMediaDto): Media {
     const media: Media = new Media();
 
-    media.id = mediaDto.id;
+    // media.id = mediaDto.id;  // no need of id child entity because the system generates an id automatically
 
     media.url = mediaDto.url;
 
@@ -104,6 +126,11 @@ export class CreateMediaDto {
     media.type = mediaDto.type;
 
     media.serviceId = mediaDto.serviceId;
+
+    media.createdBy = mediaDto.createdBy;
+
+    media.updatedBy = mediaDto.updatedBy;
     return media;
   }
+
 }
