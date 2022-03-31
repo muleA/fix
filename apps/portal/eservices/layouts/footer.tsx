@@ -10,7 +10,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer className="tw-bg-[#2D3748] md:tw-h-80">
+    <footer className="tw-bg-primary md:tw-h-80">
       <div className="tw-bg-[#616990] tw-w-full tw-space-x-3 tw-h-8 tw-flex tw-items-center tw-justify-center tw-text-white tw-text-sm">
         <div>About E-Services</div>
         <div className="tw-border-l tw-h-full"></div>

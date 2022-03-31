@@ -7,8 +7,8 @@ import React from 'react';
 function Empty() {
   const router = useRouter();
   return (
-    <div className="tw-w-full tw-h-screen">
-      <div className="tw-w-full  tw-flex tw-justify-center tw-mt-14">
+    <div className="tw-w-full tw-h-screen tw-bg-white tw-mt-1">
+      <div className="tw-w-full  tw-flex tw-justify-center tw-self-center">
         <div className="">
           <Image
             className=""

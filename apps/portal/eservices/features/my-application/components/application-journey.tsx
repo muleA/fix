@@ -25,14 +25,14 @@ function ApplicationJourney() {
   const breakpoints = [{ maxWidth: 'sm' as const, cols: 1 }];
 
   return (
-    <div className="lg:tw-flex md:tw-flex lg:tw-space-x-10 md:tw-space-x-7 tw-mt-3 tw-mb-3 tw-text-sm">
-      <div className="lg:tw-h-screen md:tw-h-screen sm:tw-w-full xs:tw-w-full xs:tw-container-fluid  tw-borderd lg:tw-w-1/4 md:tw-w-1/4 sm:tw-container tw-mb-3 tw-p-3">
+    <div className="lg:tw-flex md:tw-flex lg:tw-space-x-7 md:tw-space-x-7 tw-mt-3 tw-mb-3 tw-text-sm">
+      <div className="tw-bg-white lg:tw-h-screen md:tw-h-screen sm:tw-w-full xs:tw-w-full  tw-borderd lg:tw-w-1/4 md:tw-w-1/4 sm:tw-container tw-mb-3 tw-p-3 tw-shadow">
         <div className="tw-flex tw-justify-start tw-mt-2 tw-items-center tw-bordered tw-space-y-3">
         <Icon3dCubeSphere className='tw-mr-3' color={theme.colors.teal[8]}/>Related Services
         </div>
         <div className="tw-space-y-3 tw-w-full tw-ml-3 tw-mt-3">
           <Link href={'/'}>
-            <a className="tw-flex hover:tw-shadow tw-pl-2">
+            <a className="tw-flex hover:tw-shadow tw-pl-2 tw-border-b">
               <div
                 className=" tw-flex justify-content-between border-0  align-items-start tw-h-7 group"
               >
@@ -43,7 +43,7 @@ function ApplicationJourney() {
             </a>
           </Link>
           <Link href={''}>
-            <a className="tw-flex hover:tw-shadow tw-pl-2">
+            <a className="tw-flex hover:tw-shadow tw-pl-2 tw-border-b">
               <div
                 className="tw-flex justify-content-between border-0 align-items-start tw-h-7 group"
               >
@@ -52,7 +52,7 @@ function ApplicationJourney() {
             </a>
           </Link>
           <Link href={'/'}>
-            <a className="tw-flex hover:tw-shadow tw-pl-2">
+            <a className="tw-flex hover:tw-shadow tw-pl-2 tw-border-b">
               <div
                 className="d-flex justify-content-between border-0 align-items-start tw-h-7 group"
               >
@@ -62,7 +62,7 @@ function ApplicationJourney() {
           </Link>
         </div>
       </div>
-      <div className="lg:tw-container md:tw-container sm:tw-container xs:tw-container-fluid   tw-mx-auto tw-pl-3 tw-pr-3 tw-shadow  md:tw-w-full">
+      <div className="tw-bg-white lg:tw-container-fluid md:tw-container-fluid sm:tw-container-fluid xs:tw-container-fluid   tw-mx-auto tw-pl-3 tw-pr-3 tw-shadow  md:tw-w-full">
         <div className='tw-mt-5'>
           <strong>Discription</strong>
         </div>
@@ -165,7 +165,7 @@ function ApplicationJourney() {
               </Link>
             </div>
             <div className="lg:tw-space-x-2">
-              <Button className='tw-border-0 tw-bg-[#2D3748]' variant={'gradient'} size={'sm'}>Agree and continue</Button> <Button size={'sm'} className='tw-border tw-border-[#2D3748] ' color={'dark'} variant={'outline'}>Cancel</Button>
+              <Button className='tw-border-0 tw-bg-primary' variant={'gradient'} size={'sm'}>Agree and continue</Button> <Button size={'sm'} className='tw-border tw-border-primary ' color={'dark'} variant={'outline'}>Cancel</Button>
             </div>
           </div>
         </div>

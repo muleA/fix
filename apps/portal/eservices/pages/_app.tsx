@@ -11,7 +11,7 @@ import NextNProgress from 'nextjs-progressbar';
 import { Container, SSRProvider } from 'react-bootstrap';
 import { SessionProvider } from 'next-auth/react';
 import { NextPage } from 'next';
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, useEffect } from 'react';
 import Keycloak from 'next-auth/providers/keycloak';
 import Auth from '../shared/utility/auth';
 import { MantineProvider } from '@mantine/core';
@@ -73,9 +73,11 @@ function CustomApp({
             }}
           >
             <NextNProgress color="#ffbe0b" />
+            <div className='tw-bg-gray-100'>
             <Header navigation={config} />
             <Component {...pageProps}/>
             <Footer/>
+            </div>
           </MantineProvider>
         </Provider>
       </SessionProvider>

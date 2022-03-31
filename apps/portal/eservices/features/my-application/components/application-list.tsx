@@ -11,25 +11,25 @@ function ApplicationList({
 }: Props) {
   const router = useRouter();
   return (
-    <Card className="">
-      <Card.Section className="tw-flex tw-mb-3 tw-border">
+    <Card className="tw-bg-gray-100">
+      <Card.Section className="tw-flex tw-mb-3 tw-border tw-h-16">
         <div className="tw-m-1">
           {status === 'Active' && (
-            <div className="tw-flex tw-h-full tw-justify-center tw-items-center">
+            <div className="tw-flex tw-h-full tw-w-16 tw-border tw-bg-blue-300 tw-justify-center tw-items-center">
               <div>
                 <IconClock size={32} strokeWidth={'1'} color={'blue'}/>
               </div>
             </div>
           )}
           {status === 'Complete' && (
-            <div className="tw-h-full tw-flex tw-justify-center tw-items-center">
+            <div className="tw-h-full tw-w-16 tw-border tw-bg-green-300 tw-flex tw-justify-center tw-items-center">
               <div>
                 <IconCircleCheck size={32} strokeWidth={'1'} color={'green'}/>
               </div>
             </div>
           )}
           {status === 'Action' && (
-            <div className="tw-h-full  tw-flex tw-justify-center tw-items-center tw-text-yellow-900">
+            <div className="tw-h-full tw-w-16 tw-border tw-bg-yellow-300  tw-flex tw-justify-center tw-items-center tw-text-yellow-900">
               <div>
                 <IconInfoCircle size={32} strokeWidth={'1.25'}/>
               </div>

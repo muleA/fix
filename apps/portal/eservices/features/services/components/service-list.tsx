@@ -112,10 +112,10 @@ function ServiceList() {
                 ))}
               </div>
               <div
-                className="xs:tw-bg-[#2D3748] xs:tw-text-white tw-cursor-pointer tw-mt-1 tw-text-sm 
+                className="xs:tw-bg-primary xs:tw-text-white tw-cursor-pointer tw-mt-1 tw-text-sm 
                               tw-align-text-middle tw-text-center tw-border tw-rounded-md tw-w-full 
-                              md:hover:tw-bg-[#2D3748] md:hover:tw-text-white md:tw-bg-white
-                              md:tw-text-[#2D3748]"
+                              md:hover:tw-bg-primary md:hover:tw-text-white md:tw-bg-white
+                              md:tw-text-primary"
               >
                 Apply
               </div>

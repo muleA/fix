@@ -49,14 +49,21 @@ function Header(props: Props) {
   const { data: session } = useSession();
   const router = useRouter();
   const { i18n } = useTranslation();
+  const [currentMenu, setCurrentMenu] = useState('0');
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
+  useEffect(() => {
+    async function setMenu() {
+      setCurrentMenu(await localStorage.currentMenu);
+    }
+    setMenu();
+  });
 
   return (
     <>
-      <div className="tw-shadow-lg  tw-w-full tw-fixed tw-top-0 tw-sticky tw-z-50 tw-items-center lg:tw-bg-white lg:tw-text-[#2D3748]  md:tw-bg-white md:tw-text-[#2D3748] sm:tw-bg-[#2D3748] sm:tw-text-white sm:tw-h-2/5 xs:tw-bg-[#2D3748] xs:tw-text-white xs:tw-h-2/5">
-        <div className="tw-flex tw-w-full  tw-items-center tw-h-10 tw-py-2 tw-h-12 sm:tw-text-white md:tw-text-[#2D3748]">
+      <div className="tw-border-b tw-pt-2 tw-w-full tw-fixed tw-top-0 tw-sticky tw-z-50 tw-items-center lg:tw-bg-white lg:tw-text-primary  md:tw-bg-white md:tw-text-primary sm:tw-bg-primary sm:tw-text-white sm:tw-h-2/5 xs:tw-bg-primary xs:tw-text-white xs:tw-h-2/5">
+        <div className="tw-flex tw-w-full  tw-items-center tw-h-10 tw-py-2 tw-h-12 sm:tw-text-white md:tw-text-primary">
           <div className="tw-ml-1 sm:tw-display xs:tw-display md:tw-hidden lg:tw-hidden">
             <Burger
               opened={showMenu}
@@ -108,9 +115,9 @@ function Header(props: Props) {
                 <div className="tw-w-full tw-flex ">
                   <div className="tw-w-full tw-flex tw-justify-center tw-py-2">
                     <Menu
-                      size={'xs'}
+                      size={'sm'}
                       control={
-                        <div className="tw-flex tw-border tw-border-r-0  tw-px-2 tw-h-full tw-w-full tw-justify-between tw-rounded-l">
+                        <div className="tw-flex tw-border tw-border-r-0 tw-border-gray-300 tw-px-2 tw-h-full tw-w-full tw-justify-between tw-rounded-l">
                           <div className="tw-flex tw-self-center ">
                             Services
                           </div>
@@ -132,15 +139,16 @@ function Header(props: Props) {
                     </Menu>
                     <Input
                       radius="xs"
-                      size={'xs'}
-                      className="tw-w-full tw-border-l-0 focus:tw-border focus:tw-border-[#2D3748]"
+                      size={'sm'}
+                      className="tw-w-full tw-radius-xl"
                       variant={'default'}
                       placeholder="Search here"
                     />
                     <Button
-                      className="tw-bg-[#2D3748] tw-border-l-0 tw-border-[#2D3748] tw-h-full tw-border tw-rounded-r-md tw-flex tw-self-center text-white"
+                      className="tw-bg-primary tw-border-l-0 tw-border-primary tw-h-full tw-border tw-rounded-r-md tw-flex tw-self-center text-white"
                       variant={'gradient'}
-                      size={'xs'}
+                      radius={'xs'}
+                      size={'sm'}
                     >
                       <IconSearch color={'white'} />
                     </Button>
@@ -149,78 +157,57 @@ function Header(props: Props) {
               </div>
             </div>
             <div className="tw-justify-end tw-flex tw-items-center tw-space-x-3 ">
-              <div className="tw-flex sm:tw-mr-7 xs:tw-mr-7">
-                <div className=" xs:tw-hidden md:tw-block tw-self-center tw-ml-2">
-                  <Menu
-                    control={
-                      <div className="tw-flex tw-w-full tw-space-x-2">
-                        <div className="tw-flex tw-self-center">
-                          {languages.map((lng) => {
-                            if (lng.locale === locale) return lng.name;
-                          })}
-                        </div>
-                        <IconChevronDown
-                          width={16}
-                          height={16}
-                          className="tw-flex tw-self-center"
-                        />
-                      </div>
-                    }
-                  >
-                    {languages.map((lng) => {
-                      return (
-                        <MenuItem
-                          onClick={() => dispatch(setLocale(lng.locale))}
-                          key={lng.locale}
-                        >
-                          {lng.name}
-                        </MenuItem>
-                      );
-                    })}
-                  </Menu>
-                </div>
+              <div className="tw-flex sm:tw-mr-7 xs:tw-mr-7 tw-space-x-8">
                 <div className="tw-self-center tw-ml-2">
                   <IconUserCircle
                     fontVariant={'light'}
                     strokeWidth={'1'}
-                    className=" md:tw-text-[#2D3748]  lg:tw-text-[#2D3748] xs:tw-text-white tw-bg-opacity-25 sm:tw-mr-2 xs:tw-mr-2 lg:tw-hidden md:tw-hidden sm:tw-block xs:tw-block"
+                    className=" md:tw-text-primary  lg:tw-text-primary xs:tw-text-white tw-bg-opacity-25 sm:tw-mr-2 xs:tw-mr-2 lg:tw-hidden md:tw-hidden sm:tw-block xs:tw-block"
                   />
                 </div>
-                <div className="tw-self-center tw-ml-2">
+                <div className="tw-self-center tw-justify-center tw-ml-2">
                   <IconHelp
                     fontVariant={'light'}
                     strokeWidth={'1'}
-                    className=" md:tw-text-[#2D3748]  lg:tw-text-[#2D3748] xs:tw-text-white sm:tw-text-white tw-bg-opacity-25 sm:tw-mr-2 xs:tw-mr-2"
+                    className=" md:tw-text-primary  lg:tw-text-primary xs:tw-text-white sm:tw-text-white tw-bg-opacity-25 sm:tw-mr-2 xs:tw-mr-2"
                   />
+                  <Text size="sm">Help</Text>
                 </div>
                 {session && (
-                  <div className="tw-relative tw-self-center tw-ml-2">
-                    <span className="tw-h-5 tw-w-5 tw-bg-red-500 tw-rounded-full tw-text-sm tw-text-white tw-absolute tw--right-3 tw--top-3 ">
-                      +6
-                    </span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="icon icon-tabler icon-tabler-bell md:tw-text-[#2D3748]  lg:tw-text-[#2D3748] xs:tw-text-white"
-                      viewBox="0 0 24 24"
-                      width={24}
-                      height={24}
-                      strokeWidth="1"
-                      stroke="currentColor"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h16v16H0z" fill="none"></path>
-                      <path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path>
-                      <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
-                    </svg>
+                  <div>
+                    <div className="tw-relative tw-self-center tw-ml-2">
+                      <span className="tw-h-4 tw-w-4 tw-bg-red-500 tw-rounded-full tw-text-xs tw-text-white tw-absolute tw-right-9 tw-top-0 ">
+                        +6
+                      </span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="icon icon-tabler icon-tabler-bell md:tw-text-primary  lg:tw-text-primary xs:tw-text-white"
+                        viewBox="0 0 24 24"
+                        width={24}
+                        height={24}
+                        strokeWidth="1"
+                        stroke="currentColor"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path
+                          stroke="none"
+                          d="M0 0h16v16H0z"
+                          fill="none"
+                        ></path>
+                        <path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6"></path>
+                        <path d="M9 17v1a3 3 0 0 0 6 0v-1"></path>
+                      </svg>
+                    </div>
+                    <Text size='sm'>Notification</Text>
                   </div>
                 )}
                 {session === null && (
                   <div className="tw-self-center tw-ml-2 tw-cursor-pointer">
                     <a
                       onClick={() => signIn('keycloak')}
-                      className=" tw-mr-3 md:tw-text-[#2D3748]  lg:tw-text-[#2D3748] xs:tw-text-white tw-flex"
+                      className=" tw-mr-3 md:tw-text-primary  lg:tw-text-primary xs:tw-text-white tw-flex"
                     >
                       <IconLogin
                         strokeWidth={'1'}
@@ -232,12 +219,19 @@ function Header(props: Props) {
                   </div>
                 )}
                 {session && (
-                  <div className="tw-container tw-flex tw-justify-center xs:tw-hidden md:tw-block tw-ml-7 tw-flex tw-self-center">
+                  <div className="tw-container xs:tw-hidden md:tw-block tw-ml-7 tw-flex tw-self-center">
+                    <div className='tw-flex tw-w-full tw-justify-center'>
+                    <IconUserCircle
+                    fontVariant={'light'}
+                    strokeWidth={'1'}
+                   
+                  />
+                    </div>
                     <Menu
                       control={
                         <div className="tw-flex tw-w-full tw-space-x-1">
                           <div className="tw-flex tw-self-center">
-                            {session.user.name}
+                            <Text size='sm'>{session.user.name}</Text>
                           </div>
                           <IconChevronDown
                             width={16}
@@ -280,13 +274,14 @@ function Header(props: Props) {
             transitionTimingFunction="linear"
           >
             <Tabs
+              active={parseInt(currentMenu)}
               orientation={'vertical'}
               variant={'pills'}
               color={'indigo'}
               grow={true}
               className="sm:tw-text-slate-300 xs:tw-text-slate-300"
             >
-              {props.navigation.map((menu) => {
+              {props.navigation.map((menu, index) => {
                 if (menu.protected) {
                   if (session === null) return;
                 }
@@ -296,7 +291,10 @@ function Header(props: Props) {
                     className="sm:tw-text-slate-300 xs:tw-text-slate-300"
                     label={menu.name}
                     key={menu.name}
-                    onClickCapture={() => router.push(menu.href)}
+                    onClickCapture={() => {
+                      router.push(menu.href);
+                      localStorage.setItem('currentMenu', `${index}`);
+                    }}
                   ></Tabs.Tab>
                 );
               })}
@@ -358,7 +356,7 @@ function Header(props: Props) {
                 <Menu
                   size={'xs'}
                   control={
-                    <div className="tw-flex tw-border tw-px-2 tw-h-full tw-justify-between tw-bg-white tw-text-[#2D3748]">
+                    <div className="tw-flex tw-border tw-px-2 tw-h-full tw-justify-between tw-bg-white tw-text-primary">
                       <div className="tw-flex tw-self-center ">Services</div>
                       <div className="tw-flex tw-self-center">
                         <IconChevronDown
@@ -376,14 +374,15 @@ function Header(props: Props) {
                   <Menu.Item>Seasonal</Menu.Item>
                 </Menu>
                 <Input
-                  size={'xs'}
+                radius={'xs'}
+                  size={'sm'}
                   className="tw-w-full tw-bg-white"
                   placeholder="Search here"
                 />
                 <Button
-                  size={'xs'}
+                  size={'sm'}
                   variant={'gradient'}
-                  className="tw-bg-white tw-h-full tw-text-[#2D3748] tw-flex tw-self-center"
+                  className="tw-bg-white tw-h-full tw-text-primary tw-flex tw-self-center"
                 >
                   <IconSearch color={'black'} />
                 </Button>
@@ -392,33 +391,66 @@ function Header(props: Props) {
           </div>
         </div>
       </div>
-      <div className="border-bottom tw-bg-[#C4DFF5] tw-flex sm:tw-hidden xs:tw-hidden md:tw-block lg:tw-block mt-1 px-2">
-        <div className="tw-flex tw-justify-start tw-items-center">
-          <Tabs color={'dark'}>
-            {props.navigation.map((menu) => {
-              if (menu.protected) {
-                if (status !== 'authenticated') return;
+      <div className="border-bottom tw-bg-white tw-flex sm:tw-hidden xs:tw-hidden md:tw-block lg:tw-block mt-1 tw-px-2">
+        <div className="tw-flex tw-justify-between tw-items-center">
+          <Tabs color={'dark'} active={parseInt(currentMenu)}>
+            {props.navigation.map((menu, index) => {
+              if (menu.protected && status !== 'authenticated') {
+                return;
               }
 
               return (
                 <Tabs.Tab
                   label={menu.name}
                   key={menu.name}
-                  onClickCapture={() => router.push(menu.href)}
+                  onClickCapture={() => {
+                    router.push(menu.href);
+                    localStorage.setItem('currentMenu', `${index}`);
+                  }}
                 ></Tabs.Tab>
               );
             })}
           </Tabs>
-        </div>
+        
+        <div className=" xs:tw-hidden md:tw-block tw-self-center tw-ml-2">
+                  <Menu
+                    control={
+                      <div className="tw-flex tw-w-full tw-space-x-2">
+                        <div className="tw-flex tw-self-center">
+                          {languages.map((lng) => {
+                            if (lng.locale === locale) return <Text size='sm'>{lng.name}</Text>;
+                          })}
+                        </div>
+                        <IconChevronDown
+                          width={16}
+                          height={16}
+                          className="tw-flex tw-self-center"
+                        />
+                      </div>
+                    }
+                  >
+                    {languages.map((lng) => {
+                      return (
+                        <MenuItem
+                          onClick={() => dispatch(setLocale(lng.locale))}
+                          key={lng.locale}
+                        >
+                          {lng.name}
+                        </MenuItem>
+                      );
+                    })}
+                  </Menu>
+                </div>
+                </div>
       </div>
       {covidInfo && (
         <div className="tw-w-100 tw-mb-3 tw-h-10 tw-flex tw-justify-between tw-bg-yellow-400">
-          <div className="tw-w-full tw-flex   tw-justify-center tw-self-center ">
+          <div className="tw-w-full tw-flex   tw-justify-center tw-self-center tw-container-fluid">
             <div> Here is something that you might like to know.</div>
           </div>
           <div className="tw-self-center">
             <IconX
-              className="tw-text-secondary"
+              className="tw-text-primary"
               onClick={() => setCovidInfo(false)}
             />
           </div>

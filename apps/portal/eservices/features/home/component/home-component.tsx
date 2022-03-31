@@ -21,6 +21,9 @@ import {
   IconCertificate,
   IconUsers,
   IconNotebook,
+  IconArrowDownRight,
+  IconArrowRight,
+  IconArrowLeft,
 } from '@tabler/icons';
 import {
   Card,
@@ -40,6 +43,7 @@ import Carousel, { Report } from '../../../shared/components/carousel/carousel';
 import { CarouselItem } from '../../../shared/components/carousel/carousel';
 import Container from '../../../shared/components/container/container';
 import { useLazyGetServicesQuery } from '../store/query/home.query';
+import Link from 'next/link';
 
 export function HomeComponent() {
   const [adds, setAdds] = useState(false);
@@ -206,13 +210,13 @@ export function HomeComponent() {
       </div> */}
         <div className="tw-w-full tw-flex tw-justify-end tw-space-x-2">
           <div>
-            <Badge variant="filled" className='tw-bg-[#2D3748]'>All</Badge>
+            <Badge variant="filled" className='tw-bg-primary'>All</Badge>
           </div>
           <div>
-            <Badge variant="outline" className='tw-border-[#2D3748] tw-text-[#2D3748]'>Popular</Badge>
+            <Badge variant="outline" className='tw-border-primary tw-text-primary'>Popular</Badge>
           </div>
           <div>
-            <Badge variant="outline" className='tw-border-[#2D3748] tw-text-[#2D3748]'>Seasonal</Badge>
+            <Badge variant="outline" className='tw-border-primary tw-text-primary'>Seasonal</Badge>
           </div>
         </div>
         <div className="tw-conainer-fluid tw-mt-3 tw-flex tw-justify-between">
@@ -256,17 +260,17 @@ export function HomeComponent() {
             </Menu>
           </div>
         </div>
-        <div className="tw-grid tw-gap-3   md:tw-grid-flow-row   md:tw-grid-cols-3   lg:tw-grid-flow-row   lg:tw-grid-cols-5 xs:tw-grid">
-          {Array.from({ length: 5 }).map((_, idx) => (
+        <div className="tw-grid tw-gap-5   md:tw-grid-flow-row   md:tw-grid-cols-3   lg:tw-grid-flow-row   lg:tw-grid-cols-4 xs:tw-grid">
+          {Array.from({ length: 4 }).map((_, idx) => (
             <Card
               shadow="sm"
               padding="lg"
               key={idx}
-              className="tw-border group tw-rounded-3 tw-w-full"
+              className="tw-border tw-group tw-rounded-3 tw-w-full"
             >
               {/*hover:tw-z-50   hover:tw-delay-1000   lg:hover:tw-scale-125 */}
               <Card.Section className="tw-relative">
-                <div className="icons xs:tw-opacity-100 tw-w-full tw-px-2 tw-top-2 tw-absolute tw-z-40 tw-flex tw-justify-end ">
+                <div className="tw-invisible group-hover:tw-visible xs:tw-opacity-100 tw-w-full tw-px-2 tw-top-2 tw-absolute tw-z-40 tw-flex tw-justify-end ">
                   <div className="tw-space-y-3">
                     <div className="tw-w-10 tw-h-10 tw-rounded-full tw-border tw-flex tw-justify-center tw-items-center">
                       <IconHeart  strokeWidth={'1.25'} color={'red'} />
@@ -320,8 +324,8 @@ export function HomeComponent() {
                     <IconStar
                       key={idx}
                       className="tw-mr-1"
-                      fill={`${idx < 3 ? 'yellow' : 'white'}`}
-                      color={'yellow'}
+                      fill={`${idx < 3 ? 'orange' : 'white'}`}
+                      color={'orange'}
                       strokeWidth={'1.25'}
                       width={16}
                       height={16}
@@ -329,12 +333,12 @@ export function HomeComponent() {
                   ))}
                 </div>
                 <div
-                  className="xs:tw-bg-[#2D3748] xs:tw-text-white tw-cursor-pointer tw-mt-1 tw-text-sm 
-                              tw-align-text-middle tw-text-center tw-border tw-rounded-md tw-w-full 
-                              md:hover:tw-bg-[#2D3748] md:hover:tw-text-white md:tw-bg-white
-                              md:tw-text-[#2D3748]"
+                  className="xs:tw-bg-primary xs:tw-text-white tw-cursor-pointer tw-mt-1 tw-text-sm 
+                              tw-text-center tw-border tw-rounded-md tw-w-full tw-h-8
+                              md:group-hover:tw-bg-primary md:group-hover:tw-text-white md:tw-bg-white
+                              md:tw-text-primary"
                 >
-                  Apply
+                  <span className='tw-inline-block tw-allign-bottom tw-mt-1'>Apply</span>
                 </div>
               </div>
             </Card>
@@ -342,16 +346,16 @@ export function HomeComponent() {
         </div>
         <Divider
           color={'gray'}
-          labelPosition="center"
+          labelPosition={'right'}
           className="tw-mt-4"
           label={
             <>
-              <div className="tw-cursor-pointer tw-rounded-lg tw-border-gray-500 tw-text-[#2D3748] tw-border tw-w-32 tw-flex tw-items-center tw-space-x-4">
+              <div className="tw-cursor-pointer tw-rounded-lg tw-border-gray-500 tw-text-primary tw-border tw-w-32 tw-flex tw-items-center tw-space-x-4">
                 <div>
                   <IconArrowNarrowRight />
                 </div>
                 <div className=" tw-flex tw-justify-start">
-                  See all
+                  See more
                 </div>
               </div>
             </>
@@ -399,17 +403,23 @@ export function HomeComponent() {
           </div>
         </div>
 
-        <div className="tw-grid tw-gap-3   md:tw-grid-flow-row   md:tw-grid-cols-3   lg:tw-grid-flow-row   lg:tw-grid-cols-5">
-          {Array.from({ length: 5 }).map((_, idx) => (
+        <div className="tw-relative tw-grid tw-gap-5   md:tw-grid-flow-row   md:tw-grid-cols-3   lg:tw-grid-flow-row   lg:tw-grid-cols-4">
+          <div className='tw-z-40 tw-opacity-75 tw-border tw-border-black tw-absolute tw--right-4 tw-self-center tw-h-10 tw-w-10 tw-rounded-full tw-flex tw-items-center tw-justify-center'>
+                <IconArrowRight/>
+          </div>
+          <div className='tw-invisible tw-z-40 tw-bg-gray-900 tw-text-white tw-opacity-75 tw-border tw-absolute tw--left-4 tw-self-center tw-h-10 tw-w-10 tw-rounded-full tw-flex tw-items-center tw-justify-center'>
+                <IconArrowLeft/>
+          </div>
+          {Array.from({ length: 4 }).map((_, idx) => (
             <Card
               shadow="sm"
               padding="lg"
               key={idx}
-              className="tw-border hover:tw-drop-shadow-2xl group tw-rounded-3 tw-z-0 tw-w-full"
+              className="tw-border hover:tw-drop-shadow-2xl tw-group tw-rounded-3 tw-z-0 tw-w-full"
             >
               {/*hover:tw-z-50   hover:tw-delay-1000   lg:hover:tw-scale-125 */}
               <Card.Section className="tw-relative">
-                <div className="icons tw-w-full tw-px-2 tw-absolute tw-top-2 tw-z-40 tw-flex tw-justify-end ">
+                <div className="tw-invisible group-hover:tw-visible tw-w-full tw-px-2 tw-absolute tw-top-2 tw-z-40 tw-flex tw-justify-end ">
                   <div className="tw-space-y-3">
                     <div className="tw-w-10 tw-h-10 tw-rounded-full tw-border tw-flex tw-justify-center tw-items-center">
                       <IconHeart strokeWidth={'1.25'} color={'red'} />
@@ -448,6 +458,7 @@ export function HomeComponent() {
                 landscapes with tours and activities on and around the fjords of
                 Norway
               </Text>
+              <Link href='#'><a><Text size='xs'>Read more</Text></a></Link>
               <div className="tw-mt-2 tw-bottom-0">
                 {/* <div className="tw-flex  tw-items-center tw-space-x-3">
                 <IconStar className="tw-mr-1" width={16} height={16} />
@@ -459,13 +470,13 @@ export function HomeComponent() {
                   <a className="text-primary">Apply</a>
                 </Link>
               </div> */}
-                <div className="tw-flex tw-space-x-2">
+                 <div className="tw-flex tw-space-x-2">
                   {Array.from({ length: 5 }).map((_, idx) => (
                     <IconStar
                       key={idx}
                       className="tw-mr-1"
-                      fill={`${idx < 3 ? 'yellow' : 'white'}`}
-                      color={'yellow'}
+                      fill={`${idx < 3 ? 'orange' : 'white'}`}
+                      color={'orange'}
                       strokeWidth={'1.25'}
                       width={16}
                       height={16}
@@ -473,12 +484,12 @@ export function HomeComponent() {
                   ))}
                 </div>
                 <div
-                  className="xs:tw-bg-[#2D3748] xs:tw-text-white tw-cursor-pointer tw-mt-1 tw-text-sm 
-                              tw-align-text-middle tw-text-center tw-border tw-rounded-md tw-w-full 
-                              md:hover:tw-bg-[#2D3748] md:hover:tw-text-white md:tw-bg-white
-                              md:tw-text-[#2D3748]"
+                  className="xs:tw-bg-primary xs:tw-text-white tw-cursor-pointer tw-mt-1 tw-text-sm 
+                              tw-text-center tw-border tw-rounded-md tw-w-full tw-h-8
+                              md:group-hover:tw-bg-primary md:group-hover:tw-text-white md:tw-bg-white
+                              md:tw-text-primary"
                 >
-                  Apply
+                  <span className='tw-inline-block tw-allign-bottom tw-mt-1'>Apply</span>
                 </div>
               </div>
             </Card>
@@ -486,16 +497,16 @@ export function HomeComponent() {
         </div>
         <Divider
           color={'gray'}
-          labelPosition="center"
+          labelPosition="right"
           className="tw-mt-4 xs:tw-hidden sm:tw-hidden md:tw-block lg:tw-block"
           label={
             <>
-              <div className="tw-cursor-pointer tw-rounded-lg tw-border-gray-500 tw-text-[#2D3748] tw-border tw-w-32 tw-flex tw-items-center tw-justify-between">
+              <div className="tw-cursor-pointer tw-rounded-lg tw-border-gray-500 tw-text-primary tw-border tw-w-32 tw-flex tw-items-center tw-justify-between">
                 <div>
                   <IconArrowNarrowRight />
                 </div>
                 <div className="tw-container tw-flex tw-justify-center">
-                  See all
+                  See more
                 </div>
               </div>
             </>
@@ -544,18 +555,18 @@ export function HomeComponent() {
             </Menu>
           </div>
         </div>
-        <div className="tw-grid tw-gap-3   md:tw-grid-flow-row   md:tw-grid-cols-3   lg:tw-grid-flow-row   lg:tw-grid-cols-5">
-          {result.isLoading ? <LoadingOverlay visible={result.isLoading} /> : Array.from({ length: 5 }).map((_, idx) => (
+        <div className="tw-grid tw-gap-5   md:tw-grid-flow-row   md:tw-grid-cols-3   lg:tw-grid-flow-row   lg:tw-grid-cols-4">
+          {result.isLoading ? <LoadingOverlay visible={result.isLoading} /> : Array.from({ length: 4 }).map((_, idx) => (
             <Card
               onClick={() => router.push('/my-application/application/1')}
               shadow="sm"
               padding="lg"
               key={idx}
-              className="tw-border hover:tw-cursor-pointer hover:tw-drop-shadow-2xl group tw-rounded-3 tw-z-0 tw-w-full"
+              className="tw-border hover:tw-cursor-pointer hover:tw-drop-shadow-2xl tw-group tw-rounded-3 tw-z-0 tw-w-full"
             >
               {/*hover:tw-z-50   hover:tw-delay-1000   lg:hover:tw-scale-125 */}
               <Card.Section className="tw-relative">
-                <div className="icons tw-w-full tw-px-2 tw-absolute tw-top-2 tw-z-40 tw-flex tw-justify-end ">
+                <div className="tw-invisible group-hover:tw-visible tw-w-full tw-px-2 tw-absolute tw-top-2 tw-z-40 tw-flex tw-justify-end ">
                   <div className="tw-space-y-3">
                     <div className="tw-w-10 tw-h-10 tw-rounded-full tw-border tw-flex tw-justify-center tw-items-center">
                       <IconHeart strokeWidth={'1.25'} color={'red'} />
@@ -603,13 +614,13 @@ export function HomeComponent() {
                   <a className="text-primary">Apply</a>
                 </Link>
               </div> */}
-                <div className="tw-flex tw-space-x-2">
+                 <div className="tw-flex tw-space-x-2">
                   {Array.from({ length: 5 }).map((_, idx) => (
                     <IconStar
                       key={idx}
                       className="tw-mr-1"
-                      fill={`${idx < 3 ? 'yellow' : 'white'}`}
-                      color={'yellow'}
+                      fill={`${idx < 3 ? 'orange' : 'white'}`}
+                      color={'orange'}
                       strokeWidth={'1.25'}
                       width={16}
                       height={16}
@@ -617,12 +628,12 @@ export function HomeComponent() {
                   ))}
                 </div>
                 <div
-                  className="xs:tw-bg-[#2D3748] xs:tw-text-white tw-cursor-pointer tw-mt-1 tw-text-sm 
-                              tw-align-text-middle tw-text-center tw-border tw-rounded-md tw-w-full 
-                              md:hover:tw-bg-[#2D3748] md:hover:tw-text-white md:tw-bg-white
-                              md:tw-text-[#2D3748]"
+                  className="xs:tw-bg-primary xs:tw-text-white tw-cursor-pointer tw-mt-1 tw-text-sm 
+                              tw-text-center tw-border tw-rounded-md tw-w-full tw-h-8
+                              md:group-hover:tw-bg-primary md:group-hover:tw-text-white md:tw-bg-white
+                              md:tw-text-primary"
                 >
-                  Apply
+                  <span className='tw-inline-block tw-allign-bottom tw-mt-1'>Apply</span>
                 </div>
               </div>
             </Card>
@@ -630,16 +641,16 @@ export function HomeComponent() {
         </div>
         <Divider
           color={'gray'}
-          labelPosition="center"
+          labelPosition="right"
           className="tw-mt-4 xs:tw-hidden sm:tw-hidden md:tw-block lg:tw-block"
           label={
             <>
-              <div className="tw-cursor-pointer tw-rounded-lg tw-border-gray-500 tw-text-[#2D3748] tw-border tw-w-32 tw-flex tw-items-center tw-justify-between">
+              <div className="tw-cursor-pointer tw-rounded-lg tw-border-gray-500 tw-text-primary tw-border tw-w-32 tw-flex tw-items-center tw-justify-between">
                 <div>
                   <IconArrowNarrowRight />
                 </div>
                 <div className="tw-container tw-flex tw-justify-center">
-                  See all
+                  See more
                 </div>
               </div>
             </>

@@ -17,6 +17,8 @@ module.exports = {
       '2xl': '1536px',
     },
     colors: ({ colors }) => ({
+      primary:'#2D3748',
+      secondary:'#cbd5e1',
       inherit: colors.inherit,
       current: colors.current,
       transparent: colors.transparent,
@@ -946,11 +948,6 @@ module.exports = {
       50: '50',
     },
   },
-  variants: {
-    extend: {
-      visibility: ["group-hover"],
-    },
-  },
   variantOrder: [
     'first',
     'last',
@@ -969,5 +966,6 @@ module.exports = {
     'active',
     'disabled',
   ],
+  
   plugins: [],
 };
