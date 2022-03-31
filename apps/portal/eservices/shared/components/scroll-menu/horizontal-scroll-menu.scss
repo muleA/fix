@@ -1,0 +1,36 @@
+$color-indicator: white;
+$indicator-color:$color-indicator;
+
+.react-horizontal-scrolling-menu--wrapper {
+  // The menu is "relative" to the absolute position last-child pseudo elements.
+background-color: #ecedee;
+border-radius: 8px;
+padding-left: 10px;
+padding-right: 10px;
+.react-horizontal-scrolling-menu--item  {
+  position: relative;
+  .active{
+    .triangle{
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 15px solid transparent;
+        border-top-color: $color-indicator;
+        bottom: 0;
+        left: 43%;
+        margin-bottom: -25px;
+        z-index: 13;
+    }
+  }
+}
+}
+/* chrome and chromium based */
+.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.react-horizontal-scrolling-menu--scroll-container {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
