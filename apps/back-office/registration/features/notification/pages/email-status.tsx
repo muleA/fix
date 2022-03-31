@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Card, Input, Table, Pagination, Select } from '@mantine/core';
 import { IconSearch, IconInbox, IconChevronRight } from '@tabler/icons';
 import Header from "../components/header";
+import { perPageOptions } from '../../../shared/utility/data';
 
 const EmailStatusPage = () => {
 
@@ -80,13 +81,7 @@ const EmailStatusPage = () => {
                         />
 
                         <Select size="xs" value={perPage} onChange={setPerPage}
-                            data={[
-                                { value: '5', label: '5 / page' },
-                                { value: '10', label: '10 / page' },
-                                { value: '20', label: '20 / page' },
-                                { value: '30', label: '30 / page' },
-                                { value: '40', label: '40 / page' }
-                            ]}
+                            data={perPageOptions}
                         />
                     </div>
                 </Card.Section>

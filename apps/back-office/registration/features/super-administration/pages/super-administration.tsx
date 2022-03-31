@@ -1,4 +1,4 @@
-import { Accordion, Card } from '@mantine/core';
+import { Card } from '@mantine/core';
 import { IconInbox } from '@tabler/icons';
 import SuperAdministrationSideMenu from "../components/super-administration-side-menu";
 

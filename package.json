@@ -35,12 +35,14 @@
     "react-form-builder2": "^0.10.1",
     "react-hook-form": "^7.22.2",
     "react-redux": "^7.2.6",
+    "react-to-print": "^2.14.4",
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "0.13.7",
     "rxjs": "^7.0.0",
     "save": "^2.4.0",
     "styled-components": "^5.3.3",
     "tslib": "^2.0.0",
+    "xlsx": "^0.18.5",
     "yup": "^0.32.11"
   },
   "devDependencies": {

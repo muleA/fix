@@ -3,6 +3,7 @@ import { IconInbox, IconSearch, IconChevronRight, IconPlus, IconFilter,IconChevr
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { perPageOptions } from '../../../shared/utility/data';
 
 
 const InviteSaList = () => {
@@ -123,13 +124,7 @@ const InviteSaList = () => {
                     />
 
                     <Select size="xs" value={perPage} onChange={setPerPage}
-                        data={[
-                            { value: '5', label: '5 / page' },
-                            { value: '10', label: '10 / page' },
-                            { value: '20', label: '20 / page' },
-                            { value: '30', label: '30 / page' },
-                            { value: '40', label: '40 / page' }
-                        ]}
+                        data={perPageOptions}
                     />
                 </div>
             </Card.Section>

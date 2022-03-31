@@ -3,6 +3,7 @@ import { IconInbox, IconSearch, IconChevronRight,IconPlus } from '@tabler/icons'
 import { useState } from 'react';
 import Link from 'next/link';
 import TemplateSideMenu from './template-side-menu';
+import { perPageOptions } from '../../../shared/utility/data';
 
 
 const TemplateList = () => {
@@ -20,7 +21,7 @@ const TemplateList = () => {
     return (
 
         <div className="tw-flex tw-items-start">
-            <TemplateSideMenu lookupKey={selectedLookupKey} selectLookupKey={(key: string) => setSelectedLookupKey(key)} />
+            <TemplateSideMenu/>
             {selectedLookupKey == "" &&
                 <div className='tw-ml-4 tw-grow tw-flex tw-items-center tw-justify-center tw-h-[450px] tw-bg-white'>
                     <p className='tw-text-base'>Please select template</p>
@@ -97,13 +98,7 @@ const TemplateList = () => {
                             />
 
                             <Select size="xs" value={perPage} onChange={setPerPage}
-                                data={[
-                                    { value: '5', label: '5 / page' },
-                                    { value: '10', label: '10 / page' },
-                                    { value: '20', label: '20 / page' },
-                                    { value: '30', label: '30 / page' },
-                                    { value: '40', label: '40 / page' }
-                                ]}
+                                data={perPageOptions}
                             />
                         </div>
                     </Card.Section>

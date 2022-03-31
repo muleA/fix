@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useState } from 'react';
+import { perPageOptions } from '../../../shared/utility/data';
 
 const schema = yup.object({
     mandates: yup.mixed()
@@ -108,13 +109,7 @@ const OrganizationMandateAssignment = () => {
                         />
 
                         <Select size="xs" value={perPageModal} onChange={setPerPageModal}
-                            data={[
-                                { value: '5', label: '5 / page' },
-                                { value: '10', label: '10 / page' },
-                                { value: '20', label: '20 / page' },
-                                { value: '30', label: '30 / page' },
-                                { value: '40', label: '40 / page' }
-                            ]}
+                            data={perPageOptions}
                         />
                     </div>
 
@@ -225,13 +220,7 @@ const OrganizationMandateAssignment = () => {
                             />
 
                             <Select size="xs" value={perPage} onChange={setPerPage}
-                                data={[
-                                    { value: '5', label: '5 / page' },
-                                    { value: '10', label: '10 / page' },
-                                    { value: '20', label: '20 / page' },
-                                    { value: '30', label: '30 / page' },
-                                    { value: '40', label: '40 / page' }
-                                ]}
+                                data={perPageOptions}
                             />
                         </div>
                     </>
