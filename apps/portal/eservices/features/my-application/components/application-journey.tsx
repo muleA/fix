@@ -18,7 +18,7 @@ import {
   IconClock,
   IconCoin,
 } from '@tabler/icons';
-
+ 
 function ApplicationJourney() {
   const [state, handlers] = useAccordionState({ total: 4, initialItem: 0 });
   const theme = useMantineTheme();
