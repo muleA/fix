@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import KeycloakProvider from "next-auth/providers/keycloak";
-
+ 
 export default NextAuth({
   // Configure one or more authentication providers
   providers: [
