@@ -135,7 +135,7 @@ export function HomeComponent() {
           report={
             <>
               <Report
-                className="tw-px-3 tw-h-full tw-self-center tw-border tw-opacity-75"
+                className="tw-px-3 tw-h-full tw-self-center  tw-border tw-border-solid tw-border-gray-300 tw-opacity-75"
                 iconBackGround={'tw-bg-lime-300'}
                 icon={
                   <IconBuildingBank
@@ -148,14 +148,14 @@ export function HomeComponent() {
                 text="E-service portal visitors"
               />
               <Report
-                className="tw-px-3 tw-h-full tw-self-center  tw-border "
+                className="tw-px-3 tw-h-full tw-self-center   tw-border tw-border-solid tw-border-gray-300 "
                 iconBackGround={'tw-bg-rose-300'}
                 icon={<IconBuildingBank strokeWidth={'1.25'} />}
                 number={10}
                 text="Available Service providers"
               />
               <Report
-                className="tw-px-3 tw-h-full tw-self-center  tw-border "
+                className="tw-px-3 tw-h-full tw-self-center   tw-border tw-border-solid tw-border-gray-300 "
                 iconBackGround="tw-bg-green-300"
                 icon={
                   <IconNotebook width={32} height={32} strokeWidth={'1.25'} />
@@ -164,7 +164,7 @@ export function HomeComponent() {
                 text="Online Government Services"
               />
               <Report
-                className="tw-px-3 tw-h-full tw-self-center  tw-border "
+                className="tw-px-3 tw-h-full tw-self-center   tw-border tw-border-solid tw-border-gray-300 "
                 iconBackGround="tw-bg-yellow-300"
                 icon={
                   <IconCertificate
@@ -177,7 +177,7 @@ export function HomeComponent() {
                 text="Processed Customer Applications"
               />
               <Report
-                className=" tw-px-3 tw-h-full tw-self-center  tw-border "
+                className=" tw-px-3 tw-h-full tw-self-center   tw-border tw-border-solid tw-border-gray-300 "
                 iconBackGround="tw-bg-purple-300"
                 icon={<IconUsers width={32} height={32} strokeWidth={'1.25'} />}
                 number={15}
@@ -266,13 +266,13 @@ export function HomeComponent() {
               shadow="sm"
               padding="lg"
               key={idx}
-              className="tw-border tw-group tw-rounded-3 tw-w-full"
+              className=" tw-border tw-border-solid tw-border-gray-300 tw-group tw-rounded-3 tw-w-full"
             >
               {/*hover:tw-z-50   hover:tw-delay-1000   lg:hover:tw-scale-125 */}
               <Card.Section className="tw-relative">
                 <div className="tw-invisible group-hover:tw-visible xs:tw-opacity-100 tw-w-full tw-px-2 tw-top-2 tw-absolute tw-z-40 tw-flex tw-justify-end ">
                   <div className="tw-space-y-3">
-                    <div className="tw-w-10 tw-h-10 tw-rounded-full tw-border tw-flex tw-justify-center tw-items-center">
+                    <div className="tw-w-10 tw-h-10 tw-rounded-full  tw-border tw-border-solid tw-border-gray-300 tw-flex tw-justify-center tw-items-center">
                       <IconHeart  strokeWidth={'1.25'} color={'red'} />
                     </div>
                     {/* <div>
@@ -300,7 +300,7 @@ export function HomeComponent() {
                 <Text className='tw-text-sm tw-font-serif '>Norway Fjord Adventures</Text>
               </Group>
               <div className="tw-flex tw-space-x-1 tw-mb-4">
-                <div className="tw-h-4 tw-w-4 tw-rounded-full tw-border tw-self-center tw-bg-green-500"></div>
+                <div className="tw-h-4 tw-w-4 tw-rounded-full  tw-border tw-border-solid tw-border-gray-300 tw-self-center tw-bg-green-500"></div>
                 <div className="tw-inline-block tw-align-middle tw-text-sm">Online</div>
               </div>
               <Text size="sm" className="tw-text-slate-700">
@@ -334,7 +334,7 @@ export function HomeComponent() {
                 </div>
                 <div
                   className="xs:tw-bg-primary xs:tw-text-white tw-cursor-pointer tw-mt-1 tw-text-sm 
-                              tw-text-center tw-border tw-rounded-md tw-w-full tw-h-8
+                              tw-text-center  tw-border tw-border-solid tw-border-gray-300 tw-rounded-md tw-w-full tw-h-8
                               md:group-hover:tw-bg-primary md:group-hover:tw-text-white md:tw-bg-white
                               md:tw-text-primary"
                 >
@@ -350,7 +350,7 @@ export function HomeComponent() {
           className="tw-mt-4"
           label={
             <>
-              <div className="tw-cursor-pointer tw-rounded-lg tw-border-gray-500 tw-text-primary tw-border tw-w-32 tw-flex tw-items-center tw-space-x-4">
+              <div className="tw-cursor-pointer tw-rounded-lg tw-border-gray-500 tw-text-primary  tw-border tw-border-solid tw-border-gray-300 tw-w-32 tw-flex tw-items-center tw-space-x-4">
                 <div>
                   <IconArrowNarrowRight />
                 </div>
@@ -405,10 +405,10 @@ export function HomeComponent() {
 
 
         <div className="tw-relative tw-grid tw-gap-5   md:tw-grid-flow-row   md:tw-grid-cols-3   lg:tw-grid-flow-row   lg:tw-grid-cols-4">
-          <div className='tw-z-40 tw-opacity-75 tw-border tw-border-black tw-absolute tw--right-4 tw-self-center tw-h-10 tw-w-10 tw-rounded-full tw-flex tw-items-center tw-justify-center'>
+          <div className='tw-z-40 tw-opacity-75 tw-bg-gray-700 tw-text-white tw-border tw-border-solid tw-border-gray-700 tw-absolute tw--right-4 tw-self-center tw-h-10 tw-w-10 tw-rounded-full tw-flex tw-items-center tw-justify-center'>
                 <IconArrowRight/>
           </div>
-          <div className='tw-invisible tw-z-40 tw-bg-gray-900 tw-text-white tw-opacity-75 tw-border tw-absolute tw--left-4 tw-self-center tw-h-10 tw-w-10 tw-rounded-full tw-flex tw-items-center tw-justify-center'>
+          <div className='tw-invisible tw-z-40 tw-bg-gray-900 tw-text-white tw-opacity-75  tw-border tw-border-solid tw-border-gray-300 tw-absolute tw--left-4 tw-self-center tw-h-10 tw-w-10 tw-rounded-full tw-flex tw-items-center tw-justify-center'>
                 <IconArrowLeft/>
           </div>
           {Array.from({ length: 4 }).map((_, idx) => (
@@ -416,13 +416,13 @@ export function HomeComponent() {
               shadow="sm"
               padding="lg"
               key={idx}
-              className="tw-border hover:tw-drop-shadow-2xl tw-group tw-rounded-3 tw-z-0 tw-w-full"
+              className=" tw-border tw-border-solid tw-border-gray-300 hover:tw-drop-shadow-2xl tw-group tw-rounded-3 tw-z-0 tw-w-full"
             >
               {/*hover:tw-z-50   hover:tw-delay-1000   lg:hover:tw-scale-125 */}
               <Card.Section className="tw-relative">
                 <div className="tw-invisible group-hover:tw-visible tw-w-full tw-px-2 tw-absolute tw-top-2 tw-z-40 tw-flex tw-justify-end ">
                   <div className="tw-space-y-3">
-                    <div className="tw-w-10 tw-h-10 tw-rounded-full tw-border tw-flex tw-justify-center tw-items-center">
+                    <div className="tw-w-10 tw-h-10 tw-rounded-full  tw-border tw-border-solid tw-border-gray-300 tw-flex tw-justify-center tw-items-center">
                       <IconHeart strokeWidth={'1.25'} color={'red'} />
                     </div>
                     {/* <div>
@@ -450,7 +450,7 @@ export function HomeComponent() {
                 <Text className='tw-text-sm tw-font-serif '>Norway Fjord Adventures</Text>
               </Group>
               <div className="tw-flex tw-space-x-1 tw-mb-4">
-                <div className="tw-h-4 tw-w-4 tw-rounded-full tw-border tw-self-center tw-bg-green-500"></div>
+                <div className="tw-h-4 tw-w-4 tw-rounded-full  tw-border tw-border-solid tw-border-gray-300 tw-self-center tw-bg-green-500"></div>
                 <div className="tw-inline-block tw-align-middle tw-text-sm">Online</div>
               </div>
 
@@ -486,7 +486,7 @@ export function HomeComponent() {
                 </div>
                 <div
                   className="xs:tw-bg-primary xs:tw-text-white tw-cursor-pointer tw-mt-1 tw-text-sm 
-                              tw-text-center tw-border tw-rounded-md tw-w-full tw-h-8
+                              tw-text-center  tw-border tw-border-solid tw-border-gray-300 tw-rounded-md tw-w-full tw-h-8
                               md:group-hover:tw-bg-primary md:group-hover:tw-text-white md:tw-bg-white
                               md:tw-text-primary"
                 >
@@ -502,7 +502,7 @@ export function HomeComponent() {
           className="tw-mt-4 xs:tw-hidden sm:tw-hidden md:tw-block lg:tw-block"
           label={
             <>
-              <div className="tw-cursor-pointer tw-rounded-lg tw-border-gray-500 tw-text-primary tw-border tw-w-32 tw-flex tw-items-center tw-justify-between">
+              <div className="tw-cursor-pointer tw-rounded-lg tw-border-gray-500 tw-text-primary  tw-border tw-border-solid tw-border-gray-300 tw-w-32 tw-flex tw-items-center tw-justify-between">
                 <div>
                   <IconArrowNarrowRight />
                 </div>
@@ -563,13 +563,13 @@ export function HomeComponent() {
               shadow="sm"
               padding="lg"
               key={idx}
-              className="tw-border hover:tw-cursor-pointer hover:tw-drop-shadow-2xl tw-group tw-rounded-3 tw-z-0 tw-w-full"
+              className=" tw-border tw-border-solid tw-border-gray-300 hover:tw-cursor-pointer hover:tw-drop-shadow-2xl tw-group tw-rounded-3 tw-z-0 tw-w-full"
             >
               {/*hover:tw-z-50   hover:tw-delay-1000   lg:hover:tw-scale-125 */}
               <Card.Section className="tw-relative">
                 <div className="tw-invisible group-hover:tw-visible tw-w-full tw-px-2 tw-absolute tw-top-2 tw-z-40 tw-flex tw-justify-end ">
                   <div className="tw-space-y-3">
-                    <div className="tw-w-10 tw-h-10 tw-rounded-full tw-border tw-flex tw-justify-center tw-items-center">
+                    <div className="tw-w-10 tw-h-10 tw-rounded-full  tw-border tw-border-solid tw-border-gray-300 tw-flex tw-justify-center tw-items-center">
                       <IconHeart strokeWidth={'1.25'} color={'red'} />
                     </div>
                     {/* <div>
@@ -597,7 +597,7 @@ export function HomeComponent() {
                 <Text className='tw-text-sm tw-font-serif'>{result?.data?.data[0]?.name}</Text>
               </Group>
               <div className="tw-flex tw-space-x-1 tw-mb-4">
-                <div className="tw-h-4 tw-w-4 tw-rounded-full tw-border tw-self-center tw-bg-green-500"></div>
+                <div className="tw-h-4 tw-w-4 tw-rounded-full  tw-border tw-border-solid tw-border-gray-300 tw-self-center tw-bg-green-500"></div>
                 <div className="tw-inline-block tw-align-middle tw-text-sm">Online</div>
               </div>
 
@@ -630,7 +630,7 @@ export function HomeComponent() {
                 </div>
                 <div
                   className="xs:tw-bg-primary xs:tw-text-white tw-cursor-pointer tw-mt-1 tw-text-sm 
-                              tw-text-center tw-border tw-rounded-md tw-w-full tw-h-8
+                              tw-text-center  tw-border tw-border-solid tw-border-gray-300 tw-rounded-md tw-w-full tw-h-8
                               md:group-hover:tw-bg-primary md:group-hover:tw-text-white md:tw-bg-white
                               md:tw-text-primary"
                 >
@@ -646,7 +646,7 @@ export function HomeComponent() {
           className="tw-mt-4 xs:tw-hidden sm:tw-hidden md:tw-block lg:tw-block"
           label={
             <>
-              <div className="tw-cursor-pointer tw-rounded-lg tw-border-gray-500 tw-text-primary tw-border tw-w-32 tw-flex tw-items-center tw-justify-between">
+              <div className="tw-cursor-pointer tw-rounded-lg tw-border-gray-500 tw-text-primary  tw-border tw-border-solid tw-border-gray-300 tw-w-32 tw-flex tw-items-center tw-justify-between">
                 <div>
                   <IconArrowNarrowRight />
                 </div>

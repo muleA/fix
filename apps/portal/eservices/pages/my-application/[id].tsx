@@ -13,4 +13,3 @@ function detail() {
 }
 
 export default detail;
-detail.auth=true;

@@ -74,7 +74,7 @@ function CustomApp({
           >
             <NextNProgress color="#ffbe0b" />
             <div className='tw-bg-gray-100'>
-            <Header navigation={config} />
+            <Header navigation={config}/>
             <Component {...pageProps}/>
             <Footer/>
             </div>

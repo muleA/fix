@@ -19,11 +19,11 @@ function Detail() {
   console.log(id);
   return (
     <div className="tw-flex tw-space-x-5">
-      <div className={`tw-mt-5 ${fullWidth ? 'tw-hidden' : 'tw-w-1/3'}`}>
+      <div className={`tw-bg-white tw-mt-5 ${fullWidth ? 'tw-hidden' : 'tw-w-1/3'}`}>
         <ApplicationList status="Action" />{' '}
       </div>
       <div
-        className={`tw-container tw-mt-5 tw-border tw-shadow-md ${fullWidth}? tw-w-full:''`}
+        className={`tw-bg-white tw-container tw-mt-5 tw-border tw-shadow-md ${fullWidth}? tw-w-full:''`}
       >
         <div className="tw-h-12 tw-px-3 tw-border-b tw-w-full tw-flex tw-justify-between tw-items-center tw-mb-10">
           <div><Text size={'lg'} className='tw-font-medium tw-font-serif'>Application status</Text></div>
