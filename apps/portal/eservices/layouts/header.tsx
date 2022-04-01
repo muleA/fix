@@ -176,7 +176,7 @@ function Header(props: Props) {
                     className=" md:tw-text-primary  lg:tw-text-primary xs:tw-text-white tw-bg-opacity-25 sm:tw-mr-2 xs:tw-mr-2"
                   />
                  </div>
-                  <Text size='sm'>{session.user.name}</Text>
+                  <Text size='sm'>{session?.user?.name}</Text>
                 </div>
                 <div className="tw-self-center tw-justify-center tw-ml-2">
                   <div className='tw-flex tw-justify-center'>
