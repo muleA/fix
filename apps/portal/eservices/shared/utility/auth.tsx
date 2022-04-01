@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { Container, Modal } from 'react-bootstrap';
-import LoginPage from '../../features/login/pages/login';
 
 function Auth({children}) {
     const [lgShow, setLgShow] = useState(true);

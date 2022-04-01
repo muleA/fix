@@ -165,7 +165,7 @@ function ApplicationJourney() {
               </Link>
             </div>
             <div className="lg:tw-space-x-2">
-              <Button className='tw-border-0 tw-bg-primary' variant={'gradient'} size={'sm'}>Agree and continue</Button> <Button size={'sm'} className='tw-border tw-border-primary ' color={'dark'} variant={'outline'}>Cancel</Button>
+              <Button className='tw-border-0 hover:tw-bg-primary tw-bg-primary tw-text-white' variant={'default'} size={'sm'}>Agree and continue</Button> <Button size={'sm'} className='tw-border tw-border-primary ' color={'dark'} variant={'outline'}>Cancel</Button>
             </div>
           </div>
         </div>

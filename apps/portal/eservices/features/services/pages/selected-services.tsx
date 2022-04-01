@@ -2,7 +2,7 @@ import Container from '../../../shared/components/container/container';
 import React from 'react'
 import SelectedServiceLlist from '../components/selected-service-list';
 
-function SelectedServices() {
+function SelectedServicesPage() {
     return (
         <Container>
             <SelectedServiceLlist/>
@@ -10,4 +10,4 @@ function SelectedServices() {
     )
 }
 
-export default SelectedServices;
+export default SelectedServicesPage;

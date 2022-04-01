@@ -24,7 +24,8 @@ import {
   Button,
   MenuItem,
 } from '@mantine/core';
-import { useSession, signIn } from 'next-auth/react';
+import { useSession, signIn, getSession } from 'next-auth/react';
+import { SessionToken } from 'next-auth/core/lib/cookie';
 
 interface Tabs {
   name: string;
@@ -33,23 +34,32 @@ interface Tabs {
   protected: boolean;
 }
 interface Props {
-  navigation: Tabs[];
+  navigation: Tabs[],
 }
+export async function getInitialProps(ctx) {
+  console.log(await getSession())
+  return {
+    props: {
+      session: await getSession(ctx)
+    }
+  }
+}
+
+
 
 function Header(props: Props) {
   const [covidInfo, setCovidInfo] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const [region, setRegion] = useState('Federal');
-  const { status } = useSession();
   const locale = useSelector((state: RootState) => state.localeReducer.locale);
   const languages = useSelector(
     (state: RootState) => state.localeReducer.language
   );
   const dispatch = useDispatch();
-  const { data: session } = useSession();
   const router = useRouter();
   const { i18n } = useTranslation();
   const [currentMenu, setCurrentMenu] = useState('0');
+  const {data:session,status} = useSession();
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
@@ -62,7 +72,7 @@ function Header(props: Props) {
 
   return (
     <>
-      <div className="tw-border-b tw-pt-2 tw-w-full tw-fixed tw-top-0 tw-sticky tw-z-50 tw-items-center lg:tw-bg-white lg:tw-text-primary  md:tw-bg-white md:tw-text-primary sm:tw-bg-primary sm:tw-text-white sm:tw-h-2/5 xs:tw-bg-primary xs:tw-text-white xs:tw-h-2/5">
+      <div className="tw-border-solid tw-border-gray-300 tw-border-b tw-border-0  tw-pt-2 tw-w-full tw-fixed tw-top-0 tw-sticky tw-z-50 tw-items-center lg:tw-bg-white lg:tw-text-primary  md:tw-bg-white md:tw-text-primary sm:tw-bg-primary sm:tw-text-white sm:tw-h-2/5 xs:tw-bg-primary xs:tw-text-white xs:tw-h-2/5">
         <div className="tw-flex tw-w-full  tw-items-center tw-h-10 tw-py-2 tw-h-12 sm:tw-text-white md:tw-text-primary">
           <div className="tw-ml-1 sm:tw-display xs:tw-display md:tw-hidden lg:tw-hidden">
             <Burger
@@ -117,7 +127,7 @@ function Header(props: Props) {
                     <Menu
                       size={'sm'}
                       control={
-                        <div className="tw-flex tw-border tw-border-r-0 tw-border-gray-300 tw-px-2 tw-h-full tw-w-full tw-justify-between tw-rounded-l">
+                        <div className="tw-flex tw-border tw-border-solid tw-border-r-0 tw-border-gray-300 tw-px-2 tw-h-full tw-w-full tw-justify-between tw-rounded-l">
                           <div className="tw-flex tw-self-center ">
                             Services
                           </div>
@@ -145,8 +155,8 @@ function Header(props: Props) {
                       placeholder="Search here"
                     />
                     <Button
-                      className="tw-bg-primary tw-border-l-0 tw-border-primary tw-h-full tw-border tw-rounded-r-md tw-flex tw-self-center text-white"
-                      variant={'gradient'}
+                      className="hover:tw-bg-primary tw-bg-primary tw-border-l-0 tw-border-primary tw-h-full tw-border tw-border-solid tw-rounded-r-md tw-flex tw-self-center text-white"
+                      variant={'default'}
                       radius={'xs'}
                       size={'sm'}
                     >
@@ -158,25 +168,30 @@ function Header(props: Props) {
             </div>
             <div className="tw-justify-end tw-flex tw-items-center tw-space-x-3 ">
               <div className="tw-flex sm:tw-mr-7 xs:tw-mr-7 tw-space-x-8">
-                <div className="tw-self-center tw-ml-2">
-                  <IconUserCircle
+                <div className="tw-self-center tw-ml-2 sm:tw-block md:tw-hidden">
+                 <div className='tw-flex tw-justify-center'>
+                 <IconUserCircle
                     fontVariant={'light'}
                     strokeWidth={'1'}
-                    className=" md:tw-text-primary  lg:tw-text-primary xs:tw-text-white tw-bg-opacity-25 sm:tw-mr-2 xs:tw-mr-2 lg:tw-hidden md:tw-hidden sm:tw-block xs:tw-block"
+                    className=" md:tw-text-primary  lg:tw-text-primary xs:tw-text-white tw-bg-opacity-25 sm:tw-mr-2 xs:tw-mr-2"
                   />
+                 </div>
+                  <Text size='sm'>{session.user.name}</Text>
                 </div>
                 <div className="tw-self-center tw-justify-center tw-ml-2">
+                  <div className='tw-flex tw-justify-center'>
                   <IconHelp
                     fontVariant={'light'}
                     strokeWidth={'1'}
                     className=" md:tw-text-primary  lg:tw-text-primary xs:tw-text-white sm:tw-text-white tw-bg-opacity-25 sm:tw-mr-2 xs:tw-mr-2"
                   />
+                  </div>
                   <Text size="sm">Help</Text>
                 </div>
                 {session && (
                   <div>
-                    <div className="tw-relative tw-self-center tw-ml-2">
-                      <span className="tw-h-4 tw-w-4 tw-bg-red-500 tw-rounded-full tw-text-xs tw-text-white tw-absolute tw-right-9 tw-top-0 ">
+                    <div className="tw-relative tw-flex tw-justify-center tw-self-center tw-ml-2">
+                      <span className="tw-h-4 tw-w-4 tw-bg-red-500 tw-rounded-full tw-text-xs tw-text-white tw-absolute tw-right-4 tw-top-0 ">
                         +6
                       </span>
                       <svg
@@ -283,7 +298,7 @@ function Header(props: Props) {
             >
               {props.navigation.map((menu, index) => {
                 if (menu.protected) {
-                  if (session === null) return;
+                  if (status !== 'authenticated') return;
                 }
 
                 return (
@@ -356,7 +371,7 @@ function Header(props: Props) {
                 <Menu
                   size={'xs'}
                   control={
-                    <div className="tw-flex tw-border tw-px-2 tw-h-full tw-justify-between tw-bg-white tw-text-primary">
+                    <div className="tw-flex tw-border tw-border-solid tw-border-gray-300 tw-px-2 tw-h-full tw-justify-between tw-bg-white tw-text-primary">
                       <div className="tw-flex tw-self-center ">Services</div>
                       <div className="tw-flex tw-self-center">
                         <IconChevronDown
@@ -380,8 +395,9 @@ function Header(props: Props) {
                   placeholder="Search here"
                 />
                 <Button
+                radius={'xs'}
                   size={'sm'}
-                  variant={'gradient'}
+                  variant={'default'}
                   className="tw-bg-white tw-h-full tw-text-primary tw-flex tw-self-center"
                 >
                   <IconSearch color={'black'} />
@@ -395,10 +411,6 @@ function Header(props: Props) {
         <div className="tw-flex tw-justify-between tw-items-center">
           <Tabs color={'dark'} active={parseInt(currentMenu)}>
             {props.navigation.map((menu, index) => {
-              if (menu.protected && status !== 'authenticated') {
-                return;
-              }
-
               return (
                 <Tabs.Tab
                   label={menu.name}

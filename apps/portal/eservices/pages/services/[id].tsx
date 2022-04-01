@@ -3,7 +3,7 @@ import React from 'react'
 function SelectedServices() {
 
     return (
-       <SelectedServices/> 
+       <div>hello</div>
     )
 }
 
