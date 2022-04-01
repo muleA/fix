@@ -16,7 +16,6 @@ function Detail() {
   const router = useRouter();
   const id = router.query;
   const [fullWidth, setFullWidth] = useState(false);
-  console.log(id);
   return (
     <div className="tw-flex tw-space-x-5">
       <div className={`tw-bg-white tw-mt-5 ${fullWidth ? 'tw-hidden' : 'tw-w-1/3'}`}>

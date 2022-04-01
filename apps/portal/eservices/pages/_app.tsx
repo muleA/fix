@@ -1,4 +1,4 @@
-import { AppProps } from 'next/app';
+import { AppContext, AppProps } from 'next/app';
 import Head from 'next/head';
 import Header from '../layouts/header';
 import '../styles/tailwind.css';
@@ -11,11 +11,14 @@ import NextNProgress from 'nextjs-progressbar';
 import { Container, SSRProvider } from 'react-bootstrap';
 import { SessionProvider } from 'next-auth/react';
 import { NextPage } from 'next';
+import cookie from 'cookie';
 import { ReactElement, ReactNode, useEffect } from 'react';
 import Keycloak from 'next-auth/providers/keycloak';
 import Auth from '../shared/utility/auth';
 import { MantineProvider } from '@mantine/core';
 import Footer from '../layouts/footer';
+import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
+import { IncomingMessage } from 'http';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -25,10 +28,21 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
+const keycloakCfg = {
+  realm: 'eservice',
+  url: process.env.NEXT_PUBLIC_KEYCLOAK_ISSUER,
+  clientId: process.env.NEXT_PUBLIC_KEYCLOAK_ID,
+};
+
+interface InitialProps {
+  cookies: unknown;
+}
+
 function CustomApp({
   Component,
-  pageProps: { session, ...pageProps },
-}): AppPropsWithLayout {
+  pageProps,
+  cookies,
+}): AppPropsWithLayout & InitialProps {
   const config = [
     {
       name: 'Home',
@@ -59,7 +73,10 @@ function CustomApp({
   const getLayout = Component.getLayout ?? ((page) => page);
   return getLayout(
     <>
-      <SessionProvider session={session}>
+      <SSRKeycloakProvider
+        keycloakConfig={keycloakCfg}
+        persistor={SSRCookies(cookies)}
+      >
         <Provider store={store}>
           <Head>
             <title>Welcome to eservices!</title>
@@ -73,16 +90,29 @@ function CustomApp({
             }}
           >
             <NextNProgress color="#ffbe0b" />
-            <div className='tw-bg-gray-100'>
-            <Header navigation={config}/>
-            <Component {...pageProps}/>
-            <Footer/>
+            <div className="tw-bg-gray-100">
+              <Header navigation={config} />
+              <Component {...pageProps} />
+              <Footer />
             </div>
           </MantineProvider>
         </Provider>
-      </SessionProvider>
+      </SSRKeycloakProvider>
     </>
   );
 }
+function parseCookies(req?: IncomingMessage) {
+  if (!req || !req.headers) {
+    return {};
+  }
+  return cookie.parse(req.headers.cookie || '');
+}
+
+CustomApp.getInitialProps = async (context: AppContext) => {
+  // Extract cookies from AppContext
+  return {
+    cookies: parseCookies(context?.ctx?.req),
+  };
+};
 
 export default CustomApp;

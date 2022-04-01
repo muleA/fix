@@ -123,7 +123,6 @@ export function HomeComponent() {
   useEffect(()=>{
    getServices('',true);
   },[])
-  console.log(result.data);
   return (
     <>
       <div className="tw-mt-3 tw-mb-4">

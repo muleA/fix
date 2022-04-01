@@ -24,8 +24,8 @@ import {
   Button,
   MenuItem,
 } from '@mantine/core';
-import { useSession, signIn, getSession } from 'next-auth/react';
-import { SessionToken } from 'next-auth/core/lib/cookie';
+import { useKeycloak } from '@react-keycloak/ssr'
+import type { KeycloakInstance, KeycloakTokenParsed } from 'keycloak-js'
 
 interface Tabs {
   name: string;
@@ -36,16 +36,15 @@ interface Tabs {
 interface Props {
   navigation: Tabs[],
 }
-export async function getInitialProps(ctx) {
-  console.log(await getSession())
-  return {
-    props: {
-      session: await getSession(ctx)
-    }
-  }
+type ParsedToken = KeycloakTokenParsed & {
+  email?: string
+
+  preferred_username?: string
+
+  given_name?: string
+
+  family_name?: string
 }
-
-
 
 function Header(props: Props) {
   const [covidInfo, setCovidInfo] = useState(true);
@@ -59,7 +58,8 @@ function Header(props: Props) {
   const router = useRouter();
   const { i18n } = useTranslation();
   const [currentMenu, setCurrentMenu] = useState('0');
-  const {data:session,status} = useSession();
+  const { keycloak } = useKeycloak<KeycloakInstance>();
+  const parsedToken: ParsedToken | undefined = keycloak?.tokenParsed
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
@@ -176,7 +176,7 @@ function Header(props: Props) {
                     className=" md:tw-text-primary  lg:tw-text-primary xs:tw-text-white tw-bg-opacity-25 sm:tw-mr-2 xs:tw-mr-2"
                   />
                  </div>
-                  <Text size='sm'>{session?.user?.name}</Text>
+                  <Text size='sm'>{parsedToken?.given_name}</Text>
                 </div>
                 <div className="tw-self-center tw-justify-center tw-ml-2">
                   <div className='tw-flex tw-justify-center'>
@@ -188,7 +188,7 @@ function Header(props: Props) {
                   </div>
                   <Text size="sm">Help</Text>
                 </div>
-                {session && (
+                {keycloak.authenticated && (
                   <div>
                     <div className="tw-relative tw-flex tw-justify-center tw-self-center tw-ml-2">
                       <span className="tw-h-4 tw-w-4 tw-bg-red-500 tw-rounded-full tw-text-xs tw-text-white tw-absolute tw-right-4 tw-top-0 ">
@@ -218,10 +218,10 @@ function Header(props: Props) {
                     <Text size='sm'>Notification</Text>
                   </div>
                 )}
-                {session === null && (
+                {!keycloak.authenticated && (
                   <div className="tw-self-center tw-ml-2 tw-cursor-pointer">
                     <a
-                      onClick={() => signIn('keycloak')}
+                      onClick={() => keycloak.login()}
                       className=" tw-mr-3 md:tw-text-primary  lg:tw-text-primary xs:tw-text-white tw-flex"
                     >
                       <IconLogin
@@ -233,7 +233,7 @@ function Header(props: Props) {
                     </a>
                   </div>
                 )}
-                {session && (
+                {keycloak.authenticated && (
                   <div className="tw-container xs:tw-hidden md:tw-block tw-ml-7 tw-flex tw-self-center">
                     <div className='tw-flex tw-w-full tw-justify-center'>
                     <IconUserCircle
@@ -246,7 +246,7 @@ function Header(props: Props) {
                       control={
                         <div className="tw-flex tw-w-full tw-space-x-1">
                           <div className="tw-flex tw-self-center">
-                            <Text size='sm'>{session.user.name}</Text>
+                            <Text size='sm'>{parsedToken?.given_name}</Text>
                           </div>
                           <IconChevronDown
                             width={16}
@@ -258,10 +258,8 @@ function Header(props: Props) {
                       className="tw-w-full tw-flex tw-self-center"
                     >
                       <Menu.Item>Profile</Menu.Item>
-                      <Menu.Item>
-                        <Link href={`/api/auth/signout`}>
-                          <a>Logout</a>
-                        </Link>
+                      <Menu.Item onClick={()=>keycloak.logout()}>
+                       Logout
                       </Menu.Item>
                     </Menu>
                   </div>
@@ -298,7 +296,7 @@ function Header(props: Props) {
             >
               {props.navigation.map((menu, index) => {
                 if (menu.protected) {
-                  if (status !== 'authenticated') return;
+                  if (!keycloak.authenticated) return;
                 }
 
                 return (
@@ -347,15 +345,13 @@ function Header(props: Props) {
               ></Tabs.Tab>
               <Tabs.Tab
                 label={
-                  session ? (
-                    <div className="tw-flex tw-self-center">
-                      <Link href={`api/auth/signout`}>
-                        <a>Logout</a>
-                      </Link>
+                  keycloak.authenticated ? (
+                    <div className="tw-flex tw-self-center" onClick={()=>keycloak.logout()}>
+                      Logout
                     </div>
                   ) : (
                     <div className="tw-flex tw-self-center">
-                      <a onClick={() => signIn('keycloak')}>Login</a>
+                      <a onClick={() => keycloak.login()}>Login</a>
                     </div>
                   )
                 }
