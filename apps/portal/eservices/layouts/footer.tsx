@@ -7,7 +7,7 @@ import {
   IconBrandTwitter,
 } from '@tabler/icons';
 import React from 'react';
-
+ 
 function Footer() {
   return (
     <footer className="tw-bg-primary md:tw-h-80">
