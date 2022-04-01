@@ -1,5 +1,5 @@
 import { Card, Group, Text } from '@mantine/core';
-import { IconCircleCheck, IconClock, IconInfoCircle } from '@tabler/icons';
+import { IconArrowRight, IconChevronRight, IconCircleCheck, IconClock, IconInfoCircle } from '@tabler/icons';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { ListGroup } from 'react-bootstrap';
@@ -11,7 +11,7 @@ function ApplicationList({
 }: Props) {
   const router = useRouter();
   return (
-    <Card className="tw-bg-gray-100">
+    <Card className="tw-bg-gray-100 tw-h-2/3">
       <Card.Section className="tw-bg-white tw-flex tw-mb-3  tw-border tw-border-solid tw-border-gray-300 tw-h-16">
         <div className="tw-m-1">
           {status === 'Active' && (
@@ -45,24 +45,29 @@ function ApplicationList({
           </div>
         </div>
       </Card.Section>
-      <Card.Section className="tw-mt-3 tw-bg-white  tw-border tw-border-solid tw-border-gray-300 tw-rounded-t-md tw-p-2 tw-space-y-2">
+      <Card.Section className="tw-mt-3 tw-h-5/6 tw-bg-white  tw-border tw-border-solid tw-border-gray-300 tw-rounded-t-md tw-p-2 tw-space-y-2">
         <div
-          className="tw-h-10 tw-border-solid tw-border-gray-300 tw-border-0 tw-border-b tw-text-sm tw-flex tw-items-center  tw-cursor-pointer hover:tw-bg-slate-100"
+          className="tw-h-10 tw-group tw-border-solid tw-border-gray-300 tw-border-0 tw-border-b tw-text-sm tw-flex tw-justify-between tw-items-center  tw-cursor-pointer"
           onClick={() => router.push('/my-application/1')}
         >
-          <span className="">Cras justo odio</span>
+          <span className="tw-ml-1">Cras justo odio</span>
+          <IconChevronRight className='tw-invisible group-hover:tw-visible tw-rounded-full'/>
         </div>
-        <div className="tw-h-10  tw-border-solid tw-border-gray-300 tw-border-0 tw-border-b tw-text-sm tw-flex tw-items-center tw-cursor-pointer hover:tw-bg-slate-100">
-          Dapibus ac facilisis in
+        <div className="tw-h-10 tw-group  tw-border-solid tw-border-gray-300 tw-border-0 tw-border-b tw-text-sm tw-flex tw-justify-between tw-items-center tw-cursor-pointer">
+          <span className="tw-ml-1">Dapibus ac facilisis in</span>
+          <IconChevronRight className='tw-invisible group-hover:tw-visible tw-rounded-full'/>
         </div>
-        <div className="tw-h-10 tw-border-solid tw-border-gray-300 tw-border-0 tw-border-b tw-text-sm tw-flex tw-items-center tw-cursor-pointer hover:tw-bg-slate-100">
-          Morbi leo risus
+        <div className="tw-h-10 tw-group tw-border-solid tw-border-gray-300 tw-border-0 tw-border-b tw-text-sm tw-flex tw-justify-between tw-items-center tw-cursor-pointer">
+          <span className="tw-ml-1">Morbi leo risus</span>
+          <IconChevronRight className='tw-invisible group-hover:tw-visible tw-rounded-full'/>
         </div>
-        <div className="tw-h-10  tw-border-solid tw-border-gray-300 tw-border-0 tw-border-b tw-text-sm tw-flex tw-items-center tw-cursor-pointer hover:tw-bg-slate-100">
-          Porta ac consectetur ac
+        <div className="tw-h-10 tw-group tw-border-solid tw-border-gray-300 tw-border-0 tw-border-b tw-text-sm tw-flex tw-justify-between tw-items-center tw-cursor-pointer">
+          <span className="tw-ml-1">Porta ac consectetur ac</span>
+          <IconChevronRight className='tw-invisible group-hover:tw-visible tw-rounded-full'/>
         </div>
-        <div className="tw-h-10  tw-text-sm tw-flex tw-items-center tw-cursor-pointer hover:tw-bg-slate-100">
-          Vestibulum at eros
+        <div className="tw-h-10 tw-group tw-border-solid tw-border-gray-300 tw-border-0 tw-border-b tw-text-sm tw-flex tw-justify-between tw-items-center tw-cursor-pointer">
+          <span className="tw-ml-1">Vestibulum at eros</span>
+          <IconChevronRight className='tw-invisible group-hover:tw-visible tw-rounded-full'/>
         </div>
       </Card.Section>
     </Card>
