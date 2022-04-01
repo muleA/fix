@@ -42,7 +42,6 @@ function Carousel(props: props) {
     let i;
     const slides = document.getElementsByClassName('mySlides');
     const dots = document.getElementsByClassName('dot');
-    console.log('n', n);
     if (n > slides.length) {
       setSlideIndex(1);
     } else if (n < 1) {
@@ -61,7 +60,6 @@ function Carousel(props: props) {
       for (i = 0; i < dots.length; i++) {
         dots[i].className = dots[i].className.replace(` ${styles.active}`, '');
       }
-      console.log('slideindex', slideIndex);
       slides[slideIndex - 1].className = slides[
         slideIndex - 1
       ].className.replace(' tw-hidden', ' tw-block');
