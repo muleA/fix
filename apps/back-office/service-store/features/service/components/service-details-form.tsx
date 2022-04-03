@@ -21,7 +21,7 @@ import { useGetServiceOwnersQuery } from '../../service-owner/store/query/servic
 import { useGetServiceProvidersQuery } from '../../service-provider/store/query/service-provider.query';
 import { useGetServiceTagsQuery } from '../../service-tag/store/query/tag.query';
 import { useRouter } from 'next/router';
-import ReactLoading from 'react-loading';
+import PageLoader from '../../../shared/components/pageLoader';
 
 const schema = yup
   .object({
@@ -52,7 +52,11 @@ const schema = yup
     policy: yup.string().required('This field is Required'),
     serviceOwnerId: yup.string().required('This field is required'),
     serviceProviderId: yup.string().required('This field is required'),
-    tags: yup.string().required('this field is required'),
+    tags: yup
+      .array()
+      .min(1, "You can't leave this blank.")
+      .required("You can't leave this blank.")
+      .nullable(),
     isPublic: yup.boolean().required(),
     isArchived: yup.boolean().required(),
     isPublished: yup.boolean().required(),
@@ -68,8 +72,8 @@ const schema = yup
       formUrl: yup
         .string()
         .matches(
-          /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-          'Enter correct url!'
+          /^((https?|ftp|smtp):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+          'Please enter the correct url'
         )
         .required('Please enter the correct url'),
       status: yup
@@ -110,11 +114,12 @@ const ServiceDetailsForm = (props: {
     setValue,
     reset,
     control,
+    getValues,
   } = useForm<Service>({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
-  const { data: services } = useGetServicesQuery();
+  const { data: services } = useGetServicesQuery('');
 
   const { data: serviceOwners } = useGetServiceOwnersQuery();
 
@@ -127,8 +132,8 @@ const ServiceDetailsForm = (props: {
   const { data: serviceTags, isSuccess: isSuccessTag } =
     useGetServiceTagsQuery();
 
-  const [tagValue, setTagValue] = useState([]);
-  const [tagData, setTagData] = useState([]);
+  const [tagValue, setTagValue] = useState<any>([]);
+  const [tagData, setTagData] = useState<any>([]);
 
   useEffect(() => {
     if (isSuccessTag == true) {
@@ -142,9 +147,12 @@ const ServiceDetailsForm = (props: {
   }, [isSuccessTag]);
 
   useEffect(() => {
-    const commaSeparated = tagValue.map((item) => item.value).toString();
     console.log(tagValue);
-    setValue('tags', commaSeparated);
+    if (tagValue != null) {
+      const commaSeparated = tagValue.map((item) => item.value).toString();
+      console.log(tagValue);
+      setValue('tags', commaSeparated);
+    }
   }, [tagValue]);
 
   /* event handlers */
@@ -183,32 +191,34 @@ const ServiceDetailsForm = (props: {
   const onFinish: SubmitHandler<Service> = async (data) => {
     if (props.mode === 'new') {
       try {
-        await addNewService(data).unwrap();
+        await addNewService({
+          ...data,
+          tags: getValues('tags').toString(),
+        }).unwrap();
         setValue('name', '');
         setValue('fullyQualifiedName', '');
         setValue('code', '');
         setValue('description', '');
         setValue('policy', '');
         setValue('procedure', '');
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        setValue('version', ''),
-          setValue('policy', ''),
-          setValue('targetCustomers', ''),
-          setValue('deliveryMethod', ''),
-          setValue('serviceOwnerId', ''),
-          setValue('serviceProviderId', ''),
-          setValue('tags', ''),
-          setValue('supportedQualifications', ''),
-          setValue('isPublic', data.isPublic),
-          setValue('isPublished', data.isPublished),
-          setValue('isArchived', data.isArchived),
-          setValue('enableReview', data.enableReview),
-          setValue('applicationForm', {
-            title: '',
-            formUrl: '',
-            status: '',
-            taskName: '',
-          });
+        setValue('version', '');
+        setValue('policy', '');
+        setValue('targetCustomers', '');
+        setValue('deliveryMethod', data.deliveryMethod.toUpperCase());
+        setValue('serviceOwnerId', '');
+        setValue('serviceProviderId', '');
+        setValue('tags', '');
+        setValue('supportedQualifications', '');
+        setValue('isPublic', data.isPublic);
+        setValue('isPublished', data.isPublished);
+        setValue('isArchived', data.isArchived);
+        setValue('enableReview', data.enableReview);
+        setValue('applicationForm', {
+          title: '',
+          formUrl: '',
+          status: '',
+          taskName: '',
+        });
 
         createStatus !== null &&
           setNotification({
@@ -229,6 +239,7 @@ const ServiceDetailsForm = (props: {
         await updateService({
           id: props.id,
           ...data,
+          tags: getValues('tags').toString(),
         }).unwrap();
         updateStatus !== null &&
           setNotification({
@@ -255,7 +266,10 @@ const ServiceDetailsForm = (props: {
         (Service: Service) => Service.id === props.id
       );
 
-      if (selectedService !== null) setValue('name', selectedService?.name);
+
+      if (selectedService !== null)
+       /*  reset({name: selectedService?.name, }); */
+        setValue('name', selectedService?.name);
       setValue('fullyQualifiedName', selectedService?.fullyQualifiedName);
       setValue('code', selectedService?.code);
       setValue('description', selectedService?.description);
@@ -264,9 +278,9 @@ const ServiceDetailsForm = (props: {
       setValue('version', selectedService?.version);
       setValue('targetCustomers', selectedService?.targetCustomers);
       setValue('deliveryMethod', selectedService?.deliveryMethod);
-      setValue('serviceOwnerId', selectedService?.serviceProviderId);
+      setValue('serviceOwnerId', selectedService?.serviceOwnerId);
       setValue('serviceProviderId', selectedService?.serviceProviderId);
-      setValue('tags', '#passport');
+      /*    setTagValue(selectedService?.tags.split(',')); */
       setValue(
         'supportedQualifications',
         selectedService?.supportedQualifications
@@ -288,16 +302,7 @@ const ServiceDetailsForm = (props: {
     <div>
       <form onSubmit={handleSubmit(onFinish)}>
         {isLoading && (
-          <>
-            <ReactLoading
-              className="tw-z-50 tw-mx-auto tw-absolute tw-top-1/2 tw-left-1/2 
-                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
-              type={'spokes'}
-              color={'#1d2861'}
-              height={'6%'}
-              width={'6%'}
-            />
-          </>
+        <PageLoader/>
         )}
 
         <div className="tw-my-4">
@@ -502,6 +507,7 @@ const ServiceDetailsForm = (props: {
                   </label>
                   <select
                     {...register('deliveryMethod')}
+                    placeholder="select delivery method for this service "
                     className={`form-control
 
                    ${errors.deliveryMethod ? 'is-invalid' : ''}`}
@@ -512,8 +518,8 @@ const ServiceDetailsForm = (props: {
                     <option key="AUTOMATIC" value="AUTOMATIC">
                       AUTOMATIC
                     </option>
-                    <option key="UNKNOWN" value="UNKNOWN">
-                      UKNOWN
+                    <option key="ELECTRONIC" value="ELECTRONIC">
+                      ELECTRONIC
                     </option>
                   </select>
                   {errors.deliveryMethod && (
@@ -588,7 +594,7 @@ const ServiceDetailsForm = (props: {
                     control={control}
                     render={({ field }) => (
                       <MultiSelect
-                        value={tagValue}
+                        value={[tagValue]}
                         onChange={setTagValue}
                         data={tagData}
                         placeholder="Tags"

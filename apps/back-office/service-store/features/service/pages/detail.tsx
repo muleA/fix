@@ -88,7 +88,7 @@ const ServiceDetailsPage = () => {
                 label={
                   <AccordionLabel
                     title="Service Dependency"
-                    subTitle="assingn services which depend on this "
+                    subTitle="assign services which depend on this service "
                   />
                 }
               >
@@ -109,6 +109,17 @@ const ServiceDetailsPage = () => {
                   <AccordionLabel
                     title="Service Resource"
                     subTitle="add service source"
+                  />
+                }
+              >
+                <ServiceResourceForm />
+              </Accordion.Item>
+
+              <Accordion.Item
+                label={
+                  <AccordionLabel
+                    title="Service Delegation"
+                    subTitle="delegate this service to providers"
                   />
                 }
               >

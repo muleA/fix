@@ -1,23 +1,35 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { Card, Input, Table, Pagination, Select } from '@mantine/core';
+import {
+  Card,
+  Input,
+  Table,
+  Pagination,
+  Select,
+  TextInput,
+} from '@mantine/core';
 import { useRouter } from 'next/router';
-
 import { IconPlus, IconSearch, IconInbox } from '@tabler/icons';
 import { useGetServicesQuery } from '../store/query/service.query';
-import ReactLoading from 'react-loading';
 import Service from '../../../models/publication/services/service';
-
+import PageLoader from '../../../shared/components/pageLoader'
+import NotificationModel from '../../../shared/models/notification-model';
+import Notification from '../../../shared/components/notification';
 const ServiceSideTable = () => {
   const router = useRouter();
   const { id } = router.query;
   const [perPage, setPerPage] = useState<string>('5');
+  const [searchInput, setSearchInput] = useState<string>('');
+  const [notification, setNotification] = useState<NotificationModel | null>(
+    null
+  );
   const {
     data: services,
     isLoading,
     isSuccess,
     isError,
-  } = useGetServicesQuery();
+  } = useGetServicesQuery(searchInput);
+
 
   return (
     <Card className="tw-w-4/12" shadow="sm">
@@ -33,12 +45,23 @@ const ServiceSideTable = () => {
           </div>
         </Link>
       </Card.Section>
+      
+    {/*   {setTimeout(() => {
+        isError &&
+          setNotification({
+            type: 'danger',
+            message: '   Failed to load resource: err_connection_refused .',
+            show: true,
+          });
+      }, 3000)} */}
 
       <Card.Section className="tw-flex tw-px-4 tw-pt-2 ">
-        <Input
+        <TextInput
           className="tw-w-full tw-mr-2"
+          value={searchInput}
+          onChange={(event) => setSearchInput(event.currentTarget.value)}
           size="xs"
-          placeholder="search service provider"
+          placeholder="search service"
           rightSection={<IconSearch className="tw-inline-block" size={16} />}
           rightSectionWidth={40}
           styles={{ rightSection: { pointerEvents: 'none' } }}
@@ -46,24 +69,9 @@ const ServiceSideTable = () => {
       </Card.Section>
 
       <Card.Section className="tw-p-4 tw-overflow-x-auto">
-        {isError && (
-          <div className="tw-text-center   tw-text-2xl">
-            <h5 className="tw-text-red-800 tw-mt-100px lg:tw-text-lg tw-text-sm">
-              Failed to load resource: err_connection_refused
-            </h5>
-          </div>
-        )}
         {isLoading && (
-          <>
-            <ReactLoading
-              className="tw-z-50 tw-absolute tw-top-1/2 tw-left-1/2 
-                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
-              type={'spokes'}
-              color={'#1d2861'}
-              height={'10%'}
-              width={'10%'}
-            />
-          </>
+          <PageLoader/>
+
         )}
         {isSuccess && (
           <Table className="tw-mb-4">
@@ -112,6 +120,14 @@ const ServiceSideTable = () => {
         )}
       </Card.Section>
 
+      {notification != null && (
+        <Notification
+          onClose={() => setNotification(null)}
+          type={notification.type}
+          message={notification.message}
+          show={notification.show}
+        />
+      )}
       <Card.Section className="tw-p-2">
         <div className="tw-my-2 tw-flex tw-justify-end tw-mr-0 ">
           <div className="tw-w-50">

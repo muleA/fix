@@ -107,7 +107,7 @@ const ServiceOwnerDetailsForm = (props: {
   const {
     register,
     handleSubmit,
-    formState: { errors},
+    formState: { errors },
     setValue,
     reset,
   } = useForm<ServiceOwner>({
@@ -263,24 +263,7 @@ const ServiceOwnerDetailsForm = (props: {
             <section className="tw-grid  tw-grid-cols-2 tw-gap-4 tw-container tw-p-0 tw-mx-auto ">
               <div className="">
                 <div className="mb-2 ">
-                  <label className="form-label required">shortName</label>
-                  <input
-                    type="text"
-                    placeholder="enter shortName"
-                    autoComplete="off"
-                    className={`form-control
-
-                   ${errors.shortName ? 'is-invalid' : ''}`}
-                    {...register('shortName')}
-                  />
-                  {errors.shortName && (
-                    <div className="invalid-feedback">
-                      {errors.shortName.message}
-                    </div>
-                  )}
-                </div>
-                <div className="mb-2 ">
-                  <label className="form-label ">fullName</label>
+                  <label className="form-label ">Full Name</label>
                   <input
                     type="text"
                     placeholder="fullName"
@@ -298,7 +281,25 @@ const ServiceOwnerDetailsForm = (props: {
                 </div>
 
                 <div className="mb-2 ">
-                  <label className="form-label required">code</label>
+                  <label className="form-label required">Short Name</label>
+                  <input
+                    type="text"
+                    placeholder="enter shortName"
+                    autoComplete="off"
+                    className={`form-control
+
+                   ${errors.shortName ? 'is-invalid' : ''}`}
+                    {...register('shortName')}
+                  />
+                  {errors.shortName && (
+                    <div className="invalid-feedback">
+                      {errors.shortName.message}
+                    </div>
+                  )}
+                </div>
+
+                <div className="mb-2 ">
+                  <label className="form-label required">Code</label>
                   <input
                     type="text"
                     placeholder="code"
@@ -315,7 +316,7 @@ const ServiceOwnerDetailsForm = (props: {
                   )}
                 </div>
                 <div className="mb-2 ">
-                  <label className="form-label required">sector </label>
+                  <label className="form-label required">Sector </label>
                   <textarea
                     rows={1}
                     placeholder="enter sector"

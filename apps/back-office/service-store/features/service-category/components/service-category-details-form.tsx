@@ -1,4 +1,4 @@
-import { Divider, Button } from '@mantine/core';
+import { Divider, Button, Card } from '@mantine/core';
 import { IconDeviceFloppy, IconTrash } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -15,8 +15,7 @@ import {
   useDeleteServiceCategoryMutation,
 } from '../store/query/service-category.query';
 import { useRouter } from 'next/router';
-import ReactLoading from 'react-loading';
-
+import PageLoader from '../../../shared/components/pageLoader';
 const schema = yup
   .object({
     code: yup.string().required('This field is required'),
@@ -176,139 +175,133 @@ const ServiceCategoryDetailsForm = (props: {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onFinish)}>
-        {isLoading && (
-          <>
-            <ReactLoading
-              className="tw-z-50 tw-mx-auto tw-absolute tw-top-1/2 tw-left-1/2 
-                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
-              type={'spokes'}
-              color={'#1d2861'}
-              height={'6%'}
-              width={'6%'}
-            />
-          </>
-        )}
+      <Card>
+        <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2"></Card.Section>
+        <form onSubmit={handleSubmit(onFinish)}>
+          {isLoading && <PageLoader />}
 
-        <div className="mb-2 ">
-          <label className="form-label required">Name </label>
-          <textarea
-            rows={1}
-            placeholder="enter Name"
-            autoComplete="off"
-            className={`form-control
+          <div className="mb-2 ">
+            <label className="form-label required">Name </label>
+            <textarea
+              rows={1}
+              placeholder="enter Name"
+              autoComplete="off"
+              className={`form-control
 
                    ${errors.name ? 'is-invalid' : ''}`}
-            {...register('name')}
-          />
-          {errors.name && (
-            <div className="invalid-feedback">{errors.name.message}</div>
-          )}
-        </div>
-
-        <div className="mb-2 ">
-          <label className="form-label required">code</label>
-          <input
-            type="text"
-            placeholder="code"
-            autoComplete="off"
-            className={`form-control
-
-                   ${errors.code ? 'is-invalid' : ''}`}
-            {...register('code')}
-          />
-          {errors.code && (
-            <div className="invalid-feedback">{errors.code.message}</div>
-          )}
-        </div>
-
-        <div className="mb-2 ">
-          <label className="form-label ">Description</label>
-          <textarea
-            rows={2}
-            placeholder="Description "
-            autoComplete="off"
-            className={`form-control
-
-                   ${errors.description ? 'is-invalid' : ''}`}
-            {...register('description')}
-          />
-          {errors.description && (
-            <div className="invalid-feedback">{errors.description.message}</div>
-          )}
-        </div>
-        <div className="mb-2 ">
-          <label className="form-label ">Parent Category</label>
-          <select
-            placeholder="Parent Category "
-            autoComplete="off"
-            className={`form-control
-
-                   ${errors.parentId ? 'is-invalid' : ''}`}
-            {...register('parentId')}
-          >
-            {serviceCategorys?.data.length !== 0 && (
-              <option value=""> choose Category</option>
-            )}
-            {serviceCategorys?.data.length === 0 ? (
-              <option value="">none</option>
-            ) : (
-              serviceCategorys?.data.map((category: ServiceCategory) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))
-            )}
-          </select>
-          {errors.parentId && (
-            <div className="invalid-feedback">{errors.parentId.message}</div>
-          )}
-        </div>
-        <Divider className="tw-mt-4 tw-mb-2" />
-        <div className="tw-flex tw-justify-start">
-          <div>
-            {' '}
-            {props.mode == 'new' && (
-              <Button
-                type="submit"
-                className="btn btn-primary tw-bg-[#1d2861]"
-                loading={creating}
-                component="button"
-              >
-                <IconDeviceFloppy className="mr-2" /> Save
-              </Button>
+              {...register('name')}
+            />
+            {errors.name && (
+              <div className="invalid-feedback">{errors.name.message}</div>
             )}
           </div>
-          <div>
-            {props.mode == 'update' && (
-              <div className="tw-flex tw-my-4 tw-space-x-6">
-                <div className="tw-grow">
-                  <Button
-                    type="submit"
-                    className="btn btn-primary tw-bg-[#1d2861]"
-                    loading={updating}
-                    size="sm"
-                  >
-                    <IconDeviceFloppy className="mr-2" />
-                    Update
-                  </Button>
-                </div>
-                <div>
-                  <Button
-                    type="button"
-                    className="tw-ml-2 btn btn-danger tw-bg-[#ff4d4f]"
-                    component="button"
-                    onClick={showDeleteModal}
-                  >
-                    <IconTrash />
-                    Delete
-                  </Button>
-                </div>
+
+          <div className="mb-2 ">
+            <label className="form-label required">code</label>
+            <input
+              type="text"
+              placeholder="code"
+              autoComplete="off"
+              className={`form-control
+
+                   ${errors.code ? 'is-invalid' : ''}`}
+              {...register('code')}
+            />
+            {errors.code && (
+              <div className="invalid-feedback">{errors.code.message}</div>
+            )}
+          </div>
+
+          <div className="mb-2 ">
+            <label className="form-label ">Description</label>
+            <textarea
+              rows={2}
+              placeholder="Description "
+              autoComplete="off"
+              className={`form-control
+
+                   ${errors.description ? 'is-invalid' : ''}`}
+              {...register('description')}
+            />
+            {errors.description && (
+              <div className="invalid-feedback">
+                {errors.description.message}
               </div>
             )}
           </div>
-        </div>
-      </form>
+          <div className="mb-2 ">
+            <label className="form-label ">Parent Category</label>
+            <select
+              placeholder="Parent Category "
+              autoComplete="off"
+              className={`form-control
+
+                   ${errors.parentId ? 'is-invalid' : ''}`}
+              {...register('parentId')}
+            >
+              {serviceCategorys?.data.length !== 0 && (
+                <option value=""> choose Category</option>
+              )}
+              {serviceCategorys?.data.length === 0 ? (
+                <option value="">none</option>
+              ) : (
+                serviceCategorys?.data.map((category: ServiceCategory) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))
+              )}
+            </select>
+            {errors.parentId && (
+              <div className="invalid-feedback">{errors.parentId.message}</div>
+            )}
+          </div>
+          <Divider className="tw-mt-4 tw-mb-2" />
+          <div className="tw-flex tw-justify-start">
+            <div>
+              {' '}
+              {props.mode == 'new' && (
+                <Button
+                  type="submit"
+                  className="btn btn-primary tw-bg-[#1d2861]"
+                  loading={creating}
+                  component="button"
+                >
+                  <IconDeviceFloppy className="mr-2" /> Save
+                </Button>
+              )}
+            </div>
+            <div>
+              {props.mode == 'update' && (
+                <div className="tw-flex tw-my-4 tw-space-x-6">
+                  <div className="tw-grow">
+                    <Button
+                      type="submit"
+                      className="btn btn-primary tw-bg-[#1d2861]"
+                      loading={updating}
+                      size="sm"
+                    >
+                      <IconDeviceFloppy className="mr-2" />
+                      Update
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      type="button"
+                      className="tw-ml-2 btn btn-danger tw-bg-[#ff4d4f]"
+                      component="button"
+                      onClick={showDeleteModal}
+                    >
+                      <IconTrash />
+                      Delete
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </form>
+      </Card>
 
       <DeleteConfirmation
         showModal={displayConfirmationModal}
