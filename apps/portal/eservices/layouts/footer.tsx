@@ -1,11 +1,5 @@
-import { Card, Group, Text } from '@mantine/core';
-import {
-  IconBrandFacebook,
-  IconBrandInstagram,
-  IconBrandLinkedin,
-  IconBrandTelegram,
-  IconBrandTwitter,
-} from '@tabler/icons';
+
+import {IconBrandFacebook,IconBrandInstagram,IconBrandLinkedin,IconBrandTelegram,IconBrandTwitter,} from '@tabler/icons';
 import React from 'react';
  
 function Footer() {

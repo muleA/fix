@@ -2,11 +2,6 @@ import styled from 'styled-components';
 import {
   IconHeart,
   IconStar,
-  IconThumbUp,
-  IconThumbDown,
-  IconChevronsRight,
-  IconAlignJustified,
-  IconArrowBigLeftLines,
   IconSettings,
   IconMessage2,
   IconPhoto,
@@ -14,14 +9,11 @@ import {
   IconArrowAutofitLeft,
   IconTrash,
   IconDots,
-  IconArrowBarRight,
   IconArrowNarrowRight,
   IconBuildingBank,
-  IconNote,
   IconCertificate,
   IconUsers,
   IconNotebook,
-  IconArrowDownRight,
   IconArrowRight,
   IconArrowLeft,
 } from '@tabler/icons';
@@ -29,9 +21,7 @@ import {
   Card,
   Text,
   Badge,
-  Button,
   Group,
-  Loader,
   LoadingOverlay,
 } from '@mantine/core';
 import Menus from '../../../shared/components/scroll-menu/horizontal-scroll-menu';
@@ -46,9 +36,7 @@ import { useLazyGetServicesQuery } from '../store/query/home.query';
 import Link from 'next/link';
 
 export function HomeComponent() {
-  const [adds, setAdds] = useState(false);
-  const [top, setTop] = useState(25);
-
+ 
   const config = [
     {
       name: 'All',
@@ -122,7 +110,7 @@ export function HomeComponent() {
   const [getServices, result] = useLazyGetServicesQuery();
   useEffect(()=>{
    getServices('',true);
-  },[])
+  })
   return (
     <>
       <div className="tw-mt-3 tw-mb-4">
@@ -187,7 +175,7 @@ export function HomeComponent() {
         >
           <CarouselItem caption="Good" fontcolor="tw-text-neutral-900">
             <Nimage
-              src={`/../public/assets/img/e-services.jpg`}
+              src={`https://d33wubrfki0l68.cloudfront.net/1e3db23d52df0e395b1cb851d78a86fa3beb4c47/a72ec/images/programmes/products-and-services/gbtitleimage.png`}
               className="img tw-w-full"
               alt="img"
               layout="fill"
@@ -226,7 +214,6 @@ export function HomeComponent() {
           <div>
             <Menu
               trigger="hover"
-              arrowSize={10}
               control={
                 <div>
                   <IconDots height={32} width={32} />

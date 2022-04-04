@@ -1,11 +1,8 @@
-import Image from 'next/image';
 import React, {
   Children,
   ReactChild,
   ReactElement,
-  ReactNode,
   useEffect,
-  useRef,
   useState,
 } from 'react';
 import styles from './carousel.module.css';
@@ -15,7 +12,7 @@ interface props {
   height: number;
   duration: number;
   report?:any,
-  reportOpacity?:any,
+  reportOpacity?:string | number,
   reportClassName?:string,
 }
 function Carousel(props: props) {
@@ -26,7 +23,7 @@ function Carousel(props: props) {
   useEffect(() => {
     const interval = setInterval(() => {
       plusSlides(1);
-    }, props.duration);
+    }, props?.duration);
 
     return () => clearInterval(interval);
   });
@@ -69,8 +66,8 @@ function Carousel(props: props) {
   return (
     <>
       <div className="tw-w-full tw-relative tw-container-fluid">
-        <div style={{ height: `${props.height}vw` }} className="tw-w-full">
-          {Children.toArray(props.children).map((items) => {
+        <div style={{ height: `${props?.height}vw` }} className="tw-w-full">
+          {Children.toArray(props?.children).map((items) => {
             return items;
           })}
         </div>
@@ -91,8 +88,8 @@ function Carousel(props: props) {
             ></path>
           </svg>
         </div> */}
-         <div  className={`lg:tw-visible md:tw-visible sm:tw-invisible xs:tw-invisible ${props.reportClassName} tw-absolute tw-bottom-0 tw-w-full tw-h-25 tw-grid tw-grid-cols-5 tw-items-center tw-opacity-${props.reportOpacity}`}>
-          {Children.toArray(props.report).map(
+         <div  className={`lg:tw-visible md:tw-visible sm:tw-invisible xs:tw-invisible ${props?.reportClassName} tw-absolute tw-bottom-0 tw-w-full tw-h-25 tw-grid tw-grid-cols-5 tw-items-center tw-opacity-${props.reportOpacity}`}>
+          {Children.toArray(props?.report).map(
             (item,idx) =>{ return (
                 item
             )
@@ -102,7 +99,7 @@ function Carousel(props: props) {
       </div>
       <br />
       <div className="tw-flex tw-justify-center tw-items-center">
-        {Array.from({ length: Children.toArray(props.children).length }).map(
+        {Array.from({ length: Children.toArray(props?.children).length }).map(
           (_, idx) => (
             <span
               key={idx}
@@ -124,18 +121,18 @@ interface ItemProps {
 export const CarouselItem = (props: ItemProps) => {
   return (
     <div className="mySlides fade tw-w-full tw-block">
-      {props.children}
+      {props?.children}
       <div
-        className={`${props.fontcolor} tw-text-center tw-w-full tw-text-base tw-absolute tw-w-full tw-felx tw-justify-center tw-bottom-8 tw-px-8`}
+        className={`${props?.fontcolor} tw-text-center tw-w-full tw-text-base tw-absolute tw-w-full tw-felx tw-justify-center tw-bottom-8 tw-px-8`}
       >
-        {props.caption}
+        {props?.caption}
       </div>
     </div>
   );
 };
 
 interface ReportProps {
-  number?: any;
+  number?: string | number;
   icon?: any;
   text?: string;
   className?: string;
@@ -143,14 +140,14 @@ interface ReportProps {
 }
 export const Report = (props: ReportProps) => {
   return (
-    <div className={`${props.className}`}>
+    <div className={`${props?.className}`}>
       <div className="tw-flex tw-space-x-2 tw-mt-2">
-        <div className={`${props.iconBackGround} tw-border tw-rounded-md tw-w-10 tw-h-10 tw-flex tw-justify-center tw-items-center`}>
-          {props.icon}
+        <div className={`${props?.iconBackGround} tw-border tw-rounded-md tw-w-10 tw-h-10 tw-flex tw-justify-center tw-items-center`}>
+          {props?.icon}
           </div>
-        <div className='tw-text-lg tw-font-bold tw-self-center tw-text-xl'>{props.number}</div>
+        <div className='tw-text-lg tw-font-bold tw-self-center tw-text-xl'>{props?.number}</div>
       </div>
-      <div >{props.text}</div>
+      <div >{props?.text}</div>
     </div>
   );
 };

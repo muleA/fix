@@ -1,40 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import {
-  IconHelp,
-  IconUserCircle,
-  IconMenu2,
-  IconSearch,
-  IconX,
-  IconLogin,
-  IconChevronDown,
-} from '@tabler/icons';
-import Link from 'next/link';
+import { IconHelp,IconUserCircle,IconMenu2,IconSearch,IconX,IconLogin,IconChevronDown,} from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 import { RootState } from '../store/app.store';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLocale } from '../shared/store/slices/locale/locale-slice';
 import { useRouter } from 'next/router';
-import {
-  Burger,
-  Collapse,
-  Input,
-  Menu,
-  Tabs,
-  Text,
-  Button,
-  MenuItem,
-} from '@mantine/core';
+import { Burger,Collapse,Input,Menu,Tabs,Text,Button,MenuItem,} from '@mantine/core';
 import { useKeycloak } from '@react-keycloak/ssr'
 import type { KeycloakInstance, KeycloakTokenParsed } from 'keycloak-js'
 
-interface Tabs {
-  name: string;
-  href: string;
-  active: boolean;
-  protected: boolean;
+interface menu{
+  name: string,
+  href: string,
+  active: boolean,
+  protected: boolean,
 }
 interface Props {
-  navigation: Tabs[],
+  navigation?: menu[],
 }
 type ParsedToken = KeycloakTokenParsed & {
   email?: string
@@ -46,18 +28,18 @@ type ParsedToken = KeycloakTokenParsed & {
   family_name?: string
 }
 
-function Header(props: Props) {
+function Header(props?: Props) {
   const [covidInfo, setCovidInfo] = useState(true);
   const [showMenu, setShowMenu] = useState(false);
   const [region, setRegion] = useState('Federal');
-  const locale = useSelector((state: RootState) => state.localeReducer.locale);
+  const locale = useSelector((state: RootState) => state?.localeReducer?.locale);
   const languages = useSelector(
-    (state: RootState) => state.localeReducer.language
+    (state: RootState) => state?.localeReducer?.language
   );
   const dispatch = useDispatch();
   const router = useRouter();
   const { i18n } = useTranslation();
-  const [currentMenu, setCurrentMenu] = useState('0');
+  const [currentMenu, setCurrentMenu] = useState<any>('0');
   const { keycloak } = useKeycloak<KeycloakInstance>();
   const parsedToken: ParsedToken | undefined = keycloak?.tokenParsed
   useEffect(() => {
@@ -188,7 +170,7 @@ function Header(props: Props) {
                   </div>
                   <Text size="sm">Help</Text>
                 </div>
-                {keycloak.authenticated && (
+                {keycloak?.authenticated && (
                   <div>
                     <div className="tw-relative tw-flex tw-justify-center tw-self-center tw-ml-2">
                       <span className="tw-h-4 tw-w-4 tw-bg-red-500 tw-rounded-full tw-text-xs tw-text-white tw-absolute tw-right-4 tw-top-0 ">
@@ -218,10 +200,10 @@ function Header(props: Props) {
                     <Text size='sm'>Notification</Text>
                   </div>
                 )}
-                {!keycloak.authenticated && (
+                {!keycloak?.authenticated && (
                   <div className="tw-self-center tw-ml-2 tw-cursor-pointer">
                     <a
-                      onClick={() => keycloak.login()}
+                      onClick={() => keycloak?.login()}
                       className=" tw-mr-3 md:tw-text-primary  lg:tw-text-primary xs:tw-text-white tw-flex"
                     >
                       <IconLogin
@@ -233,7 +215,7 @@ function Header(props: Props) {
                     </a>
                   </div>
                 )}
-                {keycloak.authenticated && (
+                {keycloak?.authenticated && (
                   <div className="tw-container xs:tw-hidden md:tw-block tw-ml-7 tw-flex tw-self-center">
                     <div className='tw-flex tw-w-full tw-justify-center'>
                     <IconUserCircle
@@ -258,7 +240,7 @@ function Header(props: Props) {
                       className="tw-w-full tw-flex tw-self-center"
                     >
                       <Menu.Item>Profile</Menu.Item>
-                      <Menu.Item onClick={()=>keycloak.logout()}>
+                      <Menu.Item onClick={()=>keycloak?.logout()}>
                        Logout
                       </Menu.Item>
                     </Menu>
@@ -281,7 +263,7 @@ function Header(props: Props) {
             showMenu ? 'sm:tw-block xs:tw-block' : 'sm:tw-hidden xs:tw-hidden'
           } `}
         >
-          <Collapse
+          {/* <Collapse
             in={showMenu}
             transitionDuration={300}
             transitionTimingFunction="linear"
@@ -294,9 +276,9 @@ function Header(props: Props) {
               grow={true}
               className="sm:tw-text-slate-300 xs:tw-text-slate-300"
             >
-              {props.navigation.map((menu, index) => {
+              {props?.navigation?.map((menu, index) => {
                 if (menu.protected) {
-                  if (!keycloak.authenticated) return;
+                  if (!keycloak?.authenticated) return;
                 }
 
                 return (
@@ -318,7 +300,7 @@ function Header(props: Props) {
                       <div className="tw-flex tw-w-full tw-space-x-4">
                         <div className="tw-flex tw-self-center">
                           {languages.map((lng) => {
-                            if (lng.locale === locale) return lng.name;
+                            if (lng.locale === locale) return <Text size='sm' key={lng.locale}>{lng.name}</Text>;
                           })}
                         </div>
                         <IconChevronDown
@@ -345,20 +327,20 @@ function Header(props: Props) {
               ></Tabs.Tab>
               <Tabs.Tab
                 label={
-                  keycloak.authenticated ? (
-                    <div className="tw-flex tw-self-center" onClick={()=>keycloak.logout()}>
+                  keycloak?.authenticated ? (
+                    <div className="tw-flex tw-self-center" onClick={()=>keycloak?.logout()}>
                       Logout
                     </div>
                   ) : (
                     <div className="tw-flex tw-self-center">
-                      <a onClick={() => keycloak.login()}>Login</a>
+                      <a onClick={() => keycloak?.login()}>Login</a>
                     </div>
                   )
                 }
                 className="sm:tw-text-slate-300 xs:tw-text-slate-300"
               ></Tabs.Tab>
             </Tabs>
-          </Collapse>
+          </Collapse> */}
         </div>
         <div className="lg:tw-hidden md:tw-hidden sm:tw-block xs:tw-block tw-mb-2 tw-flex tw-p-3">
           <div className="tw-w-full">
@@ -403,10 +385,10 @@ function Header(props: Props) {
           </div>
         </div>
       </div>
-      <div className="border-bottom tw-bg-white tw-flex sm:tw-hidden xs:tw-hidden md:tw-block lg:tw-block mt-1 tw-px-2">
-        <div className="tw-flex tw-justify-between tw-items-center">
-          <Tabs color={'dark'} active={parseInt(currentMenu)}>
-            {props.navigation.map((menu, index) => {
+      <div className="tw-bg-[#C4DFF5] border-bottom tw-bg-white tw-flex sm:tw-hidden xs:tw-hidden md:tw-block lg:tw-block mt-1 tw-px-2">
+        <div className="tw-flex tw-justify-between tw-items-center tw-h-10">
+          {/* <Tabs color={'dark'} active={parseInt(currentMenu)}>
+            {props?.navigation?.map((menu, index) => {
               return (
                 <Tabs.Tab
                   label={menu.name}
@@ -418,15 +400,28 @@ function Header(props: Props) {
                 ></Tabs.Tab>
               );
             })}
-          </Tabs>
-        
+          </Tabs> */}
+        <div className='tw-flex tw-space-x-6 tw-ml-1 tw-h-full '>
+        {props?.navigation?.map((menu, index) => {
+              return (
+                <div
+                  key={menu.name}
+                  onClickCapture={() => {
+                    router.push(menu.href);
+                    localStorage.setItem('currentMenu', `${index}`);
+                  }}
+                  className={`tw-text-sm tw-flex tw-items-center tw-cursor-pointer tw-h-full ${index === parseInt(currentMenu) ? 'tw-border-solid tw-border-0 tw-border-b-2 tw-border-primary':''}`}
+                >{menu.name}</div>
+              );
+            })}
+        </div>
         <div className=" xs:tw-hidden md:tw-block tw-self-center tw-ml-2">
                   <Menu
                     control={
                       <div className="tw-flex tw-w-full tw-space-x-2">
                         <div className="tw-flex tw-self-center">
                           {languages.map((lng) => {
-                            if (lng.locale === locale) return <Text size='sm'>{lng.name}</Text>;
+                            if (lng.locale === locale) return <Text size='sm' key={lng.locale}>{lng.name}</Text>;
                           })}
                         </div>
                         <IconChevronDown
