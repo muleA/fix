@@ -11,25 +11,25 @@ function ApplicationList({
 }: Props) {
   const router = useRouter();
   return (
-    <Card className="tw-bg-gray-100 tw-h-2/3">
-      <Card.Section className="tw-bg-white tw-flex tw-mb-3  tw-border tw-border-solid tw-border-gray-300 tw-h-16">
+    <Card className="tw-bg-gray-100 tw-h-full">
+      <Card.Section className="tw-bg-white tw-flex tw-mb-3 tw-h-16">
         <div className="tw-m-1">
           {status === 'Active' && (
-            <div className="tw-flex tw-h-full tw-w-16  tw-border tw-border-solid tw-border-gray-300 tw-bg-blue-300 tw-justify-center tw-items-center">
+            <div className="tw-flex tw-h-full tw-w-16  tw-bg-blue-300 tw-justify-center tw-items-center">
               <div>
                 <IconClock size={32} strokeWidth={'1'} color={'blue'}/>
               </div>
             </div>
           )}
           {status === 'Complete' && (
-            <div className="tw-h-full tw-w-16  tw-border tw-border-solid tw-border-gray-300 tw-bg-green-300 tw-flex tw-justify-center tw-items-center">
+            <div className="tw-h-full tw-w-16 tw-bg-green-300 tw-flex tw-justify-center tw-items-center">
               <div>
                 <IconCircleCheck size={32} strokeWidth={'1'} color={'green'}/>
               </div>
             </div>
           )}
           {status === 'Action' && (
-            <div className="tw-h-full tw-w-16  tw-border tw-border-solid tw-border-gray-300 tw-bg-yellow-300  tw-flex tw-justify-center tw-items-center tw-text-yellow-900">
+            <div className="tw-h-full tw-w-16 tw-bg-yellow-300  tw-flex tw-justify-center tw-items-center tw-text-yellow-900">
               <div>
                 <IconInfoCircle size={32} strokeWidth={'1.25'}/>
               </div>
@@ -45,7 +45,7 @@ function ApplicationList({
           </div>
         </div>
       </Card.Section>
-      <Card.Section className="tw-mt-3 tw-h-5/6 tw-bg-white  tw-border tw-border-solid tw-border-gray-300 tw-rounded-t-md tw-p-2 tw-space-y-2">
+      <Card.Section className="tw-mt-3 tw-h-full tw-bg-white tw-rounded-t-md tw-p-2 tw-space-y-2">
         <div
           className="tw-h-10 tw-group tw-border-solid tw-border-gray-300 tw-border-0 tw-border-b tw-text-sm tw-flex tw-justify-between tw-items-center  tw-cursor-pointer"
           onClick={() => router.push('/my-application/1')}

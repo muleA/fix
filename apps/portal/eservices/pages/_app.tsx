@@ -8,29 +8,17 @@ import { Provider } from 'react-redux';
 import { store } from '../store/app.store';
 import '../public/i18n/i18n';
 import NextNProgress from 'nextjs-progressbar';
-import { Container, SSRProvider } from 'react-bootstrap';
-import { SessionProvider } from 'next-auth/react';
-import { NextPage } from 'next';
-import cookie from 'cookie';
-import { ReactElement, ReactNode, useEffect } from 'react';
-import Keycloak from 'next-auth/providers/keycloak';
-import Auth from '../shared/utility/auth';
 import { MantineProvider } from '@mantine/core';
 import Footer from '../layouts/footer';
 import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
 import { IncomingMessage } from 'http';
+import cookie from 'cookie'
+import ErrorBoundary from '../shared/components/error-boundary/error-boundary';
 
-type NextPageWithLayout = NextPage & {
-  getLayout?: (page: ReactElement) => ReactNode;
-};
-
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
-};
 
 const keycloakCfg = {
-  realm: 'eservice',
-  url: process.env.NEXT_PUBLIC_KEYCLOAK_ISSUER,
+  realm: process.env.NEXT_PUBLIC_KEYCLOAK_ID,
+  url: process.env.NEXT_PUBLIC_KEYCLOAK_URL,
   clientId: process.env.NEXT_PUBLIC_KEYCLOAK_ID,
 };
 
@@ -38,11 +26,7 @@ interface InitialProps {
   cookies: unknown;
 }
 
-function CustomApp({
-  Component,
-  pageProps,
-  cookies,
-}): AppPropsWithLayout & InitialProps {
+function CustomApp({ Component, pageProps,cookies }: AppProps & InitialProps) {
   const config = [
     {
       name: 'Home',
@@ -69,50 +53,51 @@ function CustomApp({
       protected: true,
     },
   ];
-
-  const getLayout = Component.getLayout ?? ((page) => page);
-  return getLayout(
+  return (
     <>
-      <SSRKeycloakProvider
-        keycloakConfig={keycloakCfg}
-        persistor={SSRCookies(cookies)}
-      >
-        <Provider store={store}>
-          <Head>
-            <title>Welcome to eservices!</title>
-          </Head>
-          <MantineProvider
-            withNormalizeCSS
-            withGlobalStyles
-            theme={{
-              /** Put your mantine theme override here */
-              colorScheme: 'light',
-            }}
-          >
-            <NextNProgress color="#ffbe0b" />
-            <div className="tw-bg-gray-100">
-              <Header navigation={config} />
-              <Component {...pageProps} />
-              <Footer />
-            </div>
-          </MantineProvider>
-        </Provider>
-      </SSRKeycloakProvider>
-    </>
+   <ErrorBoundary>
+   <SSRKeycloakProvider
+      keycloakConfig={keycloakCfg}
+      persistor={SSRCookies(cookies)}
+    >
+      <Provider store={store}>
+        <Head>
+          <title>Welcome to eservices!</title>
+        </Head>
+        <MantineProvider
+          withNormalizeCSS
+          withGlobalStyles
+          theme={{
+            /** Put your mantine theme override here */
+            colorScheme: 'light',
+          }}
+        >
+          <NextNProgress color="#ffbe0b" />
+          <div className="tw-bg-gray-100">
+           <ErrorBoundary>
+           <Header navigation={config} />
+           </ErrorBoundary>
+            <Component {...pageProps} />
+            <Footer />
+          </div>
+        </MantineProvider>
+      </Provider>
+    </SSRKeycloakProvider>
+   </ErrorBoundary>
+  </>
   );
 }
 function parseCookies(req?: IncomingMessage) {
-  if (!req || !req.headers) {
-    return {};
+  if (!req || !req?.headers) {
+    return {}
   }
-  return cookie.parse(req.headers.cookie || '');
+  return cookie.parse(req?.headers?.cookie || '')
 }
 
 CustomApp.getInitialProps = async (context: AppContext) => {
   // Extract cookies from AppContext
   return {
     cookies: parseCookies(context?.ctx?.req),
-  };
-};
-
+  }
+}
 export default CustomApp;

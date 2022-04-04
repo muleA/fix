@@ -1,6 +1,5 @@
-import { Stepper, Button, Group, Tooltip, Text } from '@mantine/core';
+import { Stepper, Tooltip, Text } from '@mantine/core';
 import {
-  IconCircleCheck,
   IconInfoCircle,
   IconMaximize,
   IconMinimize,
@@ -18,8 +17,8 @@ function Detail() {
   const [fullWidth, setFullWidth] = useState(false);
   return (
     <div className="tw-flex tw-space-x-5">
-      <div className={`tw-bg-white tw-mt-5 ${fullWidth ? 'tw-hidden' : 'tw-w-1/3'}`}>
-        <ApplicationList status="Action" />{' '}
+      <div className={`tw-h-full tw-bg-white tw-mt-5 ${fullWidth ? 'tw-hidden' : 'tw-w-1/3'}`}>
+        <ApplicationList status="Action" />
       </div>
       <div
         className={`tw-bg-white tw-container tw-mt-5 tw-border tw-shadow-md ${fullWidth}? tw-w-full:''`}

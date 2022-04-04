@@ -5,7 +5,7 @@ import { useLazyGetServicesQuery } from '../../home/store/query/home.query';
 
 function ServiceList() {
   const [getServices, result] = useLazyGetServicesQuery();
-  const [list, setList] = useState('list');
+  const [list, setList] = useState('grid');
   useEffect(() => {
     getServices('', true);
   }, []);
