@@ -44,18 +44,7 @@ export default function PublicServices() {
                   </tr>
                 </thead>
                 <tbody>
-                  {PublicServices?.map((name) => (
-                    <tr key={name}>
-                      <td>{name}</td>
-                      <td>
-                        <Link href="/registration/organization-personnel/detail/12345">
-                          <a className="tw-block bg-primary tw-text-white hover:tw-text-white tw-p-1 tw-rounded hover:opacity-50">
-                            <IconChevronRight />
-                          </a>
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
+                  
                 </tbody>
               </table>
             </div>
