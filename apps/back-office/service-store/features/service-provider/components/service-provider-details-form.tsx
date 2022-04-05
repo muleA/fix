@@ -93,13 +93,13 @@ const schema = yup
           'only alphabet characters are allowed for this field'
         ),
       latitude: yup
-        .string()
-        .required('This field is required')
-        .typeError('House number must be a number'),
-      longitude: yup
-        .string()
+        .number()
         .required('This field is required')
         .typeError('latitude must be a number'),
+      longitude: yup
+        .number()
+        .required('This field is required')
+        .typeError('longtiude must be a number'),
       landmark: yup.string().required('required'),
     }),
   })
@@ -131,7 +131,7 @@ const ServiceProviderDetailsForm = (props: {
   const {
     register,
     handleSubmit,
-    formState: { errors},
+    formState: { errors },
     reset,
     setValue,
   } = useForm<ServiceProvider>({ resolver: yupResolver(schema) });
@@ -198,8 +198,8 @@ const ServiceProviderDetailsForm = (props: {
       });
       setValue('location', {
         city: '',
-        latitude: '',
-        longitude: '',
+        latitude: data.latitude,
+        longitude: data.longitude,
         landmark: '',
       });
       createStatus !== null &&

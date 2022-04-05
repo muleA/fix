@@ -22,7 +22,7 @@ const TagSideTable = () => {
     <Card className="tw-w-4/12 tw-ml-4" shadow="sm">
       <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
         <h2 className="tw-text-lg">Service Tags</h2>
-        <Link href="/service-store/service-tag/new" passHref>
+        <Link href="/service-store/adminstration/service-tag/new" passHref>
           <div className="tw-sm tw-w-auto">
             <a className=" tw-sm  btn btn-primary tw-bg-[#1d2861]">
               <IconPlus />
@@ -36,7 +36,7 @@ const TagSideTable = () => {
         <Input
           className="tw-w-full tw-mr-2"
           size="xs"
-          placeholder="input search text"
+          placeholder="Search tags ..."
           rightSection={<IconSearch className="tw-inline-block" size={16} />}
           rightSectionWidth={40}
           styles={{ rightSection: { pointerEvents: 'none' } }}

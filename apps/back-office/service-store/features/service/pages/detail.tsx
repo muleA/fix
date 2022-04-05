@@ -88,7 +88,7 @@ const ServiceDetailsPage = () => {
                 label={
                   <AccordionLabel
                     title="Service Dependency"
-                    subTitle="assingn services which depend on this "
+                    subTitle="assign services which depend on this service "
                   />
                 }
               >

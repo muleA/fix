@@ -6,9 +6,19 @@ export interface ContactInfo {
 
 export interface Location {
   city: string;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   landmark: string;
+}
+export interface DelegatedService {
+  id: string;
+  providerId: string;
+  serviceId: string;
+  title: string;
+  dispatchingRule: string;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Address {
@@ -31,4 +41,5 @@ export default interface ServiceProvider {
   organizationName: string;
   createdAt: string;
   updatedAt: string;
+  delegatedServices: DelegatedService[];
 }

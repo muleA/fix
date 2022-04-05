@@ -2,7 +2,14 @@ import { useState } from 'react';
 import Link from 'next/link';
 import ReactLoading from 'react-loading';
 import ServicedProvider from '../../../models/publication/service-providers/service-provider';
-import { Card, Input, Table, Pagination, Select } from '@mantine/core';
+import {
+  Card,
+  Input,
+  Table,
+  Pagination,
+  Select,
+  LoadingOverlay,
+} from '@mantine/core';
 import {
   IconPlus,
   IconSearch,
@@ -50,6 +57,7 @@ const ServicedProviderList = () => {
           <Card.Section className="tw-p-4 tw-overflow-x-auto">
             {isLoading && (
               <>
+                <LoadingOverlay visible={true} />
                 <ReactLoading
                   className="tw-z-50 tw-absolute tw-top-1/2 tw-left-1/2 
                   -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"

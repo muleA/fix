@@ -9,9 +9,9 @@ import {
   Pagination,
   Select,
   TextInput,
+  LoadingOverlay,
 } from '@mantine/core';
-import ReactLoading from 'react-loading';
-
+import PageLoader from '../../../shared/components/pageLoader';
 import {
   IconPlus,
   IconSearch,
@@ -20,7 +20,6 @@ import {
   IconChevronRight,
   IconInbox,
 } from '@tabler/icons';
-import { useRouter } from 'next/router';
 import NotificationModel from '../../../shared/models/notification-model';
 import Notification from '../../../shared/components/notification';
 import Service from '../../../models/publication/services/service';
@@ -28,12 +27,11 @@ import { useGetServicesQuery } from '../store/query/service.query';
 const ServiceList = () => {
   const [filterOpened, setFilterOpened] = useState(false);
   const [perPage, setPerPage] = useState<string>('10');
-  const router = useRouter();
-  const { id } = router.query;
   const [searchInput, setSearchInput] = useState<string>('');
   const [notification, setNotification] = useState<NotificationModel | null>(
     null
   );
+  const [visible, setVisible] = useState(false);
   const {
     data: services,
     isLoading,
@@ -41,6 +39,7 @@ const ServiceList = () => {
     isError,
     error,
   } = useGetServicesQuery(searchInput);
+  //search input as paramatert
 
   return (
     <div className="tw-w-full tw-min-h-screen tw-p-4">
@@ -57,7 +56,7 @@ const ServiceList = () => {
 
         <Card.Section className="tw-flex tw-p-4 tw-justify-end">
           <TextInput
-            className="tw-w-1/3 tw-mr-2"
+            className="tw-w-fit "
             value={searchInput}
             onChange={(event) => setSearchInput(event.currentTarget.value)}
             size="xs"
@@ -113,8 +112,6 @@ const ServiceList = () => {
         <Card.Section className="tw-p-4 tw-overflow-x-auto">
           {isError && (
             <div className="tw-text-center   tw-text-2xl">
-              {' '}
-              {console.log(error)}
               <h5 className="tw-text-red-800 tw-mt-100px">
                 {' '}
                 Failed to load resource: ERR_CONNECTION_REFUSED{' '}
@@ -151,16 +148,8 @@ const ServiceList = () => {
                   </tr>
                 )}
                 {isLoading && (
-                  <>
-                    <ReactLoading
-                      className="tw-z-50 tw-absolute tw-top-1/2 tw-left-1/2 
-                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
-                      type={'spokes'}
-                      color={'#1d2861'}
-                      height={'4%'}
-                      width={'4%'}
-                    />
-                  </>
+                  /*                   <PageLoader />
+                   */ <LoadingOverlay visible={true} />
                 )}
                 {services.data.length > 0 &&
                   services.data.map((item: Service) => (

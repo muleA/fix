@@ -1,154 +1,342 @@
-import { Pagination, Table, Modal, Button, Select } from '@mantine/core';
+import { Pagination, Table, Modal, Button, Select, Card } from '@mantine/core';
 import {
   IconCirclePlus,
   IconInbox,
   IconTrash,
-  IconEyeCheck,
-  IconEdit,
+  IconEditCircle,
+  IconDeviceFloppy,
 } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
+import {
+  useUpdateServiceMediaMutation,
+  useGetServicesQuery,
+  useAddNewServiceMediaMutation,
+  useDeleteServiceMediaMutation,
+} from '../store/query/service.query';
+import NotificationModel from '../../../shared/models/notification-model';
+import Notification from '../../../shared/components/notification';
+import DeleteConfirmation from '../../../shared/components/delete-confirmation';
+import {Media,Service} from '../../../models/publication/services/service';
+import { useRouter } from 'next/router';
 const schema = yup.object({
-  media: yup.mixed(),
+  type: yup
+    .string()
+    .required('This field is required eg image,video,audio etc'),
+  caption: yup.string().required('This field is required'),
+  fileUrl: yup.object().shape({
+    file: yup
+      .mixed()
+      .required('You need to provide a file')
+      .test('Empty', 'Please upload a file', (value) => {
+        return value.length != 0;
+      })
+      .test(
+        'fileType',
+        'Only images ,videos and audios are supported',
+        (value) => {
+          return ['image/jpeg', 'image/png', 'image/jpg'].includes(
+            value[0]?.type
+          );
+        }
+      )
+      .test('fileSize', 'File Size should not exceed 3MB', (value) => {
+        return value[0]?.size <= 3000000;
+      }),
+  }),
 });
 
 const ServiceMedias = () => {
-  const media = [
-    {
-      type: 'image',
-      caption: 'trade license',
-      url: `http://192.168.137.168:3001/api/`,
-    },
-    {
-      type: 'video',
-      caption: 'passport',
-      url: `http://192.168.137.168:3001/api/`,
-    },
-    {
-      type: 'audio',
-      caption: 'how to apply for national Id',
-      url: `http://192.168.137.168:3001/api/`,
-    },
-  ];
+  const [notification, setNotification] = useState<NotificationModel | null>(
+    null
+  );
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [displayConfirmationModal, setDisplayConfirmationModal] =
+    useState(false);
+
+  const router = useRouter();
+  const { id } = router.query;
+
+  const [
+    addNewServiceMedia,
+    { isLoading: creating, isSuccess: createStatus, isError: creatingError },
+  ] = useAddNewServiceMediaMutation();
+  const [
+    deleteServiceMedia,
+    { isLoading: deleting, isSuccess: deleteStatus, isError: deletingError },
+  ] = useDeleteServiceMediaMutation();
+  const [
+    updateServiceMedia,
+    { isLoading: updating, isSuccess: updateStatus, isError: updatingError },
+  ] = useUpdateServiceMediaMutation();
+  const {
+    data: services,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useGetServicesQuery('');
+
+  useEffect(() => {
+    if (isSuccess == true) {
+      setSelectedService(
+        services?.data?.find((service: Service) => service.id == id)
+      );
+    }
+  }, [isSuccess, id]);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    getValues,
+    reset,
+    setValue,
   } = useForm({ resolver: yupResolver(schema) });
-  const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
-  const [mandateAssignmentModalOpened, setMandateAssignmentModalOpened] =
-    useState<boolean>(false);
-  const [assignedMandateModalOpened, setAssignedMandateModalOpened] =
-    useState<boolean>(false);
-  const [viewedMandate, setViewedMandate] = useState<string>('');
-  const [perPage, setPerPage] = useState<string>('10');
-  const [perPageModal, setPerPageModal] = useState<string>('10');
 
-  const onSubmit = async (data) => {
+  const [
+    ServiceMediaAssignmentModalOpened,
+    setServiceMediaAssignmentModalOpened,
+  ] = useState<boolean>(false);
+  const [formMode, setFormMode] = useState<string>('');
+  const [perPageModal, setPerPageModal] = useState<string>('10');
+  const [itemTobeUpdated, setItemTobeUpdated] = useState<string>(null);
+  const [itemTobeDeleted, setItemTobeDeleted] = useState<string>(null);
+
+  const handleShowMediaModal = (currenctItem: string) => {
+    setItemTobeUpdated(currenctItem);
+    setServiceMediaAssignmentModalOpened(!ServiceMediaAssignmentModalOpened);
+  };
+  const handleHideMediaModal = () => {
+    setServiceMediaAssignmentModalOpened(false);
+  };
+
+  /* deleting service Media */
+
+  const submitDelete = async () => {
     try {
-      console.log(data.media);
-      setButtonDisabled(true);
+      await deleteServiceMedia({
+        serviceId: id.toString(),
+        mediaId: itemTobeDeleted,
+      }).unwrap();
+      deleteStatus !== null &&
+        setNotification({
+          type: 'success',
+          message: 'Service  has  deleted successfully',
+          show: true,
+        });
     } catch (err) {
       console.log(err);
+      setNotification({
+        type: 'danger',
+        message: 'Failed to delete Service .',
+        show: true,
+      });
+    }
+    setDisplayConfirmationModal(false);
+  };
+
+  const showDeleteModal = (itemTobeDeleted: string) => {
+    setItemTobeDeleted(itemTobeDeleted);
+    setDisplayConfirmationModal(true);
+  };
+
+  const hideConfirmationModal = () => {
+    setDisplayConfirmationModal(false);
+  };
+
+  /*  */
+  /* creating and updating */
+  const onFinish: SubmitHandler<Media> = async (data) => {
+    if (formMode === 'new') {
+      try {
+        await addNewServiceMedia({
+          caption: data?.caption,
+          file: data?.fileUrl.file[0].name,
+          type: data?.type,
+          id,
+        }).unwrap();
+        createStatus !== null &&
+          setNotification({
+            type: 'success',
+            message: 'media  added successfully',
+            show: true,
+          });
+        reset();
+      } catch (err) {
+        creatingError !== null &&
+          setNotification({
+            type: 'danger',
+            message: 'Failed to added media.',
+            show: true,
+          });
+      }
+    } else if (formMode === 'update') {
+      try {
+        await updateServiceMedia({
+          ...data,
+          serviceId: id.toString(),
+          id: itemTobeUpdated,
+        }).unwrap();
+        updateStatus !== null &&
+          setNotification({
+            type: 'success',
+            message: 'media  info updated successfully',
+            show: true,
+          });
+      } catch (err) {
+        updatingError !== null &&
+          setNotification({
+            type: 'danger',
+            message: 'failed to update media info',
+            show: true,
+          });
+      }
     }
   };
 
+  useEffect(() => {
+    if (formMode === 'update' && ServiceMediaAssignmentModalOpened) {
+      if (selectedService !== null) {
+        const currentValue = selectedService.medias.find(
+          (item) => item.id == itemTobeUpdated
+        );
+        console.log(currentValue);
+        setValue('type', currentValue.type);
+        setValue('caption', currentValue.caption);
+        setValue('fileUrl.url', currentValue.file);
+      }
+    }
+  }, [
+    id,
+    isSuccess,
+    ServiceMediaAssignmentModalOpened,
+    formMode,
+    selectedService,
+    setValue,
+    itemTobeUpdated,
+  ]);
+  /*  */
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Modal
-          opened={mandateAssignmentModalOpened}
-          onClose={() => setMandateAssignmentModalOpened(false)}
-          title="Add Media"
-          size={'50%'}
-          styles={{
-            header: {
-              borderBottom: '1px solid rgb(229 231 235)',
-              paddingBottom: '1rem',
-            },
-          }}
-        >
-          {/*  */}
+      <Modal
+        opened={ServiceMediaAssignmentModalOpened}
+        onClose={handleHideMediaModal}
+        title={`${
+          formMode == 'new' ? 'Add New Service Media' : 'Edit Service Media '
+        }`}
+        styles={{
+          header: {
+            borderBottom: '1px solid rgb(229 231 235)',
+            paddingBottom: '1rem',
+          },
+        }}
+      >
+        <form onSubmit={handleSubmit(onFinish)}>
+          <Card>
+            <div className="mb-3">
+              <label className="form-label required">Media Type</label>
+              <select
+                placeholder="type"
+                autoComplete="off"
+                className={`form-control
 
-          <div className="mb-3">
-            <label className="form-label required">
-              Media Type(audio/video/image)
-            </label>
-            <input
-              type="tel"
-              className="form-control"
-              placeholder="media type"
-              autoComplete="off"
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label required">
-              Caption Text to the Media
-            </label>
-            <input
-              type="tel"
-              className="form-control"
-              placeholder="caption"
-              autoComplete="off"
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label required">
-              source file(url) to the media
-            </label>
-            <div className="tw-my-4">
-              <input
-                type="file"
-                className="tw-block  
-tw-border  
-tw-cursor-pointer 
-"
-                aria-describedby="user_avatar_help"
-              />
+                   ${errors.type ? 'is-invalid' : ''}`}
+                {...register('type')}
+              >
+                <option value=""> choose Media Type</option>
+                <option value="Image">Image</option>
+                <option value="Video">Video</option>
+                <option value="Audio">Audio</option>
+              </select>
+              {errors.type && (
+                <div className="invalid-feedback">{errors.type.message}</div>
+              )}
             </div>
 
-            <div
-              className="tw-mt-1 tw-text-sm tw-text-gray-500 dark:tw-text-gray-300"
-              id="user_avatar_help"
-            ></div>
+            <div className="mb-3">
+              <label className="form-label required"> File</label>
+              <input
+                type="file"
+                required
+                placeholder="file"
+                autoComplete="off"
+                className={`form-control   
+                   ${errors.fileUrl?.file ? 'is-invalid' : ''}`}
+                {...register('fileUrl.file')}
+              />
+              {errors.fileUrl?.file && (
+                <div className="invalid-feedback">
+                  {errors.fileUrl?.file.message}
+                </div>
+              )}
+            </div>
+            <div className="mb-3">
+              <label className="form-label required"> Caption</label>
+              <textarea
+                rows={2}
+                placeholder="caption"
+                autoComplete="off"
+                className={`form-control
 
-            {/*  */}
-          </div>
-          <div className="tw-flex tw-justify-end ">
-            <Button className="bg-primary">Done</Button>
-          </div>
-
-          {/*  */}
-        </Modal>
-
-        <div className="tw-my-4 tw-flex tw-justify-end">
-          <button
-            type="button"
-            className="btn btn-primary tw-bg-[#1d2861]"
-            onClick={() => setMandateAssignmentModalOpened(true)}
-          >
-            <IconCirclePlus />
-            Media
-          </button>
-        </div>
-      </form>
-
+                   ${errors.caption ? 'is-invalid' : ''}`}
+                {...register('caption')}
+              />
+              {errors.caption && (
+                <div className="invalid-feedback">{errors.caption.message}</div>
+              )}
+            </div>
+            <div className="tw-flex tw-justify-start tw-mt-4 ">
+              {formMode == 'new' && (
+                <Button
+                  type="submit"
+                  className="btn btn-primary tw-bg-[#1d2861]"
+                  loading={creating}
+                  component="button"
+                >
+                  <IconDeviceFloppy /> Save
+                </Button>
+              )}
+              {formMode == 'update' && (
+                <Button
+                  type="submit"
+                  className="btn btn-primary tw-bg-[#1d2861]"
+                  loading={updating}
+                  size="sm"
+                  component="button"
+                >
+                  <IconDeviceFloppy className="mr-2" />
+                  Update
+                </Button>
+              )}
+            </div>
+          </Card>
+        </form>
+      </Modal>
+      <div className="tw-my-4 tw-flex tw-justify-end">
+        <Button
+          type="button"
+          component="button"
+          className="btn btn-primary tw-bg-[#1d2861]"
+          onClick={() => {
+            setFormMode('new');
+            handleShowMediaModal('');
+          }}
+        >
+          <IconCirclePlus />
+          New
+        </Button>
+      </div>
       <Table className="tw-my-4">
         <thead>
           <tr className="tw-bg-gray-200">
-            <th>Type</th>
+            <th>type</th>
             <th>Caption</th>
-            <th>Url</th>
-            <th>action</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody className="tw-border-b">
-          {media.length == 0 && (
+          {isSuccess && selectedService?.medias?.length == 0 && (
             <tr className="tw-h-[200px] tw-border-b hover:tw-bg-transparent">
               <td className="tw-text-center" colSpan={3}>
                 <span>
@@ -163,27 +351,56 @@ tw-cursor-pointer
             </tr>
           )}
 
-          {media.length > 0 &&
-            media.map((item) => (
-              <tr key={item.type}>
-                <td>{item.type}</td>
-                <td>{item.caption}</td>
-                <td> {item.url}</td>
+          {selectedService?.medias?.length > 0 &&
+            selectedService?.medias?.map((item) => (
+              <tr key={item.id}>
+                <td> {item.type}</td>
+                <td> {item.caption}</td>
+                <td> {item.file}</td>
                 <td>
-                  <button className="btn btn-primary tw-mr-2 tw-bg-[#13243]">
-                    <IconEyeCheck />
-                  </button>
-                  <button className="btn btn-primary tw-mr-2 tw-bg-[#13243]">
-                    <IconEdit />
-                  </button>
-                  <button className="btn btn-primary tw-mr-2 tw-bg-[#E52727]">
-                    <IconTrash />
-                  </button>
+                  <div className="tw-flex tw-my-4 tw-space-x-4 ">
+                    <Button
+                      type="button"
+                      className="btn btn-primary tw-bg-[#1d2861]"
+                      size="sm"
+                      component="button"
+                      onClick={() => {
+                        setFormMode('update');
+                        handleShowMediaModal(item.id);
+                      }}
+                    >
+                      <IconEditCircle />
+                    </Button>
+                    <Button
+                      type="button"
+                      className="btn btn-danger tw-bg-[#ff4d4f]"
+                      component="button"
+                      onClick={() => showDeleteModal(item.id)}
+                    >
+                      <IconTrash />
+                    </Button>
+                    <div></div>
+                  </div>
                 </td>
               </tr>
             ))}
         </tbody>
       </Table>
+      <DeleteConfirmation
+        showModal={displayConfirmationModal}
+        confirmModal={submitDelete}
+        hideModal={hideConfirmationModal}
+        id={itemTobeDeleted}
+        deleteStatus={deleting}
+      />
+      {notification != null && (
+        <Notification
+          onClose={() => setNotification(null)}
+          type={notification.type}
+          message={notification.message}
+          show={notification.show}
+        />
+      )}
 
       <div className="tw-my-2 tw-flex tw-justify-end">
         <Pagination

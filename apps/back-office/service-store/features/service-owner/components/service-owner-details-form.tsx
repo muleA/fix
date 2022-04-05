@@ -1,8 +1,15 @@
 import { Divider, Button } from '@mantine/core';
+import 'react-phone-number-input/style.css';
+import dynamic from 'next/dynamic';
+const PhoneInput = dynamic(() => import('react-phone-number-input'), {
+  ssr: false,
+});
+
+import 'react-phone-number-input/style.css';
 import { IconDeviceFloppy, IconTrash } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import ServiceOwner from '../../../models/publication/service-owners/service-owner';
 import { useEffect, useState } from 'react';
 import NotificationModel from '../../../shared/models/notification-model';
@@ -100,16 +107,16 @@ const ServiceOwnerDetailsForm = (props: {
   const [notification, setNotification] = useState<NotificationModel | null>(
     null
   );
-
   const [displayConfirmationModal, setDisplayConfirmationModal] =
     useState(false);
 
   const {
     register,
     handleSubmit,
-    formState: { errors},
+    formState: { errors },
     setValue,
     reset,
+    control,
   } = useForm<ServiceOwner>({
     resolver: yupResolver(schema),
     mode: 'onChange',
@@ -263,24 +270,7 @@ const ServiceOwnerDetailsForm = (props: {
             <section className="tw-grid  tw-grid-cols-2 tw-gap-4 tw-container tw-p-0 tw-mx-auto ">
               <div className="">
                 <div className="mb-2 ">
-                  <label className="form-label required">shortName</label>
-                  <input
-                    type="text"
-                    placeholder="enter shortName"
-                    autoComplete="off"
-                    className={`form-control
-
-                   ${errors.shortName ? 'is-invalid' : ''}`}
-                    {...register('shortName')}
-                  />
-                  {errors.shortName && (
-                    <div className="invalid-feedback">
-                      {errors.shortName.message}
-                    </div>
-                  )}
-                </div>
-                <div className="mb-2 ">
-                  <label className="form-label ">fullName</label>
+                  <label className="form-label ">Full Name</label>
                   <input
                     type="text"
                     placeholder="fullName"
@@ -298,7 +288,25 @@ const ServiceOwnerDetailsForm = (props: {
                 </div>
 
                 <div className="mb-2 ">
-                  <label className="form-label required">code</label>
+                  <label className="form-label required">Short Name</label>
+                  <input
+                    type="text"
+                    placeholder="enter shortName"
+                    autoComplete="off"
+                    className={`form-control
+
+                   ${errors.shortName ? 'is-invalid' : ''}`}
+                    {...register('shortName')}
+                  />
+                  {errors.shortName && (
+                    <div className="invalid-feedback">
+                      {errors.shortName.message}
+                    </div>
+                  )}
+                </div>
+
+                <div className="mb-2 ">
+                  <label className="form-label required">Code</label>
                   <input
                     type="text"
                     placeholder="code"
@@ -315,7 +323,7 @@ const ServiceOwnerDetailsForm = (props: {
                   )}
                 </div>
                 <div className="mb-2 ">
-                  <label className="form-label required">sector </label>
+                  <label className="form-label required">Sector </label>
                   <textarea
                     rows={1}
                     placeholder="enter sector"
@@ -355,23 +363,30 @@ const ServiceOwnerDetailsForm = (props: {
                       </div>
                     )}
                   </div>
-                  <div className="tw-mb-3">
-                    <label className="form-label required">Phone Number</label>
-                    <input
-                      type="text"
-                      placeholder="Phone No"
-                      autoComplete="off"
-                      className={`form-control
-
-                   ${errors.contactInfo?.phone ? 'is-invalid' : ''}`}
-                      {...register('contactInfo.phone')}
+                  {/* 
+                  <div className="mb-3 ">
+                    <label htmlFor="phone-input">Phone Number</label>
+                    <Controller
+                      name="contactInfo.phone"
+                      control={control}
+                      rules={{
+                        validate: (value) =>
+                          isValidPhoneNumber('contactInfo.phone'),
+                      }}
+                      render={({ field: { onChange, value } }) => (
+                        <PhoneInput
+                          value={value}
+                          onChange={onChange}
+                          defaultCountry="ETH"
+                          id="contactInfo.phone"
+                        />
+                      )}
                     />
-                    {errors.contactInfo?.phone && (
-                      <div className="invalid-feedback">
-                        {errors.contactInfo?.phone.message}
-                      </div>
+                    {errors['contactInfo.phone'] && (
+                      <p className="error-message">Invalid Phone</p>
                     )}
-                  </div>
+                  </div> */}
+
                   <div className="tw-mb-3">
                     <label className="form-label required">Manager Name</label>
                     <input

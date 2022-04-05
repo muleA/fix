@@ -1,0 +1,12 @@
+$theme-colors: (
+  'primary': #1d2861,
+  'secondary': #58545f,
+  'success': #2ec235,
+  'info': #1086f5,
+  'warning': #ffbe0b,
+  'danger': #ff4d4f,
+  'light': #edeff3,
+  'dark': #191f3d,
+);
+
+@import './scss/tabler.scss';
