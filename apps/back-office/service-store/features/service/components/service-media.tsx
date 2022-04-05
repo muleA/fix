@@ -153,7 +153,7 @@ const ServiceMedias = () => {
       try {
         await addNewServiceMedia({
           caption: data?.caption,
-          file: data?.file?.file[0].name,
+          file: data?.file,
           type: data?.type,
           id,
         }).unwrap();
