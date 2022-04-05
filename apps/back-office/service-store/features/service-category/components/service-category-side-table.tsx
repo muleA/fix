@@ -15,14 +15,13 @@ const CategorySideTable = () => {
     isLoading,
     isSuccess,
     isError,
-    
   } = useGetServiceCategorysQuery();
 
   return (
     <Card className="tw-w-4/12 tw-ml-4" shadow="sm">
       <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
         <h2 className="tw-text-lg">Categories</h2>
-        <Link href="/service-store/service-category/new" passHref>
+        <Link href="/service-store/adminstration/service-category/new" passHref>
           <div className="tw-sm  tw-w-auto">
             <a className=" tw-sm  btn btn-primary tw-bg-[#1d2861]">
               <IconPlus />
@@ -36,7 +35,7 @@ const CategorySideTable = () => {
         <Input
           className="tw-w-full tw-mr-2"
           size="xs"
-          placeholder="search service category"
+          placeholder="search service categories..."
           rightSection={<IconSearch className="tw-inline-block" size={16} />}
           rightSectionWidth={40}
           styles={{ rightSection: { pointerEvents: 'none' } }}
@@ -51,9 +50,7 @@ const CategorySideTable = () => {
             </h5>
           </div>
         )}
-        {isLoading && (
-        <PageLoader/>
-        )}
+        {isLoading && <PageLoader />}
         {isSuccess && (
           <Table className="tw-mb-4">
             <thead>

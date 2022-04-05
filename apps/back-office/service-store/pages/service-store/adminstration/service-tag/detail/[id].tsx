@@ -1,4 +1,4 @@
-import ServiceTagDetails from '../../../../features/service-tag/pages/tag-details';
+import ServiceTagDetails from '../../../../../features/service-tag/pages/tag-details';
 const TagDetails = () => {
   return (
     <>

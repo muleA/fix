@@ -1,4 +1,4 @@
-import { Divider, Button } from '@mantine/core';
+import {  Button, Card } from '@mantine/core';
 import { IconDeviceFloppy, IconTrash } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -151,101 +151,104 @@ const ServiceTagDetailsForm = (props: {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onFinish)}>
-        {isLoading && (
-          <>
-            <ReactLoading
-              className="tw-z-50 tw-mx-auto tw-absolute tw-top-1/2 tw-left-1/2 
-                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
-              type={'spokes'}
-              color={'#1d2861'}
-              height={'6%'}
-              width={'6%'}
-            />
-          </>
-        )}
+      <Card>
+        <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2"></Card.Section>
 
-        <div className="tw-my-4">
-          <div className="mb-2 ">
-            <label className="form-label required">Name </label>
-            <input
-              type="text"
-              placeholder="enter Name"
-              autoComplete="off"
-              className={`form-control
+        <form onSubmit={handleSubmit(onFinish)}>
+          {isLoading && (
+            <>
+              <ReactLoading
+                className="tw-z-50 tw-mx-auto tw-absolute tw-top-1/2 tw-left-1/2 
+                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
+                type={'spokes'}
+                color={'#1d2861'}
+                height={'6%'}
+                width={'6%'}
+              />
+            </>
+          )}
+
+          <div className="tw-my-4">
+            <div className="mb-2 ">
+              <label className="form-label required">Tag Name </label>
+              <input
+                type="text"
+                placeholder="please enter tag name"
+                autoComplete="off"
+                className={`form-control
 
                    ${errors.name ? 'is-invalid' : ''}`}
-              {...register('name')}
-            />
-            {errors.name && (
-              <div className="invalid-feedback">{errors.name.message}</div>
-            )}
-          </div>
+                {...register('name')}
+              />
+              {errors.name && (
+                <div className="invalid-feedback">{errors.name.message}</div>
+              )}
+            </div>
 
-          <div className="mb-2 ">
-            <label className="form-label ">Description</label>
-            <textarea
-              rows={2}
-              placeholder="Description Id"
-              autoComplete="off"
-              className={`form-control
+            <div className="mb-2 ">
+              <label className="form-label required">Description</label>
+              <textarea
+                rows={2}
+                placeholder="please enter tag description "
+                autoComplete="off"
+                className={`form-control
 
                    ${errors.description ? 'is-invalid' : ''}`}
-              {...register('description')}
-            />
-            {errors.description && (
-              <div className="invalid-feedback">
-                {errors.description.message}
-              </div>
-            )}
+                {...register('description')}
+              />
+              {errors.description && (
+                <div className="invalid-feedback">
+                  {errors.description.message}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
 
-        <Divider className="tw-mt-4 tw-mb-2" />
-        <div className="tw-flex tw-justify-center">
-          <div>
-            {' '}
-            {props.mode == 'new' && (
-              <Button
-                type="submit"
-                className="btn btn-primary tw-bg-[#1d2861]"
-                loading={creating}
-                component="button"
-              >
-                <IconDeviceFloppy className="mr-2" /> Save
-              </Button>
-            )}
-          </div>
-          <div>
-            {props.mode == 'update' && (
-              <div className="tw-flex tw-my-4 tw-space-x-6">
-                <div className="tw-grow">
-                  <Button
-                    type="submit"
-                    className="btn btn-primary tw-bg-[#1d2861]"
-                    loading={updating}
-                    size="sm"
-                  >
-                    <IconDeviceFloppy className="mr-2" />
-                    Update
-                  </Button>
+          <div className="tw-flex tw-justify-start">
+            <div>
+              {' '}
+              {props.mode == 'new' && (
+                <Button
+                  type="submit"
+                  className="btn btn-primary tw-bg-[#1d2861]"
+                  loading={creating}
+                  component="button"
+                >
+                  <IconDeviceFloppy className="mr-2" /> Save
+                </Button>
+              )}
+            </div>
+            <div>
+              {props.mode == 'update' && (
+                <div className="tw-flex tw-my-4 tw-space-x-6">
+                  <div className="tw-grow">
+                    <Button
+                      type="submit"
+                      className="btn btn-primary tw-bg-[#1d2861]"
+                      loading={updating}
+                      size="sm"
+                    >
+                      <IconDeviceFloppy className="mr-2" />
+                      Update
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      type="button"
+                      className="tw-ml-2 btn btn-danger tw-bg-[#ff4d4f]"
+                      component="button"
+                      onClick={showDeleteModal}
+                    >
+                      <IconTrash />
+                      Delete
+                    </Button>
+                  </div>
                 </div>
-                <div>
-                  <Button
-                    type="button"
-                    className="tw-ml-2 btn btn-danger tw-bg-[#ff4d4f]"
-                    component="button"
-                    onClick={showDeleteModal}
-                  >
-                    <IconTrash />
-                    Delete
-                  </Button>
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </Card>
 
       <DeleteConfirmation
         showModal={displayConfirmationModal}

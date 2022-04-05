@@ -191,10 +191,7 @@ const ServiceDetailsForm = (props: {
   const onFinish: SubmitHandler<Service> = async (data) => {
     if (props.mode === 'new') {
       try {
-        await addNewService({
-          ...data,
-          tags: getValues('tags').toString(),
-        }).unwrap();
+        await addNewService(data).unwrap();
         setValue('name', '');
         setValue('fullyQualifiedName', '');
         setValue('code', '');

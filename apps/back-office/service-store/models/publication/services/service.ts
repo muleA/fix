@@ -16,7 +16,7 @@ export interface ServiceResource {
   serviceId: string;
   attachmentUrl: string;
   content: string;
-  title: string;                                                                                                       
+  title: string;
 }
 export interface ServiceDependency {
   id: string;
@@ -34,7 +34,7 @@ export interface ProcessingTime {
 }
 export interface Media {
   id: string;
-  url: string;
+  file: string[];
   caption: string;
   type: string;
   serviceId: string;
@@ -75,4 +75,5 @@ export default interface Service {
   serviceDependencies?: ServiceDependency[];
   serviceResources?: ServiceResource[];
   serviceFees?: ServiceFee[];
+  count?: number;
 }

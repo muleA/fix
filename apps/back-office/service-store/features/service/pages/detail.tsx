@@ -114,17 +114,6 @@ const ServiceDetailsPage = () => {
               >
                 <ServiceResourceForm />
               </Accordion.Item>
-
-              <Accordion.Item
-                label={
-                  <AccordionLabel
-                    title="Service Delegation"
-                    subTitle="delegate this service to providers"
-                  />
-                }
-              >
-                <ServiceResourceForm />
-              </Accordion.Item>
             </Accordion>
           </div>
         </div>

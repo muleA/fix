@@ -7,12 +7,13 @@ import {
   Pagination,
   Select,
   TextInput,
+  LoadingOverlay,
 } from '@mantine/core';
 import { useRouter } from 'next/router';
 import { IconPlus, IconSearch, IconInbox } from '@tabler/icons';
 import { useGetServicesQuery } from '../store/query/service.query';
 import Service from '../../../models/publication/services/service';
-import PageLoader from '../../../shared/components/pageLoader'
+import PageLoader from '../../../shared/components/pageLoader';
 import NotificationModel from '../../../shared/models/notification-model';
 import Notification from '../../../shared/components/notification';
 const ServiceSideTable = () => {
@@ -30,11 +31,10 @@ const ServiceSideTable = () => {
     isError,
   } = useGetServicesQuery(searchInput);
 
-
   return (
     <Card className="tw-w-4/12" shadow="sm">
       <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
-        <h2 className="md:tw-text-lg tw-text-sm">Service </h2>
+        <h2 className="md:tw-text-lg tw-text-sm">Services </h2>
 
         <Link href="/service-store/service/new" passHref>
           <div className="tw-sm tw-w-auto">
@@ -45,23 +45,13 @@ const ServiceSideTable = () => {
           </div>
         </Link>
       </Card.Section>
-      
-    {/*   {setTimeout(() => {
-        isError &&
-          setNotification({
-            type: 'danger',
-            message: '   Failed to load resource: err_connection_refused .',
-            show: true,
-          });
-      }, 3000)} */}
-
       <Card.Section className="tw-flex tw-px-4 tw-pt-2 ">
         <TextInput
           className="tw-w-full tw-mr-2"
           value={searchInput}
           onChange={(event) => setSearchInput(event.currentTarget.value)}
           size="xs"
-          placeholder="search service"
+          placeholder="Search Services..."
           rightSection={<IconSearch className="tw-inline-block" size={16} />}
           rightSectionWidth={40}
           styles={{ rightSection: { pointerEvents: 'none' } }}
@@ -70,8 +60,10 @@ const ServiceSideTable = () => {
 
       <Card.Section className="tw-p-4 tw-overflow-x-auto">
         {isLoading && (
-          <PageLoader/>
-
+          <>
+            {/*  <PageLoader /> */}
+            <LoadingOverlay visible={true} />
+          </>
         )}
         {isSuccess && (
           <Table className="tw-mb-4">

@@ -7,7 +7,7 @@ import Service, {
   ServiceDependency,
   ServiceResource,
 } from '../../../../models/publication/services/service';
-
+import ServiceDelegation from '../../../../models/publication/service-providers/service-provider';
 import serviceEndpoints from '../../service.endpoints';
 let updatedObject: Service;
 let newObject: Service;
@@ -801,6 +801,9 @@ const serviceApi = apiSlice.injectEndpoints({
       },
     }),
 
+
+
+ 
     /*  */
     /*////*/
   }),
@@ -819,7 +822,7 @@ export const {
   useUpdateServiceMutation,
   useGetServiceByIdQuery,
   /*  */
-  /* service Resource mutation */
+  /* service Delegation mutation */
   useAddNewServiceFeeMutation,
   useDeleteServiceFeeMutation,
   useUpdateServiceFeeMutation,
@@ -848,4 +851,8 @@ export const {
   useAddNewServiceResourceMutation,
   useDeleteServiceResourceMutation,
   useUpdateServiceResourceMutation,
+
+  /*  */
+
+
 } = serviceApi;

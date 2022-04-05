@@ -53,7 +53,7 @@ const ServiceProvidersDetailsPage = () => {
                 label={
                   <AccordionLabel
                     title="Service Delegation"
-                    subTitle="delegate service"
+                    subTitle="add services to be delegated to this provider"
                   />
                 }
               >

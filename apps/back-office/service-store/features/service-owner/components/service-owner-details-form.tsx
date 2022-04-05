@@ -1,8 +1,15 @@
 import { Divider, Button } from '@mantine/core';
+import 'react-phone-number-input/style.css';
+import dynamic from 'next/dynamic';
+const PhoneInput = dynamic(() => import('react-phone-number-input'), {
+  ssr: false,
+});
+
+import 'react-phone-number-input/style.css';
 import { IconDeviceFloppy, IconTrash } from '@tabler/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import ServiceOwner from '../../../models/publication/service-owners/service-owner';
 import { useEffect, useState } from 'react';
 import NotificationModel from '../../../shared/models/notification-model';
@@ -100,7 +107,6 @@ const ServiceOwnerDetailsForm = (props: {
   const [notification, setNotification] = useState<NotificationModel | null>(
     null
   );
-
   const [displayConfirmationModal, setDisplayConfirmationModal] =
     useState(false);
 
@@ -110,6 +116,7 @@ const ServiceOwnerDetailsForm = (props: {
     formState: { errors },
     setValue,
     reset,
+    control,
   } = useForm<ServiceOwner>({
     resolver: yupResolver(schema),
     mode: 'onChange',
@@ -356,23 +363,30 @@ const ServiceOwnerDetailsForm = (props: {
                       </div>
                     )}
                   </div>
-                  <div className="tw-mb-3">
-                    <label className="form-label required">Phone Number</label>
-                    <input
-                      type="text"
-                      placeholder="Phone No"
-                      autoComplete="off"
-                      className={`form-control
-
-                   ${errors.contactInfo?.phone ? 'is-invalid' : ''}`}
-                      {...register('contactInfo.phone')}
+                  {/* 
+                  <div className="mb-3 ">
+                    <label htmlFor="phone-input">Phone Number</label>
+                    <Controller
+                      name="contactInfo.phone"
+                      control={control}
+                      rules={{
+                        validate: (value) =>
+                          isValidPhoneNumber('contactInfo.phone'),
+                      }}
+                      render={({ field: { onChange, value } }) => (
+                        <PhoneInput
+                          value={value}
+                          onChange={onChange}
+                          defaultCountry="ETH"
+                          id="contactInfo.phone"
+                        />
+                      )}
                     />
-                    {errors.contactInfo?.phone && (
-                      <div className="invalid-feedback">
-                        {errors.contactInfo?.phone.message}
-                      </div>
+                    {errors['contactInfo.phone'] && (
+                      <p className="error-message">Invalid Phone</p>
                     )}
-                  </div>
+                  </div> */}
+
                   <div className="tw-mb-3">
                     <label className="form-label required">Manager Name</label>
                     <input

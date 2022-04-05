@@ -176,7 +176,9 @@ const ServiceCategoryDetailsForm = (props: {
   return (
     <div>
       <Card>
-        <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2"></Card.Section>
+        <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
+          
+        </Card.Section>
         <form onSubmit={handleSubmit(onFinish)}>
           {isLoading && <PageLoader />}
 

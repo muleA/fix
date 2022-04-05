@@ -19,19 +19,36 @@ import {
 import NotificationModel from '../../../shared/models/notification-model';
 import Notification from '../../../shared/components/notification';
 import DeleteConfirmation from '../../../shared/components/delete-confirmation';
-import Service from '../../../models/publication/services/service';
+import {Media,Service} from '../../../models/publication/services/service';
 import { useRouter } from 'next/router';
 const schema = yup.object({
-  url: yup.string().required('This field must be Number'),
-  caption: yup.string().required('This field is required'),
   type: yup
     .string()
-    .required(
-      'This field is required eg please select the media type you want to upload'
-    ),
+    .required('This field is required eg image,video,audio etc'),
+  caption: yup.string().required('This field is required'),
+  fileUrl: yup.object().shape({
+    file: yup
+      .mixed()
+      .required('You need to provide a file')
+      .test('Empty', 'Please upload a file', (value) => {
+        return value.length != 0;
+      })
+      .test(
+        'fileType',
+        'Only images ,videos and audios are supported',
+        (value) => {
+          return ['image/jpeg', 'image/png', 'image/jpg'].includes(
+            value[0]?.type
+          );
+        }
+      )
+      .test('fileSize', 'File Size should not exceed 3MB', (value) => {
+        return value[0]?.size <= 3000000;
+      }),
+  }),
 });
 
-const ServiceMedaias = () => {
+const ServiceMedias = () => {
   const [notification, setNotification] = useState<NotificationModel | null>(
     null
   );
@@ -43,15 +60,15 @@ const ServiceMedaias = () => {
   const { id } = router.query;
 
   const [
-    addNewServiceMedaia,
+    addNewServiceMedia,
     { isLoading: creating, isSuccess: createStatus, isError: creatingError },
   ] = useAddNewServiceMediaMutation();
   const [
-    deleteServiceMedaia,
+    deleteServiceMedia,
     { isLoading: deleting, isSuccess: deleteStatus, isError: deletingError },
   ] = useDeleteServiceMediaMutation();
   const [
-    updateServiceMedaia,
+    updateServiceMedia,
     { isLoading: updating, isSuccess: updateStatus, isError: updatingError },
   ] = useUpdateServiceMediaMutation();
   const {
@@ -78,27 +95,27 @@ const ServiceMedaias = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const [
-    ServiceMedaiaAssignmentModalOpened,
-    setServiceMedaiaAssignmentModalOpened,
+    ServiceMediaAssignmentModalOpened,
+    setServiceMediaAssignmentModalOpened,
   ] = useState<boolean>(false);
   const [formMode, setFormMode] = useState<string>('');
   const [perPageModal, setPerPageModal] = useState<string>('10');
   const [itemTobeUpdated, setItemTobeUpdated] = useState<string>(null);
   const [itemTobeDeleted, setItemTobeDeleted] = useState<string>(null);
 
-  const handleShowMedaiaModal = (currenctItem: string) => {
+  const handleShowMediaModal = (currenctItem: string) => {
     setItemTobeUpdated(currenctItem);
-    setServiceMedaiaAssignmentModalOpened(!ServiceMedaiaAssignmentModalOpened);
+    setServiceMediaAssignmentModalOpened(!ServiceMediaAssignmentModalOpened);
   };
-  const handleHideMedaiaModal = () => {
-    setServiceMedaiaAssignmentModalOpened(false);
+  const handleHideMediaModal = () => {
+    setServiceMediaAssignmentModalOpened(false);
   };
 
-  /* deleting service Medaia */
+  /* deleting service Media */
 
   const submitDelete = async () => {
     try {
-      await deleteServiceMedaia({
+      await deleteServiceMedia({
         serviceId: id.toString(),
         mediaId: itemTobeDeleted,
       }).unwrap();
@@ -130,21 +147,19 @@ const ServiceMedaias = () => {
 
   /*  */
   /* creating and updating */
-  const onFinish: SubmitHandler<Service> = async (data) => {
+  const onFinish: SubmitHandler<Media> = async (data) => {
     if (formMode === 'new') {
       try {
-        await addNewServiceMedaia({
-          ...data,
+        await addNewServiceMedia({
+          caption: data?.caption,
+          file: data?.fileUrl.file[0].name,
+          type: data?.type,
           id,
         }).unwrap();
-
-        setValue('Medaia', '');
-        setValue('caption', '');
-        setValue('type', '');
         createStatus !== null &&
           setNotification({
             type: 'success',
-            message: 'Service  added successfully',
+            message: 'media  added successfully',
             show: true,
           });
         reset();
@@ -152,13 +167,13 @@ const ServiceMedaias = () => {
         creatingError !== null &&
           setNotification({
             type: 'danger',
-            message: 'Failed to added Service .',
+            message: 'Failed to added media.',
             show: true,
           });
       }
     } else if (formMode === 'update') {
       try {
-        await updateServiceMedaia({
+        await updateServiceMedia({
           ...data,
           serviceId: id.toString(),
           id: itemTobeUpdated,
@@ -166,24 +181,22 @@ const ServiceMedaias = () => {
         updateStatus !== null &&
           setNotification({
             type: 'success',
-            message: 'service  info updated successfully',
+            message: 'media  info updated successfully',
             show: true,
           });
       } catch (err) {
         updatingError !== null &&
           setNotification({
             type: 'danger',
-            message: 'failed to update service  info',
+            message: 'failed to update media info',
             show: true,
           });
       }
     }
   };
 
-  /*  */
-
   useEffect(() => {
-    if (formMode === 'update' && ServiceMedaiaAssignmentModalOpened) {
+    if (formMode === 'update' && ServiceMediaAssignmentModalOpened) {
       if (selectedService !== null) {
         const currentValue = selectedService.medias.find(
           (item) => item.id == itemTobeUpdated
@@ -191,13 +204,13 @@ const ServiceMedaias = () => {
         console.log(currentValue);
         setValue('type', currentValue.type);
         setValue('caption', currentValue.caption);
-        setValue('url', currentValue.url);
+        setValue('fileUrl.url', currentValue.file);
       }
     }
   }, [
     id,
     isSuccess,
-    ServiceMedaiaAssignmentModalOpened,
+    ServiceMediaAssignmentModalOpened,
     formMode,
     selectedService,
     setValue,
@@ -207,10 +220,10 @@ const ServiceMedaias = () => {
   return (
     <div>
       <Modal
-        opened={ServiceMedaiaAssignmentModalOpened}
-        onClose={handleHideMedaiaModal}
+        opened={ServiceMediaAssignmentModalOpened}
+        onClose={handleHideMediaModal}
         title={`${
-          formMode == 'new' ? 'Add New Service Media' : 'Edit Service Medaia '
+          formMode == 'new' ? 'Add New Service Media' : 'Edit Service Media '
         }`}
         styles={{
           header: {
@@ -222,7 +235,7 @@ const ServiceMedaias = () => {
         <form onSubmit={handleSubmit(onFinish)}>
           <Card>
             <div className="mb-3">
-              <label className="form-label required">Type</label>
+              <label className="form-label required">Media Type</label>
               <select
                 placeholder="type"
                 autoComplete="off"
@@ -242,18 +255,20 @@ const ServiceMedaias = () => {
             </div>
 
             <div className="mb-3">
-              <label className="form-label required"> Url</label>
+              <label className="form-label required"> File</label>
               <input
-                type="text"
+                type="file"
                 required
-                placeholder="url"
+                placeholder="file"
                 autoComplete="off"
                 className={`form-control   
-                   ${errors.Medaia ? 'is-invalid' : ''}`}
-                {...register('url')}
+                   ${errors.fileUrl?.file ? 'is-invalid' : ''}`}
+                {...register('fileUrl.file')}
               />
-              {errors.url && (
-                <div className="invalid-feedback">{errors.url.message}</div>
+              {errors.fileUrl?.file && (
+                <div className="invalid-feedback">
+                  {errors.fileUrl?.file.message}
+                </div>
               )}
             </div>
             <div className="mb-3">
@@ -305,7 +320,7 @@ const ServiceMedaias = () => {
           className="btn btn-primary tw-bg-[#1d2861]"
           onClick={() => {
             setFormMode('new');
-            handleShowMedaiaModal('');
+            handleShowMediaModal('');
           }}
         >
           <IconCirclePlus />
@@ -317,7 +332,6 @@ const ServiceMedaias = () => {
           <tr className="tw-bg-gray-200">
             <th>type</th>
             <th>Caption</th>
-            <th>url</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -342,7 +356,7 @@ const ServiceMedaias = () => {
               <tr key={item.id}>
                 <td> {item.type}</td>
                 <td> {item.caption}</td>
-                <td> {item.url}</td>
+                <td> {item.file}</td>
                 <td>
                   <div className="tw-flex tw-my-4 tw-space-x-4 ">
                     <Button
@@ -352,7 +366,7 @@ const ServiceMedaias = () => {
                       component="button"
                       onClick={() => {
                         setFormMode('update');
-                        handleShowMedaiaModal(item.id);
+                        handleShowMediaModal(item.id);
                       }}
                     >
                       <IconEditCircle />
@@ -416,4 +430,4 @@ const ServiceMedaias = () => {
   );
 };
 
-export default ServiceMedaias;
+export default ServiceMedias;

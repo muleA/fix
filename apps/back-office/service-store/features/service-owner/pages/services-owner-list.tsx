@@ -7,7 +7,6 @@ import Notification from '../../../shared/components/notification';
 import {
   Card,
   Input,
-
   Table,
   Pagination,
   Select,
@@ -32,6 +31,7 @@ const ServiceOwnerList = () => {
     isError,
     error,
   } = useGetServiceOwnersQuery();
+  
 
   return (
     <>

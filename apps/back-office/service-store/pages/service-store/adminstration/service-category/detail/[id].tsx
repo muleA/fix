@@ -1,4 +1,4 @@
-import ServiceCategoryDetails from '../../../../features/service-category/pages/category-details';
+import ServiceCategoryDetails from '../../../../../features/service-category/pages/category-details';
 const CategoryDetails = () => {
   return (
     <>

@@ -191,21 +191,27 @@ const MainNavbar = () => {
                     hover:tw-bg-white hover:tw-no-underline 
                     ${
                       router.pathname === '/service-store/adminstration' ||
-                      router.pathname === '/service-store/service-tags/list' ||
-                      router.pathname === '/service-store/service-tags/new' ||
                       router.pathname ===
-                        '/service-store/service-category/list' ||
-                      router.pathname === '/service-store/service-category/new'
+                        '/service-store/adminstration/service-tag/list' ||
+                      router.pathname ===
+                        '/service-store/adminstration/service-tag/new' ||
+                      router.pathname ===
+                        '/service-store/adminstration/service-category/list' ||
+                      router.pathname ===
+                        '/service-store/adminstration/service-category/new'
                         ? 'active'
                         : ''
                     }
                     ${
                       router.pathname === '/service-store/adminstration' ||
-                      router.pathname === '/service-store/service-tags/list' ||
-                      router.pathname === '/service-store/service-tags/new' ||
                       router.pathname ===
-                        '/service-store/service-category/list' ||
-                      router.pathname === '/service-store/service-category/new'
+                        '/service-store/adminstration/service-tag/list' ||
+                      router.pathname ===
+                        '/service-store/adminstration/service-tag/new' ||
+                      router.pathname ===
+                        '/service-store/adminstration/service-category/list' ||
+                      router.pathname ===
+                        '/service-store/adminstration/service-category/new'
                         ? 'tw-text-blue-900'
                         : ''
                     }

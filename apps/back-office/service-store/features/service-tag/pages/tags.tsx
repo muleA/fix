@@ -38,7 +38,10 @@ export default function ServiceTagsList() {
             <Card shadow="sm">
               <Card.Section className="tw-flex tw-justify-between tw-border-b tw-py-2 tw-px-4 tw-mb-2">
                 <h2 className="tw-text-lg">Service Tags</h2>
-                <Link href="/service-store/service-tag/new" passHref>
+                <Link
+                  href="/service-store/adminstration/service-tag/new"
+                  passHref
+                >
                   <button className="btn btn-primary tw-bg-[#1d2861]">
                     <IconPlus />
                     New

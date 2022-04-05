@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { Card, Input, Table, Pagination, Select } from '@mantine/core';
+import { Card, Input, Table, Pagination, Select,LoadingOverlay } from '@mantine/core';
 import { IconPlus, IconSearch, IconInbox } from '@tabler/icons';
 import { useGetServiceProvidersQuery } from '../store/query/service-provider.query';
 import ReactLoading from 'react-loading';
@@ -51,14 +51,7 @@ const ServiceProviderSideTable = () => {
         )}
         {isLoading && (
           <>
-            <ReactLoading
-              className="tw-z-50 tw-absolute tw-top-1/2 tw-left-1/2 
-                  -tw-translate-x-1/2 -tw-translate-y-1/2 tw-transform"
-              type={'spokes'}
-              color={'#1d2861'}
-              height={'10%'}
-              width={'10%'}
-            />
+          <LoadingOverlay visible={true}/>
           </>
         )}
         {isSuccess && (

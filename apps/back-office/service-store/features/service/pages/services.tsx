@@ -9,8 +9,9 @@ import {
   Pagination,
   Select,
   TextInput,
+  LoadingOverlay,
 } from '@mantine/core';
-import PageLoader from '../../../shared/components/pageLoader'
+import PageLoader from '../../../shared/components/pageLoader';
 import {
   IconPlus,
   IconSearch,
@@ -30,6 +31,7 @@ const ServiceList = () => {
   const [notification, setNotification] = useState<NotificationModel | null>(
     null
   );
+  const [visible, setVisible] = useState(false);
   const {
     data: services,
     isLoading,
@@ -146,7 +148,8 @@ const ServiceList = () => {
                   </tr>
                 )}
                 {isLoading && (
-               <PageLoader/>
+                  /*                   <PageLoader />
+                   */ <LoadingOverlay visible={true} />
                 )}
                 {services.data.length > 0 &&
                   services.data.map((item: Service) => (
