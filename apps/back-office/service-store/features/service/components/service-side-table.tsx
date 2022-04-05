@@ -29,11 +29,7 @@ const ServiceSideTable = () => {
     isLoading,
     isSuccess,
     isError,
-<<<<<<< HEAD
-  } = useGetServicesQuery("");
-=======
   } = useGetServicesQuery(searchInput);
->>>>>>> origin/app/service-store/mulugeta
 
   return (
     <Card className="tw-w-4/12" shadow="sm">
