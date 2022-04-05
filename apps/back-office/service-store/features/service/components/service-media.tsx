@@ -19,7 +19,8 @@ import {
 import NotificationModel from '../../../shared/models/notification-model';
 import Notification from '../../../shared/components/notification';
 import DeleteConfirmation from '../../../shared/components/delete-confirmation';
-import {Media,Service} from '../../../models/publication/services/service';
+import { Media } from '../../../models/publication/services/service';
+import Service from '../../../models/publication/services/service';
 import { useRouter } from 'next/router';
 const schema = yup.object({
   type: yup
@@ -152,7 +153,7 @@ const ServiceMedias = () => {
       try {
         await addNewServiceMedia({
           caption: data?.caption,
-          file: data?.fileUrl.file[0].name,
+          file: data?.file,
           type: data?.type,
           id,
         }).unwrap();
