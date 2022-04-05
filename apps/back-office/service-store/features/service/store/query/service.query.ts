@@ -470,11 +470,11 @@ const serviceApi = apiSlice.injectEndpoints({
 
     /* service Media Query */
 
-    addNewServiceMedia: build.mutation<any, any>({
+    addNewServiceMedia: build.mutation<Media, any>({
       query: (newServiceMedia) => {
         newMedia = newServiceMedia;
         return {
-          url: `${serviceEndpoints.addMedia}${newServiceMedia.id}`,
+          url: `${serviceEndpoints.addMedia}${newServiceMedia.id}?caption=${newServiceMedia.caption}&type=${newServiceMedia.type}`,
           method: 'POST',
           data: newServiceMedia,
         };
@@ -801,9 +801,6 @@ const serviceApi = apiSlice.injectEndpoints({
       },
     }),
 
-
-
- 
     /*  */
     /*////*/
   }),
@@ -853,6 +850,4 @@ export const {
   useUpdateServiceResourceMutation,
 
   /*  */
-
-
 } = serviceApi;

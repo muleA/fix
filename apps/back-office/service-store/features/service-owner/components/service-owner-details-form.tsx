@@ -53,12 +53,10 @@ const schema = yup
     contactInfo: yup.object().shape({
       email: yup.string().email('Invalid email format').required('Required'),
       phone: yup
-        .string()
-        .required('please enter a valid phone number')
-        .matches(phoneRegExp, 'Phone number is not valid')
-        .nullable()
-        .min(10, 'phone number must be  10 characters')
-        .max(10, 'too long'),
+        .number()
+        .min(1000000000, 'Not Valid Phone Number!')
+        .max(9999999999, 'Not Valid Phone Number!')
+        .required('Phone is Required!'),
       name: yup
         .string()
         .required('This field is required')
