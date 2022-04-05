@@ -17,7 +17,7 @@ const ServiceSideTable = () => {
     isLoading,
     isSuccess,
     isError,
-  } = useGetServicesQuery();
+  } = useGetServicesQuery("");
 
   return (
     <Card className="tw-w-4/12" shadow="sm">
