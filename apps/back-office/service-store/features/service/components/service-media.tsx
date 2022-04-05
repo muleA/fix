@@ -19,8 +19,13 @@ import {
 import NotificationModel from '../../../shared/models/notification-model';
 import Notification from '../../../shared/components/notification';
 import DeleteConfirmation from '../../../shared/components/delete-confirmation';
+<<<<<<< HEAD
 import { Media} from '../../../models/publication/services/service';
 import Service from '../../../models/publication/services/service'
+=======
+import { Media } from '../../../models/publication/services/service';
+import Service from '../../../models/publication/services/service';
+>>>>>>> main
 import { useRouter } from 'next/router';
 const schema = yup.object({
   type: yup

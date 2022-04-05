@@ -34,7 +34,7 @@ export interface ProcessingTime {
 }
 export interface Media {
   id: string;
-  file: string[];
+  file: string;
   caption: string;
   type: string;
   serviceId: string;
