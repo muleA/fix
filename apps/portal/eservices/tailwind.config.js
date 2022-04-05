@@ -1,5 +1,6 @@
 const { createGlobPatternsForDependencies } = require('@nrwl/next/tailwind');
 module.exports = {
+  prefix: 'tw-',
   content: [
     'apps/portal/eservices/**/*.{js,jsx,ts,tsx}',
     ...createGlobPatternsForDependencies(__dirname),
@@ -8,6 +9,7 @@ module.exports = {
   darkMode: 'media', // or 'class'
   theme: {
     screens: {
+      xs: '0',
       sm: '640px',
       md: '768px',
       lg: '1024px',
@@ -15,6 +17,8 @@ module.exports = {
       '2xl': '1536px',
     },
     colors: ({ colors }) => ({
+      primary:'#2D3748',
+      secondary:'#cbd5e1',
       inherit: colors.inherit,
       current: colors.current,
       transparent: colors.transparent,
@@ -962,5 +966,6 @@ module.exports = {
     'active',
     'disabled',
   ],
+  
   plugins: [],
 };

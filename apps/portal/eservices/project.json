@@ -20,8 +20,8 @@
       "options": {
         "buildTarget": "portal-eservices:build",
         "dev": true,
-        "host": "0.0.0.0",
-        "port": 6600
+        "port": 6600,
+        "hostname": "localhost"
       },
       "configurations": {
         "production": {
